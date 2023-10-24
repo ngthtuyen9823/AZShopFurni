@@ -10,14 +10,21 @@
 		<jstl.version>1.2</jstl.version>
 		<mysql.version>8.0.31</mysql.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
-		<socket-factory>1.14.0</socket-factory>
+		<socket-factory-version>1.14.0</socket-factory-version>
+		<cloud-storage-version>2.28.0</cloud-storage-version>
 	</properties>
 	<dependencies>
+		<!--https://mvnrepository.com/artifact/com.google.cloud/google-cloud-storage -->
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-storage</artifactId>
+			<version>${cloud-storage-version}</version>
+		</dependency>
 		<!--https://mvnrepository.com/artifact/com.google.cloud.sql/mysql-socket-factory-connector-j-8 -->
 		<dependency>
 			<groupId>com.google.cloud.sql</groupId>
 			<artifactId>mysql-socket-factory-connector-j-8</artifactId>
-			<version>${socket-factory}</version>
+			<version>${socket-factory-version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
