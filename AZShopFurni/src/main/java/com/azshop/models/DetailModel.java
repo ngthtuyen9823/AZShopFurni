@@ -1,6 +1,5 @@
 package com.azshop.models;
-
-import java.util.Date;
+import com.google.api.client.util.DateTime;
 
 public class DetailModel {
 	private int itemID;
@@ -8,19 +7,20 @@ public class DetailModel {
 	private int quantity;
 	private String link;
 	private String content;
-	private Date date;
+	private DateTime evaluationDate;
 	private int rating;
 	public DetailModel() {
 		super();
 	}
-	public DetailModel(int itemID, int orderID, int quantity, String link, String content, Date date, int rating) {
+	public DetailModel(int itemID, int orderID, int quantity, String link, String content, DateTime evaluationDate,
+			int rating) {
 		super();
 		this.itemID = itemID;
 		this.orderID = orderID;
 		this.quantity = quantity;
 		this.link = link;
 		this.content = content;
-		this.date = date;
+		this.evaluationDate = evaluationDate;
 		this.rating = rating;
 	}
 	public int getItemID() {
@@ -53,11 +53,11 @@ public class DetailModel {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getDate() {
-		return date;
+	public DateTime getEvaluationDate() {
+		return evaluationDate;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setEvaluationDate(DateTime evaluationDate) {
+		this.evaluationDate = evaluationDate;
 	}
 	public int getRating() {
 		return rating;
@@ -65,5 +65,4 @@ public class DetailModel {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	
 }

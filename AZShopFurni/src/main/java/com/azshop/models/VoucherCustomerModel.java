@@ -1,12 +1,12 @@
 package com.azshop.models;
 
-public class GetVoucherModel {
+public class VoucherCustomerModel {
 	private int voucherID;
 	private int customerID;
-	public GetVoucherModel() {
+	public VoucherCustomerModel() {
 		super();
 	}
-	public GetVoucherModel(int voucherID, int customerID) {
+	public VoucherCustomerModel(int voucherID, int customerID) {
 		super();
 		this.voucherID = voucherID;
 		this.customerID = customerID;

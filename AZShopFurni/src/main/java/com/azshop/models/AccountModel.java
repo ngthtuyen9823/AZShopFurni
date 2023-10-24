@@ -2,15 +2,15 @@ package com.azshop.models;
 
 public class AccountModel {
 	private int userID;
-	private String accountName;
+	private String userName;
 	private String password;
 	public AccountModel() {
 		super();
 	}
-	public AccountModel(int userID, String accountName, String password) {
+	public AccountModel(int userID, String userName, String password) {
 		super();
 		this.userID = userID;
-		this.accountName = accountName;
+		this.userName = userName;
 		this.password = password;
 	}
 	public int getUserID() {
@@ -19,11 +19,11 @@ public class AccountModel {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-	public String getAccountName() {
-		return accountName;
+	public String getUserName() {
+		return userName;
 	}
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getPassword() {
 		return password;
@@ -31,6 +31,8 @@ public class AccountModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
 	
 	
 }
