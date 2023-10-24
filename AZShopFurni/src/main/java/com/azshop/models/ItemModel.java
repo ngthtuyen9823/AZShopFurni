@@ -4,7 +4,7 @@ public class ItemModel {
 	private int itemID;
 	private int productID;
 	private String color;
-	private String image;
+	private String colorCode;
 	private String size;
 	private int stock;
 	private int originalPrice;
@@ -12,13 +12,13 @@ public class ItemModel {
 	public ItemModel() {
 		super();
 	}
-	public ItemModel(int itemID, int productID, String color, String image, String size, int stock, int originalPrice,
-			int promotionPrice) {
+	public ItemModel(int itemID, int productID, String color, String colorCode, String size, int stock,
+			int originalPrice, int promotionPrice) {
 		super();
 		this.itemID = itemID;
 		this.productID = productID;
 		this.color = color;
-		this.image = image;
+		this.colorCode = colorCode;
 		this.size = size;
 		this.stock = stock;
 		this.originalPrice = originalPrice;
@@ -42,11 +42,11 @@ public class ItemModel {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public String getImage() {
-		return image;
+	public String getColorCode() {
+		return colorCode;
 	}
-	public void setImage(String image) {
-		this.image = image;
+	public void setColorCode(String colorCode) {
+		this.colorCode = colorCode;
 	}
 	public String getSize() {
 		return size;
@@ -72,5 +72,7 @@ public class ItemModel {
 	public void setPromotionPrice(int promotionPrice) {
 		this.promotionPrice = promotionPrice;
 	}
+	
+	
 	
 }
