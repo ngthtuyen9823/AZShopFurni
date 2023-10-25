@@ -66,6 +66,4 @@ public class VoucherModel {
 	public void setExp(Date exp) {
 		this.exp = exp;
 	}
-	
-	
 }

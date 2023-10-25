@@ -33,5 +33,4 @@ public class SearchHistoryModel {
 	public void setHistory(String history) {
 		this.history = history;
 	}
-	
 }

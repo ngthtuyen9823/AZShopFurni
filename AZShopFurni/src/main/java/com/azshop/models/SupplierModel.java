@@ -22,6 +22,5 @@ public class SupplierModel {
 	}
 	public void setSupplierName(String supplierName) {
 		this.supplierName = supplierName;
-	}
-	
+	}	
 }

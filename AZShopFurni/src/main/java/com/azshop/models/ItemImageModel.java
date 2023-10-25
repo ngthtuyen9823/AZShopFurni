@@ -23,5 +23,4 @@ public class ItemImageModel {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
 }

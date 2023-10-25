@@ -115,5 +115,4 @@ public class OrderModel {
 	public void setShipperID(int shipperID) {
 		this.shipperID = shipperID;
 	}
-	
 }
