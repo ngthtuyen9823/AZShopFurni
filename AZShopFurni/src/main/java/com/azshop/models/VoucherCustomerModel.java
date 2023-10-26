@@ -22,6 +22,5 @@ public class VoucherCustomerModel {
 	}
 	public void setCustomerID(int customerID) {
 		this.customerID = customerID;
-	}
-	
+	}	
 }

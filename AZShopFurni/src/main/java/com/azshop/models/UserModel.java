@@ -10,15 +10,16 @@ public class UserModel {
 	private int gender;
 	private String phone;
 	private Date dob;
-	private String ciid;
+	private String cid;
 	private int type;
 	private int kpi;
 	private String area;
+	private String avatar;
 	public UserModel() {
 		super();
 	}
 	public UserModel(int userID, String firstName, String lastName, String address, int gender, String phone, Date dob,
-			String ciid, int type, int kpi, String area) {
+			String cid, int type, int kpi, String area, String avatar) {
 		super();
 		this.userID = userID;
 		this.firstName = firstName;
@@ -27,10 +28,11 @@ public class UserModel {
 		this.gender = gender;
 		this.phone = phone;
 		this.dob = dob;
-		this.ciid = ciid;
+		this.cid = cid;
 		this.type = type;
 		this.kpi = kpi;
 		this.area = area;
+		this.avatar = avatar;
 	}
 	public int getUserID() {
 		return userID;
@@ -74,12 +76,7 @@ public class UserModel {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
-	public String getCiid() {
-		return ciid;
-	}
-	public void setCiid(String ciid) {
-		this.ciid = ciid;
-	}
+
 	public int getType() {
 		return type;
 	}
@@ -97,6 +94,18 @@ public class UserModel {
 	}
 	public void setArea(String area) {
 		this.area = area;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	public String getCid() {
+		return cid;
+	}
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
 	
 }

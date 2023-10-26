@@ -66,5 +66,4 @@ public class PaymentModel {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
 }

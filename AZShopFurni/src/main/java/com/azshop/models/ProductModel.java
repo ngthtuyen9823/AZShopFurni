@@ -64,5 +64,4 @@ public class ProductModel {
 	public void setMaterial(String material) {
 		this.material = material;
 	}
-	
 }

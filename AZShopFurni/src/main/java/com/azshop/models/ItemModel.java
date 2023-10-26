@@ -72,7 +72,4 @@ public class ItemModel {
 	public void setPromotionPrice(int promotionPrice) {
 		this.promotionPrice = promotionPrice;
 	}
-	
-	
-	
 }

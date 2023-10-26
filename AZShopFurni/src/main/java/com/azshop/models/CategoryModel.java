@@ -31,5 +31,4 @@ public class CategoryModel {
 	public void setParentCategoryID(int parentCategoryID) {
 		this.parentCategoryID = parentCategoryID;
 	}
-	
 }
