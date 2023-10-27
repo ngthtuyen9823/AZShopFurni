@@ -31,4 +31,10 @@ public class CategoryModel {
 	public void setParentCategoryID(int parentCategoryID) {
 		this.parentCategoryID = parentCategoryID;
 	}
+	@Override
+	public String toString() {
+		return "CategoryModel [categoryID=" + categoryID + ", categoryName=" + categoryName + ", parentCategoryID="
+				+ parentCategoryID + "]";
+	}
+	
 }

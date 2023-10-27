@@ -115,5 +115,11 @@ public class UserModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Override
+	public String toString() {
+		return "UserModel [userID=" + userID + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
+				+ address + ", gender=" + gender + ", phone=" + phone + ", dob=" + dob + ", cid=" + cid + ", type="
+				+ type + ", kpi=" + kpi + ", area=" + area + ", avatar=" + avatar + "]";
+	}
 	
 }
