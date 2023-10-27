@@ -31,4 +31,9 @@ public class CartModel {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	@Override
+	public String toString() {
+		return "CartModel [customerID=" + customerID + ", itemID=" + itemID + ", quantity=" + quantity + "]";
+	}
+	
 }

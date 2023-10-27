@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -8,7 +8,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Shop Item - Start Bootstrap Template</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -18,7 +17,7 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href='<c:url value="/templates/web/css/product-detail.css"/>'
 	rel="stylesheet" />
-<title>Insert title here</title>
+<title>${product.productName}</title>
 </head>
 <body>
 	<!-- Product section-->
