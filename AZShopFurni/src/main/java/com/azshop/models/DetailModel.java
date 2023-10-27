@@ -65,4 +65,10 @@ public class DetailModel {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
+	@Override
+	public String toString() {
+		return "DetailModel [itemID=" + itemID + ", orderID=" + orderID + ", quantity=" + quantity + ", link=" + link
+				+ ", content=" + content + ", evaluationDate=" + evaluationDate + ", rating=" + rating + "]";
+	}
+	
 }

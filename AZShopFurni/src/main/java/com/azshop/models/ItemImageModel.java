@@ -23,4 +23,9 @@ public class ItemImageModel {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	@Override
+	public String toString() {
+		return "ItemImageModel [itemID=" + itemID + ", image=" + image + "]";
+	}
+	
 }

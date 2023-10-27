@@ -31,4 +31,9 @@ public class AccountModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	@Override
+	public String toString() {
+		return "AccountModel [userID=" + userID + ", userName=" + userName + ", password=" + password + "]";
+	}
+	
 }
