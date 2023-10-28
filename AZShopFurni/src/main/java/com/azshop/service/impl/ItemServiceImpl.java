@@ -7,7 +7,7 @@ import com.azshop.dao.impl.ItemDAOImpl;
 import com.azshop.models.ItemModel;
 import com.azshop.service.IItemService;
 
-public class IItemServiceImpl implements IItemService{
+public class ItemServiceImpl implements IItemService{
 	IItemDAO itemDAO = new ItemDAOImpl();
 
 	@Override
@@ -23,6 +23,11 @@ public class IItemServiceImpl implements IItemService{
 	@Override
 	public ItemModel findOne(int id) {
 		return itemDAO.findOne(id);
+	}
+
+	@Override
+	public ItemModel findOneByProductID(int productID) {
+		return itemDAO.findOneByProductID(productID);
 	}
 
 }
