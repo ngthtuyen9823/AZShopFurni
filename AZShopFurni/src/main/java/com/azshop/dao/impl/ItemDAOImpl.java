@@ -12,9 +12,9 @@ import com.azshop.dao.IProductDAO;
 import com.azshop.models.ItemModel;
 import com.azshop.models.ProductModel;
 
-public class ItemDAOImpl implements IItemDAO{
-	IProductDAO productDAO = new ProductDAOImpl();
+public class ItemDAOImpl implements IItemDAO {
 	Connection conn = null;
+
 	@Override
 	public List<ItemModel> findAll() {
 		String sql = "Select * from ITEM";
@@ -27,7 +27,7 @@ public class ItemDAOImpl implements IItemDAO{
 			while (rs.next()) {
 				ItemModel model = new ItemModel();
 
-				model.setItemID(rs.getInt("ItemID"));;
+				model.setItemID(rs.getInt("ItemID"));
 				model.setProductID(rs.getInt("ProductID"));
 				model.setColor(rs.getString("Color"));
 				model.setColorCode(rs.getString("ColorCode"));
@@ -57,11 +57,10 @@ public class ItemDAOImpl implements IItemDAO{
 			ps.setInt(1, productID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				ProductModel productModel = productDAO.findOne(rs.getInt("ProductID"));
 				ItemModel model = new ItemModel();
 
-				model.setItemID(rs.getInt("ItemID"));;
-				model.setProductID(productModel.getProductID());
+				model.setItemID(rs.getInt("ItemID"));
+				model.setProductID(rs.getInt("ProductID"));
 				model.setColor(rs.getString("Color"));
 				model.setColorCode(rs.getString("ColorCode"));
 				model.setSize(rs.getString("Size"));
@@ -90,7 +89,7 @@ public class ItemDAOImpl implements IItemDAO{
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				model.setItemID(rs.getInt("ItemID"));;
+				model.setItemID(rs.getInt("ItemID"));
 				model.setProductID(rs.getInt("ProductID"));
 				model.setColor(rs.getString("Color"));
 				model.setColorCode(rs.getString("ColorCode"));
@@ -105,7 +104,81 @@ public class ItemDAOImpl implements IItemDAO{
 		}
 		return model;
 	}
-	
+
+	@Override
+	public ItemModel findOneByProductID(int productID) {
+		ItemModel model = new ItemModel();
+		String sql = "Select * from ITEM where ProductID=? order by PromotionPrice asc limit 1;";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, productID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				model.setItemID(rs.getInt("ItemID"));
+				model.setProductID(rs.getInt("ProductID"));
+				model.setColor(rs.getString("Color"));
+				model.setColorCode(rs.getString("ColorCode"));
+				model.setSize(rs.getString("Size"));
+				model.setStock(rs.getInt("Stock"));
+				model.setOriginalPrice(rs.getInt("OriginalPrice"));
+				model.setPromotionPrice(rs.getInt("PromotionPrice"));
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+
+	@Override
+	public int findDisplayedPromotionPrice(int productID) {
+		String sql = "Select min(PromotionPrice) from ITEM where ProductID=?";
+		int displayedPromotionPrice = 0;
+
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, productID);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				displayedPromotionPrice = rs.getInt(1);
+			}
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return displayedPromotionPrice;
+	}
+
+	@Override
+	public int findDisplayedOriginalPrice(int productID) {
+		String sql = "Select min(OriginalPrice) from ITEM where ProductID=?";
+		int displayedOriginalPrice = 0;
+
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, productID);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				displayedOriginalPrice = rs.getInt(1);
+			}
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return displayedOriginalPrice;
+	}
+
 	public static void main(String[] args) {
 		IItemDAO itemDAO = new ItemDAOImpl();
 
@@ -114,9 +187,18 @@ public class ItemDAOImpl implements IItemDAO{
 
 //		List<ItemModel> listByPro = itemDAO.findByProductID(101001);
 //		System.out.println(listByPro);
+//
+//		ItemModel model = itemDAO.findOneByProductID(101004);
+//		System.out.println(model);
 
-		ItemModel model = itemDAO.findOne(10100101);
-		System.out.println(model);
+		int displayedPromotionPrice = itemDAO.findDisplayedPromotionPrice(101004);
+		System.out.println(displayedPromotionPrice);
+		
+		int displayedOriginalPrice = itemDAO.findDisplayedOriginalPrice(101004);
+		System.out.println(displayedOriginalPrice);
+		
+		
+
 	}
 
 }

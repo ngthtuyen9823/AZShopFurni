@@ -1,6 +1,7 @@
 package com.azshop.controller.web;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,26 +10,47 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.azshop.models.CategoryModel;
 import com.azshop.models.ProductModel;
+import com.azshop.models.SupplierModel;
+import com.azshop.service.ICategoryService;
 import com.azshop.service.IProductService;
+import com.azshop.service.ISupplierService;
+import com.azshop.service.impl.CategoryServiceImpl;
 import com.azshop.service.impl.ProductServiceImpl;
+import com.azshop.service.impl.SupplierServiceImpl;
 
-@WebServlet(urlPatterns = {"/products/getproduct", "/products"})
+@WebServlet(urlPatterns = { "/products"})
 public class ProductController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	IProductService productService = new ProductServiceImpl();
+	ICategoryService categoryService = new CategoryServiceImpl();
+	ISupplierService supplierService = new SupplierServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url = req.getRequestURI().toString();
+		resp.setContentType("text/htm");
+		resp.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
 		
-		if (url.contains("getproduct")) {
+		String url = req.getRequestURI().toString();
+
+		if (url.contains("products")) {
 			int id = Integer.parseInt(req.getParameter("id"));
-			ProductModel model = productService.findOne(id);
-			req.setAttribute("product", model);
-			RequestDispatcher rd = req.getRequestDispatcher("/views/web/products/product.jsp");
+
+			ProductModel productModel = productService.findOne(id);
+			CategoryModel categoryModel = categoryService.findOne(productModel.getCategoryID());
+			SupplierModel supplierModel = supplierService.findOne(productModel.getSupplierID());
+			List<ProductModel> cateProList = productService.findByCategoryID(categoryModel.getCategoryID());
+		
+			req.setAttribute("product", productModel);
+			req.setAttribute("category", categoryModel);
+			req.setAttribute("supplier", supplierModel);
+			req.setAttribute("cateProList", cateProList);
+
+			RequestDispatcher rd = req.getRequestDispatcher("/views/web/products/productdetail.jsp");
 			rd.forward(req, resp);
 		}
 	}

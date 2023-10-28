@@ -8,4 +8,5 @@ public interface IItemService {
 	List<ItemModel> findAll();
 	List<ItemModel> findByProductID(int productID);
 	ItemModel findOne(int id);
+	ItemModel findOneByProductID(int productID);
 }
