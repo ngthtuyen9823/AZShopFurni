@@ -15,6 +15,7 @@ import com.azshop.models.CategoryModel;
 import com.azshop.models.ItemImageModel;
 import com.azshop.models.ItemModel;
 import com.azshop.models.ProductModel;
+import com.mysql.cj.xdevapi.Result;
 
 public class ProductDAOImpl implements IProductDAO {
 	ICategoryDAO cateDAO = new CategoryDAOImpl();
@@ -237,4 +238,126 @@ public class ProductDAOImpl implements IProductDAO {
 		}
 	}
 
+	@Override
+	public List<ProductModel> searchProductByName(String key) {
+		List<ProductModel> listPro=new ArrayList<ProductModel>();
+		String sql="select * from PRODUCT where ProductName like ? or Description like ?";
+		try {
+			new DBConnection();
+			conn=DBConnection.getConnection();
+			PreparedStatement ps=conn.prepareStatement(sql);
+			ps.setString(1, "%" + key + "%");
+			ps.setString(2, "%" + key + "%");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				ProductModel model=new ProductModel();
+				model.setProductID(rs.getInt("ProductID"));
+				model.setProductName(rs.getString("ProductName"));
+				model.setDescription(rs.getString("Description"));
+				model.setOrigin(rs.getString("Origin"));
+				model.setSupplierID(rs.getInt("SupplierID"));
+				model.setCategoryID(rs.getInt("CategoryID"));
+				model.setMaterial(rs.getString("Material"));
+				listPro.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listPro;
+	}
+
+	@Override
+	public List<ProductModel> filterByPrice(int minPrice, int maxPrice) {
+		List<ProductModel> listPro=new ArrayList<ProductModel>();
+		String sql="SELECT P.ProductID, P.ProductName,  P.Description, P.Origin, P.SupplierID,P.CategoryID,P.Material\r\n"
+				+ "FROM PRODUCT as P \r\n"
+				+ "INNER JOIN ITEM I ON P.ProductID = I.ProductID\r\n"
+				+ "group by P.ProductID\r\n"
+				+ "having Max(I.OriginalPrice) > ? and Min(I.OriginalPrice) < ?";
+		try {
+			new DBConnection();
+			conn=DBConnection.getConnection();
+			PreparedStatement ps=conn.prepareStatement(sql);
+			ps.setInt(1, minPrice);
+			ps.setInt(2, maxPrice);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				ProductModel model=new ProductModel();
+				model.setProductID(rs.getInt("ProductID"));
+				model.setProductName(rs.getString("ProductName"));
+				model.setDescription(rs.getString("Description"));
+				model.setOrigin(rs.getString("Origin"));
+				model.setSupplierID(rs.getInt("SupplierID"));
+				model.setCategoryID(rs.getInt("CategoryID"));
+				model.setMaterial(rs.getString("Material"));
+				listPro.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listPro;
+
+	}
+
+	@Override
+	public List<ProductModel> filterByRating(int rate) {
+		List<ProductModel> listPro=new ArrayList<ProductModel>();
+		String sql="SELECT P.ProductID, P.ProductName,  P.Description, P.Origin, P.SupplierID,P.CategoryID,P.Material \r\n"
+				+ " FROM PRODUCT as P  \r\n"
+				+ " INNER JOIN ITEM I ON P.ProductID = I.ProductID \r\n"
+				+ " INNER JOIN DETAIL D on I.ItemID= D.ItemID \r\n"
+				+ " WHERE D.Rating >=? \r\n"
+				+ " GROUP BY P.ProductID";
+		try {
+			new DBConnection();
+			conn=DBConnection.getConnection();
+			PreparedStatement ps=conn.prepareStatement(sql);
+			ps.setInt(1, rate);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				ProductModel model=new ProductModel();
+				model.setProductID(rs.getInt("ProductID"));
+				model.setProductName(rs.getString("ProductName"));
+				model.setDescription(rs.getString("Description"));
+				model.setOrigin(rs.getString("Origin"));
+				model.setSupplierID(rs.getInt("SupplierID"));
+				model.setCategoryID(rs.getInt("CategoryID"));
+				model.setMaterial(rs.getString("Material"));
+				listPro.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listPro;
+	}
+
+	@Override
+	public List<ProductModel> sortByPrice() {
+		List<ProductModel> listPro=new ArrayList<ProductModel>();
+		String sql="SELECT P.ProductID, P.ProductName,  P.Description, P.Origin, P.SupplierID,P.CategoryID,P.Material \r\n"
+				+ "FROM PRODUCT as P  \r\n"
+				+ "INNER JOIN ITEM I ON P.ProductID = I.ProductID \r\n"
+				+ "GROUP BY P.ProductID \r\n"
+				+ "order by min(I.OriginalPrice)";
+		try {
+			new DBConnection();
+			conn=DBConnection.getConnection();
+			PreparedStatement ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				ProductModel model=new ProductModel();
+				model.setProductID(rs.getInt("ProductID"));
+				model.setProductName(rs.getString("ProductName"));
+				model.setDescription(rs.getString("Description"));
+				model.setOrigin(rs.getString("Origin"));
+				model.setSupplierID(rs.getInt("SupplierID"));
+				model.setCategoryID(rs.getInt("CategoryID"));
+				model.setMaterial(rs.getString("Material"));
+				listPro.add(model);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listPro;
+	}
 }

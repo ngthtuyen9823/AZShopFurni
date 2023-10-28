@@ -46,4 +46,24 @@ public class ProductServiceImpl implements IProductService{
 		productDAO.updateProduct(model);
 	}
 
+	@Override
+	public List<ProductModel> searchProductByName(String key) {
+		return productDAO.searchProductByName(key);
+	}
+
+	@Override
+	public List<ProductModel> filterByPrice(int minPrice, int maxPrice) {
+		return productDAO.filterByPrice(minPrice, maxPrice);
+	}
+
+	@Override
+	public List<ProductModel> filterByRating(int rate) {
+		return productDAO.filterByRating(rate);
+	}
+
+	@Override
+	public List<ProductModel> sortByPrice() {
+		return productDAO.sortByPrice();
+	}
+
 }
