@@ -26,8 +26,8 @@
 					aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 					<nav class="sb-sidenav-menu-nested nav">
 						<a class="nav-link" href="layout-static.html">Customer</a>
-						<a class="nav-link" href="layout-sidenav-light.html">Seller</a>
-						<a class="nav-link" href="layout-sidenav-light.html">Shipper</a>
+						<a class="nav-link" href="<c:url value='/adminSeller'/>">Seller</a>
+						<a class="nav-link" href="<c:url value='/adminShipper'/>">Shipper</a>
 					</nav>
 				</div>
 				<a class="nav-link" href="charts.html"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
@@ -46,6 +46,6 @@
 		</div>
 		<div class="sb-sidenav-footer">
 			<div class="small">Logged in as:</div>
-			Start Bootstrap
+			Admin
 		</div>
 	</nav>
