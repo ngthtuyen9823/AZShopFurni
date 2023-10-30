@@ -9,7 +9,7 @@
 					Dashboard
 				</a>
 				<div class="sb-sidenav-menu-heading">Management</div>
-				<a class="nav-link" href="charts.html"> <div class="sb-nav-link-icon"><i class="bi bi-person-vcard-fill"></i>
+				<a class="nav-link" href="/AZShopFurni/adminAccount"> <div class="sb-nav-link-icon"><i class="bi bi-person-vcard-fill"></i>
 					</div> Account
 				</a> 
 				<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -25,7 +25,7 @@
 				<div class="collapse" id="collapseLayouts"
 					aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 					<nav class="sb-sidenav-menu-nested nav">
-						<a class="nav-link" href="layout-static.html">Customer</a>
+						<a class="nav-link" href="/AZShopFurni/adminCustomer">Customer</a>
 						<a class="nav-link" href="layout-sidenav-light.html">Seller</a>
 						<a class="nav-link" href="layout-sidenav-light.html">Shipper</a>
 					</nav>
