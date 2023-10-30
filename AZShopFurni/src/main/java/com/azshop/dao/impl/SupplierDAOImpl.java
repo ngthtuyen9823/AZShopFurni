@@ -38,4 +38,26 @@ public class SupplierDAOImpl implements ISupplierDAO {
 		SupplierModel model = supplierDAO.findOne(101);
 		System.out.println(model);
 	}
+    
+    @Override
+	public List<SupplierModel> findAll() {
+		String sql = "SELECT * FROM SUPPLIER";
+		List<SupplierModel> listSupplier = new ArrayList<>();
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				SupplierModel supplier = new SupplierModel();
+				supplier.setSupplierID(rs.getInt(1));
+				supplier.setSupplierName(rs.getString(2));
+				listSupplier.add(supplier);
+			}
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return listSupplier;
+	}
 }

@@ -10,4 +10,7 @@ public interface IProductDAO {
 	List<ProductModel> findByCategoryID(int cateId);
 	List<ProductModel> findWithCount(int count);
 	ProductModel findOne(int id);
+	void insertProduct (ProductModel model);
+	void deleteProduct (int ProId);
+	void updateProduct (ProductModel model);
 }
