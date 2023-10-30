@@ -31,4 +31,19 @@ public class ProductServiceImpl implements IProductService{
 		return productDAO.findOne(id);
 	}
 
+	@Override
+	public void insertProduct(ProductModel model) {
+		productDAO.insertProduct(model);
+	}
+
+	@Override
+	public void deleteProduct(int ProId) {
+		productDAO.deleteProduct(ProId);
+	}
+
+	@Override
+	public void updateProduct(ProductModel model) {
+		productDAO.updateProduct(model);
+	}
+
 }

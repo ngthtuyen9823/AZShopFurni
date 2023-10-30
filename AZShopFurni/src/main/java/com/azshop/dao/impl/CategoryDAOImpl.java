@@ -3,6 +3,7 @@ package com.azshop.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.azshop.connection.DBConnection;
@@ -13,7 +14,29 @@ public class CategoryDAOImpl implements ICategoryDAO {
 
 	@Override
 	public List<CategoryModel> findAll() {
-		return null;
+		
+		List <CategoryModel> Lcategory = new ArrayList<CategoryModel>();
+		String sql = "Select * from CATEGORY ";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				CategoryModel category = new CategoryModel();
+				category.setCategoryID(rs.getInt("CategoryID"));
+				category.setCategoryName(rs.getString("CategoryName"));
+				Object oj = rs.getObject("ParentCategoryID");
+				if(oj == null)
+					category.setParentCategoryID(0);
+				else
+					category.setParentCategoryID(rs.getInt("ParentCategoryID"));
+				Lcategory.add(category);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Lcategory;
 	}
 
 	@Override
@@ -40,25 +63,24 @@ public class CategoryDAOImpl implements ICategoryDAO {
 
 	@Override
 	public void insert(CategoryModel model) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void update(CategoryModel model) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	public static void main(String[] args) {
 		ICategoryDAO cateDAO = new CategoryDAOImpl();
-		CategoryModel model = cateDAO.findOne(1);
-		System.out.println(model);
+		List<CategoryModel> model = cateDAO.findAll();
+		for(CategoryModel cate: model)
+			System.out.println(cate);
 	}
 }

@@ -178,4 +178,63 @@ public class ProductDAOImpl implements IProductDAO {
 //		System.out.println(model);
 	}
 
+	@Override
+	public void insertProduct(ProductModel model) {
+		String sql = "Insert into PRODUCT (ProductName, Description, Origin, SupplierID, CategoryID, Material) values (?,?,?,?,?,?)";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, model.getProductName());
+			ps.setString(2, model.getDescription());
+			ps.setString(3, model.getOrigin());
+			ps.setInt(4, model.getSupplierID());
+			ps.setInt(5, model.getCategoryID());
+			ps.setString(6, model.getMaterial());
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteProduct(int ProId) {
+		String sql = "Delete from PRODUCT where ProductID=?";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, ProId);
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void updateProduct(ProductModel model) {
+		String sql = "Update PRODUCT "
+				+ "Set ProductName= ?, Description = ?, Origin = ?"
+				+ "SupplierID = ?, CategoryID = ?, Material = ?"
+				+ "where ProductID = ?";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, model.getProductName());
+			ps.setString(2, model.getDescription());
+			ps.setString(3, model.getOrigin());
+			ps.setInt(4, model.getSupplierID());
+			ps.setInt(5, model.getCategoryID());
+			ps.setString(6, model.getMaterial());
+			ps.setInt(7, model.getProductID());
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

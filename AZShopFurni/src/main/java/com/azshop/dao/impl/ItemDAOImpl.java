@@ -201,4 +201,66 @@ public class ItemDAOImpl implements IItemDAO {
 
 	}
 
+	@Override
+	public void insertItem(ItemModel model) {
+		String sql = "Insert into ITEM values (?,?,?,?,?,?,?,?)";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, model.getItemID());
+			ps.setInt(2, model.getProductID());
+			ps.setString(3, model.getColor());
+			ps.setString(4, model.getColorCode());
+			ps.setString(5, model.getSize());
+			ps.setInt(6, model.getStock());
+			ps.setInt(7,model.getOriginalPrice());
+			ps.setInt(8, model.getPromotionPrice());
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteItem(int ItemId) {
+		String sql = "Delete from ITEM where ProductID=?";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, ItemId);
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateItem(ItemModel model) {
+		String sql = "Update ITEM "
+				+ "Set ProductID = ?, Color = ?, ColorCode = ?,"
+				+ " Size = ?, Stock = ?, OriginalPrice = ?, PromotionPrice = ?"
+				+ "where ItemID = ?";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, model.getProductID());
+			ps.setString(2, model.getColor());
+			ps.setString(3, model.getColorCode());
+			ps.setString(4, model.getSize());
+			ps.setInt(5, model.getStock());
+			ps.setInt(6,model.getOriginalPrice());
+			ps.setInt(7, model.getPromotionPrice());
+			ps.setInt(8, model.getItemID());
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
