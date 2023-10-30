@@ -79,60 +79,76 @@ public class CustomerController extends HttpServlet {
 	}
 
 	private void updateCustomer(HttpServletRequest req, HttpServletResponse resp) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+		int customerID = Integer.parseInt(req.getParameter("customerID"));
 		String firstName = req.getParameter("firstName");
 		String lastName = req.getParameter("lastName");
 		String address = req.getParameter("address");
 		int gender = Integer.parseInt(req.getParameter("gender"));
 		String phone = req.getParameter("phone");
+		String avatar = req.getParameter("avatar");
+		String cid = req.getParameter("cid");
+		String email = req.getParameter("email");
+		String dobString = req.getParameter("dob");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng của ngày tháng
 		Date dob = null;
 		try {
-			dob = formatter.parse(req.getParameter("dob"));
+			dob = sdf.parse(dobString); // Chuyển đổi kiểu chuỗi thành kiểu Date
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		String cid = req.getParameter("cid");
-		int type = 0;
-		Integer kpi = 0;
-		String area = null;
-		String avatar = req.getParameter("avatar");
-		String email = req.getParameter("email");
-		int customerID = Integer.parseInt(req.getParameter("customerID"));
-		UserModel customerMd = new UserModel(customerID, firstName, lastName, address, gender, phone, dob, cid, type,
-				kpi, area, avatar, email);
-		customerService.updateCustomer(customerMd);
 
+		UserModel newUser = new UserModel();
+		newUser.setUserID(customerID);
+		newUser.setFirstName(firstName);
+		newUser.setLastName(lastName);
+		newUser.setGender(gender);
+		newUser.setAvatar(avatar);
+		newUser.setAddress(address);
+		newUser.setPhone(phone);
+		newUser.setDob(dob);
+		newUser.setCid(cid);
+		newUser.setEmail(email);
+		System.out.println(newUser.getAddress());
+		customerService.updateCustomer(newUser);
 	}
 
 	private void insertCustomer(HttpServletRequest req, HttpServletResponse resp) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+
+		int customerID = customerService.createCustomerID();
 		String firstName = req.getParameter("firstName");
 		String lastName = req.getParameter("lastName");
 		String address = req.getParameter("address");
 		int gender = Integer.parseInt(req.getParameter("gender"));
 		String phone = req.getParameter("phone");
+		String avatar = req.getParameter("avatar");
+		String cid = req.getParameter("cid");
+		String email = req.getParameter("email");
+		String dobString = req.getParameter("dob");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng của ngày tháng
 		Date dob = null;
 		try {
-			dob = formatter.parse(req.getParameter("dob"));
+			dob = sdf.parse(dobString); // Chuyển đổi kiểu chuỗi thành kiểu Date
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		System.out.println(dob);
-		String cid = req.getParameter("cid");
-		int type = 0;
-		Integer kpi = 0;
-		String area = null;
-		String avatar = req.getParameter("avatar");
-		String email = req.getParameter("email");
-		int customerID = customerService.createCustomerID();
-		UserModel customerMd = new UserModel(customerID, firstName, lastName, address, gender, phone, dob, cid, type,
-				kpi, area, avatar, email);
-		boolean checkInsertCustomer = customerService.insertCustomer(customerMd);
+		// dua du lieu vao model
+		UserModel newUser = new UserModel();
+		newUser.setUserID(customerID);
+		newUser.setFirstName(firstName);
+		newUser.setLastName(lastName);
+		newUser.setGender(gender);
+		newUser.setAvatar(avatar);
+		newUser.setAddress(address);
+		newUser.setPhone(phone);
+		newUser.setDob(dob);
+		newUser.setCid(cid);
+		newUser.setEmail(email);
+
+		boolean checkInsertCustomer = customerService.insertCustomer(newUser);
 		if (checkInsertCustomer) {
-			AccountModel accountMd = new AccountModel(customerID, email, "12345");
+			AccountModel accountMd = new AccountModel(customerID, "User" + customerID, "12345");
 			accountService.insertAccount(accountMd);
 		}
-
 	}
 
 	private void getAllCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

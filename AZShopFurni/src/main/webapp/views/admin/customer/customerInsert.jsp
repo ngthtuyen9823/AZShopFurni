@@ -1,42 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Table - Customer</title>
 </head>
 <body>
-	<form action="adminInsertCustomer" method="post">
-		<label>First Name:</label>
-		<input type="text" name="firstName">
-		<br>
-		<label>Last Name:</label>
-		<input type="text" name="lastName">
-		<br>
-		<label>Address:</label>
-		<input type="text" name="address">
-		<br>
-		<label>Gender:</label>
-		<input type="number" name="gender">
-		<br>
-		<label>Phone:</label>
-		<input type="text" name="phone">
-		<br>
-		<label>Dob:</label>
-		<input type="date" name="dob">
-		<br>
-		<label>Cid:</label>
-		<input type="text" name="cid">
-		<br>
-		<label>Avatar:</label>
-		<input type="text" value="https://s.net.vn/6OoR" name="avatar">
-		<br>
-		<label>Email:</label>
-		<input type="text" name="email">
-		<br>
-		<input type="submit" value="INSERT CUSTOMER">
-	</form>
-
+	<main>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="card shadow-lg border-0 rounded-lg mt-5">
+						<div class="card-header">
+							<h3 class="text-center font-weight-light my-4">Insert
+								Customer</h3>
+						</div>
+						<div class="card-body">
+							<form action="adminInsertCustomer" method="post">
+								<div class="row">
+									<div class="col-md-6">
+											<div class="form-floating mb-3">
+												<input class="form-control" type="text" name="firstName" />
+												<label>First Name</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input class="form-control" type="text" name="lastName" />
+												<label>Last Name</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input class="form-control" type="text" name="address" /> <label>Address</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input class="form-control" type="text" name="gender" /> <label>Gender</label>
+											</div>
+											<div class="form-floating mb-3">
+											<input class="form-control" type="text" name="email"
+												/> <label>Email</label>
+										</div>	
+										</div>
+										<div class="col-md-6">
+											<div class="form-floating mb-3">
+												<input class="form-control" type="text" name="phone" /> <label>Phone</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input class="form-control" type="date" name="dob" /> <label>DoB</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input class="form-control" type="text" name="cid" /> <label>CID</label>
+											</div>
+											<div class="form-floating mb-3">
+												<input class="form-control" type="text" name="avatar"
+													value="https://storage.googleapis.com/web-budget/Image/Avatar/first.png" /> <label>Avatar</label>
+											</div>
+										</div>
+									</div>
+								<div class="text-center mt-4">
+									<input type="submit" class="btn btn-primary" value="Insert" />
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 </body>
 </html>

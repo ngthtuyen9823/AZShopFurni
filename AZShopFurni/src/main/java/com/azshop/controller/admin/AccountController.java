@@ -28,7 +28,10 @@ public class AccountController extends HttpServlet{
 		String url = req.getRequestURI().toString();
 		if (url.contains("adminAccount")) {
 			getAllAccount(req, resp);
-		} else if (url.contains("adminUpdateAccount")) {
+		} else if (url.contains("adminInsertAccount")) {
+			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/account/accountInsert.jsp");
+			rd.forward(req, resp);
+		}else if (url.contains("adminUpdateAccount")) {
 			getAccountUpdate(req, resp);
 
 		} else if (url.contains("adminDeleteAccount")) {

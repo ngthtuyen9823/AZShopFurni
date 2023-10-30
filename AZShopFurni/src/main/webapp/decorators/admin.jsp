@@ -36,7 +36,7 @@
 			<!-- footer -->
 		</div>
 	</div>
-
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
@@ -53,5 +53,6 @@
 		crossorigin="anonymous"></script>
 	<script
 		src='<c:url value="templates/admin/js/datatables-simple-demo.js"/>'></script>
+	<script src='<c:url value="templates/admin/js/snippets.js"/>'></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,25 +81,26 @@ public class CustomerDAOImpl implements ICustomerDAO {
 	}
 
 	@Override
-	public boolean insertCustomer(UserModel customerMd) {
+	public boolean insertCustomer(UserModel customer) {
 		String sql = "INSERT INTO USER VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? , ? , ? , ? , ?)";
 		try {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, customerMd.getUserID());
-			ps.setString(2, customerMd.getFirstName());
-			ps.setString(3, customerMd.getLastName());
-			ps.setString(4, customerMd.getAddress());
-			ps.setInt(5, customerMd.getGender());
-			ps.setString(6, customerMd.getPhone());
-			ps.setDate(7, (Date) customerMd.getDob());
-			ps.setString(8, customerMd.getCid());
-			ps.setString(9, customerMd.getAvatar());
-			ps.setInt(10, customerMd.getType());
-			ps.setInt(11,customerMd.getKpi());
-			ps.setString(12, customerMd.getArea());
-			ps.setString(13, customerMd.getEmail());
+			ps.setInt(1, customer.getUserID());
+			ps.setString(2, customer.getFirstName());
+			ps.setString(3, customer.getLastName());
+			ps.setString(4, customer.getAddress());
+			ps.setInt(5, customer.getGender());
+			ps.setString(6, customer.getPhone());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			ps.setString(7, sdf.format(customer.getDob()));
+			ps.setString(8, customer.getCid());
+			ps.setString(9, customer.getAvatar());
+			ps.setInt(10, customer.getType());
+			ps.setInt(11,customer.getKpi());
+			ps.setString(12, customer.getArea());
+			ps.setString(13, customer.getEmail());
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -110,23 +112,24 @@ public class CustomerDAOImpl implements ICustomerDAO {
 	}
 
 	@Override
-	public boolean updateCustomer(UserModel customerMd) {
+	public boolean updateCustomer(UserModel customer) {
 		String sql = "UPDATE USER SET FirstName = ?, LastName = ?, Address = ?, Gender = ?, "
-				+ "Phone = ?, DoB = ?, Cid = ?, Avatar = ? , Email = ?WHERE UserID = ?";
+				+ "Phone = ?, DoB = ?, Cid = ?, Avatar = ? , Email = ? WHERE UserID = ?";
 		try {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, customerMd.getFirstName());
-			ps.setString(2, customerMd.getLastName());
-			ps.setString(3, customerMd.getAddress());
-			ps.setInt(4, customerMd.getGender());
-			ps.setString(5, customerMd.getPhone());
-			ps.setDate(6, (Date) customerMd.getDob());
-			ps.setString(7, customerMd.getCid());
-			ps.setString(8, customerMd.getAvatar());
-			ps.setString(9, customerMd.getEmail());
-			ps.setInt(10, customerMd.getUserID());
+			ps.setString(1, customer.getFirstName());
+			ps.setString(2, customer.getLastName());
+			ps.setString(3, customer.getAddress());
+			ps.setInt(4, customer.getGender());
+			ps.setString(5, customer.getPhone());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			ps.setString(6, sdf.format(customer.getDob()));
+			ps.setString(7, customer.getCid());
+			ps.setString(8, customer.getAvatar());
+			ps.setString(9, customer.getEmail());
+			ps.setInt(10, customer.getUserID());
 			ps.executeUpdate();
 			conn.close();
 		}catch(Exception e) {
