@@ -5,8 +5,8 @@ import com.azshop.models.UserModel;
 
 public interface IUserService {
 	UserModel getInfoUser(int userID);
-	void updateUser(UserModel userMd);
+	void updateUser(UserModel user);
 	AccountModel getInfAccount(int userID);
-	void updateAccount(AccountModel accountMd);
-	boolean checkPassword(String oldPassword, String newPassword);
+	void updateAccount(AccountModel account);
+	boolean checkPassword(String oldPassword, String password);
 }
