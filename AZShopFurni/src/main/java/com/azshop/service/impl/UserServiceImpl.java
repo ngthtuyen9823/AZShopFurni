@@ -15,8 +15,8 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void updateUser(UserModel userMd) {
-		 userDAO.updateUser(userMd);
+	public void updateUser(UserModel user) {
+		 userDAO.updateUser(user);
 	}
 	
 	@Override
@@ -25,13 +25,13 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void updateAccount(AccountModel accountMd) {
-		userDAO.updateAccount(accountMd);
+	public void updateAccount(AccountModel account) {
+		userDAO.updateAccount(account);
 	}
 	
 	@Override
-	public boolean checkPassword(String oldPassword, String newPassword) {
-		if(oldPassword.equals(newPassword)) {
+	public boolean checkPassword(String oldPassword, String password) {
+		if(oldPassword.equals(password)) {
 			return true;
 		}
 		else return false;

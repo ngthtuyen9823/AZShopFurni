@@ -1,13 +1,17 @@
 package com.azshop.controller.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.AnnotatedTypeVariable;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +21,11 @@ import com.azshop.models.AccountModel;
 import com.azshop.models.UserModel;
 import com.azshop.service.IUserService;
 import com.azshop.service.impl.UserServiceImpl;
+import com.azshop.upload.UploadImage;
+import com.google.api.client.http.MultipartContent.Part;                                                                                                                                                                            
 
 @WebServlet(urlPatterns = { "/infoUser", "/updateUser", "/updateAccount" })
+@MultipartConfig
 public class PersonalInformationController extends HttpServlet {
 	IUserService userService = new UserServiceImpl();
 	private static final long serialVersionUID = 1L;
@@ -50,57 +57,64 @@ public class PersonalInformationController extends HttpServlet {
 	}
 	
 	private void getInfUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserModel userMd = userService.getInfoUser(110001);
+		UserModel user = userService.getInfoUser(100010);
 		
-		req.setAttribute("userModel", userMd);
+		req.setAttribute("userModel", user);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/infoUser.jsp");
 		rd.forward(req, resp);
 	}
 	
 	private void updateInfUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int userID = Integer.parseInt(req.getParameter("userID"));
-		UserModel userMd = userService.getInfoUser(userID);
+		UserModel user = userService.getInfoUser(userID);
 		
-		req.setAttribute("userModel", userMd);
+		req.setAttribute("userModel", user);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/updateUser.jsp");
 		rd.forward(req, resp);
 	}
 	
 	private void updateInfAccount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int userID = Integer.parseInt(req.getParameter("userID"));
-		AccountModel accountMd = userService.getInfAccount(userID);
+		AccountModel account = userService.getInfAccount(userID);
 		
-		req.setAttribute("accountModel", accountMd);
+		req.setAttribute("accountModel", account);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/updateAccount.jsp");
 		rd.forward(req, resp);
 	}
 	
 	private void createUserModel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
 
 		int userID = Integer.parseInt(req.getParameter("UserID"));
 		String firstName = req.getParameter("FirstName");
 		String lastName = req.getParameter("LastName");
 		String address = req.getParameter("Address");
-		System.out.println(userID);
 		int gender = Integer.parseInt(req.getParameter("Gender"));
 		String phone = req.getParameter("Phone");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date dob = null;
 		try {
-			dob = formatter.parse( req.getParameter("Dob"));
+			dob = sdf.parse( req.getParameter("Dob"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		String cid = req.getParameter("Cid");
 		int type = Integer.parseInt(req.getParameter("Type"));
-		int kpi = Integer.parseInt(req.getParameter("KPI"));
-		String area = req.getParameter("Area");
-		String avatar = req.getParameter("Avatar");
 		String email = req.getParameter("Email");
 		
-		UserModel userMd = new UserModel(userID, firstName, lastName, address, gender, 
-										 phone, dob, cid, type, kpi, area, avatar, email);
-		userService.updateUser(userMd);
+		UserModel user = new UserModel();
+		user.setUserID(userID);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setAddress(address);
+		user.setGender(gender);
+		user.setPhone(phone);
+		user.setDob(dob);
+		user.setCid(cid);
+		user.setType(type);
+		//user.setAvatar(linkFile);
+		user.setEmail(email);
+		
+		userService.updateUser(user);
 	}
 	
 	private void createAccountModel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -108,12 +122,18 @@ public class PersonalInformationController extends HttpServlet {
 		String userName = req.getParameter("UserName");
 		String oldPassword = req.getParameter("OldPassWord");
 		String password = req.getParameter("Password");
-		AccountModel accountMd = userService.getInfAccount(userID);
-		System.out.println(oldPassword);
-		if(userService.checkPassword(oldPassword, accountMd.getPassword())) {
-			AccountModel newAccountMd = new AccountModel(userID, userName, password);
-			userService.updateAccount(newAccountMd);
+		AccountModel account = userService.getInfAccount(userID);
+		
+		if(userService.checkPassword(oldPassword, account.getPassword())) {
+			AccountModel newAccount = new AccountModel();
+			newAccount.setUserID(userID);
+			newAccount.setUserName(userName);
+			newAccount.setPassword(password);
+			userService.updateAccount(newAccount);
 		} else {
+			PrintWriter out= resp.getWriter();
+			out.println("<font color=red>Either user name or password is wrong.</font>");
+			req.getRequestDispatcher("/views/web/updateAccount.jsp").include(req, resp);
 		}
 	}
 }

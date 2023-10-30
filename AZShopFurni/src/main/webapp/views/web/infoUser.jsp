@@ -13,28 +13,28 @@
 				<div class="col-md-6 col-lg-6 d-flex">
 					<div class="img-about img d-flex align-items-stretch">
 						<div class="overlay"></div>
-						<div class="img d-flex align-self-stretch align-items-center"
-							style="background-image: url(images/person_1.jpg);"></div>
+						<img src="${userModel.avatar}" height="400" width="auto"
+                			 alt="Avatar">
 					</div>
 				</div>
 				<div class="col-md-6 col-lg-6 pl-md-5 py-5">
 					<div class="row justify-content-start pb-3">
 						<div class="col-md-12 heading-section ftco-animate">
-							<h1 class="big">About</h1>
 							<h2 class="mb-4">Thông tin cá nhân</h2>
 							<ul class="about-info mt-4 px-md-0 px-4">
-								<li class="d-flex"><span>Họ:</span> <span>${userModel.lastName}</span></li>
-								<li class="d-flex"><span>Tên:</span> <span>${userModel.firstName}</span></li>
+								<li class="d-flex"><span>Họ và tên:</span> <span>${userModel.lastName} ${userModel.firstName}</span></li>
 								<li class="d-flex"><span>Địa chỉ:</span> <span>${userModel.address}</span></li>
 								<li class="d-flex"><span>Email:</span> <span>${userModel.email}</span></li>
-								<li class="d-flex"><span>Giới tính:</span> <span> <c:choose>
-											<c:when test="${userModel.gender == 0}">
-												<c:out value="Nam" />
-											</c:when>
-											<c:when test="${userModel.gender == 1}">
-												<c:out value="Nữ" />
-											</c:when>
-										</c:choose>
+								<li class="d-flex"><span>Giới tính:</span> 
+								<span> 
+									<c:choose>
+										<c:when test="${userModel.gender == 0}">
+											<c:out value="Nam" />
+										</c:when>
+										<c:when test="${userModel.gender == 1}">
+											<c:out value="Nữ" />
+										</c:when>
+									</c:choose>
 								</span></li>
 								<li class="d-flex"><span>Số điện thoại:</span> <span>${userModel.phone}</span></li>
 								<li class="d-flex"><span>Ngày sinh: </span> <span>${userModel.dob}</span></li>
@@ -42,17 +42,9 @@
 							</ul>
 						</div>
 					</div>
-					<div class="counter-wrap ftco-animate d-flex mt-md-3">
-						<div class="text">
-							<p>
-								<a href="updateUser?userID=${userModel.userID}"
-									class="btn btn-primary py-3 px-3">Chỉnh sửa thông tin</a>
-							</p>
-						</div>
-					</div>
 					
 					<a href="updateUser?userID=${userModel.userID}" class="btn btn-primary shadow-0"> 
-						<i class="me-1 fa fa-shopping-basket"></i> Chỉnh sửa
+						<i></i> Chỉnh sửa thông tin
 					</a>
 					
 					<div class="counter-wrap ftco-animate d-flex mt-md-0">
@@ -123,21 +115,6 @@
 							</c:when>
 						</c:choose>
 					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img"
-		id="section-counter">
-		<div class="container-fluid px-md-5">
-			<div class="row d-md-flex align-items-center">
-				<div
-					class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-				</div>
-				<div
-					class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18"></div>
 				</div>
 			</div>
 		</div>
