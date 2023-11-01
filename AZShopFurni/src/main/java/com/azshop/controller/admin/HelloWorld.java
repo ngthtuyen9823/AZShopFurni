@@ -15,7 +15,7 @@ import com.azshop.models.AccountModel;
 import com.azshop.service.IAccountService;
 import com.azshop.service.impl.AccountServiceImpl;
 
-@WebServlet(urlPatterns = { "/adminHome" })
+@WebServlet(urlPatterns = {  })
 public class HelloWorld extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
