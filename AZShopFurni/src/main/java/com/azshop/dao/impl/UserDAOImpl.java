@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.IUserDAO;
@@ -14,7 +15,7 @@ public class UserDAOImpl implements IUserDAO {
 
 	@Override
 	public UserModel getInfoUser(int userID) {
-		UserModel userMd = new UserModel();
+		UserModel user = new UserModel();
 		String sql = "SELECT * FROM USER WHERE UserID = ?";
 		
 		try {
@@ -24,44 +25,45 @@ public class UserDAOImpl implements IUserDAO {
 			ps.setInt(1, userID);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				userMd.setUserID(rs.getInt("UserID"));
-				userMd.setFirstName(rs.getString("FirstName"));
-				userMd.setLastName(rs.getString("LastName"));
-				userMd.setAddress(rs.getString("Address"));
-				userMd.setGender(rs.getInt("Gender"));
-				userMd.setPhone(rs.getString("Phone"));
-				userMd.setDob(rs.getDate("Dob"));
-				userMd.setCid(rs.getString("Cid"));
-				userMd.setAvatar(rs.getString("Avatar"));
-				userMd.setType(rs.getInt("Type"));
-				userMd.setKpi(rs.getInt("KPI"));
-				userMd.setArea(rs.getString("Area"));
-				userMd.setEmail(rs.getString("Email"));
+				user.setUserID(rs.getInt("UserID"));
+				user.setFirstName(rs.getString("FirstName"));
+				user.setLastName(rs.getString("LastName"));
+				user.setAddress(rs.getString("Address"));
+				user.setGender(rs.getInt("Gender"));
+				user.setPhone(rs.getString("Phone"));
+				user.setDob(rs.getDate("Dob"));
+				user.setCid(rs.getString("Cid"));
+				user.setAvatar(rs.getString("Avatar"));
+				user.setType(rs.getInt("Type"));
+				user.setKpi(rs.getInt("KPI"));
+				user.setArea(rs.getString("Area"));
+				user.setEmail(rs.getString("Email"));
 			}
 			conn.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return userMd;
+		return user;
 	}
 
 	@Override
-	public void updateUser(UserModel userMd) {
+	public void updateUser(UserModel user) {
 		String sql = "UPDATE USER SET FirstName = ?, LastName = ?, Address = ?, Gender = ?, "
 					+ "Phone = ?, DoB = ?, Cid = ?, Avatar = ? WHERE UserID = ?";
 		try {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, userMd.getFirstName());
-			ps.setString(2, userMd.getLastName());
-			ps.setString(3, userMd.getAddress());
-			ps.setInt(4, userMd.getGender());
-			ps.setString(5, userMd.getPhone());
-			ps.setDate(6, (Date) userMd.getDob());
-			ps.setString(7, userMd.getCid());
-			ps.setString(8, userMd.getAvatar());
-			ps.setInt(9, userMd.getUserID());
+			ps.setString(1, user.getFirstName());
+			ps.setString(2, user.getLastName());
+			ps.setString(3, user.getAddress());
+			ps.setInt(4, user.getGender());
+			ps.setString(5, user.getPhone());
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			ps.setString(6, formatter.format(user.getDob()));
+			ps.setString(7, user.getCid());
+			ps.setString(8, user.getAvatar());
+			ps.setInt(9, user.getUserID());
 			ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -70,7 +72,7 @@ public class UserDAOImpl implements IUserDAO {
 	
 	@Override
 	public AccountModel getInfAccount(int userID) {
-		AccountModel accountMd = new AccountModel();
+		AccountModel account = new AccountModel();
 		String sql = "SELECT * FROM ACCOUNT WHERE USERID= ? ";
 		
 		try {
@@ -81,26 +83,26 @@ public class UserDAOImpl implements IUserDAO {
 			ResultSet rs= ps.executeQuery();
 			while(rs.next())
 			{				
-				accountMd.setUserID(rs.getInt("UserID"));
-				accountMd.setUserName(rs.getString("UserName"));
-				accountMd.setPassword(rs.getString("Password"));
+				account.setUserID(rs.getInt("UserID"));
+				account.setUserName(rs.getString("UserName"));
+				account.setPassword(rs.getString("Password"));
 			}
 			conn.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}		
-		return accountMd;
+		return account;
 	}
 
 	@Override
-	public void updateAccount(AccountModel accountMd) {
+	public void updateAccount(AccountModel account) {
 		String sql = "UPDATE ACCOUNT SET Password = ? WHERE UserID = ?";
 		try {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, accountMd.getPassword());
-			ps.setInt(2, accountMd.getUserID());
+			ps.setString(1, account.getPassword());
+			ps.setInt(2, account.getUserID());
 			ps.executeUpdate();	
 		} catch(Exception e) {
 			e.printStackTrace();
