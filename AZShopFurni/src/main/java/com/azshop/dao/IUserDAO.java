@@ -5,7 +5,7 @@ import com.azshop.models.UserModel;
 
 public interface IUserDAO {
 	UserModel getInfoUser(int userID);
-	void updateUser(UserModel userMd);
+	void updateUser(UserModel user);
 	AccountModel getInfAccount(int userID);
-	void updateAccount(AccountModel accountMd);
+	void updateAccount(AccountModel account);
 }
