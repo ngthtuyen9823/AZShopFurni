@@ -3,14 +3,17 @@ package com.azshop.service.impl;
 import java.util.List;
 
 import com.azshop.dao.IAccountDAO;
+import com.azshop.dao.ICustomerDAO;
 import com.azshop.dao.impl.AccountDAOImpl;
+import com.azshop.dao.impl.CustomerDAOImpl;
 import com.azshop.models.AccountModel;
+import com.azshop.models.UserModel;
 import com.azshop.service.IAccountService;
 
 public class AccountServiceImpl implements IAccountService {
 
 	IAccountDAO accountDao = new AccountDAOImpl();
-	
+	ICustomerDAO cusDAO = new CustomerDAOImpl();
 	@Override
 	public List<AccountModel> getAllAccount() {
 		return accountDao.getAllAccount();
@@ -40,15 +43,27 @@ public class AccountServiceImpl implements IAccountService {
 
 	@Override
 	public int getTypeAccount(String username,String password) {
-		int userID = accountDao.getUserIDAccountByNameAndPass(username, password);
-		if(userID >= 0)
-			return accountDao.getTypeAccount(userID);
+		AccountModel acc = accountDao.findByUsernameAndPass(username, password);
+		if(acc != null)
+			return accountDao.getTypeAccount(acc.getUserID());
 		else
 			return -1;
 	}
+	
+	@Override
+	public UserModel findUserByUsername(String username) {
+		AccountModel acc =  accountDao.findByUsername(username);
+		return cusDAO.getOneCustomer(acc.getUserID());
+	}
 
 	@Override
-	public int getUserIDAccountByName(String username) {
-		return accountDao.getUserIDAccountByName(username);
+	public UserModel login(String username,String password) {
+		AccountModel acc =  accountDao.findByUsername(username);
+		if(acc != null && password.equals(acc.getPassword())) {
+			return cusDAO.getOneCustomer(acc.getUserID());
+		}
+		return null;
 	}
+	
+	
 }

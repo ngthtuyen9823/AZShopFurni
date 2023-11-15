@@ -11,6 +11,6 @@ public interface IAccountDAO {
 	boolean updateAccount(AccountModel account); 
 	boolean deleteAccount(AccountModel account); 
 	int getTypeAccount(int id);
-	int getUserIDAccountByNameAndPass(String username,String password);
-	int getUserIDAccountByName(String username);
+	AccountModel findByUsernameAndPass(String username,String password);
+	AccountModel findByUsername(String username);
 }

@@ -135,45 +135,50 @@ public class AccountDAOImpl implements IAccountDAO{
 	}
 
 	@Override
-	public int getUserIDAccountByNameAndPass(String username, String password) {
-		String sql = "SELECT UserID FROM ACCOUNT WHERE UserName=? AND Password=?";
-		int userID = -1;
+	public AccountModel findByUsernameAndPass(String username, String password) {
+		String sql = "SELECT * FROM ACCOUNT WHERE UserName=? AND Password=?";
+		AccountModel account = new AccountModel();
 		try {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
 			ps.setString(2, password);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				userID = (rs.getInt("UserID"));
+			ResultSet rs= ps.executeQuery();
+			while(rs.next())
+			{				
+				account.setUserID(rs.getInt(1));
+				account.setUserName(rs.getString(2));
+				account.setPassword(rs.getString(3));
 			}
 			conn.close();
 		} catch (Exception e) {
 			System.out.println(e);
-		}
-		return userID;
+		}		
+		return account;
 	}
 
 	@Override
-	public int getUserIDAccountByName(String username) {
-		String sql = "SELECT UserID FROM ACCOUNT WHERE UserName=?";
-		int userID = -1;
+	public AccountModel findByUsername(String username) {
+		String sql = "SELECT * FROM ACCOUNT WHERE UserName=?";
+		AccountModel account = new AccountModel();
 		try {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				userID = (rs.getInt("UserID"));
-				System.out.println(userID);
+			ResultSet rs= ps.executeQuery();
+			while(rs.next())
+			{				
+				account.setUserID(rs.getInt(1));
+				account.setUserName(rs.getString(2));
+				account.setPassword(rs.getString(3));
 			}
 			conn.close();
 		} catch (Exception e) {
 			System.out.println(e);
-		}
-		return userID;
+		}		
+		return account;
 	}
 
 }

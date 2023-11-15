@@ -90,7 +90,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		} catch (AddressException ex) {
 			throw new IllegalArgumentException("Email không hợp lệ");
 		}
-		if(accDAO.getUserIDAccountByName(username) != -1)
+		if(accDAO.findByUsername(username) != null)
 			throw new IllegalArgumentException("Tên đăng nhập đã tồn tại");
 		if(!pass.equals(passcheck))
 			throw new IllegalArgumentException("Mật khẩu không trùng khớp");
