@@ -13,11 +13,11 @@ import com.azshop.models.ItemImageModel;
 import com.azshop.models.ProductModel;
 
 public class ItemImageDAOImpl implements IItemImageDAO {
-
+	Connection conn = null;
+	
 	@Override
 	public List<ItemImageModel> findByProductID(int productID) {
-		Connection conn = null;
-
+		
 		String sql = "Select * from ITEMIMAGE join ITEM on ITEMIMAGE.ItemID = ITEM.ItemID where ProductID=?";
 		List<ItemImageModel> list = new ArrayList<ItemImageModel>();
 		try {
