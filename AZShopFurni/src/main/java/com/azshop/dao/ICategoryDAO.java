@@ -12,4 +12,5 @@ public interface ICategoryDAO {
 	void insert(CategoryModel model);
 	void update(CategoryModel model);
 	void delete(int id);
+	List<CategoryModel> getCategoriesByParentId(int parentId);
 }

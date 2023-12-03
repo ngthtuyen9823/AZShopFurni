@@ -1,5 +1,6 @@
 package com.azshop.dao.impl;
 
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.azshop.connection.DBConnection;
+import com.azshop.constants.DefaultImage;
 import com.azshop.dao.ICategoryDAO;
 import com.azshop.dao.IItemDAO;
 import com.azshop.dao.IItemImageDAO;
@@ -24,7 +26,13 @@ public class ProductDAOImpl implements IProductDAO {
 
 	@Override
 	public List<ProductModel> findAll() {
-		String sql = "Select * from PRODUCT";
+		String sql = "SELECT p.*, \r\n"
+				+ "       SUBSTRING_INDEX(GROUP_CONCAT(ii.Image ORDER BY ii.ItemImageID), ',', 1) AS FirstImage,\r\n"
+				+ "       (SELECT MIN(i.PromotionPrice) FROM ITEM i WHERE i.ProductID = p.ProductID) AS MinPromotionPrice,\r\n"
+				+ "       (SELECT MIN(i.OriginalPrice) FROM ITEM i WHERE i.ProductID = p.ProductID) AS MinOriginalPrice\r\n"
+				+ "FROM CATEGORY c\r\n" + "JOIN PRODUCT p ON c.CategoryID = p.CategoryID\r\n"
+				+ "JOIN ITEM i ON p.ProductID = i.ProductID\r\n" + "JOIN ITEMIMAGE ii ON ii.ItemID = i.ItemID\r\n"
+				+ "GROUP BY p.ProductID;";
 		List<ProductModel> list = new ArrayList<ProductModel>();
 
 		try {
@@ -34,14 +42,18 @@ public class ProductDAOImpl implements IProductDAO {
 			ResultSet rs = ps.executeQuery(sql);
 			while (rs.next()) {
 				ProductModel model = new ProductModel();
+				int productID = rs.getInt("ProductID");
 
-				model.setProductID(rs.getInt("ProductID"));
+				model.setProductID(productID);
 				model.setProductName(rs.getString("ProductName"));
 				model.setDescription(rs.getString("Description"));
 				model.setOrigin(rs.getString("Origin"));
 				model.setSupplierID(rs.getInt("SupplierID"));
 				model.setCategoryID(rs.getInt("CategoryID"));
 				model.setMaterial(rs.getString("Material"));
+				model.setDisplayedImage(rs.getString("FirstImage"));
+				model.setDisplayedPromotionPrice(rs.getInt("MinPromotionPrice"));
+				model.setDisplayedOriginalPrice(rs.getInt("MinOriginalPrice"));
 
 				list.add(model);
 			}
@@ -56,9 +68,15 @@ public class ProductDAOImpl implements IProductDAO {
 
 	@Override
 	public List<ProductModel> findByCategoryID(int cateId) {
-		String sql = "Select * from PRODUCT where CategoryID=?";
+		String sql = "SELECT p.*, \r\n"
+				+ "       SUBSTRING_INDEX(GROUP_CONCAT(ii.Image ORDER BY ii.ItemImageID), ',', 1) AS FirstImage,\r\n"
+				+ "       (SELECT MIN(i.PromotionPrice) FROM ITEM i WHERE i.ProductID = p.ProductID) AS MinPromotionPrice,\r\n"
+				+ "       (SELECT MIN(i.OriginalPrice) FROM ITEM i WHERE i.ProductID = p.ProductID) AS MinOriginalPrice\r\n"
+				+ "FROM CATEGORY c\r\n" + "JOIN PRODUCT p ON c.CategoryID = p.CategoryID\r\n"
+				+ "JOIN ITEM i ON p.ProductID = i.ProductID\r\n" + "JOIN ITEMIMAGE ii ON ii.ItemID = i.ItemID\r\n"
+				+ "WHERE c.CategoryID = ?\r\n" + "GROUP BY p.ProductID;";
 		List<ProductModel> list = new ArrayList<ProductModel>();
-		
+
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -68,7 +86,7 @@ public class ProductDAOImpl implements IProductDAO {
 			while (rs.next()) {
 				ProductModel model = new ProductModel();
 				int productID = rs.getInt("ProductID");
-				
+
 				model.setProductID(productID);
 				model.setProductName(rs.getString("ProductName"));
 				model.setDescription(rs.getString("Description"));
@@ -76,9 +94,9 @@ public class ProductDAOImpl implements IProductDAO {
 				model.setSupplierID(rs.getInt("SupplierID"));
 				model.setCategoryID(rs.getInt("CategoryID"));
 				model.setMaterial(rs.getString("Material"));
-				model.setDisplayedImage(itemImageDAO.findByProductID(productID).get(0).getImage());
-				model.setDisplayedPromotionPrice(itemDAO.findDisplayedPromotionPrice(productID));
-				model.setDisplayedOriginalPrice(itemDAO.findDisplayedOriginalPrice(productID));
+				model.setDisplayedImage(rs.getString("FirstImage"));
+				model.setDisplayedPromotionPrice(rs.getInt("MinPromotionPrice"));
+				model.setDisplayedOriginalPrice(rs.getInt("MinOriginalPrice"));
 
 				list.add(model);
 			}
@@ -87,7 +105,7 @@ public class ProductDAOImpl implements IProductDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
 
@@ -95,7 +113,7 @@ public class ProductDAOImpl implements IProductDAO {
 	public List<ProductModel> findWithCount(int count) {
 		String sql = "Select * from PRODUCT limit ?";
 		List<ProductModel> list = new ArrayList<ProductModel>();
-		
+
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -120,7 +138,7 @@ public class ProductDAOImpl implements IProductDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
 
@@ -128,7 +146,7 @@ public class ProductDAOImpl implements IProductDAO {
 	public ProductModel findOne(int id) {
 		String sql = "Select * from PRODUCT where ProductID=?";
 		ProductModel model = new ProductModel();
-		
+
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -137,7 +155,7 @@ public class ProductDAOImpl implements IProductDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				int productID = rs.getInt("ProductID");
-				
+
 				model.setProductID(productID);
 				model.setProductName(rs.getString("ProductName"));
 				model.setDescription(rs.getString("Description"));
@@ -158,13 +176,13 @@ public class ProductDAOImpl implements IProductDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return model;
 	}
 
 	public static void main(String[] args) {
 		IProductDAO productDAO = new ProductDAOImpl();
-		
+
 //		List<ProductModel> list = productDAO.findAll();
 //		System.out.println(list);
 
@@ -212,13 +230,11 @@ public class ProductDAOImpl implements IProductDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void updateProduct(ProductModel model) {
-		String sql = "Update PRODUCT "
-				+ "Set ProductName= ?, Description = ?, Origin = ?"
-				+ "SupplierID = ?, CategoryID = ?, Material = ?"
-				+ "where ProductID = ?";
+		String sql = "Update PRODUCT " + "Set ProductName= ?, Description = ?, Origin = ?"
+				+ "SupplierID = ?, CategoryID = ?, Material = ?" + "where ProductID = ?";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();

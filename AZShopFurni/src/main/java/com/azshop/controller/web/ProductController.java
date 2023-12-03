@@ -1,6 +1,7 @@
 package com.azshop.controller.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -28,29 +29,53 @@ public class ProductController extends HttpServlet {
 	IProductService productService = new ProductServiceImpl();
 	ICategoryService categoryService = new CategoryServiceImpl();
 	ISupplierService supplierService = new SupplierServiceImpl();
+	RequestDispatcher rd = null;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/htm");
 		resp.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
-		
 		String url = req.getRequestURI().toString();
-
 		if (url.contains("products")) {
-			int id = Integer.parseInt(req.getParameter("id"));
+			String idString = req.getParameter("id");
+			if(idString != null) {
+				int id = Integer.parseInt(req.getParameter("id"));
+				ProductModel productModel = productService.findOne(id);
+				CategoryModel categoryModel = categoryService.findOne(productModel.getCategoryID());
+				SupplierModel supplierModel = supplierService.findOne(productModel.getSupplierID());
+				List<ProductModel> cateProList = productService.findByCategoryID(categoryModel.getCategoryID());
 
-			ProductModel productModel = productService.findOne(id);
-			CategoryModel categoryModel = categoryService.findOne(productModel.getCategoryID());
-			SupplierModel supplierModel = supplierService.findOne(productModel.getSupplierID());
-			List<ProductModel> cateProList = productService.findByCategoryID(categoryModel.getCategoryID());
-		
-			req.setAttribute("product", productModel);
-			req.setAttribute("category", categoryModel);
-			req.setAttribute("supplier", supplierModel);
-			req.setAttribute("cateProList", cateProList);
-
-			RequestDispatcher rd = req.getRequestDispatcher("/views/web/products/productdetail.jsp");
+				req.setAttribute("cateProList", cateProList);
+				req.setAttribute("product", productModel);
+				req.setAttribute("category", categoryModel);
+				req.setAttribute("supplier", supplierModel);
+				
+				rd = req.getRequestDispatcher("/views/web/products/productdetail.jsp");
+			}
+			else {
+				String cateIdString = req.getParameter("cateId");
+				List<ProductModel> listProduct = new ArrayList<ProductModel>();
+				List<CategoryModel> listCategory = new ArrayList<CategoryModel>();
+				
+				if (cateIdString != null) {
+					int cateId = Integer.parseInt(cateIdString);
+					listProduct = productService.findByCategoryID(cateId);
+					listCategory = categoryService.getCategoriesByParentId(cateId);
+					
+					req.setAttribute("cateId", cateId);
+				}
+				else {
+					listProduct = productService.findAll();
+					listCategory = categoryService.getCategoriesByParentId(0);
+				}
+				
+				req.setAttribute("products", listProduct);
+				req.setAttribute("categories", listCategory);
+				
+				rd = req.getRequestDispatcher("/views/web/products/products.jsp");
+			}
+			
 			rd.forward(req, resp);
 		}
 	}
