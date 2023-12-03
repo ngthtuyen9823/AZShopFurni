@@ -1,5 +1,6 @@
 package com.azshop.dao.impl;
 
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,6 +35,14 @@ public class ProductDAOImpl implements IProductDAO {
 			ResultSet rs = ps.executeQuery(sql);
 			while (rs.next()) {
 				ProductModel model = new ProductModel();
+				List<ItemImageModel> listImageOfProduct = itemImageDAO.findByProductID(rs.getInt("ProductID"));
+				
+				if (listImageOfProduct.size() > 0) {
+					model.setDisplayedImage(listImageOfProduct.get(0).getImage());
+				}
+				else {
+					model.setDisplayedImage("https://storage.googleapis.com/web-budget/Image/Items/default-item-image.png");
+				}
 
 				model.setProductID(rs.getInt("ProductID"));
 				model.setProductName(rs.getString("ProductName"));
@@ -42,6 +51,9 @@ public class ProductDAOImpl implements IProductDAO {
 				model.setSupplierID(rs.getInt("SupplierID"));
 				model.setCategoryID(rs.getInt("CategoryID"));
 				model.setMaterial(rs.getString("Material"));
+				
+				model.setDisplayedPromotionPrice(itemDAO.findDisplayedPromotionPrice(rs.getInt("ProductID")));
+				model.setDisplayedOriginalPrice(itemDAO.findDisplayedOriginalPrice(rs.getInt("ProductID")));
 
 				list.add(model);
 			}

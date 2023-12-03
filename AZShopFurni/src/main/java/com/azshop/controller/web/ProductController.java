@@ -1,6 +1,7 @@
 package com.azshop.controller.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.azshop.models.CategoryModel;
 import com.azshop.models.ProductModel;
 import com.azshop.models.SupplierModel;
-import com.azshop.models.submodels.CategoryLevelModel;
 import com.azshop.service.ICategoryService;
 import com.azshop.service.IProductService;
 import com.azshop.service.ISupplierService;
@@ -39,8 +39,6 @@ public class ProductController extends HttpServlet {
 		String url = req.getRequestURI().toString();
 		if (url.contains("products")) {
 			String idString = req.getParameter("id");
-			String cateIdString = req.getParameter("cateId");
-			
 			if(idString != null) {
 				int id = Integer.parseInt(req.getParameter("id"));
 				ProductModel productModel = productService.findOne(id);
@@ -55,12 +53,20 @@ public class ProductController extends HttpServlet {
 				
 				rd = req.getRequestDispatcher("/views/web/products/productdetail.jsp");
 			}
-			else if(cateIdString != null) {
-				
-				
-				rd = req.getRequestDispatcher("/views/web/categories.jsp");
-			}
 			else {
+				String cateIdString = req.getParameter("cateId");
+				List<ProductModel> listProdutt = new ArrayList<ProductModel>();
+				
+				if (cateIdString != null) {
+					int cateId = Integer.parseInt(cateIdString);
+					listProdutt = productService.findByCategoryID(cateId);
+				}
+				else {
+					listProdutt = productService.findAll();
+				}
+				
+				req.setAttribute("products", listProdutt);
+				
 				rd = req.getRequestDispatcher("/views/web/products/products.jsp");
 			}
 			
