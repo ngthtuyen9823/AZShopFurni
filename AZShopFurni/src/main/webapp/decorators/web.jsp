@@ -31,6 +31,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/util.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/main.css"/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/products/products.css"/>">
 <!--===============================================================================================-->
 </head>
 <body>

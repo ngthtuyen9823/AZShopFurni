@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,24 +89,15 @@
 
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button
-						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1"
-						data-filter="*">All Products</button>
+					<a href="<c:url value='/products'/>"
+						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 ${cateId == null ? 'how-active1' : ''}"
+						data-filter="*">All Products</a>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-						data-filter=".women">Women</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-						data-filter=".men">Men</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-						data-filter=".bag">Bag</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-						data-filter=".shoes">Shoes</button>
-
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-						data-filter=".watches">Watches</button>
+					<c:forEach items="${categories}" var="item">
+						<a href="<c:url value='/products?cateId=${item.categoryID}'/>"
+							class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 ${cateId == item.categoryID ? 'how-active1' : ''}"
+							data-filter="*">${item.categoryName}</a>
+					</c:forEach>
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -253,19 +245,17 @@
 				</div>
 			</div>
 
-
-
-
 			<div class="row isotope-grid">
 
 				<c:forEach items="${products}" var="item">
-					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ">
 						<div class="block2">
-							<div class="block2-pic hov-img0 label-new" data-label="New">
+							<div class="block2-pic hov-img0 label-new product-image-size"
+								data-label="New">
 								<img src="${item.displayedImage}" alt="IMG-PRODUCT"> <a
 									href="#"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Quick View </a>
+									View </a>
 							</div>
 
 							<div class="block2-txt flex-w flex-t p-t-14">
@@ -273,7 +263,12 @@
 									<a href="product-detail.html"
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										${item.productName} </a> <span class="stext-105 cl3">
-										$${item.displayedOriginalPrice} </span>
+										${item.description} </span> <span class="stext-105 cl3 weight-600">
+										<fmt:formatNumber type="currency"
+											value="${item.displayedOriginalPrice}" currencyCode="VND"
+											pattern="#,##0 VND" var="formattedPrice" />
+										${formattedPrice}
+									</span>
 								</div>
 
 								<div class="block2-txt-child2 flex-r p-t-3">
@@ -289,7 +284,7 @@
 						</div>
 					</div>
 				</c:forEach>
-				
+
 				<!-- Pagination -->
 				<div class="flex-c-m flex-w w-full p-t-38">
 					<a href="#"
@@ -298,6 +293,7 @@
 						2 </a>
 				</div>
 			</div>
+		</div>
 	</section>
 
 

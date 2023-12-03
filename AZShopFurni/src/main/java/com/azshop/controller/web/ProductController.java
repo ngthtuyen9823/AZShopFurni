@@ -55,17 +55,23 @@ public class ProductController extends HttpServlet {
 			}
 			else {
 				String cateIdString = req.getParameter("cateId");
-				List<ProductModel> listProdutt = new ArrayList<ProductModel>();
+				List<ProductModel> listProduct = new ArrayList<ProductModel>();
+				List<CategoryModel> listCategory = new ArrayList<CategoryModel>();
 				
 				if (cateIdString != null) {
 					int cateId = Integer.parseInt(cateIdString);
-					listProdutt = productService.findByCategoryID(cateId);
+					listProduct = productService.findByCategoryID(cateId);
+					listCategory = categoryService.getCategoriesByParentId(cateId);
+					
+					req.setAttribute("cateId", cateId);
 				}
 				else {
-					listProdutt = productService.findAll();
+					listProduct = productService.findAll();
+					listCategory = categoryService.getCategoriesByParentId(0);
 				}
 				
-				req.setAttribute("products", listProdutt);
+				req.setAttribute("products", listProduct);
+				req.setAttribute("categories", listCategory);
 				
 				rd = req.getRequestDispatcher("/views/web/products/products.jsp");
 			}

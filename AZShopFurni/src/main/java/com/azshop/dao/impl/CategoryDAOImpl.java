@@ -11,6 +11,7 @@ import com.azshop.dao.ICategoryDAO;
 import com.azshop.models.CategoryModel;
 
 public class CategoryDAOImpl implements ICategoryDAO {
+	Connection conn = null;
 
 	@Override
 	public List<CategoryModel> findAll() {
@@ -19,7 +20,7 @@ public class CategoryDAOImpl implements ICategoryDAO {
 		String sql = "Select * from CATEGORY ";
 		try {
 			new DBConnection();
-			Connection conn = DBConnection.getConnection();
+			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -45,7 +46,7 @@ public class CategoryDAOImpl implements ICategoryDAO {
 		String sql = "Select * from CATEGORY where CategoryID=?";
 		try {
 			new DBConnection();
-			Connection conn = DBConnection.getConnection();
+			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -82,5 +83,37 @@ public class CategoryDAOImpl implements ICategoryDAO {
 		List<CategoryModel> model = cateDAO.findAll();
 		for(CategoryModel cate: model)
 			System.out.println(cate);
+	}
+
+	@Override
+	public List<CategoryModel> getCategoriesByParentId(int parentId) {
+		String sql = "SELECT * FROM CATEGORY WHERE ParentCategoryID=?";
+		String sqlWithNoneParent = "SELECT * FROM CATEGORY WHERE ParentCategoryID is NULL";
+		List<CategoryModel> listCategory = new ArrayList<CategoryModel>();
+		
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(parentId == 0 ? sqlWithNoneParent : sql);
+			if (parentId != 0) {
+				ps.setInt(1, parentId);
+			}
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				CategoryModel category = new CategoryModel();
+				category.setCategoryID(rs.getInt("CategoryID"));
+				category.setCategoryName(rs.getString("CategoryName"));
+				category.setParentCategoryID(rs.getInt("ParentCategoryID"));
+				category.setParentCategoryID(rs.getInt("Image"));
+
+				listCategory.add(category);
+			}
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return listCategory;
 	}
 }

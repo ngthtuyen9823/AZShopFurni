@@ -8,4 +8,5 @@ import com.azshop.models.submodels.CategoryLevelModel;
 public interface ICategoryService {
 	CategoryModel findOne(int id);
 	List<CategoryLevelModel> getCategoryLevels();
+	List<CategoryModel> getCategoriesByParentId(int parentId);
 }

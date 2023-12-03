@@ -17,8 +17,8 @@ public class CategoryLevelModel extends CategoryModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CategoryLevelModel(int categoryID, String categoryName, int parentCategoryID) {
-		super(categoryID, categoryName, parentCategoryID);
+	public CategoryLevelModel(int categoryID, String categoryName, int parentCategoryID, String image) {
+		super(categoryID, categoryName, parentCategoryID, image);
 		// TODO Auto-generated constructor stub
 	}
 
