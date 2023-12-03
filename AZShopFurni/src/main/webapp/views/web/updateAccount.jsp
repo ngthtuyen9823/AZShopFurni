@@ -17,8 +17,7 @@
 						<input type="hidden" name="UserID" value="${accountModel.userID}">
 						<div class="form-group row">
 							<div class="col-md-12">
-								<label for="c_username" class="text-black">Tài khoản </label>
-								<input type="text" class="form-control" id="c_username" name="UserName" value="${accountModel.userName}">
+								<input type="hidden" class="form-control" id="c_username" name="UserName" value="${accountModel.userName}">
 							</div>
 						</div>
 						<div class="form-group row">
