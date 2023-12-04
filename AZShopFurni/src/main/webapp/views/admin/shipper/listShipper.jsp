@@ -17,14 +17,18 @@
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
-					<a href = "<c:url value='/adminInsertShipper'/>">
+					<a href="<c:url value='/adminInsertShipper'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i>
-						Add new shipper
+							<i class="ace-icon fa fa-pencil"></i> Add new shipper
 						</button>
 					</a>
 				</div>
 			</div>
+			<c:if test="${not empty message }">
+				<div class="alert alert-${alert}">
+					<strong>${message}!</strong>
+				</div>
+			</c:if>a
 			<div class="card mb-4">
 				<div class="card-header">
 					<i class="fas fa-table me-1"></i> DataTable Sellers

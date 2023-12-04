@@ -10,11 +10,17 @@
 <body>
 	<main>
 		<div class="container">
+			<c:if test="${not empty message }">
+				<div class="alert alert-${alert}">
+					<strong>${message}!</strong>
+				</div>
+			</c:if>
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">Update Shipper</h3>
+							<h3 class="text-center font-weight-light my-4">Update
+								Shipper</h3>
 						</div>
 						<div class="card-body">
 							<form action="adminUpdateShipper" method="post">
@@ -37,8 +43,13 @@
 												value="${shipper.address}" /> <label>Address</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="gender"
-												value="${shipper.gender}" /> <label>Gender</label>
+											<div class="form-floating mb-3">
+												<select class="form-control" name="gender">
+													<option value="0">Nam</option>
+													<option value="1">Nữ</option>
+												</select> 
+												<label> Gender </label>
+											</div>
 										</div>
 									</div>
 									<div class="col-md-6">
