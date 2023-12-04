@@ -9,11 +9,12 @@ public class ItemModel {
 	private int stock;
 	private int originalPrice;
 	private int promotionPrice;
+	private String image;
 	public ItemModel() {
 		super();
 	}
 	public ItemModel(int itemID, int productID, String color, String colorCode, String size, int stock,
-			int originalPrice, int promotionPrice) {
+			int originalPrice, int promotionPrice, String image) {
 		super();
 		this.itemID = itemID;
 		this.productID = productID;
@@ -23,6 +24,7 @@ public class ItemModel {
 		this.stock = stock;
 		this.originalPrice = originalPrice;
 		this.promotionPrice = promotionPrice;
+		this.image = image;
 	}
 	public int getItemID() {
 		return itemID;
@@ -72,11 +74,18 @@ public class ItemModel {
 	public void setPromotionPrice(int promotionPrice) {
 		this.promotionPrice = promotionPrice;
 	}
+
 	@Override
 	public String toString() {
 		return "ItemModel [itemID=" + itemID + ", productID=" + productID + ", color=" + color + ", colorCode="
 				+ colorCode + ", size=" + size + ", stock=" + stock + ", originalPrice=" + originalPrice
-				+ ", promotionPrice=" + promotionPrice + "]";
+				+ ", promotionPrice=" + promotionPrice + ", image=" + image + "]";
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 }

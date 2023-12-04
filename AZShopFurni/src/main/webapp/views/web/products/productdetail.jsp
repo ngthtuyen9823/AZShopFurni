@@ -29,11 +29,11 @@
 							target="_blank" data-type="image" href="#"> <img
 							id="mainImage"
 							style="max-width: 100%; max-height: 100vh; margin: auto;"
-							class="rounded-4 fit" src="${product.listItemImage[0].image}" />
+							class="rounded-4 fit" src="${product.listItem[0].image}" />
 						</a>
 					</div>
 					<div class="d-flex justify-content-center mb-3 product-container">
-						<c:forEach items="${product.listItemImage}" var="item"
+						<c:forEach items="${product.listItem}" var="item"
 							varStatus="loop">
 							<div class="" style="flex: 0 0 auto;">
 								<a data-fslightbox="mygalley"

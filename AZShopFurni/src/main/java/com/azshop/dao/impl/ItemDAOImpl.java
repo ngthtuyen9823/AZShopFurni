@@ -48,7 +48,9 @@ public class ItemDAOImpl implements IItemDAO {
 
 	@Override
 	public List<ItemModel> findByProductID(int productID) {
-		String sql = "Select * from ITEM where ProductID=?";
+		String sql = "Select i.*, SUBSTRING_INDEX(GROUP_CONCAT(ii.Image ORDER BY ii.ItemImageID), ',', 1) AS FirstImage\r\n"
+				+ "from ITEM i\r\n" + "JOIN ITEMIMAGE ii\r\n" + "ON i.ItemID = ii.ItemID\r\n" + "where ProductID=?\r\n"
+				+ "group by i.ItemID;";
 		List<ItemModel> list = new ArrayList<ItemModel>();
 		try {
 			new DBConnection();
@@ -67,7 +69,7 @@ public class ItemDAOImpl implements IItemDAO {
 				model.setStock(rs.getInt("Stock"));
 				model.setOriginalPrice(rs.getInt("OriginalPrice"));
 				model.setPromotionPrice(rs.getInt("PromotionPrice"));
-
+				model.setImage(rs.getString("FirstImage"));
 				list.add(model);
 			}
 			conn.close();
@@ -133,75 +135,6 @@ public class ItemDAOImpl implements IItemDAO {
 	}
 
 	@Override
-	public int findDisplayedPromotionPrice(int productID) {
-		String sql = "Select min(PromotionPrice) from ITEM where ProductID=?";
-		int displayedPromotionPrice = 0;
-
-		try {
-			new DBConnection();
-			conn = DBConnection.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, productID);
-
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				displayedPromotionPrice = rs.getInt(1);
-			}
-
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return displayedPromotionPrice;
-	}
-
-	@Override
-	public int findDisplayedOriginalPrice(int productID) {
-		String sql = "Select min(OriginalPrice) from ITEM where ProductID=?";
-		int displayedOriginalPrice = 0;
-
-		try {
-			new DBConnection();
-			conn = DBConnection.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, productID);
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				displayedOriginalPrice = rs.getInt(1);
-			}
-
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return displayedOriginalPrice;
-	}
-
-	public static void main(String[] args) {
-		IItemDAO itemDAO = new ItemDAOImpl();
-
-//		List<ItemModel> list = itemDAO.findAll();
-//		System.out.println(list);
-
-//		List<ItemModel> listByPro = itemDAO.findByProductID(101001);
-//		System.out.println(listByPro);
-//
-//		ItemModel model = itemDAO.findOneByProductID(101004);
-//		System.out.println(model);
-
-		int displayedPromotionPrice = itemDAO.findDisplayedPromotionPrice(101004);
-		System.out.println(displayedPromotionPrice);
-		
-		int displayedOriginalPrice = itemDAO.findDisplayedOriginalPrice(101004);
-		System.out.println(displayedOriginalPrice);
-		
-		
-
-	}
-
-	@Override
 	public void insertItem(ItemModel model) {
 		String sql = "Insert into ITEM values (?,?,?,?,?,?,?,?)";
 		try {
@@ -214,7 +147,7 @@ public class ItemDAOImpl implements IItemDAO {
 			ps.setString(4, model.getColorCode());
 			ps.setString(5, model.getSize());
 			ps.setInt(6, model.getStock());
-			ps.setInt(7,model.getOriginalPrice());
+			ps.setInt(7, model.getOriginalPrice());
 			ps.setInt(8, model.getPromotionPrice());
 			ps.executeUpdate();
 			conn.close();
@@ -240,10 +173,8 @@ public class ItemDAOImpl implements IItemDAO {
 
 	@Override
 	public void updateItem(ItemModel model) {
-		String sql = "Update ITEM "
-				+ "Set ProductID = ?, Color = ?, ColorCode = ?,"
-				+ " Size = ?, Stock = ?, OriginalPrice = ?, PromotionPrice = ?"
-				+ "where ItemID = ?";
+		String sql = "Update ITEM " + "Set ProductID = ?, Color = ?, ColorCode = ?,"
+				+ " Size = ?, Stock = ?, OriginalPrice = ?, PromotionPrice = ?" + "where ItemID = ?";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -253,7 +184,7 @@ public class ItemDAOImpl implements IItemDAO {
 			ps.setString(3, model.getColorCode());
 			ps.setString(4, model.getSize());
 			ps.setInt(5, model.getStock());
-			ps.setInt(6,model.getOriginalPrice());
+			ps.setInt(6, model.getOriginalPrice());
 			ps.setInt(7, model.getPromotionPrice());
 			ps.setInt(8, model.getItemID());
 			ps.executeUpdate();
@@ -261,6 +192,20 @@ public class ItemDAOImpl implements IItemDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void main(String[] args) {
+		IItemDAO itemDAO = new ItemDAOImpl();
+
+//		List<ItemModel> list = itemDAO.findAll();
+//		System.out.println(list);
+
+//		List<ItemModel> listByPro = itemDAO.findByProductID(101001);
+//		System.out.println(listByPro);
+//
+		List<ItemModel> list = itemDAO.findByProductID(101003);
+		System.out.println(list);
+
 	}
 
 }
