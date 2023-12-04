@@ -6,19 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trang chủ</title>
-<script>
-        window.onload = function() {
-            var message = '<%=session.getAttribute("message")%>
-	';
-
-		if (message) {
-			alert(message);
-		}
-	};
-</script>
+<title>ListProduct</title>
+<style>
+.card-body a {
+    margin-right: 10px; /* Khoảng cách giữa các phần tử <a> */
+}
+</style>
 </head>
 <body>
+
 	<main>
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">Dashboard</h1>
@@ -102,6 +98,20 @@
 				</div>
 			</div>
 			<div class="card mb-4">
+				<div class="card-body">
+					<a href="<c:url value='/insertProduct'/>" style="margin-right: 50px;">
+						<button type="button" class="btn btn-dark">
+							<i class="ace-icon fa fa-pencil"></i> Add new product
+						</button>
+					</a> 
+					<a href="<c:url value='/adminItem'/>">
+						<button type="button" class="btn btn-dark">
+							<i class="ace-icon fa fa-list-ul"></i> List all item
+						</button>
+					</a>
+				</div>
+			</div>
+			<div class="card mb-4">
 				<div class="card-header">
 					<i class="fas fa-table me-1"></i> DataTable Example
 				</div>
@@ -116,8 +126,8 @@
 								<th>SupplierID</th>
 								<th>CategoryID</th>
 								<th>Material</th>
-								<th>EDIT</th>
-								<th>DELETE</th>
+								<th>Action</th>
+
 							</tr>
 						</thead>
 						<tfoot>
@@ -135,9 +145,23 @@
 											<c:if test="${i.categoryID == j.categoryID}">${j.categoryName}</c:if>
 										</c:forEach></td>
 									<td>${i.material}</td>
-									<td><a href="updateAccount?userID=${i.productID}"><button>EDIT</button></a></td>
-									<td><a href="deleteAccount?userID=${i.productID}"><button>DELETE</button></a></td>
-
+									<td><div class="hidden-sm hidden-xs btn-group">
+											<a href='<c:url value = '/adminItem?ProductID=${i.productID}'></c:url>'>
+												<button class="btn btn-xs btn-info btn-sm">
+													<i class="ace-icon fa fa-eye"></i>
+												</button>
+											</a> <a href="<c:url value='/updateProduct?ProductID=${i.productID}'/>">
+												<button class="btn btn-xs btn-info btn-sm">
+													<i class="ace-icon fa fa-pencil"></i>
+												</button>
+											</a> <a href="<c:url value='/deleteProduct?ProductID=${i.productID}'/>">
+												<button type="button" class="btn btn-xs btn-info btn-sm"
+													id="liveToastBtn"
+													onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm có ID là : ${i.productID} không?')">
+													<i class="ace-icon fa fa-trash"></i>
+												</button>
+											</a>
+										</div></td>
 								</tr>
 							</c:forEach>
 						</tbody>

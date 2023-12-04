@@ -25,4 +25,19 @@ public class IItemServiceImpl implements IItemService{
 		return itemDAO.findOne(id);
 	}
 
+	@Override
+	public void insertItem(ItemModel model) {
+		insertItem(model);
+	}
+
+	@Override
+	public void deleteItem(int IteID) {
+		deleteItem(IteID);
+	}
+
+	@Override
+	public void updateItem(ItemModel model) {
+		updateItem(model);
+	}
+
 }

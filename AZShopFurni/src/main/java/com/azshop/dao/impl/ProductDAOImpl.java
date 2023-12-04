@@ -153,17 +153,18 @@ public class ProductDAOImpl implements IProductDAO {
 
 	@Override
 	public void insertProduct(ProductModel model) {
-		String sql = "Insert into PRODUCT (ProductName, Description, Origin, SupplierID, CategoryID, Material) values (?,?,?,?,?,?)";
+		String sql = "Insert into PRODUCT values (?,?,?,?,?,?,?)";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, model.getProductName());
-			ps.setString(2, model.getDescription());
-			ps.setString(3, model.getOrigin());
-			ps.setInt(4, model.getSupplierID());
-			ps.setInt(5, model.getCategoryID());
-			ps.setString(6, model.getMaterial());
+			ps.setInt(1, model.getProductID());
+			ps.setString(2, model.getProductName());
+			ps.setString(3, model.getDescription());
+			ps.setString(4, model.getOrigin());
+			ps.setInt(5, model.getSupplierID());
+			ps.setInt(6, model.getCategoryID());
+			ps.setString(7, model.getMaterial());
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -188,10 +189,7 @@ public class ProductDAOImpl implements IProductDAO {
 	
 	@Override
 	public void updateProduct(ProductModel model) {
-		String sql = "Update PRODUCT "
-				+ "Set ProductName= ?, Description = ?, Origin = ?"
-				+ "SupplierID = ?, CategoryID = ?, Material = ?"
-				+ "where ProductID = ?";
+		String sql = "Update PRODUCT Set ProductName= ?, Description = ?, Origin = ?, SupplierID = ?, CategoryID = ?, Material = ? where ProductID = ?";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -208,6 +206,37 @@ public class ProductDAOImpl implements IProductDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<ProductModel> findAllOfCategory(int Id) {
+		String sql = "Select * from PRODUCT where CategoryID =?";
+		List<ProductModel> list = new ArrayList<ProductModel>();
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, Id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				ProductModel model = new ProductModel();
+
+				model.setProductID(rs.getInt("ProductID"));
+				model.setProductName(rs.getString("ProductName"));
+				model.setDescription(rs.getString("Description"));
+				model.setOrigin(rs.getString("Origin"));
+				model.setSupplierID(rs.getInt("SupplierID"));
+				model.setCategoryID(rs.getInt("CategoryID"));
+				model.setMaterial(rs.getString("Material"));
+
+				list.add(model);
+			}
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }
