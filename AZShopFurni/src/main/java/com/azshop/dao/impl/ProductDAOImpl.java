@@ -35,6 +35,17 @@ public class ProductDAOImpl implements IProductDAO {
 				+ "GROUP BY p.ProductID;";
 		List<ProductModel> list = new ArrayList<ProductModel>();
 
+				list.add(model);
+			}
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();

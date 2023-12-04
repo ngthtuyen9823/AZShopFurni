@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <body>
 	<header>
 		<!-- Heading -->
@@ -20,34 +21,30 @@
 	</header>
 	<!-- content -->
 	<section class="py-5">
-<div class="container">
-    <div class="row gx-5">
-        <aside class="col-lg-6">
-            <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                <a id="mainImageLink" data-fslightbox="mygalley" class="rounded-4" target="_blank"
-                    data-type="image" href="#">
-                    <img id="mainImage"
-                        style="max-width: 100%; max-height: 100vh; margin: auto;"
-                        class="rounded-4 fit" src="${product.listItemImage[0].image}" />
-                </a>
-            </div>
-            <div class="d-flex justify-content-center mb-3 product-container">
-                <c:forEach items="${product.listItemImage}" var="item" varStatus="loop">
-                    <div class="" style="flex:0 0 auto;">
-                        <a data-fslightbox="mygalley"
-                            class="border mx-1 rounded-2 item-thumb" target="_blank"
-                            data-type="image" onclick="changeMainImage('${item.image}')">
-                            <img width="100"
-                                height="100" class="rounded-2" src="${item.image}" />
-                        </a>
-                    </div>
-                </c:forEach>
-            </div>
-
-
-
-
-
+		<div class="container">
+			<div class="row gx-5">
+				<aside class="col-lg-6">
+					<div class="border rounded-4 mb-3 d-flex justify-content-center">
+						<a id="mainImageLink" data-fslightbox="mygalley" class="rounded-4"
+							target="_blank" data-type="image" href="#"> <img
+							id="mainImage"
+							style="max-width: 100%; max-height: 100vh; margin: auto;"
+							class="rounded-4 fit" src="${product.listItemImage[0].image}" />
+						</a>
+					</div>
+					<div class="d-flex justify-content-center mb-3 product-container">
+						<c:forEach items="${product.listItemImage}" var="item"
+							varStatus="loop">
+							<div class="" style="flex: 0 0 auto;">
+								<a data-fslightbox="mygalley"
+									class="border mx-1 rounded-2 item-thumb" target="_blank"
+									data-type="image" onclick="changeMainImage('${item.image}')">
+									<img width="100" height="100" class="rounded-2"
+									src="${item.image}" />
+								</a>
+							</div>
+						</c:forEach>
+					</div>
 				</aside>
 				<main class="col-lg-6">
 					<div class="ps-lg-3">
@@ -64,9 +61,13 @@
 						</div>
 
 						<div class="mb-3">
-							<span class="h5">${product.displayedPromotionPrice} VND</span> <span
-								class="text-muted text-decoration-line-through">${product.displayedOriginalPrice}
-								VND</span>
+		
+							<span class="h5"><fmt:formatNumber type="currency"
+									value="${product.displayedPromotionPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span> <span
+								class="text-muted text-decoration-line-through"><fmt:formatNumber 
+									type="currency" value="${product.displayedOriginalPrice}"
+									currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span>
 						</div>
 
 						<div class="row">
@@ -151,8 +152,8 @@
 	</section>
 </body>
 <script>
-    function changeMainImage(newImage) {
-        document.getElementById('mainImage').src = newImage;
-        document.getElementById('mainImageLink').href = newImage;
-    }
+	function changeMainImage(newImage) {
+		document.getElementById('mainImage').src = newImage;
+		document.getElementById('mainImageLink').href = newImage;
+	}
 </script>
