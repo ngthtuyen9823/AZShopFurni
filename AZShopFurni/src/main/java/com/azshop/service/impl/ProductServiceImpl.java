@@ -7,10 +7,10 @@ import com.azshop.dao.impl.ProductDAOImpl;
 import com.azshop.models.ProductModel;
 import com.azshop.service.IProductService;
 
-public class ProductServiceImpl implements IProductService{
+public class ProductServiceImpl implements IProductService {
 
 	IProductDAO productDAO = new ProductDAOImpl();
-	
+
 	@Override
 	public List<ProductModel> findAll() {
 		return productDAO.findAll();
@@ -20,7 +20,7 @@ public class ProductServiceImpl implements IProductService{
 	public List<ProductModel> findByCategoryID(int cateId) {
 		return productDAO.findByCategoryID(cateId);
 	}
-
+	
 	@Override
 	public List<ProductModel> findWithCount(int count) {
 		return productDAO.findWithCount(count);
@@ -45,5 +45,4 @@ public class ProductServiceImpl implements IProductService{
 	public void updateProduct(ProductModel model) {
 		productDAO.updateProduct(model);
 	}
-
 }

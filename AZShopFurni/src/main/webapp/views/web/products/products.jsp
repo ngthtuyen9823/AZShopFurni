@@ -248,7 +248,8 @@
 			<!-- List Category -->
 			<c:if test="${childCategories.size() > 0}">
 				<div class="cate-container">
-					<span class="stext-105 cl3 weight-600">${category.categoryName} Collection</span>
+					<span class="stext-105 cl3 weight-600">${category.categoryName}
+						Collection</span>
 					<div class="row isotope-grid cate-grid">
 						<c:forEach items="${childCategories}" var="item">
 							<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ">
@@ -278,55 +279,64 @@
 
 			</c:if>
 
-
-
 			<div class="row isotope-grid">
-
-				<c:forEach items="${products}" var="item">
-					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ">
-						<div class="block2">
-							<div class="block2-pic hov-img0 label-new product-image-size"
-								data-label="New">
-								<img src="${item.displayedImage}" alt="IMG-PRODUCT"> <a
-									href="#"
-									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									View </a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
-										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										${item.productName} </a> <span class="stext-105 cl3">
-										${item.description} </span> <span class="stext-105 cl3 weight-600">
-										<fmt:formatNumber type="currency"
-											value="${item.displayedOriginalPrice}" currencyCode="VND"
-											pattern="#,##0 VND" var="formattedPrice" />
-										${formattedPrice}
-									</span>
+				<c:if test="${products.size() > 0}">
+					<c:forEach items="${products}" var="item">
+						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ">
+							<div class="block2">
+								<div class="block2-pic hov-img0 label-new product-image-size"
+									data-label="New">
+									<img src="${item.displayedImage}" alt="IMG-PRODUCT"> <a
+										href="#"
+										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+										View </a>
 								</div>
 
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#"
-										class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" alt="ICON"
-										src='https://storage.googleapis.com/web-budget/Image/icons/icon-heart-01.png' />
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" alt="ICON"
-										src='https://storage.googleapis.com/web-budget/Image/icons/icon-heart-01.png' />
-									</a>
+								<div class="block2-txt flex-w flex-t p-t-14">
+									<div class="block2-txt-child1 flex-col-l ">
+										<a href="product-detail.html"
+											class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+											${item.productName} </a> <span class="stext-105 cl3">
+											${item.description} </span> <span class="stext-105 cl3 weight-600">
+											<fmt:formatNumber type="currency"
+												value="${item.displayedOriginalPrice}" currencyCode="VND"
+												pattern="#,##0 VND" var="formattedPrice" />
+											${formattedPrice}
+										</span>
+									</div>
+
+									<div class="block2-txt-child2 flex-r p-t-3">
+										<a href="#"
+											class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+											<img class="icon-heart1 dis-block trans-04" alt="ICON"
+											src='https://storage.googleapis.com/web-budget/Image/icons/icon-heart-01.png' />
+											<img class="icon-heart2 dis-block trans-04 ab-t-l" alt="ICON"
+											src='https://storage.googleapis.com/web-budget/Image/icons/icon-heart-02.png' />
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
 
-				<!-- Pagination -->
-				<div class="flex-c-m flex-w w-full p-t-38">
-					<a href="#"
-						class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-						1 </a> <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-						2 </a>
-				</div>
+					<!-- Pagination -->
+					<div class="flex-c-m flex-w w-full p-t-38">
+						<!-- Generate pagination links dynamically based on the totalPage -->
+						<c:forEach begin="1" end="${totalPage}" varStatus="loop">
+							<c:choose>
+								<c:when test="${category != null}">
+									<a
+										href="<c:url value='/products?cateId=${category.categoryID}&page=${loop.index}'/>"
+										class="flex-c-m how-pagination1 trans-04 m-all-7 ${page == loop.index ? 'active-pagination1' : ''}">${loop.index}</a>
+								</c:when>
+								<c:otherwise>
+									<a href="<c:url value='/products?page=${loop.index}'/>"
+										class="flex-c-m how-pagination1 trans-04 m-all-7 ${page == loop.index ? 'active-pagination1' : ''}">${loop.index}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</section>

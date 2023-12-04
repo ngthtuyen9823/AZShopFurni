@@ -21,7 +21,7 @@ import com.azshop.service.impl.CategoryServiceImpl;
 import com.azshop.service.impl.ProductServiceImpl;
 import com.azshop.service.impl.SupplierServiceImpl;
 
-@WebServlet(urlPatterns = { "/products"})
+@WebServlet(urlPatterns = { "/products" })
 public class ProductController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -39,7 +39,7 @@ public class ProductController extends HttpServlet {
 		String url = req.getRequestURI().toString();
 		if (url.contains("products")) {
 			String idString = req.getParameter("id");
-			if(idString != null) {
+			if (idString != null) {
 				int id = Integer.parseInt(req.getParameter("id"));
 				ProductModel productModel = productService.findOne(id);
 				CategoryModel categoryModel = categoryService.findOne(productModel.getCategoryID());
@@ -50,36 +50,42 @@ public class ProductController extends HttpServlet {
 				req.setAttribute("product", productModel);
 				req.setAttribute("category", categoryModel);
 				req.setAttribute("supplier", supplierModel);
-				
+
 				rd = req.getRequestDispatcher("/views/web/products/productdetail.jsp");
-			}
-			else {
+			} else {
 				String cateIdString = req.getParameter("cateId");
+				String pageString = req.getParameter("page");
+				int page = pageString != null ? Integer.parseInt(pageString) : 1;
+				int pageSize = 12;
 				List<ProductModel> listProduct = new ArrayList<ProductModel>();
 				List<CategoryModel> listRootCategory = categoryService.getRootCategories();
-				
+
 				if (cateIdString != null) {
 					int cateId = Integer.parseInt(cateIdString);
 					List<CategoryModel> listCateChild = categoryService.geChidlCategories(cateId);
 					CategoryModel categoryModel = categoryService.findOne(cateId);
 					CategoryModel rootCategory = categoryService.findRootCategoryByCategoryId(cateId);
 					listProduct = productService.findByCategoryID(cateId);
-					
+
 					req.setAttribute("childCategories", listCateChild);
 					req.setAttribute("category", categoryModel);
 					req.setAttribute("rootcategory", rootCategory);
-				}
-				else {
+				} else {
 					listProduct = productService.findAll();
 				}
-				
-				
-				req.setAttribute("products", listProduct);
+
+				int totalPage = listProduct.size() > 0 ? listProduct.size() / pageSize : 0;
+				int start = (page - 1) * pageSize;
+				int end = Math.min(start + pageSize, listProduct.size());
+
+				req.setAttribute("products", listProduct.subList(start, end));
+				req.setAttribute("page", page);
+				req.setAttribute("totalPage", totalPage);
 				req.setAttribute("rootCategories", listRootCategory);
-				
+
 				rd = req.getRequestDispatcher("/views/web/products/products.jsp");
 			}
-			
+
 			rd.forward(req, resp);
 		}
 	}
