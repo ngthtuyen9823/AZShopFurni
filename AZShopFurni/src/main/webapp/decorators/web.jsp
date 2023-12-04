@@ -4,12 +4,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>About</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/favicon.png"/>">
-	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/icon-heart-02.png"/>">
+<title>About</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	href="<c:url value="/templates/web/images/icons/favicon.png"/>">
+<link rel="icon" type="image/png"
+	href="<c:url value="/templates/web/images/icons/icon-heart-02.png"/>">
 <!--===============================================================================================-->
 <link rel="icon" type="image/png"
 	href="<c:url value="/templates/web/images/icons/favicon.png"/>">
@@ -35,9 +37,12 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/animsition/css/animsition.min.css"/>">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/util.css"/>">
-	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/main.css"/>">
-	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/products/products.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/util.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/main.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/products/products.css"/>">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/perfect-scrollbar/perfect-scrollbar.css"/>">
@@ -104,6 +109,8 @@
 	<%@ include file="/common/web/footer.jsp"%>
 
 	<!--===============================================================================================-->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 	<script
 		src="<c:url value="/templates/web/vendor/jquery/jquery-3.2.1.min.js"/>"></script>
 	<!--===============================================================================================-->
@@ -148,8 +155,8 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="<c:url value="/templates/web/js/main.js"/>"></script>
-<script src="<c:url value="/templates/web/js/product-detail.js"/>"></script>
-<script src="<c:url value="/templates/web/js/tiny-slider.js"/>"></script>
+	<script src="<c:url value="/templates/web/js/product-detail.js"/>"></script>
+	<script src="<c:url value="/templates/web/js/tiny-slider.js"/>"></script>
 
 	<!--===============================================================================================-->
 	<script
