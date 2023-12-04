@@ -63,8 +63,17 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public List<CategoryModel> getCategoriesByParentId(int cateId) {
-		CategoryModel currentCategory = categoryDAO.findOne(cateId);
+	public List<CategoryModel> getRootCategories() {
 		return categoryDAO.getCategoriesByParentId(0);
+	}
+
+	@Override
+	public List<CategoryModel> geChidlCategories(int parentId) {
+		return categoryDAO.getCategoriesByParentId(parentId);
+	}
+
+	@Override
+	public CategoryModel findRootCategoryByCategoryId(int id) {
+		return categoryDAO.findRootCategoryByCategoryId(id);
 	}
 }

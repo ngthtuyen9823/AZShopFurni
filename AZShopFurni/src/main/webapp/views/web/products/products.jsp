@@ -90,12 +90,12 @@
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<a href="<c:url value='/products'/>"
-						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 ${cateId == null ? 'how-active1' : ''}"
+						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 ${rootcategory.categoryID == null ? 'how-active1' : ''}"
 						data-filter="*">All Products</a>
 
-					<c:forEach items="${categories}" var="item">
+					<c:forEach items="${rootCategories}" var="item">
 						<a href="<c:url value='/products?cateId=${item.categoryID}'/>"
-							class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 ${cateId == item.categoryID ? 'how-active1' : ''}"
+							class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 ${rootcategory.categoryID == item.categoryID ? 'how-active1' : ''}"
 							data-filter="*">${item.categoryName}</a>
 					</c:forEach>
 				</div>
@@ -244,6 +244,41 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- List Category -->
+			<c:if test="${childCategories.size() > 0}">
+				<div class="cate-container">
+					<span class="stext-105 cl3 weight-600">${category.categoryName} Collection</span>
+					<div class="row isotope-grid cate-grid">
+						<c:forEach items="${childCategories}" var="item">
+							<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ">
+								<div class="block2">
+									<div class="block2-pic hov-img0 category-image-size"
+										data-label="New">
+										<img src="${item.image}" alt="IMG-CATEGORY"> <a
+											href="<c:url value='/products?cateId=${item.categoryID}'/>"
+											class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+											View </a>
+									</div>
+
+									<div class="block2-txt flex-w flex-t p-t-14">
+										<div class="block2-txt-child1 flex-col-l ">
+											<a
+												href="<c:url value='/products?cateId=${item.categoryID}'/>"
+												class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+												${item.categoryName} </a>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+
+			</c:if>
+
+
 
 			<div class="row isotope-grid">
 
