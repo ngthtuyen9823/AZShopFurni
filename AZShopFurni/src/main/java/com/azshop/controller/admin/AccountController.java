@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.azshop.models.AccountModel;
 import com.azshop.service.IAccountService;
 import com.azshop.service.impl.AccountServiceImpl;
+import com.azshop.utils.MessageUtil;
 @WebServlet(urlPatterns = { "/adminAccount", "/adminInsertAccount", "/adminUpdateAccount",
 "/adminDeleteAccount" })
 public class AccountController extends HttpServlet{
@@ -52,20 +53,31 @@ public class AccountController extends HttpServlet{
 		}
 	}
 
-	private void insertAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		int userID = Integer.parseInt(req.getParameter("userID"));
-		String userName = req.getParameter("userName");
-		String password = req.getParameter("password");
-		AccountModel account = new AccountModel(userID, userName, password);
-		accountService.insertAccount(account);
-		System.out.println(account.getUserName() + " " + account.getPassword());
-		resp.sendRedirect("adminAccount");
+	private void insertAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		try
+		{
+			int userID = Integer.parseInt(req.getParameter("userID"));
+			String userName = req.getParameter("userName");
+			String password = req.getParameter("password");
+			AccountModel account = new AccountModel(userID, userName, password);
+			accountService.insertAccount(account);
+			MessageUtil.showMessage(req,"addSuccess");
+		} catch (Exception ex) {
+			MessageUtil.showMessage(req,"addFail");
+		}
+		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/account/accountInsert.jsp");
+		rd.forward(req, resp);
 	}
 
 	private void deleteAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		int userID = Integer.parseInt(req.getParameter("userID"));
-		AccountModel account = accountService.getOneAccount(userID);
-		accountService.deleteAccount(account);
+		try {
+			int userID = Integer.parseInt(req.getParameter("userID"));
+			AccountModel account = accountService.getOneAccount(userID);
+			accountService.deleteAccount(account);	
+			MessageUtil.showMessage(req,"delSuccess");
+		} catch (Exception ex) {
+			MessageUtil.showMessage(req,"delFail");
+		}
 		resp.sendRedirect("adminAccount");
 
 	}
@@ -73,18 +85,27 @@ public class AccountController extends HttpServlet{
 	private void getAccountUpdate(HttpServletRequest req, HttpServletResponse resp)	throws ServletException, IOException {
 		int userID = Integer.parseInt(req.getParameter("userID"));
 		AccountModel account = accountService.getOneAccount(userID);
+		
 		req.setAttribute("account", account);
 		req.getRequestDispatcher("/views/admin/account/accountUpdate.jsp").forward(req, resp);
 	}
 
-	private void updateAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		int userID = Integer.parseInt(req.getParameter("userID"));
-		String userName = req.getParameter("userName");
-		String password = req.getParameter("password");
-		AccountModel account = new AccountModel(userID, userName, password);
-		accountService.updateAccount(account);
-		System.out.println(account.getUserName() + " " + account.getPassword());
-		resp.sendRedirect("adminAccount");
+	private void updateAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		try
+		{
+			int userID = Integer.parseInt(req.getParameter("userID"));
+			String userName = req.getParameter("userName");
+			String password = req.getParameter("password");
+			AccountModel account = new AccountModel(userID, userName, password);
+			accountService.updateAccount(account);
+			MessageUtil.showMessage(req,"updateSuccess");
+		}catch(Exception ex) {
+			MessageUtil.showMessage(req,"updateFail");
+		}
+		
+		//System.out.println(account.getUserName() + " " + account.getPassword());
+		req.getRequestDispatcher("/views/admin/account/accountUpdate.jsp").forward(req, resp);
+		
 	}
 
 	private void getAllAccount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

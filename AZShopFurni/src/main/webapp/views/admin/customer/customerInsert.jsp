@@ -10,6 +10,11 @@
 <body>
 	<main>
 		<div class="container">
+		<c:if test="${not empty message }">
+				<div class="alert alert-${alert}">
+					<strong>${message}!</strong>
+				</div>
+			</c:if>
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
