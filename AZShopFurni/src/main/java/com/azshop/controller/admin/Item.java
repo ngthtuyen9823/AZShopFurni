@@ -17,7 +17,6 @@ import com.azshop.service.impl.IItemServiceImpl;
 public class Item extends HttpServlet {
 
 	IItemService item = new IItemServiceImpl();
-	int
 	
 	private static final long serialVersionUID = 1L;
 
