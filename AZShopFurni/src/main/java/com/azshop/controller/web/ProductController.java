@@ -11,12 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.azshop.models.CartModel;
 import com.azshop.models.CategoryModel;
 import com.azshop.models.ProductModel;
 import com.azshop.models.SupplierModel;
+import com.azshop.service.ICartService;
 import com.azshop.service.ICategoryService;
 import com.azshop.service.IProductService;
 import com.azshop.service.ISupplierService;
+import com.azshop.service.impl.CartServiceImpl;
 import com.azshop.service.impl.CategoryServiceImpl;
 import com.azshop.service.impl.ProductServiceImpl;
 import com.azshop.service.impl.SupplierServiceImpl;
@@ -27,6 +30,7 @@ public class ProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	IProductService productService = new ProductServiceImpl();
+	ICartService cartService = new CartServiceImpl();
 	ICategoryService categoryService = new CategoryServiceImpl();
 	ISupplierService supplierService = new SupplierServiceImpl();
 	RequestDispatcher rd = null;
@@ -79,15 +83,30 @@ public class ProductController extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+
+		String url = req.getRequestURI().toString();
+		if (url.contains("addToCart")) {
+			addToOrder(req, resp);
+		}
+//		resp.sendRedirect("products");
+	}
+
+	protected void addToOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		CartModel cart = new CartModel();
 		// Get the parameters from the request
-		int itemID = Integer.parseInt(request.getParameter("itemID"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		int itemID = Integer.parseInt(req.getParameter("itemID"));
+		int quantity = Integer.parseInt(req.getParameter("quantity"));
 		System.out.println(itemID);
 		System.out.println(quantity);
-//		 cartService.addToCart(itemID, quantity);
+		cart.setCustomerID(100001);
+		cart.setItemID(itemID);
+		cart.setQuantity(quantity);
+		cartService.insert(cart);
 
-		response.sendRedirect(""); // Redirect to a success page or handle as needed
+//		resp.sendRedirect(""); // Redirect to a success page or handle as needed
 	}
 }

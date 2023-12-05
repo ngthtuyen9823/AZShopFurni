@@ -252,12 +252,10 @@
 						<div class="block2">
 							<div class="block2-pic hov-img0 label-new product-image-size"
 								data-label="New">
-								<img src="${item.displayedImage}" alt="IMG-PRODUCT"> <a
-									href="#"
-									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									View </a>
+								<a href="<c:url value='/products?id=${item.productID}'/>"> <img
+									src="${item.displayedImage}" alt="IMG-PRODUCT">
+								</a>
 							</div>
-
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
 									<a href="product-detail.html"

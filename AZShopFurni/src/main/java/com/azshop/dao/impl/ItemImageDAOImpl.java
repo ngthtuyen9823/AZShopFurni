@@ -2,15 +2,11 @@ package com.azshop.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.IItemImageDAO;
-import com.azshop.dao.IProductDAO;
+
 import com.azshop.models.ItemImageModel;
-import com.azshop.models.ProductModel;
 
 public class ItemImageDAOImpl implements IItemImageDAO {
 	Connection conn = null;

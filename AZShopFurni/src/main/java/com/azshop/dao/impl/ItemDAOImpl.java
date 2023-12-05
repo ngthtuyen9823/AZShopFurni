@@ -8,9 +8,7 @@ import java.util.List;
 
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.IItemDAO;
-import com.azshop.dao.IProductDAO;
 import com.azshop.models.ItemModel;
-import com.azshop.models.ProductModel;
 
 public class ItemDAOImpl implements IItemDAO {
 	Connection conn = null;

@@ -3,7 +3,6 @@ package com.azshop.dao;
 import java.util.List;
 
 import com.azshop.models.ItemModel;
-import com.azshop.models.ProductModel;
 
 public interface IItemDAO {
 	List<ItemModel> findAll();

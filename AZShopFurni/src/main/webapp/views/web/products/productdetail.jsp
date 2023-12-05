@@ -91,6 +91,7 @@
 											style="border-color: #bdc3c7; border-style: solid; margin: 6px; padding: 12px">${item.itemID}
 											${item.color}</button>
 									</c:forEach>
+									<div id="errorContainer" style="color: red;"></div>
 								</div>
 							</dd>
 						</div>
@@ -116,23 +117,26 @@
 						<div class="mt-5 row">
 							<dd class="col-5">
 
-								<form id="addToOrderForm" action="/products" method="post">
+								<form id="addToOrderForm" action="addToCart" method="post">
 									<a href="#" style="width: 100%; padding: 1rem;"
 										class="mr-1 btn btn-warning shadow-0"> Buy now </a>
 
-
+									<!-- 	<a href="#" style="width: 100%; padding: 1rem;"
+										class="btn btn-primary shadow-0"> <i
+										class="me-1 fa fa-shopping-basket"></i> Add to cart
+									</a> -->
 								</form>
 							</dd>
 							<dd class="col-5">
-								<form id="addToCartForm" action="/products" method="post">
+								<form id="addToCartForm" action="#" method="post">
 									<input type="hidden" name="itemID" id="selectedItemID" value="">
 									<input type="hidden" name="quantity" id="selectedQuantity"
-										value="1"> <a href="#"
-										style="width: 100%; padding: 1rem;"
-										class="btn btn-primary shadow-0"> <i
-										class="me-1 fa fa-shopping-basket"></i> Add to cart
-									</a>
-
+										value="1">
+									<div class="text-center">
+										<input onclick="addToCart()"
+											style="width: 100%; padding: 1rem;"
+											class="btn btn-primary shadow-0" value="Add to cart" />
+									</div>
 								</form>
 							</dd>
 						</div>
