@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title></title>
+<title></title> -->
 <!-- css -->
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
@@ -36,7 +36,7 @@
 			<!-- footer -->
 		</div>
 	</div>
-
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
@@ -53,5 +53,6 @@
 		crossorigin="anonymous"></script>
 	<script
 		src='<c:url value="templates/admin/js/datatables-simple-demo.js"/>'></script>
+	<script src='<c:url value="templates/admin/js/snippets.js"/>'></script>
 </body>
 </html>
