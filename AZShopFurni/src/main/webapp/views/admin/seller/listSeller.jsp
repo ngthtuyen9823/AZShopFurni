@@ -55,7 +55,7 @@
 						<tbody>
 							<c:forEach var="i" items="${listseller}">
 								<tr>
-									<td>${i.userID}</td>
+									<td >${i.userID}</td>
 									<td>${i.firstName}</td>
 									<td>${i.lastName}</td>
 									<td>${i.address}</td>
@@ -67,7 +67,7 @@
 									<td>${i.phone}</td>
 									<td>${i.dob}</td>
 									<td>${i.cid}</td>
-									<td>${i.avatar}</td>
+									<td> <img alt="avt" src="${i.avatar}" style="width: 50px; height: 50px;" /></td>
 									<td>${i.kpi}</td>
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">

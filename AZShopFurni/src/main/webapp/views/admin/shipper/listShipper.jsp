@@ -28,7 +28,7 @@
 				<div class="alert alert-${alert}">
 					<strong>${message}!</strong>
 				</div>
-			</c:if>a
+			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
 					<i class="fas fa-table me-1"></i> DataTable Sellers
@@ -66,7 +66,7 @@
 									<td>${i.phone}</td>
 									<td>${i.dob}</td>
 									<td>${i.cid}</td>
-									<td>${i.avatar}</td>
+									<td> <img alt="avt" src="${i.avatar}" style="width: 50px; height: 50px;" /></td>
 									<td>${i.area}</td>
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">

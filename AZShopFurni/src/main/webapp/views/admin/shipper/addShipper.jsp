@@ -61,7 +61,7 @@
 											<input class="form-control" type="text" name="cid" /> <label>CID</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="avatar" /> <label>Avatar</label>
+											<input class="form-control" type="text" name="avatar" value="https://storage.googleapis.com/web-budget/Image/Avatar/first.png"/> <label>Avatar</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="area" /> <label>Area</label>
