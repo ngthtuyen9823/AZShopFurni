@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+
 	<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 		<div class="sb-sidenav-menu">
 			<div class="nav">
@@ -29,8 +31,10 @@
 						<a class="nav-link" href="<c:url value='/adminSeller'/>">Seller</a>
 						<a class="nav-link" href="<c:url value='/adminShipper'/>">Shipper</a>
 					</nav>
+
 				</div>
-				<a class="nav-link" href="charts.html"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
+
+				<a class="nav-link" href="adminProduct"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
 					</div> Product
 				</a> 
 				<div class="sb-sidenav-menu-heading">Addons</div>
@@ -42,10 +46,15 @@
 						<i class="fas fa-table"></i>
 					</div> Tables
 				</a>
-			</div>
+
+			</a>
+		
+			
 		</div>
+
 		<div class="sb-sidenav-footer">
 			<div class="small">Logged in as:</div>
 			Admin
 		</div>
 	</nav>
+
