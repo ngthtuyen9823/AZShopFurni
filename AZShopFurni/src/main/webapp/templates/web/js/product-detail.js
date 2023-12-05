@@ -65,7 +65,7 @@ function addToCart() {
 					allowOutsideClick: false
 				}).then((result) => {
 					if (!result.isConfirmed) {
-						window.location.href = '/cart';
+						window.location.href = '/AZShopFurni/carts';
 					}
 				});
 			},
@@ -76,6 +76,6 @@ function addToCart() {
 			}
 		});
 	} else {
-		errorContainer.text("Please select an item and update the quantity before adding to the cart.");
+		errorContainer.text("Please select an item before adding to the cart.");
 	}
 }

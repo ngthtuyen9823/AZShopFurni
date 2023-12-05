@@ -1,7 +1,9 @@
 package com.azshop.controller.web;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,28 +11,59 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.azshop.models.CartModel;
+
 import com.azshop.service.ICartService;
 import com.azshop.service.impl.CartServiceImpl;
 
-@WebServlet("/addToCart")
+@WebServlet({ "/carts", "/addToCart" })
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ICartService cartService = new CartServiceImpl();
+	RequestDispatcher rd = null;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html");
+		resp.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
+
+		String url = req.getRequestURI().toString();
+
+		if (url.contains("carts")) {
+
+			List<CartModel> listCart = cartService.findAll();
+
+			req.setAttribute("carts", listCart);
+
+			rd = req.getRequestDispatcher("/views/web/carts/carts.jsp");
+		}
+
+		rd.forward(req, resp);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		CartModel cart = new CartModel();
+		CartModel oldCart = new CartModel();
 
+		int customerID = 100001; // note
 		int itemID = Integer.parseInt(request.getParameter("itemID"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-		ICartService cartService = new CartServiceImpl();
-		CartModel cart = new CartModel();
-
-		cart.setCustomerID(100001);
+		cart.setCustomerID(customerID);
 		cart.setItemID(itemID);
-		cart.setQuantity(quantity);
 
-		cartService.insert(cart);
-
+		oldCart = cartService.findOne(customerID, itemID);
+		
+		if (oldCart != null) {
+			cart.setQuantity(quantity + oldCart.getQuantity());
+			System.out.println(cart);
+			cartService.update(cart);
+		} else {
+			cart.setQuantity(quantity);
+			System.out.println(cart);
+			cartService.insert(cart);
+		}
 		response.getWriter().write("Item added to cart successfully");
 	}
 }

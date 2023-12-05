@@ -7,6 +7,7 @@
 <title>About</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!--===============================================================================================-->
 <link rel="icon" type="image/png"
 	href="<c:url value="/templates/web/images/icons/favicon.png"/>">
@@ -92,14 +93,20 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/perfect-scrollbar/perfect-scrollbar.css"/>">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+	rel="stylesheet">
 <!--===============================================================================================-->
 
-<link href='<c:url value="/templates/web/css/tiny-slider.css"/>'
+<link href='<c:url value="/templates/web/css/products/tiny-slider.css"/>'
 	rel="stylesheet" />
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 	rel="stylesheet">
-<link href='<c:url value="/templates/web/css/product-detail.css"/>'
+<link href='<c:url value="/templates/web/css/products/product-detail.css"/>'
+	rel="stylesheet" />
+	
+<link href='<c:url value="/templates/web/css/carts/carts.css"/>'
 	rel="stylesheet" />
 
 </head>
