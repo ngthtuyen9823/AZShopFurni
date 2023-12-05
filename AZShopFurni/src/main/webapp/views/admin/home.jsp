@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,10 +82,29 @@
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-bar me-1"></i> Bar Chart Example
+							<i class="fas fa-chart-bar me-1"></i> Bar chart of Orders in recent 7 days
 						</div>
 						<div class="card-body">
-							<canvas id="myBarChart" width="100%" height="40"></canvas>
+							<canvas id="myChart" width="100%" height="40"></canvas>
+							<script>
+                                                var barChartData = {
+                                                    labels: [<c:forEach var="item" items="${listReceipt}">'${item.time}',</c:forEach>],
+                                                    datasets: [
+                                                        {
+                                                        	fillColor: "#FC8213",
+                                                        	label:'Orders',
+                                                            data: [<c:forEach var="item" items="${listReceipt}">${item.value},</c:forEach>],
+                                                            backgroundColor:'rgba(255, 99, 132, 0.6)'
+                                                        }
+                                                    ]
+
+                                                };                                          
+                                                new Chart(document.getElementById("myChart").getContext("2d"), {
+                                                    type: 'bar',
+                                                    data: barChartData
+                                                });
+
+                            </script>
 						</div>
 					</div>
 				</div>

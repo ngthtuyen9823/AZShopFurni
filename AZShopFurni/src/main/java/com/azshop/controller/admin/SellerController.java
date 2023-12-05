@@ -18,7 +18,7 @@ import com.azshop.service.ISellerService;
 import com.azshop.service.impl.SellerServiceImpl;
 import com.azshop.utils.MessageUtil;
 
-@WebServlet(urlPatterns = { "/adminHome", "/adminSeller", "/adminUpdateSeller", "/adminDeleteSeller",
+@WebServlet(urlPatterns = { "/adminSeller", "/adminUpdateSeller", "/adminDeleteSeller",
 		"/adminInsertSeller" })
 public class SellerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,10 +27,7 @@ public class SellerController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI().toString();
-		if (url.contains("adminHome")) {
-			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
-			rd.forward(req, resp);
-		} else if (url.contains("adminSeller")) {
+		if (url.contains("adminSeller")) {
 			findAllSeller(req, resp);
 		} else if (url.contains("adminUpdateSeller")) {
 			getInforSeller(req, resp);
