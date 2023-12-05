@@ -24,6 +24,20 @@
 				<div class="sb-sidenav-collapse-arrow">
 					<i class="fas fa-angle-down"></i>
 				</div>
+
+				<a class="nav-link" href="adminProduct"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
+					</div> Product
+				</a> 
+				<div class="sb-sidenav-menu-heading">Addons</div>
+				<a class="nav-link" href="charts.html"> <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i>
+					</div> Charts
+				</a> 
+				<a class="nav-link" href="tables.html">
+					<div class="sb-nav-link-icon">
+						<i class="fas fa-table"></i>
+					</div> Tables
+				</a>
+
 			</a>
 			<div class="collapse" id="collapseLayouts"
 				aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
@@ -34,6 +48,7 @@
 					<a class="nav-link" href="<c:url value='/adminShipper'/>">Shipper</a>
 
 				</nav>
+
 			</div>
 			<a class="nav-link" href="charts.html">
 				<div class="sb-nav-link-icon">

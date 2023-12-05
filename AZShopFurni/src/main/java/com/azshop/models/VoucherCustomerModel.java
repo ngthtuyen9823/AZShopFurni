@@ -22,5 +22,10 @@ public class VoucherCustomerModel {
 	}
 	public void setCustomerID(int customerID) {
 		this.customerID = customerID;
-	}	
+	}
+	@Override
+	public String toString() {
+		return "VoucherCustomerModel [voucherID=" + voucherID + ", customerID=" + customerID + "]";
+	}
+	
 }

@@ -33,4 +33,10 @@ public class SearchHistoryModel {
 	public void setHistory(String history) {
 		this.history = history;
 	}
+	@Override
+	public String toString() {
+		return "SearchHistoryModel [customerID=" + customerID + ", createdAt=" + createdAt + ", history=" + history
+				+ "]";
+	}
+	
 }
