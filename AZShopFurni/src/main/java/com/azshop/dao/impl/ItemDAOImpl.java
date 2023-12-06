@@ -207,3 +207,50 @@ public class ItemDAOImpl implements IItemDAO {
 	}
 
 }
+
+	@Override
+	public int findDisplayedPromotionPrice(int productID) {
+		String sql = "Select min(PromotionPrice) from ITEM where ProductID=?";
+		int displayedPromotionPrice = 0;
+
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, productID);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				displayedPromotionPrice = rs.getInt(1);
+			}
+
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return displayedPromotionPrice;
+	}
+
+	@Override
+	public int findDisplayedOriginalPrice(int productID) {
+		String sql = "Select min(OriginalPrice) from ITEM where ProductID=?";
+		int displayedOriginalPrice = 0;
+
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			ps.setInt(1, productID);
+
+			while (rs.next()) {
+				displayedOriginalPrice = rs.getInt(1);
+
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return displayedOriginalPrice;
+	}

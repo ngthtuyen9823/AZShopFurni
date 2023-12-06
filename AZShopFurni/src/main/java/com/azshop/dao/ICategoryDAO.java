@@ -7,10 +7,13 @@ import com.azshop.models.CategoryModel;
 
 
 public interface ICategoryDAO {
-	List<CategoryModel> findAll();
 	CategoryModel findOne(int id);
+	CategoryModel findRootCategoryByCategoryId(int id);
+	
+	List<CategoryModel> findAll();
+	List<CategoryModel> getCategoriesByParentId(int parentId);
+	
 	void insert(CategoryModel model);
 	void update(CategoryModel model);
 	void delete(int id);
-	List<CategoryModel> getCategoriesByParentId(int parentId);
 }

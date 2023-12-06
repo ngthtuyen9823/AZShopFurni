@@ -4,10 +4,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>About</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<title>About</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Add this line in your head tag -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/favicon.png"/>">
+	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/icon-heart-02.png"/>">
 <!--===============================================================================================-->
 <link rel="icon" type="image/png"
 	href="<c:url value="/templates/web/images/icons/favicon.png"/>">
@@ -35,6 +39,9 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/css-hamburgers/hamburgers.min.css"/>">
 <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/util.css"/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/main.css"/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/products/products.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/animsition/css/animsition.min.css"/>">
 <!--===============================================================================================-->
