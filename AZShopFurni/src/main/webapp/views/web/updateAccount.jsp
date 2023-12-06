@@ -1,45 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <title>Đổi mật khẩu</title>
-<body>
-	<form action="updateAccount" method="post">
-
-		<div class="untree_co-section">
+<form action="updateAccount" method="post" enctype="multipart/form-data">
+	<section class="bg0 p-t-52 p-b-20">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6 mb-5 mb-md-0">
-					<h2 class="h3 mb-3 text-black">Đổi mật khẩu</h2>
-					<div class="p-3 p-lg-5 border bg-white">
-					
-						<input type="hidden" name="UserID" value="${accountModel.userID}">
-						<div class="form-group row">
-							<div class="col-md-12">
-								<input type="hidden" class="form-control" id="c_username" name="UserName" value="${accountModel.userName}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-md-12">
-								<label for="c_oldpass" class="text-black">Mật khẩu cũ: <span class="text-danger">*</span></label>
-								<input type="password" class="form-control" id="c_oldpass" name="OldPassWord">
-							</div>
-						</div>
+				<div class="col-md-3 col-lg-2 p-b-80">
+					<div class="side-menu">
+						<div class="p-t-55">
+							<h4 class="mtext-112 cl2 p-b-33">TÀI KHOẢN</h4>
 
-						<div class="form-group row">
-							<div class="col-md-12">
-								<label for="c_pass" class="text-black">Mật khẩu mới: </label>
-								<input type="password" class="form-control" id="c_pass" name="Password">
-							</div>
+							<ul>
+								<li class="bor18"><a href="${pageContext.request.contextPath}/infoUser"
+									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+										Hồ sơ cá nhân </a></li>
+
+								<li class="bor18"><a href="#"
+									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+										Đơn mua </a></li>
+
+								<li class="bor18"><a href="#"
+									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+										Kho voucher </a></li>
+							</ul>
 						</div>
-						<input class="btn btn-black btn-sm" type="submit" value="Thay đổi">
 					</div>
 				</div>
-				
+				<div class="col-md-6 col-lg-7 p-b-80">
+					<div class="p-r-45 p-r-0-lg">
+						<div class="p-t-40">
+							<h5 class="mtext-113 cl2 p-b-12">thay đổi mật khẩu</h5>
+
+							<input type="hidden" name="UserID" value="${accountModel.userID}">
+							<input type="hidden" name="UserName" value="${accountModel.userName}">
+							<div class="row">
+								<div class=" m-b-30 mr-3">
+									<label> Mật khẩu cũ </label> 
+									<input class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="password"
+											name="OldPassWord" style="width: 300px;">
+								</div>
+								<div class=" m-b-30">
+									<label> Mật khẩu mới</label> 
+									<input class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="password"
+											name="Password" style="width: 300px;">
+								</div>
+								<button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"
+										type="submit">Thay đổi</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	</form>
-</body>
+	</section>
+</form>
 </html>

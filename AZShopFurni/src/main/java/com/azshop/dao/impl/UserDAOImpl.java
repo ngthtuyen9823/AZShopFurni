@@ -69,6 +69,21 @@ public class UserDAOImpl implements IUserDAO {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void updateAvatar(int userID, String avatar) {
+		String sql = "UPDATE USER SET Avatar = ? WHERE UserID = ?";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, avatar);
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Override
 	public AccountModel getInfAccount(int userID) {
