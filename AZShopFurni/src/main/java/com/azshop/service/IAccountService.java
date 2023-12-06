@@ -14,4 +14,5 @@ public interface IAccountService {
 	int getTypeAccount(String username,String password);
 	UserModel findUserByUsername(String username);
 	UserModel login(String username,String password);
+	AccountModel findByEmail(String email);
 }

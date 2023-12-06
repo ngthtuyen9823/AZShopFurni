@@ -23,6 +23,8 @@ import com.azshop.service.impl.CustomerServiceImpl;
 import other.City;
 import other.SendMail;
 
+
+
 @WebServlet(urlPatterns = { "/signup", "/verification", "/resend"})
 public class SignupController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,17 +40,16 @@ public class SignupController extends HttpServlet {
 			showVerificationPage(req, resp);
 		else if (url.contains("resend")) {
 			sendVerificationEmail(req);
-			showVerificationPage(req, resp);
-		}
+			showVerificationPage(req, resp);}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI().toString();
 		if (url.contains("signup"))
-			insertAcc(req, resp);
+			checkInfoSignup(req, resp);
 		else if (url.contains("verification"))
-			verificationEmail(req, resp);
+			insertCus(req, resp);
 	}
 
 	private void showPageSignup(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,12 +61,16 @@ public class SignupController extends HttpServlet {
 
 	private void showVerificationPage(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		RequestDispatcher rd = req.getRequestDispatcher("/views/web/verification.jsp");
-		rd.forward(req, resp);
+		HttpSession session = req.getSession();
+		if (session != null && session.getAttribute("verification") != null) {
+			RequestDispatcher rd = req.getRequestDispatcher("/views/web/verification.jsp");
+			rd.forward(req, resp);
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
+		}
 	}
-	
 
-	private void insertAcc(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void checkInfoSignup(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		try {
@@ -117,9 +122,9 @@ public class SignupController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}	
-
-	private void verificationEmail(HttpServletRequest req, HttpServletResponse resp)
+	}
+	
+	private void insertCus(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String verification = (String) session.getAttribute("verification");
@@ -136,16 +141,14 @@ public class SignupController extends HttpServlet {
 			showVerificationPage(req, resp);
 		}
 	}
-	
 
 	private void sendVerificationEmail(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		UserModel user = (UserModel) session.getAttribute("newuser");
 		Random rnd = new Random();
 		String verification = String.valueOf(rnd.nextInt(100000, 999999));
-		SendMail.sendMail(user.getEmail(), verification);
+		SendMail.sendMail(user.getEmail(), "Mã xác nhận: "+ verification);
 		session.setAttribute("verification", verification);
 	}
+	
 }
-
-

@@ -51,8 +51,8 @@ public class LoginController extends HttpServlet {
 		Cookie[] cookies = req.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("username")) {
-					UserModel user = accService.findUserByUsername(cookie.getValue());
+				if (cookie.getName().equals("userID")) {
+					UserModel user = cusService.getOneCustomer(Integer.parseInt(cookie.getValue()));
 					session = req.getSession(true);
 					session.setAttribute("user",user);
 					resp.sendRedirect(req.getContextPath() + "/waiting");
@@ -71,6 +71,7 @@ public class LoginController extends HttpServlet {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 
+
 		UserModel user = accService.login(username, password);
 		if (user == null) {
 			req.setAttribute("mess", "Tài khoản hoặc mật khẩu chưa đúng");
@@ -79,9 +80,9 @@ public class LoginController extends HttpServlet {
 		} else {
 			HttpSession session = req.getSession(true);
 			session.setAttribute("user", user);
-//			if (isRememberMe) {
-//				saveRemeberMe(resp, email);
-//			}
+			if ("on".equals(req.getParameter("remember"))) {
+				saveRemeberMe(resp, user.getUserID());
+			}
 			resp.sendRedirect(req.getContextPath() + "/waiting");
 		}
 	}
@@ -100,8 +101,6 @@ public class LoginController extends HttpServlet {
 				url = "/testshipper";
 			else if (user.getType() == 3)
 				url = "/testadmin";
-
-			System.out.println(url);
 			resp.sendRedirect(req.getContextPath() + url);
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/login");
@@ -114,7 +113,7 @@ public class LoginController extends HttpServlet {
 		Cookie[] cookies = req.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("username")) {
+				if (cookie.getName().equals("userID")) {
 					cookie.setMaxAge(0); 
 					resp.addCookie(cookie);
 					break;
@@ -122,6 +121,13 @@ public class LoginController extends HttpServlet {
 			}
 		}
 		resp.sendRedirect(req.getContextPath() + "/login");
+	}
+	
+	private void saveRemeberMe(HttpServletResponse resp, int userID) {
+		Cookie cookie = new Cookie("userID",String.valueOf(userID));
+		cookie.setMaxAge(30 * 62);
+		resp.addCookie(cookie);
+
 	}
 }
 

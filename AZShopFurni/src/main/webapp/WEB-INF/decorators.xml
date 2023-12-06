@@ -14,5 +14,10 @@
 	</decorator>
 	<excludes>
 		<pattern>/api*</pattern>
+		<pattern>/login*</pattern>
+		<pattern>/signup*</pattern>
+		<pattern>/verification*</pattern>
+		<pattern>/forgetpass*</pattern>
+		<pattern>/changepass*</pattern>
 	</excludes>
 </decorators>

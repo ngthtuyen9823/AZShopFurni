@@ -13,4 +13,5 @@ public interface IAccountDAO {
 	int getTypeAccount(int id);
 	AccountModel findByUsernameAndPass(String username,String password);
 	AccountModel findByUsername(String username);
+	AccountModel findByEmail(String email);
 }

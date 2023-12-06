@@ -180,5 +180,29 @@ public class AccountDAOImpl implements IAccountDAO{
 		}		
 		return account;
 	}
+	
+	@Override
+	public AccountModel findByEmail(String email) {
+		String sql = "SELECT ACCOUNT.* FROM ACCOUNT JOIN USER ON ACCOUNT.UserID = USER.UserID WHERE Email=?";
+		AccountModel account = new AccountModel();
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			ResultSet rs= ps.executeQuery();
+			while(rs.next())
+			{				
+				account.setUserID(rs.getInt(1));
+				account.setUserName(rs.getString(2));
+				account.setPassword(rs.getString(3));
+			}
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return account;
+	}
+	
 
 }

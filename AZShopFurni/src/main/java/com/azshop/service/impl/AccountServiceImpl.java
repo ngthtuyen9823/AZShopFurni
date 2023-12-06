@@ -26,7 +26,6 @@ public class AccountServiceImpl implements IAccountService {
 	@Override
 	public boolean insertAccount(AccountModel account) {
 		return accountDao.insertAccount(account);
-		
 	}
 
 	@Override
@@ -57,12 +56,19 @@ public class AccountServiceImpl implements IAccountService {
 	}
 
 	@Override
-	public UserModel login(String username,String password) {
+	public UserModel login(String username, String password) {
 		AccountModel acc =  accountDao.findByUsername(username);
-		if(acc != null && password.equals(acc.getPassword())) {
+		if(acc.getUserID() == 0 )
+			acc = accountDao.findByEmail(username);
+		if(acc.getUserID() != 0 && password.equals(acc.getPassword())) {
 			return cusDAO.getOneCustomer(acc.getUserID());
 		}
 		return null;
+	}
+	
+	@Override
+	public AccountModel findByEmail(String email) {
+		return accountDao.findByEmail(email);
 	}
 	
 	

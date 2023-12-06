@@ -12,13 +12,12 @@ import javax.mail.internet.MimeMessage;
 
 public class SendMail {
 	public static String
-    sendMail(String to, String verification)
+    sendMail(String to, String body)
     {
 		String id = "AZShop";
 		String from = "azshopfur@gmail.com";
 		String password = "oztq dshn ewhd magh";
 		String subject = "Verification Email";
-		String body = "Mã xác nhận: "+ verification;
         String status = null;
         try {
             Properties pros = new Properties();

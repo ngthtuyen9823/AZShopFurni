@@ -45,14 +45,15 @@ public class CustomerServiceImpl implements ICustomerService {
 	public boolean deleteCustomer(UserModel customerMd) {
 		return customerDao.deleteCustomer(customerMd);
 	}
-	
+
 	@Override
 	public int createCustomerID() {
-		 List<UserModel> listCustomer = customerDao.getAllCustomer();
-		    int id = listCustomer.get(listCustomer.size() - 1).getUserID();System.out.println(id+1);
-		    return id+1;
+		List<UserModel> listCustomer = customerDao.getAllCustomer();
+		int id = listCustomer.get(listCustomer.size() - 1).getUserID();
+		System.out.println(id + 1);
+		return id + 1;
 	}
-	
+
 	public void createAvatar(UserModel user) {
 		if (user.getAvatar() == null || user.getAvatar() == "") {
 			user.setAvatar("https://storage.googleapis.com/web-budget/Image/Avatar/first.png");
@@ -90,9 +91,22 @@ public class CustomerServiceImpl implements ICustomerService {
 		} catch (AddressException ex) {
 			throw new IllegalArgumentException("Email không hợp lệ");
 		}
-		if(accDAO.findByUsername(username) != null)
+		if (accDAO.findByUsername(username).getUserID() != 0)
 			throw new IllegalArgumentException("Tên đăng nhập đã tồn tại");
-		if(!pass.equals(passcheck))
+		if (accDAO.findByEmail(email).getUserID() != 0)
+			throw new IllegalArgumentException("Email đã tồn tại");
+		if (!pass.equals(passcheck))
 			throw new IllegalArgumentException("Mật khẩu không trùng khớp");
+	}
+
+	public void checkValidEmail(String email) {
+		try {
+			InternetAddress emailAddr = new InternetAddress(email);
+			emailAddr.validate();
+		} catch (AddressException ex) {
+			throw new IllegalArgumentException("Email không hợp lệ");
+		}
+		if (accDAO.findByEmail(email).getUserID() == 0)
+			throw new IllegalArgumentException("Email không tồn tại");
 	}
 }
