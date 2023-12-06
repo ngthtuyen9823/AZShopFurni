@@ -15,11 +15,12 @@ public class UserModel {
 	private int kpi;
 	private String area;
 	private String avatar;
+	private String email;
 	public UserModel() {
 		super();
 	}
 	public UserModel(int userID, String firstName, String lastName, String address, int gender, String phone, Date dob,
-			String cid, int type, int kpi, String area, String avatar) {
+			String cid, int type, int kpi, String area, String avatar, String email) {
 		super();
 		this.userID = userID;
 		this.firstName = firstName;
@@ -33,6 +34,7 @@ public class UserModel {
 		this.kpi = kpi;
 		this.area = area;
 		this.avatar = avatar;
+		this.email = email;
 	}
 	public int getUserID() {
 		return userID;
@@ -106,6 +108,12 @@ public class UserModel {
 	}
 	public void setCid(String cid) {
 		this.cid = cid;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }
