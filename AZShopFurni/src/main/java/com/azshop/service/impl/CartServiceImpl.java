@@ -41,4 +41,10 @@ public class CartServiceImpl implements ICartService {
 		return cartDAO.findAll();
 	}
 
+	@Override
+	public void deleteAll() {
+		cartDAO.deleteAll();
+
+	}
+
 }

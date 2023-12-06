@@ -24,6 +24,7 @@ public class CartDAOImpl implements ICartDAO {
 			ps.setInt(1, model.getCustomerID());
 			ps.setInt(2, model.getItemID());
 			ps.setInt(3, model.getQuantity());
+			System.out.print(model);
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -66,6 +67,22 @@ public class CartDAOImpl implements ICartDAO {
 	}
 
 	@Override
+	public void deleteAll() {
+		String sql = "Truncate table CART";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
 	public CartModel findOne(int customerID, int itemID) {
 		CartModel cart = new CartModel();
 		String sql = "Select * from CART where CustomerID=? and ItemID=?";
@@ -92,7 +109,9 @@ public class CartDAOImpl implements ICartDAO {
 	@Override
 	public List<CartModel> findAll() {
 		List<CartModel> listCart = new ArrayList<CartModel>();
-		String sql = "Select * from CART";
+		String sql = "Select c.*, i.Color, i.Size, i.PromotionPrice, p.ProductName, i.PromotionPrice * c.Quantity as TotalPrice\r\n"
+				+ "from CART c\r\n" + "join ITEM i\r\n" + "on c.ItemID = i.ItemID\r\n" + "join PRODUCT p\r\n"
+				+ "on i.ProductID = p.ProductID";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -103,6 +122,11 @@ public class CartDAOImpl implements ICartDAO {
 				cart.setCustomerID(rs.getInt("CustomerID"));
 				cart.setItemID(rs.getInt("ItemID"));
 				cart.setQuantity(rs.getInt("Quantity"));
+				cart.setColor(rs.getString("Color"));
+				cart.setSize(rs.getString("Size"));
+				cart.setPromotionPrice(rs.getInt("PromotionPrice"));
+				cart.setProductName(rs.getString("ProductName"));
+				cart.setTotalPrice(rs.getInt("TotalPrice"));
 				listCart.add(cart);
 			}
 		} catch (Exception e) {
@@ -144,7 +168,8 @@ public class CartDAOImpl implements ICartDAO {
 //		// FindAll
 		System.out.println("All Carts:");
 		for (CartModel cart : cartDAO.findAll()) {
-			System.out.println(cart.getCustomerID() + ", " + cart.getItemID() + ", " + cart.getQuantity());
+			System.out.println(cart);
 		}
 	}
+
 }

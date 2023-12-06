@@ -4,7 +4,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <body>
 	<div class="container padding-bottom-3x mb-1">
-		<!-- Shopping Cart-->
 		<div class="table-responsive shopping-cart">
 			<table class="table">
 				<thead>
@@ -14,7 +13,8 @@
 						<th class="text-center">Quantity</th>
 						<th class="text-center">Total Price</th>
 						<th class="text-center"><a
-							class="btn btn-sm btn-outline-danger" href="#">Clear Cart</a></th>
+							class="btn btn-sm btn-outline-danger"
+							href="<c:url value='/deleteCarts' />">Clear Cart</a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -23,19 +23,22 @@
 							<td>
 								<div class="product-item">
 									<a class="product-thumb" href="#"><img
-										src="https://www.bootdey.com/image/220x180/FF0000/000000"
+										style="width: 150px; height: 130px;"
+										src="https://product.hstatic.net/1000280685/product/4_68dd09ad56b040459871934cb27213b9_master.jpg"
 										alt="Product"></a>
 									<div class="product-info">
 										<h4 class="product-title">
-											<a href="#">Unionbay Park</a>
+											<a href="#">${i.productName}</a>
 										</h4>
-										<span><em>Size:</em> 10.5</span><span><em>Color:</em>
-											Dark Blue</span>
+										<span><em>Size:</em>${i.size}</span><span><em>Color:</em>${i.color}</span>
 									</div>
 								</div>
 							</td>
 
-							<td class="text-center text-lg text-medium">$43.90</td>
+							<td class="text-center text-lg text-medium"><fmt:formatNumber
+									type="currency" value="${i.promotionPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
+							</td>
 							<td class="text-center">
 								<div class="input-group" style="justify-content: center;">
 									<button class="px-3" type="button" id="button-addon1"
@@ -52,8 +55,12 @@
 									</button>
 								</div>
 							</td>
-							<td class="text-center text-lg text-medium">$18.00</td>
-							<td class="text-center"><a class="remove-from-cart" href="#"
+							<td class="text-center text-lg text-medium"><fmt:formatNumber
+									type="currency" value="${i.totalPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
+							</td>
+							<td class="text-center"><a class="remove-from-cart"
+								href="<c:url value='/deleteCart?customerID=${i.customerID}&itemID=${i.itemID}' />"
 								data-toggle="tooltip" title="" data-original-title="Remove item"><i
 									class="fa fa-trash"></i></a></td>
 						</tr>

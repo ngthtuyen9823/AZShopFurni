@@ -11,6 +11,8 @@ public interface ICartDAO {
 
 	void delete(int customerID, int itemID);
 
+	void deleteAll();
+
 	CartModel findOne(int customerID, int itemID);
 
 	List<CartModel> findAll();

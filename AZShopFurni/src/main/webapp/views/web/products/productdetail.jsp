@@ -129,16 +129,21 @@
 							</dd>
 							<dd class="col-5">
 								<form id="addToCartForm" action="#" method="post">
-									<input type="hidden" name="itemID" id="selectedItemID" value="">
-									<input type="hidden" name="quantity" id="selectedQuantity"
-										value="1">
+									<div>
+										<input type="hidden" name="itemID" id="selectedItemID"
+											value=""> <input type="hidden" name="quantity"
+											id="selectedQuantity" value="1">
+									</div>
 									<div class="text-center">
 										<input onclick="addToCart()"
-											style="width: 100%; padding: 1rem;"
-											class="btn btn-primary shadow-0" value="Add to cart" />
+											style="width: 100%; padding: 1rem; background-color: #007bff; color: #fff; cursor: pointer;"
+											class="btn btn-primary shadow-0" value="Add to cart" readonly
+											onmouseover="this.style.cursor='pointer';"
+											onmouseout="this.style.cursor='default';" />
 									</div>
 								</form>
 							</dd>
+
 						</div>
 
 

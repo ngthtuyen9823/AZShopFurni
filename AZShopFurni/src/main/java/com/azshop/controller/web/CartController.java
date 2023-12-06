@@ -15,7 +15,7 @@ import com.azshop.models.CartModel;
 import com.azshop.service.ICartService;
 import com.azshop.service.impl.CartServiceImpl;
 
-@WebServlet({ "/carts", "/addToCart" })
+@WebServlet({ "/carts", "/addToCart", "/deleteCart", "/deleteCarts" })
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ICartService cartService = new CartServiceImpl();
@@ -30,17 +30,37 @@ public class CartController extends HttpServlet {
 		String url = req.getRequestURI().toString();
 
 		if (url.contains("carts")) {
-
-			List<CartModel> listCart = cartService.findAll();
-
-			req.setAttribute("carts", listCart);
-
-			rd = req.getRequestDispatcher("/views/web/carts/carts.jsp");
+			getAllCart(req, resp);
+		} else if (url.contains("deleteCarts")) {
+			deleteCarts(req, resp);
+		} else if (url.contains("deleteCart")) {
+			deleteCart(req, resp);
 		}
+	}
 
+	private void deleteCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		int customerID = Integer.parseInt(req.getParameter("customerID"));
+		int itemID = Integer.parseInt(req.getParameter("itemID"));
+
+		cartService.delete(customerID, itemID);
+		resp.sendRedirect("carts");
+	}
+
+	private void deleteCarts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		cartService.deleteAll();
+		resp.sendRedirect("carts");
+	}
+
+	private void getAllCart(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		List<CartModel> listCart = cartService.findAll();
+
+		req.setAttribute("carts", listCart);
+
+		rd = req.getRequestDispatcher("/views/web/carts/carts.jsp");
 		rd.forward(req, resp);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CartModel cart = new CartModel();
@@ -54,10 +74,10 @@ public class CartController extends HttpServlet {
 		cart.setItemID(itemID);
 
 		oldCart = cartService.findOne(customerID, itemID);
-		
-		if (oldCart != null) {
+
+		if (oldCart.getQuantity() != 0) {
 			cart.setQuantity(quantity + oldCart.getQuantity());
-			System.out.println(cart);
+			System.out.println("oldcart" + oldCart);
 			cartService.update(cart);
 		} else {
 			cart.setQuantity(quantity);

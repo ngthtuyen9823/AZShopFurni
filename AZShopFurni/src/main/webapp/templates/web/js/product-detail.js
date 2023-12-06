@@ -13,7 +13,7 @@ console.log('Quantity updated:', quantity);
 function updateQuantity(change) {
 	quantity += change;
 	// Ensure the quantity doesn't go below 0
-	quantity = Math.max(0, quantity);
+	quantity = Math.max(1, quantity);
 	// Update the input value
 	document.getElementById('quantityInput').value = quantity;
 
@@ -35,6 +35,7 @@ $(document).ready(function() {
 		console.log('Selected item ID:', document.getElementById('selectedItemID').value);
 	});
 });
+
 
 function addToCart() {
 	var selectedItemID = $("#selectedItemID").val();
