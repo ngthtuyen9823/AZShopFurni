@@ -35,14 +35,15 @@ public class OrderController extends HttpServlet{
 		String url = req.getRequestURI().toString();
 		if (url.contains("customerConfirm")) {
 			String act = req.getParameter("action");
+			String conf = req.getParameter("confirm");
 			int orderID = Integer.parseInt(req.getParameter("orderID"));
 			if ("cancelOrder".equals(act)) {
                 orderService.updateOrder(orderID, 5);
                 listOrder(req, resp);
             } else if ("confirmOrder".equals(act)) {
-            	orderService.updateOrder(orderID, 4);
+            	orderService.confirmOrder(orderID, 1);
             	listOrder(req, resp);
-            } else if ("rateOrder".equals(act)) {
+            } else if ("rateOrder".equals(conf)) {
             	//adasd
             }
 		}

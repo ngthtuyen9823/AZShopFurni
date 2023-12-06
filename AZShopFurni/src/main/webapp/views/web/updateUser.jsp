@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<!DOCTYPE html>
-<html>
 <title>Chỉnh sửa thông tin</title>
 <form action="updateUser" method="post" enctype="multipart/form-data">
 	<section class="bg0 p-t-52 p-b-20">
@@ -12,9 +10,9 @@
 					<div class="side-menu">
 						<div class="p-t-55">
 							<h4 class="mtext-112 cl2 p-b-33">TÀI KHOẢN</h4>
-
 							<ul>
-								<li class="bor18"><a href="${pageContext.request.contextPath}/infoUser"
+								<li class="bor18"><a
+									href="${pageContext.request.contextPath}/infoUser"
 									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
 										Hồ sơ cá nhân </a></li>
 
@@ -54,7 +52,7 @@
 										name="Address" value="${userModel.address}"
 										style="width: 300px;">
 								</div>
-								<div class="mr-3 m-b-30">
+								<div class=" m-b-30">
 									<label> Căn cước công dân</label> <input
 										class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="text"
 										name="Cid" value="${userModel.cid}" style="width: 300px;">
@@ -75,7 +73,7 @@
 										<div class="dropDownSelect2"></div>
 									</div>
 								</div>
-								<div class="mr-3 m-b-20">
+								<div class="m-b-30">
 									<label> Ngày sinh</label> <input
 										class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="date"
 										name="Dob" value="${userModel.dob}" style="width: 180px;">
@@ -86,35 +84,34 @@
 									<input type="hidden" name="KPI" value="${userModel.kpi}">
 									<input type="hidden" name="Area" value="${userModel.area}">
 								</div>
+								<div>
+									<button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"
+										type="submit">Chỉnh sửa</button>
+								</div>
 							</div>
-							<button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"
-									type="submit">Chỉnh sửa</button>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4 col-lg-3 p-b-80">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
 						<div class="wrap-slick3 flex-sb flex-w">
-							<div class="wrap-slick3-dots"></div>
-							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 							<div class="slick3 gallery-lb">
-								<div class="item-slick3" data-thumb="${userModel.avatar}">
-									<div class="wrap-pic-w pos-relative">
-										<img src="${userModel.avatar}" alt="IMG-AVT" style="width: 100%; height: auto;"> 
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-											href="${userModel.avatar}"> <i class="fa fa-expand"></i>
-										</a>
-									</div>
+								<div>
+									<img src="${userModel.avatar}" alt="IMG-AVT"
+										style="width: 100%; height: auto;"> <a
+										class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+										href="${userModel.avatar}"> <i class="fa fa-expand"></i>
+									</a>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div>
-						<input type="hidden" name="image" id="image" value="${userModel.avatar}">
+						<input type="hidden" name="image" id="image"
+							value="${userModel.avatar}">
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 </form>
-</html>

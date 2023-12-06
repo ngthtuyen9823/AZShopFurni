@@ -123,7 +123,7 @@ a {
 													</c:when>
 													<c:when test="${i.status == 3}">
 														<p class="mb-0 mt-1">
-															<span class="fw-medium"> Đơn hàng đang được giao đến bạn</span>
+															<span class="fw-medium" style="color: green;"> Đơn hàng đang được giao đến bạn</span>
 														</p>
 													</c:when>
 													<c:when test="${i.status == 4}">
@@ -159,7 +159,7 @@ a {
 									                Xác nhận
 									            </button>
 									        </c:when>
-									        <c:when test="${i.status == 4 }">
+									         <c:when test="${i.status == 4 }">
 									            <input type="hidden" name="action" value="rateOrder">
 									            <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
 									                Đánh giá

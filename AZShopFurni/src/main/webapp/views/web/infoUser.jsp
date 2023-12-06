@@ -10,10 +10,12 @@
 					<div class="p-t-55">
 						<h4 class="mtext-112 cl2 p-b-33">TÀI KHOẢN</h4>
 						<ul>
-							<li class="bor18"><a 	href="${pageContext.request.contextPath}/infoUser"
+							<li class="bor18"><a
+								href="${pageContext.request.contextPath}/infoUser"
 								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
 									Hồ sơ cá nhân </a></li>
-							<li class="bor18"><a href="${pageContext.request.contextPath}/listOrder"
+							<li class="bor18"><a
+								href="${pageContext.request.contextPath}/listOrder"
 								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
 									Đơn mua </a></li>
 							<li class="bor18"><a href="#"
@@ -76,15 +78,14 @@
 					<h4 class="mtext-105 cl2 js-name-detail p-b-14"></h4>
 
 					<div class="flex-w flex-m m-r-20 m-tb-5">
-						<div
-							class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-							<a href="updateUser?userID=${userModel.userID}">Chỉnh sửa
-								thông tin</a>
-						</div>
+						<a href="updateUser?userID=${userModel.userID}"
+							class="flex-c-m stext-110 cl10 size-301 bor7 p-lr-30 hov-tag1 trans-04 m-r-5 m-b-5">
+							CHỈNH SỬA THÔNG TIN </a>
+
 					</div>
 
-					<a href="updateAccount?userID=${userModel.userID}" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10"> 
-							Đổi mật khẩu </a>
+					<a href="updateAccount?userID=${userModel.userID}"
+						class="stext-101 cl2 hov-cl1 trans-04 m-tb-10"> Đổi mật khẩu </a>
 				</div>
 				<div class="flex-w w-full p-b-42">
 					<c:choose>
@@ -111,12 +112,10 @@
 			</div>
 			<div class="col-md-5 col-lg-4 p-b-80">
 
-				<form action="updateAvatar" method="post" enctype="multipart/form-data">
+				<form action="updateAvatar" method="post"
+					enctype="multipart/form-data">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
 						<div class="wrap-slick3 flex-sb flex-w">
-							<div class="wrap-slick3-dots"></div>
-							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
 							<div class="slick3 gallery-lb">
 								<div class="item-slick3" data-thumb="${userModel.avatar}">
 									<div class="wrap-pic-w pos-relative">
@@ -131,21 +130,27 @@
 						</div>
 
 						<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-							<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search" 
+							<div
+								class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search"
 								style="padding: 10px 20px;">
-								<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+								<i
+									class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
 								Thay đổi avatar
 							</div>
 						</div>
 						<!-- Search product -->
 						<div class="dis-none panel-search w-full p-t-10 p-b-15">
-						    <div class="dis-none panel-search w-full p-t-10 p-b-15">
-							    <input type="file" name="image" id="image" class="file-input" style="display: none;" onchange="displayFileName()">
-							    <label for="image" class="file-label flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">Chọn file</label>
-							    <span id="selectedFileName" class="selected-file-name">${fileName}</span>
-							    <input type="hidden" name="UserID" value="${userModel.userID}">
+							<div class="dis-none panel-search w-full p-t-10 p-b-15">
+								<input type="file" name="image" id="image" class="file-input"
+									style="display: none;" onchange="displayFileName()"> <label
+									for="image"
+									class="file-label flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">Chọn
+									file</label> <span id="selectedFileName" class="selected-file-name">${fileName}</span>
+								<input type="hidden" name="UserID" value="${userModel.userID}">
 							</div>
-						    <button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04" type="submit">Chỉnh sửa</button>
+							<button
+								class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"
+								type="submit">Chỉnh sửa</button>
 						</div>
 					</div>
 				</form>
@@ -154,19 +159,19 @@
 	</div>
 </section>
 <script type="text/javascript">
-        function displayFileName() {
-            const fileInput = document.getElementById('image');
-            const selectedFileName = document.getElementById('selectedFileName');
-            const fileLabel = document.querySelector('.file-label');
+	function displayFileName() {
+		const fileInput = document.getElementById('image');
+		const selectedFileName = document.getElementById('selectedFileName');
+		const fileLabel = document.querySelector('.file-label');
 
-            if (fileInput.files.length > 0) {
-                const fileName = fileInput.files[0].name;
-                selectedFileName.textContent = `File đã chọn: ${fileName}`;
-                selectedFileName.style.display = 'block';
-                fileLabel.style.backgroundColor = '#4CAF50'; // Màu nền khi đã chọn file
-            } else {
-                selectedFileName.style.display = 'none';
-                fileLabel.style.backgroundColor = '#3498db'; // Màu nền mặc định
-            }
-        }
-    </script>
+		if (fileInput.files.length > 0) {
+			const fileName = fileInput.files[0].name;
+			selectedFileName.textContent = `File đã chọn: ${fileName}`;
+			selectedFileName.style.display = 'block';
+			fileLabel.style.backgroundColor = '#4CAF50'; // Màu nền khi đã chọn file
+		} else {
+			selectedFileName.style.display = 'none';
+			fileLabel.style.backgroundColor = '#3498db'; // Màu nền mặc định
+		}
+	}
+</script>

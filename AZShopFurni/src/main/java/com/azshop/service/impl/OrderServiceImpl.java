@@ -18,4 +18,8 @@ public class OrderServiceImpl implements IOrderService{
 	public void updateOrder(int orderID, int status) {
 		orderDAO.updateOrder(orderID, status);
 	}
+	@Override
+	public void confirmOrder(int orderID, int confirm) {
+		orderDAO.confirmOrder(orderID, confirm);
+	}
 }

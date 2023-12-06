@@ -71,4 +71,20 @@ public class OrderDAOImpl implements IOrderDAO {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void confirmOrder(int orderID, int confirm) {
+		String sql = "UPDATE `ORDER` SET CustomerConfirmation = ? WHERE OrderID = ?";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, confirm);
+			ps.setInt(2, orderID);
+			ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
