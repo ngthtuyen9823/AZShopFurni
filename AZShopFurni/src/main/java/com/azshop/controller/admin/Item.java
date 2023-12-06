@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.azshop.models.ItemModel;
 import com.azshop.service.IItemService;
-import com.azshop.service.impl.IItemServiceImpl;
+import com.azshop.service.impl.ItemServiceImpl;
 
 @WebServlet(urlPatterns = { "/adminItem", "/insertItem", "/deleteItem", "/updateItem", "/viewItem" })
 public class Item extends HttpServlet {
 
-	IItemService item = new IItemServiceImpl();
+	IItemService item = new ItemServiceImpl();
 	
 	private static final long serialVersionUID = 1L;
 

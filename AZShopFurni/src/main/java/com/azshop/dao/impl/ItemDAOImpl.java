@@ -8,13 +8,11 @@ import java.util.List;
 
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.IItemDAO;
-import com.azshop.dao.IProductDAO;
 import com.azshop.models.ItemModel;
-import com.azshop.models.ProductModel;
 
-public class ItemDAOImpl implements IItemDAO{
-	IProductDAO productDAO = new ProductDAOImpl();
+public class ItemDAOImpl implements IItemDAO {
 	Connection conn = null;
+
 	@Override
 	public List<ItemModel> findAll() {
 		String sql = "Select * from ITEM";
@@ -59,11 +57,10 @@ public class ItemDAOImpl implements IItemDAO{
 			ps.setInt(1, productID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				ProductModel productModel = productDAO.findOne(rs.getInt("ProductID"));
 				ItemModel model = new ItemModel();
 
-				model.setItemID(rs.getInt("ItemID"));;
-				model.setProductID(productModel.getProductID());
+				model.setItemID(rs.getInt("ItemID"));
+				model.setProductID(rs.getInt("ProductID"));
 				model.setColor(rs.getString("Color"));
 				model.setColorCode(rs.getString("ColorCode"));
 				model.setSize(rs.getString("Size"));
@@ -98,7 +95,7 @@ public class ItemDAOImpl implements IItemDAO{
 				model.setColorCode(rs.getString("ColorCode"));
 				model.setSize(rs.getString("Size"));
 				model.setStock(rs.getInt("Stock"));
-				model.setOriginalPrice(rs.getInt("OriginalPrice"));
+model.setOriginalPrice(rs.getInt("OriginalPrice"));
 				model.setPromotionPrice(rs.getInt("PromotionPrice"));
 			}
 			conn.close();
@@ -148,7 +145,7 @@ public class ItemDAOImpl implements IItemDAO{
 			ps.setString(4, model.getColorCode());
 			ps.setString(5, model.getSize());
 			ps.setInt(6, model.getStock());
-			ps.setInt(7,model.getOriginalPrice());
+			ps.setInt(7, model.getOriginalPrice());
 			ps.setInt(8, model.getPromotionPrice());
 			ps.executeUpdate();
 			conn.close();
@@ -174,10 +171,8 @@ public class ItemDAOImpl implements IItemDAO{
 
 	@Override
 	public void updateItem(ItemModel model) {
-		String sql = "Update ITEM "
-				+ "Set ProductID = ?, Color = ?, ColorCode = ?,"
-				+ " Size = ?, Stock = ?, OriginalPrice = ?, PromotionPrice = ?"
-				+ "where ItemID = ?";
+		String sql = "Update ITEM " + "Set ProductID = ?, Color = ?, ColorCode = ?,"
+				+ " Size = ?, Stock = ?, OriginalPrice = ?, PromotionPrice = ?" + "where ItemID = ?";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -187,7 +182,7 @@ public class ItemDAOImpl implements IItemDAO{
 			ps.setString(3, model.getColorCode());
 			ps.setString(4, model.getSize());
 			ps.setInt(5, model.getStock());
-			ps.setInt(6,model.getOriginalPrice());
+			ps.setInt(6, model.getOriginalPrice());
 			ps.setInt(7, model.getPromotionPrice());
 			ps.setInt(8, model.getItemID());
 			ps.executeUpdate();
