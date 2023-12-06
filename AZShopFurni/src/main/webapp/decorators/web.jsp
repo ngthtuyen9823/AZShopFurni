@@ -8,18 +8,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Add this line in your head tag -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/favicon.png"/>">
-	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/icon-heart-02.png"/>">
-<!--===============================================================================================-->
-<link rel="icon" type="image/png"
-	href="<c:url value="/templates/web/images/icons/favicon.png"/>">
-<link rel="icon" type="image/png"
-	href="<c:url value="/templates/web/images/icons/icon-heart-02.png"/>">
-<!--===============================================================================================-->
-<link rel="icon" type="image/png"
-	href="<c:url value="/templates/web/images/icons/favicon.png"/>">
+<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/favicon.png"/>">
+<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/icon-heart-02.png"/>">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/bootstrap/css/bootstrap.min.css"/>">
@@ -46,45 +36,7 @@
 	href="<c:url value="/templates/web/vendor/animsition/css/animsition.min.css"/>">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/css/util.css"/>">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/css/main.css"/>">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/css/products/products.css"/>">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/perfect-scrollbar/perfect-scrollbar.css"/>">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/css/util.css"/>">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/css/main.css"/>">
-<!--===============================================================================================-->
-
-<!--===============================================================================================-->
-<link rel="icon" type="image/png"
-	href="<c:url value="/templates/web/images/icons/favicon.png"/>">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/vendor/bootstrap/css/bootstrap.min.css"/>">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/fonts/iconic/css/material-design-iconic-font.min.css"/>">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/fonts/linearicons-v1.0.0/icon-font.min.css"/>">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/vendor/animate/animate.css"/>">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/vendor/css-hamburgers/hamburgers.min.css"/>">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/vendor/animsition/css/animsition.min.css"/>">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/select2/select2.min.css"/>">
@@ -98,12 +50,6 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/MagnificPopup/magnific-popup.css"/>">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/templates/web/vendor/perfect-scrollbar/perfect-scrollbar.css"/>">
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<!--===============================================================================================-->
 
 <link href='<c:url value="/templates/web/css/products/tiny-slider.css"/>'
 	rel="stylesheet" />
@@ -114,45 +60,25 @@
 	rel="stylesheet" />
 	
 <link href='<c:url value="/templates/web/css/carts/carts.css"/>'
-	rel="stylesheet" />
-
+	rel="stylesheet" /> 
 </head>
 <body>
 	<%@ include file="/common/web/header.jsp"%>
 	<decorator:body></decorator:body>
 	<%@ include file="/common/web/footer.jsp"%>
-
-	<!--===============================================================================================-->
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<!-- Include SweetAlert library from CDN -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-
 	<script
 		src="<c:url value="/templates/web/vendor/jquery/jquery-3.2.1.min.js"/>"></script>
-	<!--===============================================================================================-->
 	<script
 		src="<c:url value="/templates/web/vendor/animsition/js/animsition.min.js"/>"></script>
-	<!--===============================================================================================-->
 	<script
 		src="<c:url value="/templates/web/vendor/bootstrap/js/popper.js"/>"></script>
 	<script
 		src="<c:url value="/templates/web/vendor/bootstrap/js/bootstrap.min.js"/>"></script>
-	<!--===============================================================================================-->
-	<script
-		src="<c:url value="/templates/web/vendor/select2/select2.min.js"/>"></script>
-	<script>
-		$(".js-select2").each(function() {
-			$(this).select2({
-				minimumResultsForSearch : 20,
-				dropdownParent : $(this).next(".dropDownSelect2")
-			});
-		})
-	</script>
-	<!--===============================================================================================-->
 	<script
 		src="<c:url value="/templates/web/vendor/MagnificPopup/jquery.magnific-popup.min.js"/>"></script>
-	<!--===============================================================================================-->
 	<script
 		src="<c:url value="/templates/web/vendor/perfect-scrollbar/perfect-scrollbar.min.js"/>"></script>
 	<script>
@@ -177,17 +103,6 @@
 
 	<!--===============================================================================================-->
 	<script
-		src="<c:url value="/templates/web/vendor/jquery/jquery-3.2.1.min.js"/>"></script>
-	<!--===============================================================================================-->
-	<script
-		src="<c:url value="/templates/web/vendor/animsition/js/animsition.min.js"/>"></script>
-	<!--===============================================================================================-->
-	<script
-		src="<c:url value="/templates/web/vendor/bootstrap/js/popper.js"/>"></script>
-	<script
-		src="<c:url value="/templates/web/vendor/bootstrap/js/bootstrap.min.js"/>"></script>
-	<!--===============================================================================================-->
-	<script
 		src="<c:url value="/templates/web/vendor/select2/select2.min.js"/>"></script>
 	<script>
 		$(".js-select2").each(function() {
@@ -209,21 +124,6 @@
 	<script src="<c:url value="vendor/parallax100/parallax100.js"/>"></script>
 	<script>
 		$('.parallax100').parallax100();
-	</script>
-	<!--===============================================================================================-->
-	<script
-		src="<c:url value="/templates/web/vendor/MagnificPopup/jquery.magnific-popup.min.js"/>"></script>
-	<script>
-		$('.gallery-lb').each(function() { // the containers for all your galleries
-			$(this).magnificPopup({
-				delegate : 'a', // the selector for gallery item
-				type : 'image',
-				gallery : {
-					enabled : true
-				},
-				mainClass : 'mfp-fade'
-			});
-		});
 	</script>
 	<!--===============================================================================================-->
 	<script
@@ -271,24 +171,6 @@
 						swal(nameProduct, "is added to cart !", "success");
 					});
 				});
-	</script>
-	<!--===============================================================================================-->
-	<script
-		src="<c:url value="/templates/web/vendor/perfect-scrollbar/perfect-scrollbar.min.js"/>"></script>
-	<script>
-		$('.js-pscroll').each(function() {
-			$(this).css('position', 'relative');
-			$(this).css('overflow', 'hidden');
-			var ps = new PerfectScrollbar(this, {
-				wheelSpeed : 1,
-				scrollingThreshold : 1000,
-				wheelPropagation : false,
-			});
-
-			$(window).on('resize', function() {
-				ps.update();
-			})
-		});
 	</script>
 
 </body>
