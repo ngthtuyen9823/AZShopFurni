@@ -10,8 +10,6 @@ public class ProductModel {
 	private int supplierID;
 	private int categoryID;
 	private String material;
-	private List<ItemModel> listItem;
-    private List<ItemImageModel> listItemImage;
 	
 
 	private float avgRating;

@@ -206,8 +206,6 @@ public class ItemDAOImpl implements IItemDAO {
 
 	}
 
-}
-
 	@Override
 	public int findDisplayedPromotionPrice(int productID) {
 		String sql = "Select min(PromotionPrice) from ITEM where ProductID=?";
@@ -254,3 +252,4 @@ public class ItemDAOImpl implements IItemDAO {
 		}
 		return displayedOriginalPrice;
 	}
+}

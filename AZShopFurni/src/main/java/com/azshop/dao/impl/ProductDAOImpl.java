@@ -355,7 +355,7 @@ public class ProductDAOImpl implements IProductDAO {
 		}
 		return listPro;
 	}
-}
+
 
 	@Override
 	public ProductModel findOne(int id) {
@@ -399,3 +399,4 @@ public class ProductDAOImpl implements IProductDAO {
 
 		return model;
 	}
+}

@@ -17,15 +17,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.azshop.models.CartModel;
 import com.azshop.models.CategoryModel;
 import com.azshop.models.ProductModel;
 import com.azshop.models.SearchHistoryModel;
 import com.azshop.models.SupplierModel;
 import com.azshop.models.UserModel;
+import com.azshop.service.ICartService;
 import com.azshop.service.ICategoryService;
 import com.azshop.service.IProductService;
 import com.azshop.service.ISearchHistoryService;
 import com.azshop.service.ISupplierService;
+import com.azshop.service.impl.CartServiceImpl;
 import com.azshop.service.impl.CategoryServiceImpl;
 import com.azshop.service.impl.ProductServiceImpl;
 import com.azshop.service.impl.SearchHistoryServiceImpl;
@@ -40,6 +43,7 @@ public class ProductController extends HttpServlet {
 	ICategoryService categoryService = new CategoryServiceImpl();
 	ISupplierService supplierService = new SupplierServiceImpl();
 	ISearchHistoryService searchHistoryService=new SearchHistoryServiceImpl();
+	ICartService cartService =new CartServiceImpl();
 	RequestDispatcher rd = null;
 
 	@Override
@@ -182,7 +186,7 @@ public class ProductController extends HttpServlet {
 		}
 		return listProduct;
 	}
-    }
+    
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
