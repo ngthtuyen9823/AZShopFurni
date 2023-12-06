@@ -143,32 +143,6 @@ public class ProductDAOImpl implements IProductDAO {
 		return list;
 	}
 
-	@Override
-	public ProductModel findOne(int id) {
-		ProductModel model = new ProductModel();
-		String sql = "Select * from PRODUCT where ProductID=?";
-		try {
-			new DBConnection();
-			conn = DBConnection.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				model.setProductID(rs.getInt("ProductID"));
-				model.setProductName(rs.getString("ProductName"));
-				model.setDescription(rs.getString("Description"));
-				model.setOrigin(rs.getString("Origin"));
-				model.setSupplierID(rs.getInt("SupplierID"));
-				model.setCategoryID(rs.getInt("CategoryID"));
-				model.setMaterial(rs.getString("Material"));
-			}
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return model;
-	}
-
 	public static void main(String[] args) {
 		IProductDAO productDAO = new ProductDAOImpl();
 
@@ -254,6 +228,12 @@ public class ProductDAOImpl implements IProductDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				ProductModel model = new ProductModel();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	public List<ProductModel> searchProductByName(String key) {
 		List<ProductModel> listPro=new ArrayList<ProductModel>();
