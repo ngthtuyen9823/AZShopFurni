@@ -15,7 +15,7 @@ import com.azshop.models.OrderModel;
 import com.azshop.service.IOrderService;
 import com.azshop.service.impl.OrderServiceImpl;
 
-@WebServlet(urlPatterns = { "/listOrder" })
+@WebServlet(urlPatterns = { "/listOrder", "/customerConfirm" })
 @MultipartConfig
 public class OrderController extends HttpServlet{
 
@@ -27,6 +27,24 @@ public class OrderController extends HttpServlet{
 		String url = req.getRequestURI().toString();
 		if(url.contains("listOrder")) {
 			listOrder(req, resp);
+		}
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String url = req.getRequestURI().toString();
+		if (url.contains("customerConfirm")) {
+			String act = req.getParameter("action");
+			int orderID = Integer.parseInt(req.getParameter("orderID"));
+			if ("cancelOrder".equals(act)) {
+                orderService.updateOrder(orderID, 5);
+                listOrder(req, resp);
+            } else if ("confirmOrder".equals(act)) {
+            	orderService.updateOrder(orderID, 4);
+            	listOrder(req, resp);
+            } else if ("rateOrder".equals(act)) {
+            	//adasd
+            }
 		}
 	}
 	

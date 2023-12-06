@@ -14,4 +14,8 @@ public class OrderServiceImpl implements IOrderService{
 	public List<OrderModel> listOrder(int customerID) {
 		return orderDAO.listOrder(customerID);
 	}
+	@Override
+	public void updateOrder(int orderID, int status) {
+		orderDAO.updateOrder(orderID, status);
+	}
 }

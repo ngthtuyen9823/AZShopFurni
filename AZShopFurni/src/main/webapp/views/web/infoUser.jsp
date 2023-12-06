@@ -111,8 +111,7 @@
 			</div>
 			<div class="col-md-5 col-lg-4 p-b-80">
 
-				<form action="updateAvatar" method="post"
-					enctype="multipart/form-data">
+				<form action="updateAvatar" method="post" enctype="multipart/form-data">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
 						<div class="wrap-slick3 flex-sb flex-w">
 							<div class="wrap-slick3-dots"></div>
