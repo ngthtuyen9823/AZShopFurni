@@ -118,8 +118,7 @@ public class SellerController extends HttpServlet {
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req,"addFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/addSeller.jsp");
-		rd.forward(req, resp);
+		findAllSeller(req, resp);
 	}
 
 	private void updateSeller(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -164,8 +163,7 @@ public class SellerController extends HttpServlet {
 		}catch(Exception ex) {
 			MessageUtil.showMessage(req,"updateFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/updateSeller.jsp");
-		rd.forward(req, resp);
+		findAllSeller(req, resp);
 	}
 
 	private void findAllSeller(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

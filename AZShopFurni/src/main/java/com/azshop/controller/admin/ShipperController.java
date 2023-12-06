@@ -129,8 +129,7 @@ public class ShipperController extends HttpServlet {
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req, "addFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/addShipper.jsp");
-		rd.forward(req, resp);
+		findAllShipper(req, resp);
 	}
 
 	private void updateShipper(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -175,8 +174,7 @@ public class ShipperController extends HttpServlet {
 		}catch (Exception ex) {
 			MessageUtil.showMessage(req,"updateFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/updateShipper.jsp");
-		rd.forward(req, resp);
+		findAllShipper(req, resp);
 
 	}
 }
