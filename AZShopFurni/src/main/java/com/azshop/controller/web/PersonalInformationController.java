@@ -23,7 +23,7 @@ import com.azshop.service.impl.UserServiceImpl;
 
 import Orther.UploadImage;
 
-@WebServlet(urlPatterns = { "/infoUser", "/updateUser", "/updateAccount" })
+@WebServlet(urlPatterns = { "/infoUser", "/updateUser", "/updateAccount", "/updateAvatar" })
 @MultipartConfig
 public class PersonalInformationController extends HttpServlet {
 	IUserService userService = new UserServiceImpl();
@@ -48,15 +48,16 @@ public class PersonalInformationController extends HttpServlet {
 		String url = req.getRequestURI().toString();
 		if (url.contains("updateUser")) {
 			createUserModel(req, resp);
-
 		} else if (url.contains("updateAccount")) {
 			createAccountModel(req, resp);
+		} else if(url.contains("updateAvatar")) {
+			updateAvatar(req, resp);
 		}
 		resp.sendRedirect("infoUser");
 	}
 
 	private void getInfUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserModel user = userService.getInfoUser(100001);
+		UserModel user = userService.getInfoUser(110001);
 
 		req.setAttribute("userModel", user);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/infoUser.jsp");
@@ -86,7 +87,6 @@ public class PersonalInformationController extends HttpServlet {
 			throws ServletException, IOException {
 
 		int userID = Integer.parseInt(req.getParameter("UserID"));
-		System.out.println("ID:   " + userID);
 		String firstName = req.getParameter("FirstName");
 		String lastName = req.getParameter("LastName");
 		String address = req.getParameter("Address");
@@ -106,12 +106,7 @@ public class PersonalInformationController extends HttpServlet {
 		String email = req.getParameter("Email");
 		int kpi = Integer.parseInt(req.getParameter("KPI"));
 		String area = req.getParameter("Area");
-		
-		Part filepart = req.getPart("image");
-		Random rnd = new Random();
-		String rdCode = String.valueOf(rnd.nextInt(100, 999));
-		UploadImage.uploadImage("mysql-web", "web-budget","Image/Avatar/"+ userID +rdCode+ ".jpg",filepart.getInputStream());
-		String avatar = "https://storage.googleapis.com/web-budget/Image/Avatar/" + userID + rdCode + ".jpg";
+		String avatar = req.getParameter("image");
 
 		UserModel user = new UserModel();
 		user.setUserID(userID);
@@ -147,5 +142,19 @@ public class PersonalInformationController extends HttpServlet {
 			out.println("<font color=red>Either user name or password is wrong.</font>");
 			req.getRequestDispatcher("/views/web/updateAccount.jsp").include(req, resp);
 		}
+	}
+	
+	private void updateAvatar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		int userID = Integer.parseInt(req.getParameter("UserID"));
+		System.out.println(userID);
+		Part filepart = req.getPart("image");
+		Random rnd = new Random();
+		String rdCode = String.valueOf(rnd.nextInt(100, 999));
+		UploadImage.uploadImage("mysql-web", "web-budget","Image/Avatar/"+ userID +rdCode+ ".jpg",filepart.getInputStream());
+		String avatar = "https://storage.googleapis.com/web-budget/Image/Avatar/" + userID + rdCode + ".jpg";
+		
+		userService.updateAvatar(userID, avatar);
+		getInfUser(req, resp);
 	}
 }

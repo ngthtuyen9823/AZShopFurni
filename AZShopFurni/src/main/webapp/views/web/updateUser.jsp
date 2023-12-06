@@ -1,90 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <title>Chỉnh sửa thông tin</title>
-<body>
 <form action="updateUser" method="post" enctype="multipart/form-data">
-	<section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
+	<section class="bg0 p-t-52 p-b-20">
 		<div class="container">
-			<div class="row d-flex no-gutters">
-				<div class="col-md-6 col-lg-6 d-flex">
-					<div class="p-3 p-lg-5 border bg-white">
-						<div class="overlay"></div>
-						<img src="${userModel.avatar}" height="400" width="auto"
-                			 alt="Avatar">
+			<div class="row">
+				<div class="col-md-3 col-lg-2 p-b-80">
+					<div class="side-menu">
+						<div class="p-t-55">
+							<h4 class="mtext-112 cl2 p-b-33">TÀI KHOẢN</h4>
+
+							<ul>
+								<li class="bor18"><a href="${pageContext.request.contextPath}/infoUser"
+									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+										Hồ sơ cá nhân </a></li>
+
+								<li class="bor18"><a href="#"
+									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+										Đơn mua </a></li>
+
+								<li class="bor18"><a href="#"
+									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+										Kho voucher </a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-6 col-lg-6 pl-md-5 py-5">
-			
-					<h2 class="h3 mb-3 text-black">Cập nhật thông tin</h2>
-					<div class="p-3 p-lg-5 border bg-white">
-						<input type="hidden" name="UserID" value="${userModel.userID}">
-						<div class="form-group row">
-							<div class="col-md-6">
-								<label for="c_fname" class="text-black">Tên <span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="c_fname" name="FirstName" value="${userModel.firstName}">
-							</div>
-							<div class="col-md-6">
-								<label for="c_lname" class="text-black">Họ và tên đệm <span class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="c_lname" name="LastName" value="${userModel.lastName}">
-							</div>
-						</div>
+				<div class="col-md-6 col-lg-7 p-b-80">
+					<div class="p-r-45 p-r-0-lg">
+						<div class="p-t-40">
+							<h5 class="mtext-113 cl2 p-b-12">Chỉnh sửa thông tin</h5>
 
-						<div class="form-group row">
-							<div class="col-md-12">
-								<label for="c_companyname" class="text-black">Địa chỉ </label>
-								<input type="text" class="form-control" id="c_addr" name="Address" value="${userModel.address}">
+							<input type="hidden" name="UserID" value="${userModel.userID}">
+							<div class="row">
+								<div class=" m-b-30 mr-3">
+									<label> Họ và tên đệm</label> <input
+										class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="text"
+										name="LastName" value="${userModel.lastName}"
+										style="width: 300px;">
+								</div>
+								<div class=" m-b-30">
+									<label> Tên</label> <input
+										class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="text"
+										name="FirstName" value="${userModel.firstName}"
+										style="width: 300px;">
+								</div>
+								<div class="m-b-30 mr-3">
+									<label> Địa chỉ</label> <input
+										class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="text"
+										name="Address" value="${userModel.address}"
+										style="width: 300px;">
+								</div>
+								<div class="mr-3 m-b-30">
+									<label> Căn cước công dân</label> <input
+										class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="text"
+										name="Cid" value="${userModel.cid}" style="width: 300px;">
+								</div>
+								<div class="mr-3 m-b-30">
+									<label> Số điện thoại</label> <input
+										class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="text"
+										name="Phone" value="${userModel.phone}" style="width: 200px;">
+								</div>
+								<div class="mr-3 m-b-30">
+									<label> Giới tính</label>
+									<div class="bor19 rs1-select2 bor19 bg0" style="width: 200px;">
+										<select class="js-select2" name="Gender">
+											<option>Choose an option</option>
+											<option value="0">Nam</option>
+											<option value="1">Nữ</option>
+										</select>
+										<div class="dropDownSelect2"></div>
+									</div>
+								</div>
+								<div class="mr-3 m-b-20">
+									<label> Ngày sinh</label> <input
+										class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="date"
+										name="Dob" value="${userModel.dob}" style="width: 180px;">
+								</div>
+								<div>
+									<input type="hidden" name="Type" value="${userModel.type}">
+									<input type="hidden" name="Email" value="${userModel.email}">
+									<input type="hidden" name="KPI" value="${userModel.kpi}">
+									<input type="hidden" name="Area" value="${userModel.area}">
+								</div>
 							</div>
+							<button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"
+									type="submit">Chỉnh sửa</button>
 						</div>
-
-						<div class="form-group">
-							<label for="c_country" class="text-black">Giới tính </label>
-							<select id="c_gd" class="form-control" name="Gender">
-								<option>Select a value</option>
-								<option value="0">Nam</option>
-								<option value="1">Nữ</option>
-							</select>
-						</div>
-
-						<div class="form-group row">
-							<div class="col-md-6">
-								<label for="c_fname" class="text-black">Số điện thoại <span
-										class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="c_phone" name="Phone" value="${userModel.phone}">
-							</div>
-							<div class="col-md-6">
-								<label for="c_lname" class="text-black">Căn cước công dân <span
-										class="text-danger">*</span></label>
-								<input type="text" class="form-control" id="c_id" name="Cid" value="${userModel.cid}">
-							</div>
-						</div>
-
-						<div class="form-group row">
-							<div class="col-md-12">
-								<label for="c_address" class="text-black">Ngày sinh</label>
-								<input type="date" class="form-control" id="c_dob" name="Dob" value="${userModel.dob}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-md-12">
-								<label for="c_ava" class="text-black">Avatar</label>
-								 <input type="file" name="image" id="image">
-							</div>
-						</div>
-						
-						<input type="hidden" name="Type" value="${userModel.type}">
-						<input type="hidden" name="Email" value="${userModel.email}">
-						<input type="hidden" name="KPI" value="${userModel.kpi}">
-						<input type="hidden" name="Area" value="${userModel.area}">
-						<input class="btn btn-black btn-sm" type="submit" value="Chỉnh sửa">
 					</div>
 				</div>
-				
+				<div class="col-md-4 col-lg-3 p-b-80">
+					<div class="p-l-25 p-r-30 p-lr-0-lg">
+						<div class="wrap-slick3 flex-sb flex-w">
+							<div class="wrap-slick3-dots"></div>
+							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+							<div class="slick3 gallery-lb">
+								<div class="item-slick3" data-thumb="${userModel.avatar}">
+									<div class="wrap-pic-w pos-relative">
+										<img src="${userModel.avatar}" alt="IMG-AVT" style="width: 100%; height: auto;"> 
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+											href="${userModel.avatar}"> <i class="fa fa-expand"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<input type="hidden" name="image" id="image" value="${userModel.avatar}">
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
 </form>
-</body>
 </html>

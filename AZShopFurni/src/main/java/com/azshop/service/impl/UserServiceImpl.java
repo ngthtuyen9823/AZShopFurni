@@ -36,4 +36,9 @@ public class UserServiceImpl implements IUserService {
 		}
 		else return false;
 	}
+
+	@Override
+	public void updateAvatar(int userID, String avatar) {
+		userDAO.updateAvatar(userID, avatar);
+	}
 }
