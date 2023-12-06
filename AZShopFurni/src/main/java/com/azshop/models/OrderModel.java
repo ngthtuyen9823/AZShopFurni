@@ -16,12 +16,22 @@ public class OrderModel {
 	private int customerID;
 	private int sellerID;
 	private int shipperID;
-	public OrderModel() {
-		super();
-	}
+	
+	private int productID;
+	private int itemID;
+	private String productName;
+	private String color;
+	private String size;
+	private int quantity;
+	private int originalPrice;
+	private int promotionPrice;
+	private String image;
+	
+	
 	public OrderModel(int orderID, Date orderDate, String address, int status, int transportFee, int discount,
 			int totalMoney, String note, int deliveryTime, int customerConfirmation, int customerID, int sellerID,
-			int shipperID) {
+			int shipperID, int productID, int itemID, String productName, String color, String size, int quantity,
+			int originalPrice, int promotionPrice, String image) {
 		super();
 		this.orderID = orderID;
 		this.orderDate = orderDate;
@@ -36,6 +46,73 @@ public class OrderModel {
 		this.customerID = customerID;
 		this.sellerID = sellerID;
 		this.shipperID = shipperID;
+		this.productID = productID;
+		this.itemID = itemID;
+		this.productName = productName;
+		this.color = color;
+		this.size = size;
+		this.quantity = quantity;
+		this.originalPrice = originalPrice;
+		this.promotionPrice = promotionPrice;
+		this.image = image;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	public OrderModel() {
+		super();
+	}
+	
+	public int getProductID() {
+		return productID;
+	}
+	public void setProductID(int productID) {
+		this.productID = productID;
+	}
+	public int getItemID() {
+		return itemID;
+	}
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public int getOriginalPrice() {
+		return originalPrice;
+	}
+	public void setOriginalPrice(int originalPrice) {
+		this.originalPrice = originalPrice;
+	}
+	public int getPromotionPrice() {
+		return promotionPrice;
+	}
+	public void setPromotionPrice(int promotionPrice) {
+		this.promotionPrice = promotionPrice;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	public int getOrderID() {
 		return orderID;
