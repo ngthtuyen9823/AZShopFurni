@@ -66,4 +66,10 @@ public class PaymentModel {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	@Override
+	public String toString() {
+		return "PaymentModel [orderID=" + orderID + ", method=" + method + ", time=" + time + ", bank=" + bank
+				+ ", cardOwner=" + cardOwner + ", accountNumber=" + accountNumber + ", status=" + status + "]";
+	}
+	
 }

@@ -115,4 +115,12 @@ public class OrderModel {
 	public void setShipperID(int shipperID) {
 		this.shipperID = shipperID;
 	}
+	@Override
+	public String toString() {
+		return "OrderModel [orderID=" + orderID + ", orderDate=" + orderDate + ", address=" + address + ", status="
+				+ status + ", transportFee=" + transportFee + ", discount=" + discount + ", totalMoney=" + totalMoney
+				+ ", note=" + note + ", deliveryTime=" + deliveryTime + ", customerConfirmation=" + customerConfirmation
+				+ ", customerID=" + customerID + ", sellerID=" + sellerID + ", shipperID=" + shipperID + "]";
+	}
+	
 }

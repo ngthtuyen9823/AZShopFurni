@@ -66,4 +66,10 @@ public class VoucherModel {
 	public void setExp(Date exp) {
 		this.exp = exp;
 	}
+	@Override
+	public String toString() {
+		return "VoucherModel [voucherID=" + voucherID + ", description=" + description + ", discount=" + discount
+				+ ", minimumPrice=" + minimumPrice + ", quantity=" + quantity + ", mfg=" + mfg + ", exp=" + exp + "]";
+	}
+	
 }

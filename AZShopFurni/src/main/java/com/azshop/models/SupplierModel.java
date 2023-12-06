@@ -22,5 +22,10 @@ public class SupplierModel {
 	}
 	public void setSupplierName(String supplierName) {
 		this.supplierName = supplierName;
+	}
+	@Override
+	public String toString() {
+		return "SupplierModel [supplierID=" + supplierID + ", supplierName=" + supplierName + "]";
 	}	
+	
 }
