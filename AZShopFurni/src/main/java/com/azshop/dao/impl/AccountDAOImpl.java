@@ -114,6 +114,95 @@ public class AccountDAOImpl implements IAccountDAO{
 		return true;
 	}
 
+	@Override
+	public int getTypeAccount(int id) {
+		String sql = "SELECT Type FROM USER WHERE USERID=?";
+		int type = -1;
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				type = rs.getInt("type");
+			}
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return type;
+	}
 
+	@Override
+	public AccountModel findByUsernameAndPass(String username, String password) {
+		String sql = "SELECT * FROM ACCOUNT WHERE UserName=? AND Password=?";
+		AccountModel account = new AccountModel();
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ResultSet rs= ps.executeQuery();
+			while(rs.next())
+			{				
+				account.setUserID(rs.getInt(1));
+				account.setUserName(rs.getString(2));
+				account.setPassword(rs.getString(3));
+			}
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}		
+		return account;
+	}
+
+	@Override
+	public AccountModel findByUsername(String username) {
+		String sql = "SELECT * FROM ACCOUNT WHERE UserName=?";
+		AccountModel account = new AccountModel();
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs= ps.executeQuery();
+			while(rs.next())
+			{				
+				account.setUserID(rs.getInt(1));
+				account.setUserName(rs.getString(2));
+				account.setPassword(rs.getString(3));
+			}
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}		
+		return account;
+	}
+	
+	@Override
+	public AccountModel findByEmail(String email) {
+		String sql = "SELECT ACCOUNT.* FROM ACCOUNT JOIN USER ON ACCOUNT.UserID = USER.UserID WHERE Email=?";
+		AccountModel account = new AccountModel();
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			ResultSet rs= ps.executeQuery();
+			while(rs.next())
+			{				
+				account.setUserID(rs.getInt(1));
+				account.setUserName(rs.getString(2));
+				account.setPassword(rs.getString(3));
+			}
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return account;
+	}
+	
 
 }

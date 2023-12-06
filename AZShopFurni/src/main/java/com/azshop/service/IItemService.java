@@ -12,4 +12,5 @@ public interface IItemService {
 	void insertItem (ItemModel model);
 	void deleteItem (int ProId);
 	void updateItem (ItemModel model);
+	ItemModel findOneByProductID(int productID);
 }

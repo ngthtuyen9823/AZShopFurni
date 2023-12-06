@@ -33,7 +33,6 @@
 					</nav>
 
 				</div>
-
 				<a class="nav-link" href="adminProduct"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
 					</div> Product
 				</a> 

@@ -36,12 +36,6 @@ public class UserModel {
 		this.avatar = avatar;
 		this.email = email;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	public int getUserID() {
 		return userID;
 	}
@@ -114,6 +108,12 @@ public class UserModel {
 	}
 	public void setCid(String cid) {
 		this.cid = cid;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	@Override
 	public String toString() {
