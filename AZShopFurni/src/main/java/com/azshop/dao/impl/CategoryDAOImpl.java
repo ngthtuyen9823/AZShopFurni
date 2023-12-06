@@ -15,8 +15,8 @@ public class CategoryDAOImpl implements ICategoryDAO {
 
 	@Override
 	public List<CategoryModel> findAll() {
-		
-		List <CategoryModel> Lcategory = new ArrayList<CategoryModel>();
+
+		List<CategoryModel> Lcategory = new ArrayList<CategoryModel>();
 		String sql = "Select * from CATEGORY ";
 		try {
 			new DBConnection();
@@ -27,8 +27,9 @@ public class CategoryDAOImpl implements ICategoryDAO {
 				CategoryModel category = new CategoryModel();
 				category.setCategoryID(rs.getInt("CategoryID"));
 				category.setCategoryName(rs.getString("CategoryName"));
+				category.setImage(rs.getString("Image"));
 				Object oj = rs.getObject("ParentCategoryID");
-				if(oj == null)
+				if (oj == null)
 					category.setParentCategoryID(0);
 				else
 					category.setParentCategoryID(rs.getInt("ParentCategoryID"));
@@ -55,6 +56,7 @@ public class CategoryDAOImpl implements ICategoryDAO {
 				category.setCategoryID(rs.getInt("CategoryID"));
 				category.setCategoryName(rs.getString("CategoryName"));
 				category.setParentCategoryID(rs.getInt("ParentCategoryID"));
+				category.setImage(rs.getString("Image"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,24 +66,23 @@ public class CategoryDAOImpl implements ICategoryDAO {
 
 	@Override
 	public void insert(CategoryModel model) {
-		
+
 	}
 
 	@Override
 	public void update(CategoryModel model) {
-		
+
 	}
 
 	@Override
 	public void delete(int id) {
-
 
 	}
 
 	public static void main(String[] args) {
 		ICategoryDAO cateDAO = new CategoryDAOImpl();
 		List<CategoryModel> model = cateDAO.findAll();
-		for(CategoryModel cate: model)
+		for (CategoryModel cate : model)
 			System.out.println(cate);
 	}
 
@@ -90,7 +91,7 @@ public class CategoryDAOImpl implements ICategoryDAO {
 		String sql = "SELECT * FROM CATEGORY WHERE ParentCategoryID=?";
 		String sqlWithNoneParent = "SELECT * FROM CATEGORY WHERE ParentCategoryID is NULL";
 		List<CategoryModel> listCategory = new ArrayList<CategoryModel>();
-		
+
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -103,8 +104,13 @@ public class CategoryDAOImpl implements ICategoryDAO {
 				CategoryModel category = new CategoryModel();
 				category.setCategoryID(rs.getInt("CategoryID"));
 				category.setCategoryName(rs.getString("CategoryName"));
-				category.setParentCategoryID(rs.getInt("ParentCategoryID"));
-				category.setParentCategoryID(rs.getInt("Image"));
+				category.setImage(rs.getString("Image"));
+
+				if (rs.getObject("ParentCategoryID") == null) {
+					category.setParentCategoryID(0);
+				} else {
+					category.setParentCategoryID(rs.getInt("ParentCategoryID"));
+				}
 
 				listCategory.add(category);
 			}
@@ -115,5 +121,39 @@ public class CategoryDAOImpl implements ICategoryDAO {
 		}
 
 		return listCategory;
+	}
+
+	@Override
+	public CategoryModel findRootCategoryByCategoryId(int id) {
+		CategoryModel category = new CategoryModel();
+		String sql = "WITH RECURSIVE CategoryPath AS (\r\n"
+				+ "    SELECT CategoryID, ParentCategoryID, CategoryName, Image\r\n" + "    FROM AZShop.CATEGORY\r\n"
+				+ "    WHERE CategoryID=? \r\n" + "    UNION ALL\r\n"
+				+ "    SELECT c.CategoryID, c.ParentCategoryID, c.CategoryName, c.Image\r\n"
+				+ "    FROM AZShop.CATEGORY c\r\n"
+				+ "    JOIN CategoryPath cp ON c.CategoryID = cp.ParentCategoryID\r\n" + ")\r\n" + "SELECT *\r\n"
+				+ "FROM CategoryPath\r\n" + "WHERE ParentCategoryID IS NULL;";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				category = new CategoryModel();
+				category.setCategoryID(rs.getInt("CategoryID"));
+				category.setCategoryName(rs.getString("CategoryName"));
+				category.setImage(rs.getString("Image"));
+
+				if (rs.getObject("ParentCategoryID") == null) {
+					category.setParentCategoryID(0);
+				} else {
+					category.setParentCategoryID(rs.getInt("ParentCategoryID"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return category;
 	}
 }

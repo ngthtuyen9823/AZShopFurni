@@ -10,6 +10,7 @@ public class ProductModel {
 	private int supplierID;
 	private int categoryID;
 	private String material;
+	
 
 	private float avgRating;
 	private int numOfRating;
@@ -17,11 +18,13 @@ public class ProductModel {
 	private int displayedPromotionPrice;
 	private int displayedOriginalPrice;
 	private List<ItemModel> listItem;
+	private List<ItemImageModel> listItemImage;
 	private String displayedImage;
 
 	public ProductModel(int productID, String productName, String description, String origin, int supplierID,
 			int categoryID, String material, float avgRating, int numOfRating, int soldTotal,
-			int displayedPromotionPrice, int displayedOriginalPrice, List<ItemModel> listItem, String displayedImage) {
+			int displayedPromotionPrice, int displayedOriginalPrice, List<ItemModel> listItem,
+			List<ItemImageModel> listItemImage, String displayedImage) {
 		super();
 		this.productID = productID;
 		this.productName = productName;
@@ -36,6 +39,7 @@ public class ProductModel {
 		this.displayedPromotionPrice = displayedPromotionPrice;
 		this.displayedOriginalPrice = displayedOriginalPrice;
 		this.listItem = listItem;
+		this.listItemImage = listItemImage;
 		this.displayedImage = displayedImage;
 	}
 
@@ -147,13 +151,22 @@ public class ProductModel {
 		this.listItem = listItem;
 	}
 
+	public List<ItemImageModel> getListItemImage() {
+		return listItemImage;
+	}
+
+	public void setListItemImage(List<ItemImageModel> listItemImage) {
+		this.listItemImage = listItemImage;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductModel [productID=" + productID + ", productName=" + productName + ", description=" + description
 				+ ", origin=" + origin + ", supplierID=" + supplierID + ", categoryID=" + categoryID + ", material="
 				+ material + ", avgRating=" + avgRating + ", numOfRating=" + numOfRating + ", soldTotal=" + soldTotal
 				+ ", displayedPromotionPrice=" + displayedPromotionPrice + ", displayedOriginalPrice="
-				+ displayedOriginalPrice + ", listItem=" + listItem + ", displayedImage=" + displayedImage + "]";
+				+ displayedOriginalPrice + ", listItem=" + listItem + ", listItemImage=" + listItemImage
+				+ ", displayedImage=" + displayedImage + "]";
 	}
 
 	public String getDisplayedImage() {

@@ -37,6 +37,10 @@ public class CategoryModel {
 	public int getParentCategoryID() {
 		return parentCategoryID;
 	}
+	
+	public String getImage() {
+		return image;
+	}
 
 	public void setParentCategoryID(int parentCategoryID) {
 		this.parentCategoryID = parentCategoryID;
