@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>InsertItem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>InsertProduct</title>
 </head>
-<body>
 <body>
 	<main>
 		<div class="container">
@@ -15,10 +15,10 @@
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
 							<h3 class="text-center font-weight-light my-4">Insert
-								Item</h3>
+								Product</h3>
 						</div>
 						<div class="card-body">
-							<form action="insert" method="post">
+							<form action="insertProduct" method="post">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-floating mb-3">

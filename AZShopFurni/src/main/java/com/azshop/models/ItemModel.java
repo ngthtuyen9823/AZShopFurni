@@ -74,7 +74,6 @@ public class ItemModel {
 	public void setPromotionPrice(int promotionPrice) {
 		this.promotionPrice = promotionPrice;
 	}
-
 	@Override
 	public String toString() {
 		return "ItemModel [itemID=" + itemID + ", productID=" + productID + ", color=" + color + ", colorCode="

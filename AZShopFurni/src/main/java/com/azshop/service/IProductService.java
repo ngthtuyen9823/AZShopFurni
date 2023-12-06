@@ -6,6 +6,7 @@ import com.azshop.models.ProductModel;
 
 public interface IProductService {
 	List<ProductModel> findAll();
+	int CreateProductID (int Id);
 	List<ProductModel> findByCategoryID(int cateId);
 	List<ProductModel> findWithCount(int count);
 	ProductModel findOne(int id);

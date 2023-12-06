@@ -47,6 +47,13 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
+	public int CreateProductID(int Id) {
+		List<ProductModel> Prod = productDAO.findAllOfCategory(Id);
+		int proid = Prod.get(Prod.size()-1).getProductID();
+		return proid + 1;
+	}
+	
+	@Override
 	public List<ProductModel> searchProductByName(String key) {
 		return productDAO.searchProductByName(key);
 	}

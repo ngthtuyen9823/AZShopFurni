@@ -66,12 +66,10 @@ public class CategoryDAOImpl implements ICategoryDAO {
 
 	@Override
 	public void insert(CategoryModel model) {
-
 	}
 
 	@Override
 	public void update(CategoryModel model) {
-
 	}
 
 	@Override

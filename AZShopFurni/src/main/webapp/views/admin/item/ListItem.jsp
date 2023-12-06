@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/common/taglib.jsp"%>
+<%@ include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trang chủ</title>
+<meta charset="UTF-8">
+<title>ListItem</title>
 </head>
 <body>
 	<main>
@@ -82,29 +82,10 @@
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-bar me-1"></i> Bar chart of Orders in recent 7 days
+							<i class="fas fa-chart-bar me-1"></i> Bar Chart Example
 						</div>
 						<div class="card-body">
-							<canvas id="myChart" width="100%" height="40"></canvas>
-							<script>
-                                                var barChartData = {
-                                                    labels: [<c:forEach var="item" items="${listReceipt}">'${item.time}',</c:forEach>],
-                                                    datasets: [
-                                                        {
-                                                        	fillColor: "#FC8213",
-                                                        	label:'Orders',
-                                                            data: [<c:forEach var="item" items="${listReceipt}">${item.value},</c:forEach>],
-                                                            backgroundColor:'rgba(255, 99, 132, 0.6)'
-                                                        }
-                                                    ]
-
-                                                };                                          
-                                                new Chart(document.getElementById("myChart").getContext("2d"), {
-                                                    type: 'bar',
-                                                    data: barChartData
-                                                });
-
-                            </script>
+							<canvas id="myBarChart" width="100%" height="40"></canvas>
 						</div>
 					</div>
 				</div>
@@ -117,32 +98,43 @@
 					<table id="datatablesSimple">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>FirstName</th>
-								<th>LastName</th>
-								<th>Address</th>
-								<th>Gender</th>
-								<th>Phone</th>
-								<th>DoB</th>
-								<th>CID</th>
-								<th>Avatar</th>
-								<th>KPI</th>
+								<th>ItemID</th>
+								<th>ProductID</th>
+								<th>Color</th>
+								<th>ColorCode</th>
+								<th>Size</th>
+								<th>Stock</th>
+								<th>OriginalPrice</th>
+								<th>PromotionPrice</th>
+								<th>Action</th>
+
 							</tr>
 						</thead>
 						<tfoot>
 						<tbody>
-							<c:forEach var="i" items="${listseller}">
+							<c:forEach var="i" items="${listItem}">
 								<tr>
-									<td>${i.userID}</td>
-									<td>${i.firstName}</td>
-									<td>${i.lastName}</td>
-									<td>${i.address}</td>
-									<td>${i.gender}</td>
-									<td>${i.phone}</td>
-									<td>${i.dob}</td>
-									<td>${i.cid}</td>
-									<td>${i.avatar}</td>
-									<td>${i.kpi}</td>
+									<td>${i.itemID}</td>
+									<td>${i.productID}</td>
+									<td>${i.color}</td>
+									<td>${i.colorCode}</td>
+									<td>${i.size}</td>
+									<td>${i.stock}</td>
+									<td>${i.originalPrice}</td>
+									<td>${i.promotionPrice}</td>
+									<td><div class="hidden-sm hidden-xs btn-group">
+											<a href="<c:url value='/updateItem?ItemID=${i.itemID}'/>">
+												<button class="btn btn-xs btn-info btn-sm">
+													<i class="ace-icon fa fa-pencil"></i>
+												</button>
+											</a> <a href="<c:url value='/deleteItem?ItemID=${i.itemID}'/>">
+												<button type="button" class="btn btn-xs btn-info btn-sm"
+													id="liveToastBtn"
+													onclick="return confirm('Bạn có chắc chắn muốn xóa item có ID là : ${i.itemID} không?')">
+													<i class="ace-icon fa fa-trash"></i>
+												</button>
+											</a>
+										</div></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -152,5 +144,6 @@
 			</div>
 		</div>
 	</main>
+
 </body>
 </html>
