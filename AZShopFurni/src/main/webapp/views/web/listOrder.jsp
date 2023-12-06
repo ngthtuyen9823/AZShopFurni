@@ -89,6 +89,11 @@ a {
 										</div>
 										<div class="flex-grow-1 align-self-center overflow-hidden">
 											<div>
+												<input type="hidden" name= "itemID" value = "${i.itemID}" >
+												<input type="hidden" name= "orderID" value = "${i.orderID}" >
+												<input type="hidden" name= "sellerID" value = "${i.sellerID}" >
+												<input type="hidden" name= "shipperID" value = "${i.shipperID}" >
+											
 												<h5 class="text-truncate font-size-20 ">
 													<a href="#" class="text-dark ">${i.productName }</a>
 												</h5>
@@ -104,32 +109,30 @@ a {
 												<c:choose>
 													<c:when test="${i.status == 0}">
 														<p class="mb-0 mt-1">
-															<span class="fw-medium" style="color: Orange;"> 
-															Đơn hàng chờ xác nhận</span>
+															<span class="fw-medium" style="color: Orange;"> Đơn hàng chờ xác nhận</span>
 														</p>
 													</c:when>
 													<c:when test="${i.status == 1}">
-														<p class="mb-0 mt-1">
-															<span class="fw-medium"> 
-															Đơn hàng đã được xác nhận</span>
+														<p class="mb-0 mt-1"> <span class="fw-medium"> Đơn hàng đã được xác nhận</span>
 														</p>
 													</c:when>
 													<c:when test="${i.status == 2}">
 														<p class="mb-0 mt-1">
-															<span class="fw-medium"> 
-															Đơn hàng đang được chuẩn bị</span>
+															<span class="fw-medium"> Đơn hàng đang được chuẩn bị</span>
 														</p>
 													</c:when>
 													<c:when test="${i.status == 3}">
 														<p class="mb-0 mt-1">
-															<span class="fw-medium"> 
-															Đơn hàng đang được giao đến bạn</span>
+															<span class="fw-medium"> Đơn hàng đang được giao đến bạn</span>
 														</p>
 													</c:when>
 													<c:when test="${i.status == 4}">
+														<p class="mb-0 mt-1"> <span class="fw-medium" style="color: green;"> Đơn hàng đã được giao thành công</span>
+														</p>
+													</c:when>
+													<c:when test="${i.status == 5}">
 														<p class="mb-0 mt-1">
-															<span class="fw-medium" style="color: green;"> 
-															Đơn hàng đã được giao thành công</span>
+															<span class="fw-medium" style="color: red;"> Đơn hàng đã bị hủy</span>
 														</p>
 													</c:when>
 												</c:choose>
@@ -137,24 +140,33 @@ a {
 										</div>
 									</div>
 								</div>
-								<div class="col-md-2">
-									<c:choose>
-										<c:when test="${i.status <= 2 }">
-											<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-												Hủy đơn
-											</a>	
-										</c:when>
-										<c:when test="${i.status == 3 }">
-											<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-												Xác nhận
-											</a>	
-										</c:when>
-										<c:when test="${i.status == 4 }">
-											<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-												Đánh giá
-											</a>	
-										</c:when>
-									</c:choose>
+								<div class="col-md-2"> 
+									<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+										Chat
+									</a>
+									<form action="customerConfirm" method="post" enctype="multipart/form-data">
+										<input type="hidden" name= "orderID" value = "${i.orderID}" >
+									    <c:choose>
+									        <c:when test="${i.status <= 2 }">
+									            <input type="hidden" name="action" value="cancelOrder">
+									            <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+									                Hủy đơn
+									            </button>
+									        </c:when>
+									        <c:when test="${i.status == 3 }">
+									            <input type="hidden" name="action" value="confirmOrder">
+									            <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+									                Xác nhận
+									            </button>
+									        </c:when>
+									        <c:when test="${i.status == 4 }">
+									            <input type="hidden" name="action" value="rateOrder">
+									            <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+									                Đánh giá
+									            </button>
+									        </c:when>
+									    </c:choose>
+									</form>
 								</div>
 							</div>
 							<hr>
@@ -164,11 +176,9 @@ a {
 										<div class="mt-3">
 											<p class="text-muted mb-2"></p>
 											<p class="text-muted mb-2"></p>
-
 										</div>
 									</div>
 									<div class="col-md-5">
-									
 										<div class="mt-3">
 											<p class="text-muted mb-2">Giá</p>
 											<h5 class="mb-0 mt-2">

@@ -54,6 +54,7 @@ public class UserDAOImpl implements IUserDAO {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
+			
 			ps.setString(1, user.getFirstName());
 			ps.setString(2, user.getLastName());
 			ps.setString(3, user.getAddress());
@@ -64,6 +65,7 @@ public class UserDAOImpl implements IUserDAO {
 			ps.setString(7, user.getCid());
 			ps.setString(8, user.getAvatar());
 			ps.setInt(9, user.getUserID());
+			
 			ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -6,4 +6,5 @@ import com.azshop.models.OrderModel;
 
 public interface IOrderService {
 	List<OrderModel> listOrder(int customerID);
+	void updateOrder (int orderID, int status);
 }

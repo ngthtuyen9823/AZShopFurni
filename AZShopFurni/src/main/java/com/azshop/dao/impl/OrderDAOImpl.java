@@ -55,4 +55,20 @@ public class OrderDAOImpl implements IOrderDAO {
 		}
 		return listOrder;
 	}
+
+	@Override
+	public void updateOrder(int orderID, int status) {
+		String sql = "UPDATE `ORDER` SET Status = ? WHERE OrderID = ?";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, status);
+			ps.setInt(2, orderID);
+			ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
