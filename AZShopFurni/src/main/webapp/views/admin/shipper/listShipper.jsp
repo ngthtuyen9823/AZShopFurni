@@ -13,7 +13,7 @@
 			<h1 class="mt-4">Tables Shipper</h1>
 			<ol class="breadcrumb mb-4">
 				<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-				<li class="breadcrumb-item active">Seller</li>
+				<li class="breadcrumb-item active">Shipper</li>
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
@@ -31,7 +31,7 @@
 			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
-					<i class="fas fa-table me-1"></i> DataTable Sellers
+					<i class="fas fa-table me-1"></i> DataTable Shippers
 				</div>
 				<div class="card-body">
 					<table id="datatablesSimple">

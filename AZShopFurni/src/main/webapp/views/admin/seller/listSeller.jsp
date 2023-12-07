@@ -19,7 +19,7 @@
 				<div class="card-body">
 					<a href="<c:url value='/adminInsertSeller'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"> Add new seller</i>
+							<i class="ace-icon fa fa-pencil"></i> Add new seller
 						</button>
 					</a>
 				</div>
