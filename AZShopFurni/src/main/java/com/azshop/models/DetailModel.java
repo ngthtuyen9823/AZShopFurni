@@ -13,6 +13,11 @@ public class DetailModel {
 	private String avatar;
 	private String name;
 
+	
+	private ItemModel item = new ItemModel();
+	private ProductModel product = new ProductModel();
+	private OrderModel order = new OrderModel();
+	
 	public DetailModel() {
 		super();
 	}
@@ -30,63 +35,48 @@ public class DetailModel {
 		this.avatar = avatar;
 		this.name = name;
 	}
-
 	public int getItemID() {
 		return itemID;
 	}
-
 	public void setItemID(int itemID) {
 		this.itemID = itemID;
 	}
-
 	public int getOrderID() {
 		return orderID;
 	}
-
 	public void setOrderID(int orderID) {
 		this.orderID = orderID;
 	}
-
 	public int getQuantity() {
 		return quantity;
 	}
-
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
 	public String getLink() {
 		return link;
 	}
-
 	public void setLink(String link) {
 		this.link = link;
 	}
-
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	public Date getEvaluationDate() {
+	public DateTime getEvaluationDate() {
 		return evaluationDate;
 	}
-
-	public void setEvaluationDate(Date evaluationDate) {
+	public void setEvaluationDate(DateTime evaluationDate) {
 		this.evaluationDate = evaluationDate;
 	}
-
 	public int getRating() {
 		return rating;
 	}
-
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-
 	@Override
 	public String toString() {
 		return "DetailModel [itemID=" + itemID + ", orderID=" + orderID + ", quantity=" + quantity + ", link=" + link

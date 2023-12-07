@@ -7,21 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.azshop.connection.DBConnection;
+import com.azshop.dao.IDetailDAO;
 import com.azshop.dao.IOrderDAO;
 import com.azshop.models.OrderModel;
 
 public class OrderDAOImpl implements IOrderDAO {
 
+	IDetailDAO detailDAO = new DetailDAOImpl();
 	@Override
-	public List<OrderModel> listOrder(int customerID) {
+	public List<OrderModel> listOrderByCustomerID(int customerID) {
 		List<OrderModel> listOrder = new ArrayList<OrderModel>();
-		String sql = "SELECT O.CustomerID, P.ProductID, I.ItemID, O.OrderID, P.ProductName, I.Color, I.Size, D.Quantity, I.OriginalPrice, I.PromotionPrice, IM.Image, O.OrderDate, O.`Status`, O.Discount, O.TotalMoney\r\n"
-				+ "FROM PRODUCT AS P INNER JOIN ITEM I ON P.ProductID = I.ProductID "
-				+ "				  	INNER JOIN DETAIL D on I.ItemID = D.ItemID "
-				+ "               	INNER JOIN `ORDER` O on O.OrderID = D.OrderID "
-				+ "               	INNER JOIN (SELECT II.Image, IT.ItemID FROM ITEMIMAGE II, ITEM IT "
-				+ "							  	WHERE II.ItemID = IT.ItemID LIMIT 1) IM ON IM.ItemID = I.ItemID "
-				+ "WHERE O.CustomerID = ? ";
+		String sql =  "SELECT O.OrderID, O.CustomerID, O.OrderDate, O.`Status`, O.Discount, O.TotalMoney, O.SellerID, O.ShipperID "
+					+ "FROM `ORDER` O "
+					+ "WHERE O.CustomerID = ?";
 		try {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
@@ -31,22 +29,14 @@ public class OrderDAOImpl implements IOrderDAO {
 
 			while (rs.next()) {
 				OrderModel order = new OrderModel();
-				order.setCustomerID(rs.getInt(1));
-				order.setProductID(rs.getInt(2));
-				order.setItemID(rs.getInt(3));
-				order.setOrderID(rs.getInt(4));
-				order.setProductName(rs.getString(5));
-				order.setColor(rs.getString(6));
-				order.setSize(rs.getString(7));
-				order.setQuantity(rs.getInt(8));
-				order.setOriginalPrice(rs.getInt(9));
-				order.setPromotionPrice(rs.getInt(10));
-				order.setImage(rs.getString(11));
-				order.setOrderDate(rs.getDate(12));
-				order.setStatus(rs.getInt(13));
-				order.setDiscount(rs.getInt(14));
-				order.setTotalMoney(rs.getInt(15));
-				
+				order.setOrderID(rs.getInt(1));
+				order.setCustomerID(rs.getInt(2));
+				order.setOrderDate(rs.getDate(3));
+				order.setStatus(rs.getInt(4));
+				order.setDiscount(rs.getInt(5));
+				order.setTotalMoney(rs.getInt(6));
+				order.setSellerID(rs.getInt(7));
+				order.setShipperID(rs.getInt(8));
 				listOrder.add(order);
 			}
 

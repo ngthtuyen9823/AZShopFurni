@@ -60,7 +60,7 @@ public class PersonalInformationController extends HttpServlet {
 		UserModel user = userService.getInfoUser(110001);
 
 		req.setAttribute("userModel", user);
-		RequestDispatcher rd = req.getRequestDispatcher("/views/web/infoUser.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/user/infoUser.jsp");
 		rd.forward(req, resp);
 	}
 
@@ -69,7 +69,7 @@ public class PersonalInformationController extends HttpServlet {
 		UserModel user = userService.getInfoUser(userID);
 
 		req.setAttribute("userModel", user);
-		RequestDispatcher rd = req.getRequestDispatcher("/views/web/updateUser.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/user/updateUser.jsp");
 		rd.forward(req, resp);
 	}
 
@@ -79,7 +79,7 @@ public class PersonalInformationController extends HttpServlet {
 		AccountModel account = userService.getInfAccount(userID);
 
 		req.setAttribute("accountModel", account);
-		RequestDispatcher rd = req.getRequestDispatcher("/views/web/updateAccount.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/user/updateAccount.jsp");
 		rd.forward(req, resp);
 	}
 
@@ -140,7 +140,7 @@ public class PersonalInformationController extends HttpServlet {
 		} else {
 			PrintWriter out = resp.getWriter();
 			out.println("<font color=red>Either user name or password is wrong.</font>");
-			req.getRequestDispatcher("/views/web/updateAccount.jsp").include(req, resp);
+			req.getRequestDispatcher("/views/web/user/updateAccount.jsp").include(req, resp);
 		}
 	}
 	

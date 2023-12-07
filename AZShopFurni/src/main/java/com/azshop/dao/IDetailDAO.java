@@ -8,4 +8,5 @@ public interface IDetailDAO {
 	List<DetailModel> findDetailByProductID(int productID);
 
 	void updateDetail(DetailModel detail);
+	public List<DetailModel> listDetail(int orderID);
 }
