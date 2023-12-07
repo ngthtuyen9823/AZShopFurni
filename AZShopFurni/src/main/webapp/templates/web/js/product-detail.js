@@ -39,15 +39,16 @@ $(document).ready(function() {
 
 function addToCart() {
 	var selectedItemID = $("#selectedItemID").val();
-	var quantity = $("#selectedQuantity").val();
+	var selectedQuantity = $("#selectedQuantity").val();
 	var errorContainer = $("#errorContainer");
 
-	if (selectedItemID && quantity > 0) {
+	if (selectedItemID && selectedQuantity > 0) {
 		var data = {
-			itemID: selectedItemID,
-			quantity: quantity
+			selectedItemID: selectedItemID,
+			selectedQuantity: selectedQuantity
 		};
 
+		console.log(data);
 		$.ajax({
 			type: "POST",
 			url: "addToCart",

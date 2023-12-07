@@ -15,7 +15,7 @@ import com.azshop.models.CartModel;
 import com.azshop.service.ICartService;
 import com.azshop.service.impl.CartServiceImpl;
 
-@WebServlet({ "/carts", "/addToCart", "/deleteCart", "/deleteCarts" })
+@WebServlet({ "/carts", "/addToCart", "/buyNow", "/deleteCart", "/deleteCarts" })
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ICartService cartService = new CartServiceImpl();
@@ -53,22 +53,28 @@ public class CartController extends HttpServlet {
 
 	private void getAllCart(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		List<CartModel> listCart = cartService.findAll();
-
+		int subTotal = 0;
+		
+		for (CartModel cart : listCart) {
+			subTotal += cart.getTotalPrice();
+		}
+		
 		req.setAttribute("carts", listCart);
+		req.setAttribute("subTotal", subTotal);
 
 		rd = req.getRequestDispatcher("/views/web/carts/carts.jsp");
 		rd.forward(req, resp);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		CartModel cart = new CartModel();
 		CartModel oldCart = new CartModel();
 
 		int customerID = 100001; // note
-		int itemID = Integer.parseInt(request.getParameter("itemID"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		int itemID = Integer.parseInt(req.getParameter("selectedItemID"));
+		int quantity = Integer.parseInt(req.getParameter("selectedQuantity"));
 
 		cart.setCustomerID(customerID);
 		cart.setItemID(itemID);
@@ -84,6 +90,7 @@ public class CartController extends HttpServlet {
 			System.out.println(cart);
 			cartService.insert(cart);
 		}
-		response.getWriter().write("Item added to cart successfully");
+		resp.getWriter().write("Item added to cart successfully");
+//		resp.sendRedirect("carts");
 	}
 }

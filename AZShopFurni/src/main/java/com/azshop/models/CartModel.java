@@ -9,13 +9,15 @@ public class CartModel {
 	private int promotionPrice;
 	private String productName;
 	private int totalPrice;
+	private String image;
+	private int productID;
 
 	public CartModel() {
 		super();
 	}
 
 	public CartModel(int customerID, int itemID, int quantity, String color, String size, int promotionPrice,
-			String productName, int totalPrice) {
+			String productName, int totalPrice, String image, int productID) {
 		super();
 		this.customerID = customerID;
 		this.itemID = itemID;
@@ -25,6 +27,8 @@ public class CartModel {
 		this.promotionPrice = promotionPrice;
 		this.productName = productName;
 		this.totalPrice = totalPrice;
+		this.image = image;
+		this.productID = productID;
 	}
 
 	public int getCustomerID() {
@@ -95,7 +99,23 @@ public class CartModel {
 	public String toString() {
 		return "CartModel [customerID=" + customerID + ", itemID=" + itemID + ", quantity=" + quantity + ", color="
 				+ color + ", size=" + size + ", promotionPrice=" + promotionPrice + ", productName=" + productName
-				+ ", totalPrice=" + totalPrice + "]";
+				+ ", totalPrice=" + totalPrice + ", image= " + image +"]";
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public int getProductID() {
+		return productID;
+	}
+
+	public void setProductID(int productID) {
+		this.productID = productID;
 	}
 
 }
