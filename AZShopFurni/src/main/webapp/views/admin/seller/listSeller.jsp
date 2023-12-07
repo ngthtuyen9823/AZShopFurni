@@ -17,10 +17,9 @@
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
-					<a href = "<c:url value='/adminInsertSeller'/>">
+					<a href="<c:url value='/adminInsertSeller'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i>
-						Add new seller
+							<i class="ace-icon fa fa-pencil"> Add new seller</i>
 						</button>
 					</a>
 				</div>
@@ -55,7 +54,7 @@
 						<tbody>
 							<c:forEach var="i" items="${listseller}">
 								<tr>
-									<td >${i.userID}</td>
+									<td>${i.userID}</td>
 									<td>${i.firstName}</td>
 									<td>${i.lastName}</td>
 									<td>${i.address}</td>
@@ -67,7 +66,7 @@
 									<td>${i.phone}</td>
 									<td>${i.dob}</td>
 									<td>${i.cid}</td>
-									<td> <img alt="avt" src="${i.avatar}" style="width: 50px; height: 50px;" /></td>
+									<td>${i.avatar}</td>
 									<td>${i.kpi}</td>
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">
@@ -76,8 +75,10 @@
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-pencil"></i>
 												</button>
-											</a> <a
-												href="<c:url value='/adminDeleteSeller?userID=${i.userID}'/>">
+											</a>
+											<a href="#" class="trigger-btn" data-toggle="modal"
+												data-target="#myModal"
+												data-link="<c:url value='/adminDeleteSeller?userID=${i.userID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn">
 													<i class="ace-icon fa fa-trash"></i>
@@ -90,20 +91,6 @@
 						</tbody>
 						</tfoot>
 					</table>
-				</div>
-			</div>
-		</div>
-		<div class="toast-container position-fixed bottom-0 end-0 p-3 ">
-			<div id="liveToast" class="toast" role="alert" aria-live="assertive"
-				aria-atomic="true">
-				<div class="toast-header">
-					<strong class="me-auto">Bootstrap</strong> <small>11 mins
-						ago</small>
-					<button type="button" class="btn-close" data-bs-dismiss="toast"
-						aria-label="Close"></button>
-				</div>
-				<div class="toast-body">
-					<c:if test="${message != null}">${message}</c:if>
 				</div>
 			</div>
 		</div>
