@@ -70,12 +70,15 @@ public class DetailDAOImpl implements IDetailDAO {
 	@Override
 	public List<DetailModel> listDetail(int orderID) {
 		List<DetailModel> listDetail = new ArrayList<DetailModel>();
-		String sql =  "SELECT P.ProductID, I.ItemID, O.OrderID, P.ProductName, I.Color, I.Size, D.Quantity, I.OriginalPrice, I.PromotionPrice, IM.Image\r\n"
-					+ "FROM PRODUCT AS P INNER JOIN ITEM I ON P.ProductID = I.ProductID \r\n"
-					+ "		INNER JOIN DETAIL D on I.ItemID = D.ItemID \r\n"
-					+ "		INNER JOIN `ORDER` O on O.OrderID = D.OrderID \r\n"
-					+ "		INNER JOIN (SELECT II.Image, IT.ItemID FROM ITEMIMAGE II, ITEM IT \r\n"
-					+ "		WHERE II.ItemID = IT.ItemID LIMIT 1) IM ON IM.ItemID = I.ItemID \r\n"
+		String sql =  "SELECT  P.ProductID, I.ItemID, O.OrderID, P.ProductName, I.Color, I.Size, D.Quantity, I.OriginalPrice, I.PromotionPrice, IM.Image\r\n"
+					+ "FROM PRODUCT AS P \r\n"
+					+ "			INNER JOIN ITEM I ON P.ProductID = I.ProductID \r\n"
+					+ "			INNER JOIN DETAIL D on I.ItemID = D.ItemID\r\n"
+					+ "			INNER JOIN `ORDER` O on O.OrderID = D.OrderID\r\n"
+					+ "    		INNER JOIN (SELECT MIN(II.ItemImageID) AS ItemImageID, II.ItemID, MIN(II.Image) AS Image\r\n"
+					+ "						FROM ITEMIMAGE II, ITEM IT\r\n"
+					+ "						WHERE II.ItemID = IT.ItemID\r\n"
+					+ "						GROUP BY II.ItemID) IM ON IM.ItemID = I.ItemID \r\n"
 					+ "WHERE O.OrderID = ?";
 		try {
 			new DBConnection();
