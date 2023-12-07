@@ -81,33 +81,10 @@
 						<a href="updateUser?userID=${userModel.userID}"
 							class="flex-c-m stext-110 cl10 size-301 bor7 p-lr-30 hov-tag1 trans-04 m-r-5 m-b-5">
 							CHỈNH SỬA THÔNG TIN </a>
-
 					</div>
 
 					<a href="updateAccount?userID=${userModel.userID}"
 						class="stext-101 cl2 hov-cl1 trans-04 m-tb-10"> Đổi mật khẩu </a>
-				</div>
-				<div class="flex-w w-full p-b-42">
-					<c:choose>
-						<c:when test="${userModel.type == 1}">
-							<span class="fs-18 cl5 txt-center size-211"> <span
-								class="lnr lnr-map-marker"></span>
-							</span>
-							<div class="size-212 p-t-2">
-								<span class="mtext-110 cl2"> KPI </span>
-								<p class="stext-115 cl6 size-213 p-t-18">%%%</p>
-							</div>
-						</c:when>
-						<c:when test="${userModel.type == 2}">
-							<span class="fs-18 cl5 txt-center size-211"> <span
-								class="lnr lnr-map-marker"></span>
-							</span>
-							<div class="size-212 p-t-2">
-								<span class="mtext-110 cl2"> Địa chỉ giao hàng </span>
-								<p class="stext-115 cl6 size-213 p-t-18">Quận 9</p>
-							</div>
-						</c:when>
-					</c:choose>
 				</div>
 			</div>
 			<div class="col-md-5 col-lg-4 p-b-80">

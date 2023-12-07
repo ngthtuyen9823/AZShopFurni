@@ -39,7 +39,6 @@ public class OrderDAOImpl implements IOrderDAO {
 				order.setShipperID(rs.getInt(8));
 				listOrder.add(order);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

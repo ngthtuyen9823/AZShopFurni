@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.azshop.models.AccountModel;
@@ -31,13 +32,19 @@ public class PersonalInformationController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url = req.getRequestURI().toString();
-		if (url.contains("infoUser")) {
-			getInfUser(req, resp);
-		} else if (url.contains("updateUser")) {
-			updateInfUser(req, resp);
-		} else if (url.contains("updateAccount")) {
-			updateInfAccount(req, resp);
+
+		HttpSession session = req.getSession(false);
+		if (session != null && session.getAttribute("user") != null) {
+			String url = req.getRequestURI().toString();
+			if (url.contains("infoUser")) {
+				getInfUser(req, resp);
+			} else if (url.contains("updateUser")) {
+				updateInfUser(req, resp);
+			} else if (url.contains("updateAccount")) {
+				updateInfAccount(req, resp);
+			}
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 	}
 
@@ -50,15 +57,16 @@ public class PersonalInformationController extends HttpServlet {
 			createUserModel(req, resp);
 		} else if (url.contains("updateAccount")) {
 			createAccountModel(req, resp);
-		} else if(url.contains("updateAvatar")) {
+		} else if (url.contains("updateAvatar")) {
 			updateAvatar(req, resp);
 		}
 		resp.sendRedirect("infoUser");
 	}
 
 	private void getInfUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserModel user = userService.getInfoUser(110001);
-
+		
+		HttpSession session = req.getSession(false);
+		UserModel user = (UserModel) session.getAttribute("user");
 		req.setAttribute("userModel", user);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/user/infoUser.jsp");
 		rd.forward(req, resp);
@@ -96,7 +104,7 @@ public class PersonalInformationController extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date dob = null;
 		try {
-			dob = sdf.parse(dobString); 
+			dob = sdf.parse(dobString);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -143,18 +151,19 @@ public class PersonalInformationController extends HttpServlet {
 			req.getRequestDispatcher("/views/web/user/updateAccount.jsp").include(req, resp);
 		}
 	}
-	
+
 	private void updateAvatar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		int userID = Integer.parseInt(req.getParameter("UserID"));
-		System.out.println(userID);
 		Part filepart = req.getPart("image");
 		Random rnd = new Random();
 		String rdCode = String.valueOf(rnd.nextInt(100, 999));
-		UploadImage.uploadImage("mysql-web", "web-budget","Image/Avatar/"+ userID +rdCode+ ".jpg",filepart.getInputStream());
+		UploadImage.uploadImage("mysql-web", "web-budget", "Image/Avatar/" + userID + rdCode + ".jpg",
+				filepart.getInputStream());
 		String avatar = "https://storage.googleapis.com/web-budget/Image/Avatar/" + userID + rdCode + ".jpg";
-		
 		userService.updateAvatar(userID, avatar);
+		HttpSession session = req.getSession(true);
+		session.setAttribute("user",userService.getInfoUser(userID));
 		getInfUser(req, resp);
 	}
 }

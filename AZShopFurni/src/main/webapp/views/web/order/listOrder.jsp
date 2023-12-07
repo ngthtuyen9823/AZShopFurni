@@ -4,7 +4,7 @@
 <title>Đơn mua</title>
 <style>
 body {
-	margin-top: 20px;
+	margin-top: 0px;
 	background-color: #f1f3f7;
 }
 
@@ -15,6 +15,10 @@ body {
 
 .font-size-18 {
 	font-size: 18px !important;
+}
+
+.font-size-20 {
+	font-size: 20px !important;
 }
 
 .text-truncate {
@@ -53,13 +57,43 @@ a {
 	border: 1px solid #eff0f2;
 	border-radius: 1rem;
 }
+
+.product-item {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex;
+    margin-top: 20px; 
+}
+
+.product-image {
+    margin-left: 30px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.product-info {
+    flex-grow: 2; 
+}
+
+.price-info {
+    flex-grow: 10;
+    justify-content: flex-start;
+    text-align: center; 
+    align-items: center; 
+}
+
+.order-details-container {
+    margin-bottom: 0; 
+}
 </style>
+
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-3 col-lg-2 p-b-80">
-				<div class="side-menu">
-					<div class="p-t-55">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 p-b-80">
+                <div class="side-menu">
+                    <div class="p-t-55">
 						<h4 class="mtext-112 cl2 p-b-33">TÀI KHOẢN</h4>
 						<ul>
 							<li class="bor18"><a
@@ -75,153 +109,101 @@ a {
 									Kho voucher </a></li>
 						</ul>
 					</div>
-				</div>
-			</div>
+                </div>
+            </div>
 
-			<div class="col-xl-8">
-				<c:forEach var="i" items="${listOrder}">
-					<div class="card border shadow-none">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-md-10">
-									<div class="d-flex align-items-start border-bottom pb-3">
-										<input type="hidden" name="orderID" value="${i.orderID}">
-										<input type="hidden" name="sellerID" value="${i.sellerID}">
-										<input type="hidden" name="shipperID" value="${i.shipperID}">
-
-										<p class="text-muted mb-0">
-											<i class="bx bxs-star text-warning">${i.orderDate }</i>
-										</p>
-
-										`
-										<c:forEach var="j" items="${i.details}">
-											<c:if test="${j != null}">
-												<div class="me-5">
-													<img src="${j.item.image}" alt="" width="150" height="150"
-														style="margin-right: 20px;">
-												</div>
-
-												<div class="flex-grow-1 align-self-center overflow-hidden">
-													<div>
-														<input type="hidden" name="itemID"
-															value="${j.item.itemID}">
-
-														<h5 class="text-truncate font-size-20 ">
-															<a href="#" class="text-dark ">${j.product.productName }</a>
-														</h5>
-														<p class="mb-0 mt-1">
-															Phân loại hàng: <span class="fw-medium">${j.item.color },
-																${j.item.size }</span>
-														</p>
-														<p class="mb-0 mt-1">
-															<span class="fw-medium"> x${j.quantity }</span>
-														</p>
-													</div>
-												</div>
-												<div class="col-md-5">
-													<div class="mt-3">
-														<p class="text-muted mb-2">Giá</p>
-														<h5 class="mb-0 mt-2">
-															<span class="text-muted me-2"> <del
-																	class="font-size-16 fw-normal">${j.item.originalPrice }
-																	VND</del>
-															</span>${j.item.promotionPrice } VND
-														</h5>
-													</div>
-												</div>
-											</c:if>
-										</c:forEach>
-										<c:choose>
-											<c:when test="${i.status == 0}">
-												<p class="mb-0 mt-1">
-													<span class="fw-medium" style="color: Orange;"> Đơn
-														hàng chờ xác nhận</span>
-												</p>
-											</c:when>
-											<c:when test="${i.status == 1}">
-												<p class="mb-0 mt-1">
-													<span class="fw-medium"> Đơn hàng đã được xác nhận</span>
-												</p>
-											</c:when>
-											<c:when test="${i.status == 2}">
-												<p class="mb-0 mt-1">
-													<span class="fw-medium"> Đơn hàng đang được chuẩn bị</span>
-												</p>
-											</c:when>
-											<c:when test="${i.status == 3}">
-												<p class="mb-0 mt-1">
-													<span class="fw-medium" style="color: green;"> Đơn
-														hàng đang được giao đến bạn</span>
-												</p>
-											</c:when>
-											<c:when test="${i.status == 4}">
-												<p class="mb-0 mt-1">
-													<span class="fw-medium" style="color: green;"> Đơn
-														hàng đã được giao thành công</span>
-												</p>
-											</c:when>
-											<c:when test="${i.status == 5}">
-												<p class="mb-0 mt-1">
-													<span class="fw-medium" style="color: red;"> Đơn
-														hàng đã bị hủy</span>
-												</p>
-											</c:when>
-										</c:choose>
-									</div>
-								</div>
-								<div class="col-md-2">
-									<a href="#"
-										class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-										Chat </a>
-									<form action="customerConfirm" method="post"
-										enctype="multipart/form-data">
-										<input type="hidden" name="orderID" value="${i.orderID}">
-										<c:choose>
-											<c:when test="${i.status <= 2 }">
-												<input type="hidden" name="action" value="cancelOrder">
-												<button type="submit"
-													class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-													Hủy đơn</button>
-											</c:when>
-											<c:when test="${i.status == 3 }">
-												<input type="hidden" name="action" value="confirmOrder">
-												<button type="submit"
-													class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-													Xác nhận</button>
-											</c:when>
-											<c:when test="${i.status == 4 }">
-												<input type="hidden" name="action" value="rateOrder">
-												<button type="submit"
-													class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-													Đánh giá</button>
-											</c:when>
-										</c:choose>
-
-									</form>
-								</div>
-							</div>
-							<hr>
-							<div>
-								<div class="row">
-									<div class="col-md-3">
-										<div class="mt-3">
-											<p class="text-muted mb-2"></p>
-											<p class="text-muted mb-2"></p>
-										</div>
-									</div>
-
-									<div class="col-md-3">
-										<div class="mt-3">
-											<p class="text-muted mb-2">Thành tiền</p>
-											<h5>${i.totalMoney }</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-	</div>
+            <div class="col-xl-8">
+                <c:forEach var="i" items="${listOrder}">
+                    <div class="card border shadow-none mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <i class="bx bxs-star text-warning">${i.orderDate}</i>
+                                    <p class="mb-0 mt-1">
+                                        <span class="fw-medium ${i.status == 0 ? 'text-orange' : ''} 
+													           ${i.status == 1 ? 'text-green' : ''} 
+													           ${i.status == 2 ? 'text-blue' : ''} 
+													           ${i.status == 3 ? 'text-purple' : ''} 
+													           ${i.status == 4 ? 'text-success' : ''} 
+													           ${i.status == 5 ? 'text-danger' : ''}">
+                                             ${i.status == 0 ? 'Đơn hàng chờ xác nhận' :
+                                               i.status == 1 ? 'Đơn hàng đã được xác nhận' :
+                                               i.status == 2 ? 'Đơn hàng đang được chuẩn bị' :
+                                               i.status == 3 ? 'Đơn hàng đang được giao đến bạn' :
+                                               i.status == 4 ? 'Đơn hàng đã được giao thành công' :
+                                               i.status == 5 ? 'Đơn hàng đã bị hủy' : ''}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="d-none">
+                                    <input type="hidden" name="orderID" value="${i.orderID}">
+                                    <input type="hidden" name="sellerID" value="${i.sellerID}">
+                                    <input type="hidden" name="shipperID" value="${i.shipperID}">
+                                </div>
+                                <div class="col-md-12 order-details-container">
+                                    <c:forEach var="j" items="${i.details}">
+                                        <c:if test="${j != null}">
+                                            <div class="product-item">
+                                                <div class="product-image w-50 h-50">
+                                                    <img src="${j.item.image}" alt="" width="150" height="150">
+                                                </div>
+                                                <div class="product-info">
+                                                    <h5 class="text-truncate font-size-20"> <a href="#" class="text-dark">
+                                                        ${j.product.productName}</a> </h5>
+                                                    <p class="mb-0 mt-1"> Màu sắc: <span class="fw-medium">
+                                                        ${j.item.color}</span> </p>
+                                                    <p class="mb-0 mt-1"> Size: <span class="fw-medium">
+                                                            ${j.item.size}</span> </p>
+                                                    <p class="mb-0 mt-1"> <span class="fw-medium"> 
+                                                        x${j.quantity}</span> </p>
+                                                </div>
+                                                <div class="price-info font-size-20">
+                                                    <span class="text-muted me-2"> <del class="font-size-16 fw-normal">
+                                                        ${j.item.originalPrice}</del> </span>${j.item.promotionPrice } VND
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                    <hr>
+                                </div>
+                                <!-- Actions and Total -->
+                               
+                                <div class="col-md-12">
+                                <div class="row">
+                                    <div class = "ms-auto" style = "margin-left: auto">
+                                        <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                            Chat </a>
+                                        <form action="customerConfirm" method="post" enctype="multipart/form-data">
+                                            <input type="hidden" name="orderID" value="${i.orderID}">
+                                            <c:choose>
+                                                <c:when test="${i.status <= 2 }">
+                                                    <input type="hidden" name="action" value="cancelOrder">
+                                                    <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                                        Hủy đơn</button>
+                                                </c:when>
+                                                <c:when test="${i.status == 3 }"> <input type="hidden" name="action" value="confirmOrder">
+                                                    <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                                        Xác nhận</button>
+                                                </c:when>
+                                                <c:when test="${i.status == 4 }">
+                                                    <input type="hidden" name="action" value="rateOrder">
+                                                    <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                                        Đánh giá</button>
+                                                </c:when>
+                                            </c:choose>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-3 text-end font-size-20">
+                                        <p class="text-muted mb-2">Thành tiền</p>
+                                        <h5>${i.totalMoney }</h5>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
 </section>
