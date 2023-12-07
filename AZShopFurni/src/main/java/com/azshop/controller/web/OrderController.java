@@ -51,10 +51,10 @@ public class OrderController extends HttpServlet{
 	
 	private void listOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//int customerID = Integer.parseInt(req.getParameter("UserID"));
-		List<OrderModel> listOrder = orderService.listOrder(120007);
+		List<OrderModel> listOrder = orderService.listOrderByCustomerID(120007);
 		
 		req.setAttribute("listOrder", listOrder);
-		RequestDispatcher rd = req.getRequestDispatcher("/views/web/listOrder.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/listOrder.jsp");
 		rd.forward(req, resp);
 	}
 }
