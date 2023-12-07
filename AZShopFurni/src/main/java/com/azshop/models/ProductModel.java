@@ -10,7 +10,6 @@ public class ProductModel {
 	private int supplierID;
 	private int categoryID;
 	private String material;
-	
 
 	private float avgRating;
 	private int numOfRating;
@@ -20,11 +19,13 @@ public class ProductModel {
 	private List<ItemModel> listItem;
 	private List<ItemImageModel> listItemImage;
 	private String displayedImage;
+	private String categoryName;
+	private String supplierName;
 
 	public ProductModel(int productID, String productName, String description, String origin, int supplierID,
 			int categoryID, String material, float avgRating, int numOfRating, int soldTotal,
 			int displayedPromotionPrice, int displayedOriginalPrice, List<ItemModel> listItem,
-			List<ItemImageModel> listItemImage, String displayedImage) {
+			List<ItemImageModel> listItemImage, String displayedImage, String categoryName, String supplierName) {
 		super();
 		this.productID = productID;
 		this.productName = productName;
@@ -41,6 +42,8 @@ public class ProductModel {
 		this.listItem = listItem;
 		this.listItemImage = listItemImage;
 		this.displayedImage = displayedImage;
+		this.categoryName = categoryName;
+		this.supplierName = supplierName;
 	}
 
 	public ProductModel() {
@@ -159,6 +162,30 @@ public class ProductModel {
 		this.listItemImage = listItemImage;
 	}
 
+	public String getDisplayedImage() {
+		return displayedImage;
+	}
+
+	public void setDisplayedImage(String displayedImage) {
+		this.displayedImage = displayedImage;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getSupplierName() {
+		return supplierName;
+	}
+
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductModel [productID=" + productID + ", productName=" + productName + ", description=" + description
@@ -166,15 +193,8 @@ public class ProductModel {
 				+ material + ", avgRating=" + avgRating + ", numOfRating=" + numOfRating + ", soldTotal=" + soldTotal
 				+ ", displayedPromotionPrice=" + displayedPromotionPrice + ", displayedOriginalPrice="
 				+ displayedOriginalPrice + ", listItem=" + listItem + ", listItemImage=" + listItemImage
-				+ ", displayedImage=" + displayedImage + "]";
-	}
-
-	public String getDisplayedImage() {
-		return displayedImage;
-	}
-
-	public void setDisplayedImage(String displayedImage) {
-		this.displayedImage = displayedImage;
+				+ ", displayedImage=" + displayedImage + ", categoryName=" + categoryName + ", supplierName="
+				+ supplierName + "]";
 	}
 
 }

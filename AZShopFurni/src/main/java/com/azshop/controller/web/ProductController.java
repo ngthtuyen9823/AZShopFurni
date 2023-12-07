@@ -19,31 +19,35 @@ import javax.servlet.http.HttpSession;
 
 import com.azshop.models.CartModel;
 import com.azshop.models.CategoryModel;
+import com.azshop.models.DetailModel;
 import com.azshop.models.ProductModel;
 import com.azshop.models.SearchHistoryModel;
 import com.azshop.models.SupplierModel;
 import com.azshop.models.UserModel;
 import com.azshop.service.ICartService;
 import com.azshop.service.ICategoryService;
+import com.azshop.service.IDetailService;
 import com.azshop.service.IProductService;
 import com.azshop.service.ISearchHistoryService;
 import com.azshop.service.ISupplierService;
 import com.azshop.service.impl.CartServiceImpl;
 import com.azshop.service.impl.CategoryServiceImpl;
+import com.azshop.service.impl.DetailServiceImpl;
 import com.azshop.service.impl.ProductServiceImpl;
 import com.azshop.service.impl.SearchHistoryServiceImpl;
 import com.azshop.service.impl.SupplierServiceImpl;
 
-@WebServlet(urlPatterns = { "/products" ,"/search"})
+@WebServlet(urlPatterns = { "/products", "/search" })
 public class ProductController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	IProductService productService = new ProductServiceImpl();
 	ICategoryService categoryService = new CategoryServiceImpl();
-	ISupplierService supplierService = new SupplierServiceImpl();
-	ISearchHistoryService searchHistoryService=new SearchHistoryServiceImpl();
-	ICartService cartService =new CartServiceImpl();
+
+	ISearchHistoryService searchHistoryService = new SearchHistoryServiceImpl();
+	ICartService cartService = new CartServiceImpl();
+	IDetailService detailService = new DetailServiceImpl();
 	RequestDispatcher rd = null;
 
 	@Override
@@ -58,14 +62,13 @@ public class ProductController extends HttpServlet {
 			if (idString != null) {
 				int id = Integer.parseInt(req.getParameter("id"));
 				ProductModel productModel = productService.findOne(id);
-				CategoryModel categoryModel = categoryService.findOne(productModel.getCategoryID());
-				SupplierModel supplierModel = supplierService.findOne(productModel.getSupplierID());
-				List<ProductModel> cateProList = productService.findByCategoryID(categoryModel.getCategoryID());
 
+				List<ProductModel> cateProList = productService.findByCategoryID(productModel.getCategoryID());
+				List<DetailModel> detailList = detailService.getAllDetail();
+
+				req.setAttribute("detailList", detailList);
 				req.setAttribute("cateProList", cateProList);
 				req.setAttribute("product", productModel);
-				req.setAttribute("category", categoryModel);
-				req.setAttribute("supplier", supplierModel);
 
 				rd = req.getRequestDispatcher("/views/web/products/productdetail.jsp");
 			} else {
@@ -94,7 +97,7 @@ public class ProductController extends HttpServlet {
 				String filterPrice = req.getParameter("price");
 				String filterRating = req.getParameter("rating");
 				String sortProduct = req.getParameter("sort");
-				listProduct=filterAndSortProduct(listProduct, filterPrice, filterRating, sortProduct);
+				listProduct = filterAndSortProduct(listProduct, filterPrice, filterRating, sortProduct);
 
 				int totalPage = listProduct.size() > 0 ? listProduct.size() / pageSize : 0;
 				int start = (page - 1) * pageSize;
@@ -113,14 +116,14 @@ public class ProductController extends HttpServlet {
 			}
 
 			rd.forward(req, resp);
-		}else if (url.contains("/search")) {
+		} else if (url.contains("/search")) {
 			List<ProductModel> listProduct = new ArrayList<ProductModel>();
 			String keyword = req.getParameter("keyword");
-			HttpSession session=req.getSession();
-			if(keyword != null) {
-				if(session!=null && session.getAttribute("user")!=null) {
-					UserModel user=(UserModel) session.getAttribute("user");
-					SearchHistoryModel historySearch=new SearchHistoryModel();
+			HttpSession session = req.getSession();
+			if (keyword != null) {
+				if (session != null && session.getAttribute("user") != null) {
+					UserModel user = (UserModel) session.getAttribute("user");
+					SearchHistoryModel historySearch = new SearchHistoryModel();
 					historySearch.setCustomerID(user.getUserID());
 					historySearch.setCreatedAt(new Timestamp(new Date().getTime()));
 					historySearch.setHistory(keyword);
@@ -132,8 +135,8 @@ public class ProductController extends HttpServlet {
 			String filterPrice = req.getParameter("price");
 			String filterRating = req.getParameter("rating");
 			String sortProduct = req.getParameter("sort");
-			listProduct=filterAndSortProduct(listProduct, filterPrice, filterRating, sortProduct);
-		
+			listProduct = filterAndSortProduct(listProduct, filterPrice, filterRating, sortProduct);
+
 			req.setAttribute("keyword", keyword);
 			req.setAttribute("price", filterPrice);
 			req.setAttribute("sort", sortProduct);
@@ -143,17 +146,20 @@ public class ProductController extends HttpServlet {
 		}
 	}
 
-	private void showHistorySearch(HttpServletRequest req,HttpServletResponse resp ) throws ServletException, IOException {
-		HttpSession session=req.getSession();
-		if(session!=null && session.getAttribute("user")!=null) {
-			UserModel user=(UserModel) session.getAttribute("user");
-			List<SearchHistoryModel> searchHistory=searchHistoryService.getHistorySearchByCID(user.getUserID());
+	private void showHistorySearch(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		if (session != null && session.getAttribute("user") != null) {
+			UserModel user = (UserModel) session.getAttribute("user");
+			List<SearchHistoryModel> searchHistory = searchHistoryService.getHistorySearchByCID(user.getUserID());
 			req.setAttribute("history", searchHistory);
 		}
 	}
-	private List<ProductModel> filterAndSortProduct(List<ProductModel> listProduct, String filterPrice, String rating, String sortProduct){
-		if(filterPrice!=null && !filterPrice.isEmpty()) {
-			listProduct=filterByPrice(listProduct, filterPrice);
+
+	private List<ProductModel> filterAndSortProduct(List<ProductModel> listProduct, String filterPrice, String rating,
+			String sortProduct) {
+		if (filterPrice != null && !filterPrice.isEmpty()) {
+			listProduct = filterByPrice(listProduct, filterPrice);
 		}
 		if (rating != null && !rating.isEmpty()) {
 			listProduct = filterByRating(listProduct, rating);
@@ -163,6 +169,7 @@ public class ProductController extends HttpServlet {
 		}
 		return listProduct;
 	}
+
 	private List<ProductModel> filterByPrice(List<ProductModel> listProduct, String priceRange) {
 		String[] priceRangeValue = priceRange.split("-");
 		int minPrice = Integer.parseInt(priceRangeValue[0]);
@@ -186,31 +193,9 @@ public class ProductController extends HttpServlet {
 		}
 		return listProduct;
 	}
-    
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		resp.setCharacterEncoding("UTF-8");
-
-		String url = req.getRequestURI().toString();
-		if (url.contains("addToCart")) {
-			addToOrder(req, resp);
-		}
-	}
-
-	protected void addToOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		CartModel cart = new CartModel();
-		// Get the parameters from the request
-		int itemID = Integer.parseInt(req.getParameter("itemID"));
-		int quantity = Integer.parseInt(req.getParameter("quantity"));
-		System.out.println(itemID);
-		System.out.println(quantity);
-		cart.setCustomerID(100001);
-		cart.setItemID(itemID);
-		cart.setQuantity(quantity);
-		cartService.insert(cart);
 
 	}
 }

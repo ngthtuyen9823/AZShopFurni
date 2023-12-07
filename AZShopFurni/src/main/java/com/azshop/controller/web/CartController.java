@@ -54,11 +54,11 @@ public class CartController extends HttpServlet {
 	private void getAllCart(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		List<CartModel> listCart = cartService.findAll();
 		int subTotal = 0;
-		
+
 		for (CartModel cart : listCart) {
 			subTotal += cart.getTotalPrice();
 		}
-		
+
 		req.setAttribute("carts", listCart);
 		req.setAttribute("subTotal", subTotal);
 
@@ -67,8 +67,7 @@ public class CartController extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CartModel cart = new CartModel();
 		CartModel oldCart = new CartModel();
 
@@ -91,6 +90,6 @@ public class CartController extends HttpServlet {
 			cartService.insert(cart);
 		}
 		resp.getWriter().write("Item added to cart successfully");
-//		resp.sendRedirect("carts");
+		resp.sendRedirect("carts");
 	}
 }

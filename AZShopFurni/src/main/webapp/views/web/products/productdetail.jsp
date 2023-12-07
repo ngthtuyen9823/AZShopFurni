@@ -8,7 +8,7 @@
 			<h6 class="mb-0">
 				<a href="" class="link-dark" style="text-decoration: none;">Home</a>
 				<span class="mx-2"> > </span> <a href="" class="link-dark"
-					style="text-decoration: none;">${category.categoryName}</a> <span
+					style="text-decoration: none;">${product.categoryName}</a> <span
 					class="mx-2"> > </span> <a href="#" class="link-dark"
 					style="text-decoration: none;">${product.productName}</a>
 			</h6>
@@ -67,7 +67,7 @@
 						<dt class="col-3">Material</dt>
 						<dd class="col-9">${product.material}</dd>
 						<dt class="col-3">Brand</dt>
-						<dd class="col-9">${supplier.supplierName}</dd>
+						<dd class="col-9">${product.supplierName}</dd>
 						<dt class="col-3">Origin</dt>
 						<dd class="col-9">${product.origin}</dd>
 					</div>
@@ -140,263 +140,90 @@
 		</div>
 	</div>
 </section>
-<section>
-	<div class="container">
-		<div id="reviews" class="review-section">
-			<div class="d-flex align-items-center justify-content-between mb-4">
-				<h4 class="m-0">37 Reviews</h4>
-				<select
-					class="custom-select custom-select-sm border-0 shadow-sm ml-2 select2-hidden-accessible"
-					data-select2-id="1" tabindex="-1" aria-hidden="true">
-					<option data-select2-id="3">Most Relevant</option>
-					<option>Most Recent</option>
-				</select> <span class="select2 select2-container select2-container--default"
-					dir="ltr" data-select2-id="2" style="width: 188px;"> <span
-					class="selection"> <span
-						class="select2-selection select2-selection--single"
-						role="combobox" aria-haspopup="true" aria-expanded="false"
-						tabindex="0" aria-labelledby="select2-qd66-container"> <span
-							class="select2-selection__rendered" id="select2-qd66-container"
-							role="textbox" aria-readonly="true" title="Most Relevant">Most
-								Relevant</span> <span class="select2-selection__arrow"
-							role="presentation"><b role="presentation"></b></span>
-					</span>
-				</span> <span class="dropdown-wrapper" aria-hidden="true"></span>
-				</span>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<table class="stars-counters">
-						<tbody>
-							<tr class="">
-								<td><span>
-										<button
-											class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5
-											Stars</button>
-								</span></td>
-								<td class="progress-bar-container">
-									<div
-										class="fit-progressbar fit-progressbar-bar star-progress-bar">
-										<div class="fit-progressbar-background">
-											<span class="progress-fill" style="width: 97.2973%;"></span>
-										</div>
+
+<section
+	style="box-shadow: 0 -1px 0px 1px rgba(0, 0, 0, 0.1); background-color: #FFFFFF;"
+	class="content-item" id="comments">
+	<div class="container" style="padding: 20px;">
+
+		<h3 style="margin-bottom: 20px;">Product Ratings</h3>
+
+		<div id="reviews" class="review-section"
+			style="border-bottom: none; padding-bottom: 15px; padding-top: 0; display: flex; justify-content: space-between;">
+
+			<div class="col-md-6">
+				<table class="stars-counters" style="width: 100%;">
+					<tbody>
+						<tr>
+							<td>
+								<button
+									class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5
+									Stars</button>
+							</td>
+							<td class="progress-bar-container">
+								<div
+									class="fit-progressbar fit-progressbar-bar star-progress-bar">
+									<div class="fit-progressbar-background">
+										<span class="progress-fill" style="width: 97.2973%;"></span>
 									</div>
-								</td>
-								<td class="star-num">(36)</td>
-							</tr>
-							<tr class="">
-								<td><span>
-										<button
-											class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5
-											Stars</button>
-								</span></td>
-								<td class="progress-bar-container">
-									<div
-										class="fit-progressbar fit-progressbar-bar star-progress-bar">
-										<div class="fit-progressbar-background">
-											<span class="progress-fill" style="width: 2.2973%;"></span>
-										</div>
-									</div>
-								</td>
-								<td class="star-num">(2)</td>
-							</tr>
-							<tr class="">
-								<td><span>
-										<button
-											class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5
-											Stars</button>
-								</span></td>
-								<td class="progress-bar-container">
-									<div
-										class="fit-progressbar fit-progressbar-bar star-progress-bar">
-										<div class="fit-progressbar-background">
-											<span class="progress-fill" style="width: 0;"></span>
-										</div>
-									</div>
-								</td>
-								<td class="star-num">(0)</td>
-							</tr>
-							<tr class="">
-								<td><span>
-										<button
-											class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5
-											Stars</button>
-								</span></td>
-								<td class="progress-bar-container">
-									<div
-										class="fit-progressbar fit-progressbar-bar star-progress-bar">
-										<div class="fit-progressbar-background">
-											<span class="progress-fill" style="width: 0;"></span>
-										</div>
-									</div>
-								</td>
-								<td class="star-num">(0)</td>
-							</tr>
-							<tr class="">
-								<td><span>
-										<button
-											class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5
-											Stars</button>
-								</span></td>
-								<td class="progress-bar-container">
-									<div
-										class="fit-progressbar fit-progressbar-bar star-progress-bar">
-										<div class="fit-progressbar-background">
-											<span class="progress-fill" style="width: 0;"></span>
-										</div>
-									</div>
-								</td>
-								<td class="star-num">(0)</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="col-md-6">
-					<div class="ranking">
-						<h6 class="text-display-7">Rating Breakdown</h6>
-						<ul>
-							<li>Seller communication level<span>5<span
-									class="review-star rate-10 show-one"></span></span>
-							</li>
-							<li>Recommend to a friend<span>5<span
-									class="review-star rate-10 show-one"></span></span>
-							</li>
-							<li>Service as described<span>4.9<span
-									class="review-star rate-10 show-one"></span></span>
-							</li>
-						</ul>
-					</div>
-				</div>
+								</div>
+							</td>
+							<td class="star-num">(36)</td>
+						</tr>
+						<!-- Add similar rows for other star ratings -->
+					</tbody>
+				</table>
 			</div>
 		</div>
-	</div>
-</section>
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<section class="content-item" id="comments">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8">
-				<form>
-					<h3 class="pull-left">New Comment</h3>
-					<button type="submit" class="btn btn-normal pull-right">Submit</button>
-					<fieldset>
-						<div class="row">
-							<div class="col-sm-3 col-lg-2 hidden-xs">
-								<img class="img-responsive"
-									src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-							</div>
-							<div class="form-group col-xs-12 col-sm-9 col-lg-10">
-								<textarea class="form-control" id="message"
-									placeholder="Your message" required=""></textarea>
-							</div>
+
+		<!-- Iterate over the detailList and display media items -->
+		<c:forEach items="${detailList}" var="item" varStatus="loop">
+			<div class="media"
+				style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
+
+				<a class="pull-left" href="#"><img class="media-object"
+					src="${item.avatar}" alt=""
+					style="border-radius: 50%; width: 80px; height: 80px;"></a>
+				<div class="media-body">
+					<h4 class="media-heading">${item.name}</h4>
+					<p>${item.content}</p>
+					<ul class="list-unstyled list-inline media-detail pull-left">
+						<li><i class="fa fa-calendar"></i>${item.evaluationDate}</li>
+					</ul>
+					<ul class="list-unstyled list-inline media-detail pull-right">
+						<li class=""><a href="">Reply</a></li>
+					</ul>
+				</div>
+			</div>
+		</c:forEach>
+
+		<!-- Review Form -->
+		<div class="review-form" style="margin-top: 20px; padding: 20px;">
+			<form>
+				<h3 style="margin-bottom: 25px;">Add new Comment</h3>
+
+				<fieldset>
+					<div class="row">
+						<div class="col-sm-3 col-lg-1 hidden-xs">
+							<img style="width: 50px; border-radius: 50%;"
+								class="img-responsive"
+								src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
 						</div>
-					</fieldset>
-				</form>
-
-				<h3>4 Comments</h3>
-
-				<!-- COMMENT 1 - START -->
-				<div class="media">
-					<a class="pull-left" href="#"><img class="media-object"
-						src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
-					<div class="media-body">
-						<h4 class="media-heading">John Doe</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-							ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum
-							dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-							sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit
-							amet, consectetur adipiscing elit.</p>
-						<ul class="list-unstyled list-inline media-detail pull-left">
-							<li><i class="fa fa-calendar"></i>27/02/2014</li>
-							<li><i class="fa fa-thumbs-up"></i>13</li>
-						</ul>
-						<ul class="list-unstyled list-inline media-detail pull-right">
-							<li class=""><a href="">Like</a></li>
-							<li class=""><a href="">Reply</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- COMMENT 1 - END -->
-
-				<!-- COMMENT 2 - START -->
-				<div class="media">
-					<a class="pull-left" href="#"><img class="media-object"
-						src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""></a>
-					<div class="media-body">
-						<h4 class="media-heading">John Doe</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-							ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum
-							dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-							sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit
-							amet, consectetur adipiscing elit.</p>
-						<ul class="list-unstyled list-inline media-detail pull-left">
-							<li><i class="fa fa-calendar"></i>27/02/2014</li>
-							<li><i class="fa fa-thumbs-up"></i>13</li>
-						</ul>
-						<ul class="list-unstyled list-inline media-detail pull-right">
-							<li class=""><a href="">Like</a></li>
-							<li class=""><a href="">Reply</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- COMMENT 2 - END -->
-
-				<!-- COMMENT 3 - START -->
-				<div class="media">
-					<a class="pull-left" href="#"><img class="media-object"
-						src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></a>
-					<div class="media-body">
-						<h4 class="media-heading">John Doe</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-							ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum
-							dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-							sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit
-							amet, consectetur adipiscing elit.</p>
-						<ul class="list-unstyled list-inline media-detail pull-left">
-							<li><i class="fa fa-calendar"></i>27/02/2014</li>
-							<li><i class="fa fa-thumbs-up"></i>13</li>
-						</ul>
-						<ul class="list-unstyled list-inline media-detail pull-right">
-							<li class=""><a href="">Like</a></li>
-							<li class=""><a href="">Reply</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- COMMENT 3 - END -->
-
-				<!-- COMMENT 4 - START -->
-				<div class="media">
-					<a class="pull-left" href="#"><img class="media-object"
-						src="https://bootdey.com/img/Content/avatar/avatar4.png" alt=""></a>
-					<div class="media-body">
-						<h4 class="media-heading">John Doe</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem
-							ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum
-							dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-							sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit
-							amet, consectetur adipiscing elit.</p>
-						<ul class="list-unstyled list-inline media-detail pull-left">
-							<li><i class="fa fa-calendar"></i>27/02/2014</li>
-							<li><i class="fa fa-thumbs-up"></i>13</li>
-						</ul>
-						<ul class="list-unstyled list-inline media-detail pull-right">
-							<li class=""><a href="">Like</a></li>
-							<li class=""><a href="">Reply</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- COMMENT 4 - END -->
-
-			</div>
+						<div class="form-group col-xs-12 col-sm-9 col-lg-10">
+							<textarea
+								style="width: 100%; padding: 15px; box-sizing: border-box; font-size: 1.2rem; height: 150px"
+								class="form-control" id="message" placeholder="Your message"
+								required=""></textarea>
+						</div>
+				</fieldset>
+				<button type="submit"
+					style="margin-top: 10px; padding: 10px; background-color: #4CAF50; color: #fff; border: none; cursor: pointer;"
+					class="btn btn-normal pull-right">Submit</button>
+			</form>
 		</div>
 	</div>
 </section>
+
 <!-- content -->
 <section class="product">
 	<h2 class="product-category">sản phẩm liên quan</h2>
