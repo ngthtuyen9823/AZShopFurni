@@ -1,11 +1,11 @@
 package com.azshop.models;
 
-import com.google.api.client.util.DateTime;
+import java.sql.Timestamp;
 
 public class PaymentModel {
 	private int orderID;
 	private int method;
-	private DateTime time;
+	private Timestamp time;
 	private String bank;
 	private String cardOwner;
 	private String accountNumber;
@@ -13,7 +13,7 @@ public class PaymentModel {
 	public PaymentModel() {
 		super();
 	}
-	public PaymentModel(int orderID, int method, DateTime time, String bank, String cardOwner, String accountNumber,
+	public PaymentModel(int orderID, int method, Timestamp time, String bank, String cardOwner, String accountNumber,
 			int status) {
 		super();
 		this.orderID = orderID;
@@ -36,10 +36,10 @@ public class PaymentModel {
 	public void setMethod(int method) {
 		this.method = method;
 	}
-	public DateTime getTime() {
+	public Timestamp getTime() {
 		return time;
 	}
-	public void setTime(DateTime time) {
+	public void setTime(Timestamp time) {
 		this.time = time;
 	}
 	public String getBank() {

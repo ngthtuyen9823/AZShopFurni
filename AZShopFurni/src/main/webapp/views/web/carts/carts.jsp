@@ -91,7 +91,7 @@
 					data-toast-type="success" data-toast-position="topRight"
 					data-toast-icon="icon-circle-check" data-toast-title="Your cart"
 					data-toast-message="is updated successfully!">Update Cart</a><a
-					class="btn btn-success" href="#">Checkout</a>
+					class="btn btn-success" href="<c:url value='/checkout' />">Checkout</a>
 			</div>
 		</div>
 	</div>

@@ -17,4 +17,6 @@ public interface ICartDAO {
 
 	List<CartModel> findAll();
 
+	List<CartModel> findByCustomerId(int customerId);
+
 }

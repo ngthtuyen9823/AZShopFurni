@@ -16,4 +16,6 @@ public interface ICartService {
 	CartModel findOne(int customerID, int itemID);
 
 	List<CartModel> findAll();
+
+	List<CartModel> findByCustomerId(int customerId);
 }

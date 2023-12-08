@@ -90,11 +90,13 @@ public class LoginController extends HttpServlet {
 	private void waiting(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
 		HttpSession session = req.getSession();
+		System.out.println("WAITING");
+		System.out.println(session.getAttribute("user") != null);
 		if (session != null && session.getAttribute("user") != null) {
 			UserModel user = (UserModel) session.getAttribute("user");
 			String url = null;
 			if (user.getType() == 0)
-				url = "/testcustomer";
+				url = "/products";
 			else if (user.getType() == 1)
 				url = "/testseller";
 			else if (user.getType() == 2)
