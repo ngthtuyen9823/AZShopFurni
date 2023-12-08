@@ -36,6 +36,9 @@
 				<a class="nav-link" href="adminProduct"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
 					</div> Product
 				</a> 
+				<a class="nav-link" href="adminVoucher"> <div class="sb-nav-link-icon"><i class="bi bi-nvme"></i>
+					</div> Voucher
+				</a> 
 				<a class="nav-link" href="adminKPI"> <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i>
 					</div> KPI
 				</a> 
