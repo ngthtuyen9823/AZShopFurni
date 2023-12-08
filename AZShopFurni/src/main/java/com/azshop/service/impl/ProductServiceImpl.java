@@ -12,8 +12,8 @@ public class ProductServiceImpl implements IProductService {
 	IProductDAO productDAO = new ProductDAOImpl();
 
 	@Override
-	public List<ProductModel> findAll() {
-		return productDAO.findAll();
+	public List<ProductModel> findAllProduct() {
+		return productDAO.findAllProduct();
 	}
 
 	@Override
@@ -71,6 +71,17 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public List<ProductModel> sortByPrice() {
 		return productDAO.sortByPrice();
+	}
+
+	@Override
+	public List<ProductModel> findAll() {
+		
+		return productDAO.findAll();
+	}
+
+	@Override
+	public ProductModel findOneProduct(int id) {
+		return productDAO.findOneProduct(id);
 	}
 	@Override
 	public List<ProductModel> findBySupplierID(int supplierId) {

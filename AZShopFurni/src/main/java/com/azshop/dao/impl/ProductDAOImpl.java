@@ -202,6 +202,16 @@ public class ProductDAOImpl implements IProductDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				ProductModel model = new ProductModel();
+
+				model.setProductID(rs.getInt("ProductID"));
+				model.setProductName(rs.getString("ProductName"));
+				model.setDescription(rs.getString("Description"));
+				model.setOrigin(rs.getString("Origin"));
+				model.setSupplierID(rs.getInt("SupplierID"));
+				model.setCategoryID(rs.getInt("CategoryID"));
+				model.setMaterial(rs.getString("Material"));
+
+				list.add(model);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -381,6 +391,62 @@ public class ProductDAOImpl implements IProductDAO {
 			e.printStackTrace();
 		}
 
+		return model;
+	}
+
+	@Override
+	public List<ProductModel> findAllProduct() {
+		String sql = "Select * from PRODUCT";
+		List<ProductModel> list = new ArrayList<ProductModel>();
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery(sql);
+			while (rs.next()) {
+				ProductModel model = new ProductModel();
+
+				model.setProductID(rs.getInt("ProductID"));
+				model.setProductName(rs.getString("ProductName"));
+				model.setDescription(rs.getString("Description"));
+				model.setOrigin(rs.getString("Origin"));
+				model.setSupplierID(rs.getInt("SupplierID"));
+				model.setCategoryID(rs.getInt("CategoryID"));
+				model.setMaterial(rs.getString("Material"));
+
+				list.add(model);
+			}
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public ProductModel findOneProduct(int id) {
+		ProductModel model = new ProductModel();
+		String sql = "Select * from PRODUCT where ProductID=?";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				model.setProductID(rs.getInt("ProductID"));
+				model.setProductName(rs.getString("ProductName"));
+				model.setDescription(rs.getString("Description"));
+				model.setOrigin(rs.getString("Origin"));
+				model.setSupplierID(rs.getInt("SupplierID"));
+				model.setCategoryID(rs.getInt("CategoryID"));
+				model.setMaterial(rs.getString("Material"));
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return model;
 	}
 

@@ -154,6 +154,7 @@ public class PersonalInformationController extends HttpServlet {
 	private void updateAvatar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int userID = Integer.parseInt(req.getParameter("UserID"));
 		Part filepart = req.getPart("image");
+		System.out.println(filepart.getSize()); 
 		Random rnd = new Random();
 		String rdCode = String.valueOf(rnd.nextInt(100, 999));
 		UploadImage.uploadImage("mysql-web", "web-budget", "Image/Avatar/" + userID + rdCode + ".jpg", filepart.getInputStream());

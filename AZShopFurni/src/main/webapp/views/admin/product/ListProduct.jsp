@@ -99,7 +99,7 @@
 			</div>
 			<div class="card mb-4">
 				<div class="card-body">
-					<a href="<c:url value='/insertProduct'/>" style="margin-right: 50px;">
+					<a href="<c:url value='/admininsertProduct'/>" style="margin-right: 50px;">
 						<button type="button" class="btn btn-dark">
 							<i class="ace-icon fa fa-pencil"></i> Add new product
 						</button>
@@ -146,15 +146,15 @@
 										</c:forEach></td>
 									<td>${i.material}</td>
 									<td><div class="hidden-sm hidden-xs btn-group">
-											<a href='<c:url value = '/adminItem?ProductID=${i.productID}'></c:url>'>
+											<a href='<c:url value = '/adminviewItem?ProductID=${i.productID}'></c:url>'>
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-eye"></i>
 												</button>
-											</a> <a href="<c:url value='/updateProduct?ProductID=${i.productID}'/>">
+											</a> <a href="<c:url value='/adminupdateProduct?ProductID=${i.productID}'/>">
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-pencil"></i>
 												</button>
-											</a> <a href="<c:url value='/deleteProduct?ProductID=${i.productID}'/>">
+											</a> <a href="<c:url value='/admindeleteProduct?ProductID=${i.productID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn"
 													onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm có ID là : ${i.productID} không?')">

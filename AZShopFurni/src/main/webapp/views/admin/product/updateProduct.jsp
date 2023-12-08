@@ -18,7 +18,7 @@
 								Product</h3>
 						</div>
 						<div class="card-body">
-							<form action="update" method="post">
+							<form action="adminupdateProduct" method="post">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-floating mb-3">

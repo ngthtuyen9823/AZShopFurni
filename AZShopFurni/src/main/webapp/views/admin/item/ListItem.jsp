@@ -6,6 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>ListItem</title>
+<style type="text/css">
+    .circle {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+</style>
 </head>
 <body>
 	<main>
@@ -90,6 +98,18 @@
 					</div>
 				</div>
 			</div>
+			<c:if test="${ProID != null}">
+				<div class="card mb-4">
+					<div class="card-body">
+						<a href="<c:url value='/admininsertItem?ProID=${ProID}'/>"
+							style="margin-right: 50px;">
+							<button type="button" class="btn btn-dark">
+								<i class="ace-icon fa fa-pencil"></i> Add new item
+							</button>
+						</a>
+					</div>
+				</div>
+			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
 					<i class="fas fa-table me-1"></i> DataTable Example
@@ -117,17 +137,17 @@
 									<td>${i.itemID}</td>
 									<td>${i.productID}</td>
 									<td>${i.color}</td>
-									<td>${i.colorCode}</td>
+									<td><div style="background-color: ${i.colorCode}; width: 25px; height: 25px;"></div> </td>
 									<td>${i.size}</td>
 									<td>${i.stock}</td>
 									<td>${i.originalPrice}</td>
 									<td>${i.promotionPrice}</td>
 									<td><div class="hidden-sm hidden-xs btn-group">
-											<a href="<c:url value='/updateItem?ItemID=${i.itemID}'/>">
+											<a href="<c:url value='/adminupdateItem?ItemID=${i.itemID}'/>">
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-pencil"></i>
 												</button>
-											</a> <a href="<c:url value='/deleteItem?ItemID=${i.itemID}'/>">
+											</a> <a href="<c:url value='/admindeleteItem?ItemID=${i.itemID}&ProductID=${i.productID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn"
 													onclick="return confirm('Bạn có chắc chắn muốn xóa item có ID là : ${i.itemID} không?')">

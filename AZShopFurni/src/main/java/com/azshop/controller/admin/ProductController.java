@@ -21,7 +21,7 @@ import com.azshop.models.SupplierModel;
 import com.azshop.service.IProductService;
 import com.azshop.service.impl.ProductServiceImpl;
 
-@WebServlet(urlPatterns = { "/adminProduct", "/insertProduct", "/deleteProduct", "/updateProduct" })
+@WebServlet(urlPatterns = { "/adminProduct", "/admininsertProduct", "/admindeleteProduct", "/adminupdateProduct"})
 public class ProductController extends HttpServlet {
 	IProductService prod = new ProductServiceImpl();
 	ICategoryDAO cate = new CategoryDAOImpl();
@@ -31,14 +31,14 @@ public class ProductController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI().toString();
-		if (url.contains("insertProduct")) {
+		if (url.contains("admininsertProduct")) {
 			insert(req, resp);
-		} else if (url.contains("deleteProduct")) {
+		} else if (url.contains("admindeleteProduct")) {
 			delete(req, resp);
-		} else if (url.contains("updateProduct")) {
+		} else if (url.contains("adminupdateProduct")) {
 			update(req, resp);
 		} else if(url.contains("adminProduct"))
-		{
+		{	
 			List(req,resp);
 		}
 	}
@@ -46,7 +46,7 @@ public class ProductController extends HttpServlet {
 	
 	private void List (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<CategoryModel> listcate = cate.findAll();
-		List<ProductModel> listProduct  = prod.findAll();
+		List<ProductModel> listProduct  = prod.findAllProduct();
 		List<SupplierModel> listSupplier = supp.findAll();
 		req.setAttribute("listSupplier", listSupplier);
 		req.setAttribute("listProduct", listProduct);
@@ -81,8 +81,7 @@ public class ProductController extends HttpServlet {
 			}
 		}
 		int productID = Integer.parseInt(req.getParameter("ProductID"));
-		// System.out.println(productID);
-		req.setAttribute("ProductController", prod.findOne(productID));
+		req.setAttribute("Product", prod.findOneProduct(productID));
 		req.setAttribute("listCategory", listcate);
 		req.setAttribute("listSupplier", supp.findAll());
 		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/product/updateProduct.jsp");
@@ -94,10 +93,10 @@ public class ProductController extends HttpServlet {
 		String url = req.getRequestURI().toString();
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
-		if (url.contains("insert")) {
+		if (url.contains("admininsertProduct")) {
 			postinsert(req, resp);
 			
-		} else if (url.contains("update")) {
+		} else if (url.contains("adminupdateProduct")) {
 			postupdate(req, resp);
 		}
 	}
@@ -129,24 +128,24 @@ public class ProductController extends HttpServlet {
 
 	private void postinsert(HttpServletRequest req, HttpServletResponse resp)throws IOException {
 		
-		String productName = req.getParameter("productName");
-		String description = req.getParameter("description");
-		String origin = req.getParameter("origin");
-		int supplierID = Integer.parseInt(req.getParameter("supplier"));
-		int categoryID = Integer.parseInt(req.getParameter("category"));
-		String material = req.getParameter("material");
-		
-		int id = prod.CreateProductID(categoryID);
-		ProductModel Pro = new ProductModel();
-		Pro.setProductID(id);
-		Pro.setProductName(productName);
-		Pro.setDescription(description);
-		Pro.setOrigin(origin);
-		Pro.setSupplierID(supplierID);
-		Pro.setCategoryID(categoryID);
-		Pro.setMaterial(material);
-
-		prod.insertProduct(Pro);
-		resp.sendRedirect("adminProduct");
+		String productName = req.getParameter("productName"); 
+		String description = req.getParameter("description"); 
+		String origin = req.getParameter("origin"); 
+		int supplierID = Integer.parseInt(req.getParameter("supplier")); 
+		int categoryID = Integer.parseInt(req.getParameter("category")); 
+		String material = req.getParameter("material"); 
+		 
+		int id = prod.CreateProductID(categoryID); 
+		ProductModel Pro = new ProductModel(); 
+		Pro.setProductID(id); 
+		Pro.setProductName(productName); 
+		Pro.setDescription(description); 
+		Pro.setOrigin(origin); 
+		Pro.setSupplierID(supplierID); 
+		Pro.setCategoryID(categoryID); 
+		Pro.setMaterial(material); 
+ 
+		prod.insertProduct(Pro); 
+		resp.sendRedirect("adminProduct"); 
 	}
 }
