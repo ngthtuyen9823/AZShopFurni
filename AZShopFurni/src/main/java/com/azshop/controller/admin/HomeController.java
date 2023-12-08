@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.checkerframework.checker.units.qual.m;
+
 import com.azshop.bean.MyItem;
 import com.azshop.service.IReportService;
 import com.azshop.service.impl.ReportServiceImpl;
@@ -27,6 +29,9 @@ public class HomeController extends HttpServlet {
 		if (url.contains("adminHome")) {
 			Date date = new Date();
 	        List<MyItem> listItem = reportService.reportReceipt(date, 7);
+	        for (MyItem myItem : listItem) {
+				System.out.println(myItem.getTime()+" "+myItem.getValue());
+			}
 	        req.setAttribute("listReceipt", listItem);
 			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
 			rd.forward(req, resp);

@@ -22,7 +22,8 @@ import com.azshop.service.impl.AccountServiceImpl;
 import com.azshop.service.impl.CustomerServiceImpl;
 import com.azshop.utils.MessageUtil;
 
-@WebServlet(urlPatterns = { "/adminCustomer", "/adminInsertCustomer", "/adminUpdateCustomer", "/adminDeleteCustomer" })
+@WebServlet(urlPatterns = { "/adminCustomer", "/adminInsertCustomer", "/adminUpdateCustomer", "/adminDeleteCustomer",
+		"/adminInformationCustomer"})
 public class CustomerController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -45,6 +46,12 @@ public class CustomerController extends HttpServlet {
 			getCustomerUpdate(req, resp);
 		} else if (url.contains("adminDeleteCustomer")) {
 			deleteCustomer(req, resp);
+		} else if (url.contains("adminInformationCustomer")) {
+			int customerID = Integer.parseInt(req.getParameter("customerID"));
+			UserModel customer = customerService.getOneCustomer(customerID);
+			req.setAttribute("userModel", customer);
+			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/customer/customerInformation.jsp");
+			rd.forward(req, resp);
 		}
 	}
 
@@ -121,7 +128,7 @@ public class CustomerController extends HttpServlet {
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req, "updateFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/customer/customerInsert.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/customer/customerUpdate.jsp");
 		rd.forward(req, resp);
 	}
 

@@ -104,6 +104,11 @@
 					</a>
 				</div>
 			</div>
+			<c:if test="${not empty message }">
+				<div class="alert alert-${alert}">
+					<strong>${message}!</strong>
+				</div>
+			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
 					<i class="fas fa-table me-1"></i> DataTable Account

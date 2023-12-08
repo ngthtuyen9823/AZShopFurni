@@ -8,6 +8,7 @@
 <title>Table - Customer</title>
 </head>
 <body>
+
 	<main>
 		<div class="container">
 		<c:if test="${not empty message }">

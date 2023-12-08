@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +15,6 @@ import java.text.SimpleDateFormat;
 import com.azshop.bean.MyItem;
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.IReportDAO;
-
 
 public class ReportDAOImpl implements IReportDAO {
 
@@ -60,5 +60,42 @@ public class ReportDAOImpl implements IReportDAO {
 		cal.add(Calendar.DATE, -i);
 		return cal.getTime();
 	}
+
+	@Override
+	public List<List<Object>> reportTotalMoneyInMonth() {
+		String sql = "SELECT  " 
+				+ "   OrderDate AS Ngay, " 
+				+ "    SUM(TotalMoney) AS Tong, "
+				+ "    COUNT(OrderID) AS SL " 
+				+ "FROM AZShop.`ORDER` WHERE MONTH(OrderDate) = MONTH(CURDATE()) AND YEAR(OrderDate) = YEAR(CURDATE()) " + "GROUP BY Ngay " 
+				+ "ORDER BY Ngay ";
+
+		List<List<Object>> list = new ArrayList<List<Object>>();
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				List<Object> row = new ArrayList<Object>();
+				row.add(rs.getDate("Ngay"));
+				row.add(rs.getInt("Tong"));
+				row.add(rs.getInt("SL"));
+				list.add(row);
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+//	public static void main(String[] args) {
+//		IReportDAO idao = new ReportDAOImpl();
+//		List<List<Object>> list = idao.reportTotalMoneyInMonth();
+//		for (List<Object> list2 : list) {
+//			System.out.println(list2.get(0));
+//		}
+//	}
 
 }

@@ -104,6 +104,11 @@
 					</a>
 				</div>
 			</div>
+			<c:if test="${not empty message }">
+				<div class="alert alert-${alert}">
+					<strong>${message}!</strong>
+				</div>
+			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
 					<i class="fas fa-table me-1"></i> DataTable Customer
@@ -152,6 +157,12 @@
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn">
 													<i class="ace-icon fa fa-trash"></i>
+												</button>
+											</a> <a
+												href="<c:url value='/adminInformationCustomer?customerID=${i.userID}'/>">
+												<button type="button" class="btn btn-xs btn-info btn-sm"
+													id="liveToastBtn">
+													<i class="fa fa-info-circle" aria-hidden="true"></i>
 												</button>
 											</a>
 										</div>

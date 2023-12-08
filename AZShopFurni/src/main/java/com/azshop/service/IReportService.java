@@ -7,4 +7,5 @@ import com.azshop.bean.MyItem;
 
 public interface IReportService {
 	public List<MyItem> reportReceipt(Date date, int limit);
+	 public List<List<Object>> reportTotalMoneyInMonth();
 }

@@ -10,3 +10,4 @@ public interface IUserDAO {
 	AccountModel getInfAccount(int userID);
 	void updateAccount(AccountModel account);
 }
+
