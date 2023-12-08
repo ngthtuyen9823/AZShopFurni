@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.azshop.dao.ICustomerDAO;
 import com.azshop.models.CartModel;
 import com.azshop.models.CategoryModel;
 import com.azshop.models.DetailModel;
@@ -26,12 +27,14 @@ import com.azshop.models.SupplierModel;
 import com.azshop.models.UserModel;
 import com.azshop.service.ICartService;
 import com.azshop.service.ICategoryService;
+import com.azshop.service.ICustomerService;
 import com.azshop.service.IDetailService;
 import com.azshop.service.IProductService;
 import com.azshop.service.ISearchHistoryService;
 import com.azshop.service.ISupplierService;
 import com.azshop.service.impl.CartServiceImpl;
 import com.azshop.service.impl.CategoryServiceImpl;
+import com.azshop.service.impl.CustomerServiceImpl;
 import com.azshop.service.impl.DetailServiceImpl;
 import com.azshop.service.impl.ProductServiceImpl;
 import com.azshop.service.impl.SearchHistoryServiceImpl;
@@ -43,6 +46,7 @@ public class ProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	IProductService productService = new ProductServiceImpl();
+	ICustomerService customerService = new CustomerServiceImpl();
 	ICategoryService categoryService = new CategoryServiceImpl();
 
 	ISearchHistoryService searchHistoryService = new SearchHistoryServiceImpl();
@@ -64,10 +68,24 @@ public class ProductController extends HttpServlet {
 				ProductModel productModel = productService.findOne(id);
 
 				List<ProductModel> cateProList = productService.findByCategoryID(productModel.getCategoryID());
-				List<DetailModel> detailList = detailService.getAllDetail();
+				List<ProductModel> supProList = productService.findBySupplierID(productModel.getSupplierID());
+				List<DetailModel> detailList = detailService.findDetailByProductID(productModel.getProductID());
+
+				HttpSession session = req.getSession(true);
+				if (session.getAttribute("user") != null) {
+					UserModel user = (UserModel) session.getAttribute("user");
+					int userID = user.getUserID();
+					UserModel customer = new UserModel();
+					customer = customerService.getOneCustomer(userID);
+					req.setAttribute("avatar", customer.getAvatar());
+				}
+				else {
+					req.setAttribute("avatar", "https://cdn-icons-png.flaticon.com/512/6596/6596121.png");
+				}
 
 				req.setAttribute("detailList", detailList);
 				req.setAttribute("cateProList", cateProList);
+				req.setAttribute("supProList", supProList);
 				req.setAttribute("product", productModel);
 
 				rd = req.getRequestDispatcher("/views/web/products/productdetail.jsp");

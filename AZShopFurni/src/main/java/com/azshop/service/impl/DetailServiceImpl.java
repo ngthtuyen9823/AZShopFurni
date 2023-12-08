@@ -11,8 +11,8 @@ public class DetailServiceImpl implements IDetailService {
 	IDetailDAO detailDAO = new DetailDAOImpl();
 
 	@Override
-	public List<DetailModel> getAllDetail() {
-		return detailDAO.getAllDetail();
+	public List<DetailModel> findDetailByProductID(int productID) {
+		return detailDAO.findDetailByProductID(productID);
 	}
 
 	@Override

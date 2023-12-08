@@ -144,7 +144,7 @@ public class ProductDAOImpl implements IProductDAO {
 //		List<ProductModel> list = productDAO.findAll();
 //		System.out.println(list);
 
-		List<ProductModel> listByCate = productDAO.findByCategoryID(101);
+		List<ProductModel> listByCate = productDAO.findBySupplierID(101);
 		System.out.println(listByCate);
 //
 //		List<ProductModel> listWithCount = productDAO.findWithCount(1);
@@ -402,5 +402,48 @@ public class ProductDAOImpl implements IProductDAO {
 		}
 
 		return model;
+	}
+
+	public List<ProductModel> findBySupplierID(int supplierId) {
+		String sql = "SELECT p.*, \r\n"
+				+ "       SUBSTRING_INDEX(GROUP_CONCAT(ii.Image ORDER BY ii.ItemImageID), ',', 1) AS FirstImage,\r\n"
+				+ "       (SELECT MIN(i.PromotionPrice) FROM ITEM i WHERE i.ProductID = p.ProductID) AS MinPromotionPrice,\r\n"
+				+ "       (SELECT MIN(i.OriginalPrice) FROM ITEM i WHERE i.ProductID = p.ProductID) AS MinOriginalPrice,\r\n"
+				+ "AVG(rating) as Rating\r\n" + "FROM CATEGORY c\r\n"
+				+ "JOIN PRODUCT p ON c.CategoryID = p.CategoryID\r\n" + "JOIN ITEM i ON p.ProductID = i.ProductID\r\n"
+				+ "JOIN ITEMIMAGE ii ON ii.ItemID = i.ItemID\r\n" + "LEFT JOIN DETAIL d ON d.ItemID=i.ItemID\r\n"
+				+ "WHERE p.SupplierID = ?\r\n" + "GROUP BY p.ProductID LIMIT 5;";
+		List<ProductModel> list = new ArrayList<ProductModel>();
+
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, supplierId);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				ProductModel model = new ProductModel();
+				int productID = rs.getInt("ProductID");
+
+				model.setProductID(productID);
+				model.setProductName(rs.getString("ProductName"));
+				model.setDescription(rs.getString("Description"));
+				model.setOrigin(rs.getString("Origin"));
+				model.setSupplierID(rs.getInt("SupplierID"));
+				model.setCategoryID(rs.getInt("CategoryID"));
+				model.setMaterial(rs.getString("Material"));
+				model.setAvgRating(rs.getFloat("Rating"));
+				model.setDisplayedImage(rs.getString("FirstImage"));
+				model.setDisplayedPromotionPrice(rs.getInt("MinPromotionPrice"));
+				model.setDisplayedOriginalPrice(rs.getInt("MinOriginalPrice"));
+
+				list.add(model);
+			}
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

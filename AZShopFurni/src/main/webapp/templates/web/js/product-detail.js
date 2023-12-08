@@ -56,24 +56,29 @@ function addToCart() {
 			success: function(response) {
 				errorContainer.text("");
 
-				Swal.fire({
-					icon: 'success',
-					title: 'Item added to cart successfully',
-					showCancelButton: true,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#ffc107;',
-					confirmButtonText: 'OK',
-					cancelButtonText: 'Go to Cart',
-					allowOutsideClick: false
-				}).then((result) => {
-					if (!result.isConfirmed) {
-						window.location.href = '/AZShopFurni/carts';
-					}
-				});
+				// Check if the response contains a "redirect" property
+				if (response.redirect) {
+					// Perform client-side redirection
+					window.location.href = response.redirect;
+				} else {
+					Swal.fire({
+						icon: 'success',
+						title: 'Item added to cart successfully',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#ffc107;',
+						confirmButtonText: 'OK',
+						cancelButtonText: 'Go to Cart',
+						allowOutsideClick: false
+					}).then((result) => {
+						if (!result.isConfirmed) {
+							window.location.href = '/AZShopFurni/carts';
+						}
+					});
+				}
 			},
 			error: function(error) {
 				console.error("Please choose the item", error);
-
 				errorContainer.text("Error adding to cart. Please choose the item.");
 			}
 		});

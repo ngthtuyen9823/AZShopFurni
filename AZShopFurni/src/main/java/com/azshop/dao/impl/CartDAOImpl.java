@@ -9,7 +9,6 @@ import java.util.List;
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.ICartDAO;
 import com.azshop.models.CartModel;
-import com.azshop.models.CategoryModel;
 
 public class CartDAOImpl implements ICartDAO {
 	Connection conn = null;
@@ -181,42 +180,4 @@ public class CartDAOImpl implements ICartDAO {
 		}
 		return listCart;
 	}
-
-	public static void main(String[] args) {
-		// Test the CartDAOImpl methods
-		CartDAOImpl cartDAO = new CartDAOImpl();
-
-		// Delete
-//		cartDAO.delete(100001, 10100101);
-
-		// Insert
-//		CartModel newCart = new CartModel();
-//		newCart.setCustomerID(100001);
-//		newCart.setItemID(10100101);
-//		newCart.setQuantity(3);
-//		cartDAO.insert(newCart);
-
-		// Update
-//		CartModel existingCart = cartDAO.findOne(100001, 10100101);
-//		if (existingCart != null) {
-//			existingCart.setQuantity(existingCart.getQuantity() + 1);
-//			cartDAO.update(existingCart);
-//		}
-//
-//		// FindOne
-//		CartModel foundCart = cartDAO.findOne(100001, 10100101);
-//		if (foundCart != null) {
-//			System.out.println("Found Cart: " + foundCart.getCustomerID() + ", " + foundCart.getItemID() + ", "
-//					+ foundCart.getQuantity());
-//		} else {
-//			System.out.println("Cart not found.");
-//		}
-
-//		// FindAll
-		System.out.println("All Carts:");
-		for (CartModel cart : cartDAO.findAll()) {
-			System.out.println(cart);
-		}
-	}
-
 }

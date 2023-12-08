@@ -6,7 +6,7 @@
 	<div class="table-responsive shopping-cart">
 		<table class="table">
 			<thead>
-				<tr>
+				<tr class="table_head">
 					<th>Product Name</th>
 					<th class="text-center">Unit Price</th>
 					<th class="text-center">Quantity</th>
@@ -39,18 +39,24 @@
 								pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}</td>
 						<td class="text-center">
 							<div class="input-group" style="justify-content: center;">
-								<button class="px-3" type="button" id="button-addon1"
-									data-mdb-ripple-color="dark">
-									<i class="fas fa-minus"></i>
-								</button>
-								<input type="text" style="flex: 0.2 1 auto;"
+
+								<a class="remove-from-cart" style="display: flex;"
+									href="<c:url value='/updateCart?customerID=${i.customerID}&itemID=${i.itemID}&quantity=${i.quantity - 1} '/>"
+									data-toggle="tooltip" title=""
+									data-original-title="Remove item"><button class="px-3"
+										type="button" id="button-addon1" data-mdb-ripple-color="dark">
+										<i class="fas fa-minus"></i>
+									</button></a> <input type="text" style="flex: 0.2 1 auto;"
 									class="form-control text-center border border-secondary"
 									id="quantityInput" placeholder="${i.quantity}"
-									aria-label="example" aria-describedby="button-addon1" />
-								<button class="px-3" type="button" id="button-addon2"
-									data-mdb-ripple-color="dark">
-									<i class="fas fa-plus"></i>
-								</button>
+									aria-label="example" aria-describedby="button-addon1" /> <a
+									class="remove-from-cart" style="display: flex;"
+									href="<c:url value='/updateCart?customerID=${i.customerID}&itemID=${i.itemID}&quantity=${i.quantity + 1} '/>"
+									data-toggle="tooltip" title=""
+									data-original-title="Remove item"><button class="px-3"
+										type="button" id="button-addon1" data-mdb-ripple-color="dark">
+										<i class="fas fa-plus"></i>
+									</button></a>
 							</div>
 						</td>
 						<td class="text-center text-lg text-medium"><fmt:formatNumber
@@ -66,22 +72,18 @@
 		</table>
 	</div>
 	<div class="shopping-cart-footer">
-		<div class="column"></div>
-		<div class="column text-lg">
-			Subtotal: <span style="font-weight: 500; font-size: 1.5rem;"
-				class="text-lg"><fmt:formatNumber type="currency"
-					value="${subTotal}" currencyCode="VND" pattern="#,##0 VND"
-					var="formattedPrice" /> ${formattedPrice}</span>
-		</div>
-	</div>
-	<div class="shopping-cart-footer">
 		<div class="column">
-			<a class="btn btn-outline-secondary"
-				href="<c:url value='/products' />"><i class="icon-arrow-left"></i>&nbsp;Back
-				to Shopping</a>
-		</div>
-		<div class="column">
-			<a class="btn btn-success" href="#">Checkout</a>
+			<div style="padding: 1.3rem; font-size: 1.5rem;"
+				class="column text-lg">
+				Subtotal: <span style="font-weight: 500; font-size: 1.5rem;"
+					class="text-lg"><fmt:formatNumber type="currency"
+						value="${subTotal}" currencyCode="VND" pattern="#,##0 VND"
+						var="formattedPrice" /> ${formattedPrice}</span>
+			</div>
+			<a style="float: right;" href="<c:url value='/products' />"><button
+					style="width: 260px; float: right; padding: 1.2rem;"
+					class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+					Process to checkout</button></a>
 		</div>
 	</div>
 </div>

@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<style>
+</style>
 <header>
 	<div class="container pt-5">
 		<nav class="d-flex">
@@ -141,92 +143,150 @@
 	</div>
 </section>
 
-<section
-	style="box-shadow: 0 -1px 0px 1px rgba(0, 0, 0, 0.1); background-color: #FFFFFF;"
-	class="content-item" id="comments">
-	<div class="container" style="padding: 20px;">
+<section class="content-item" id="comments" style="box-shadow: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9">
+				<div class="container">
+					<div
+						style="box-shadow: 0 -1px 0px 1px rgba(0, 0, 0, 0.1); background-color: #fff; padding: 20px; border-radius: 10px;">
 
-		<h3 style="margin-bottom: 20px;">Product Ratings</h3>
+						<h3 style="margin-bottom: 20px; padding: 25px; color: #333;">Product
+							Ratings</h3>
 
-		<div id="reviews" class="review-section"
-			style="border-bottom: none; padding-bottom: 15px; padding-top: 0; display: flex; justify-content: space-between;">
+						<div id="reviews" class="review-section"
+							style="border-bottom: none; padding-top: 5px; padding-bottom: 15px; display: flex; justify-content: space-between;">
 
-			<div class="col-md-6">
-				<table class="stars-counters" style="width: 100%;">
-					<tbody>
-						<tr>
-							<td>
-								<button
-									class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5
-									Stars</button>
-							</td>
-							<td class="progress-bar-container">
-								<div
-									class="fit-progressbar fit-progressbar-bar star-progress-bar">
-									<div class="fit-progressbar-background">
-										<span class="progress-fill" style="width: 97.2973%;"></span>
-									</div>
+							<div class="col-md-6">
+								<table class="stars-counters" style="width: 100%;">
+									<tbody>
+										<tr>
+											<td>
+												<button
+													class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5
+													Stars</button>
+											</td>
+											<td>
+												<div class="text-warning mb-1 me-2"
+													style="font-size: 1.2rem;">
+													<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+														class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+														class="fas fa-star"></i><span
+														style="font-size: 1.3rem; font-color: black; color: black; padding-left: 1.2rem; font-weight: 420;"
+														class="ms-1 star-num"> (5) </span>
+												</div>
+
+											</td>
+										</tr>
+
+										<!-- Add similar rows for other star ratings -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						<!-- Iterate over the detailList and display media items -->
+						<c:forEach items="${detailList}" var="item" varStatus="loop">
+							<div class="media"
+								style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px; background-color: #f9f9f9;">
+
+								<a class="pull-left" href="#"><img class="media-object"
+									src="${item.avatar}" alt=""
+									style="border-radius: 50%; width: 80px; height: 80px;"></a>
+								<div class="media-body">
+									<h4 class="media-heading" style="color: #333;">${item.name}</h4>
+									<p>${item.content}</p>
+									<ul class="list-unstyled list-inline media-detail pull-left">
+										<li><i class="fa fa-calendar"></i>${item.evaluationDate}</li>
+									</ul>
+									<ul class="list-unstyled list-inline media-detail pull-right">
+										<li class=""><a href="#" style="color: #3498db;">Reply</a></li>
+									</ul>
 								</div>
-							</td>
-							<td class="star-num">(36)</td>
-						</tr>
-						<!-- Add similar rows for other star ratings -->
-					</tbody>
-				</table>
-			</div>
-		</div>
+							</div>
+						</c:forEach>
+						<!-- Review Form -->
+						<div class="review-form"
+							style="margin-top: 20px; padding: 20px; background-color: #f9f9f9; border-radius: 5px;">
+							<form>
+								<h3 style="margin-bottom: 25px; color: #333;">Add new
+									Comment</h3>
 
-		<!-- Iterate over the detailList and display media items -->
-		<c:forEach items="${detailList}" var="item" varStatus="loop">
-			<div class="media"
-				style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
+								<fieldset>
+									<div class="row">
+										<div class="col-sm-3 col-lg-1 hidden-xs">
+											<img style="width: 50px; height: 50px; border-radius: 50%;"
+												class="img-responsive" src="${avatar}" alt="">
+										</div>
 
-				<a class="pull-left" href="#"><img class="media-object"
-					src="${item.avatar}" alt=""
-					style="border-radius: 50%; width: 80px; height: 80px;"></a>
-				<div class="media-body">
-					<h4 class="media-heading">${item.name}</h4>
-					<p>${item.content}</p>
-					<ul class="list-unstyled list-inline media-detail pull-left">
-						<li><i class="fa fa-calendar"></i>${item.evaluationDate}</li>
-					</ul>
-					<ul class="list-unstyled list-inline media-detail pull-right">
-						<li class=""><a href="">Reply</a></li>
-					</ul>
+										<div style="width: 91%; padding: 1.1rem;">
+											<span id="rateMe2" class="empty-stars"></span> <span
+												class="stext-105 cl3"> <i class="fas fa-star"
+												style="color: gold;"></i> <i class="fas fa-star"
+												style="color: gold;"></i> <i class="fas fa-star"
+												style="color: gold;"></i> <i class="fas fa-star" style=""></i>
+												<i class="fas fa-star" style=""></i>
+											</span>
+											<div class="bor8 m-b-30">
+												<textarea
+													class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25"
+													name="msg" placeholder="Let us know what you think"
+													style="width: 100%;"></textarea>
+											</div>
+										</div>
+
+									</div>
+								</fieldset>
+								<button style="float: right; margin-top: -0.8rem;"
+									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">Submit</button>
+							</form>
+						</div>
+					</div>
 				</div>
+
 			</div>
-		</c:forEach>
+			<div class="col-lg-3">
+				<c:forEach items="${supProList}" var="item" varStatus="loop">
+					<div class="product-card"
+						style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; background-color: #fff; transition: transform 0.3s ease-in-out;">
 
-		<!-- Review Form -->
-		<div class="review-form" style="margin-top: 20px; padding: 20px;">
-			<form>
-				<h3 style="margin-bottom: 25px;">Add new Comment</h3>
+						<div class="product-image"
+							style="position: relative; overflow: hidden; height: 200px;">
+							<a href="<c:url value='/products?id=${item.productID}' />"
+								class="product-image"> <img src="${item.displayedImage}"
+								class="product-thumb" alt=""
+								style="width: 100%; height: 100%; object-fit: cover;">
+							</a>
+						</div>
 
-				<fieldset>
-					<div class="row">
-						<div class="col-sm-3 col-lg-1 hidden-xs">
-							<img style="width: 50px; border-radius: 50%;"
-								class="img-responsive"
-								src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+						<div class="product-info" style="padding: 15px;">
+							<h2 class="product-brand"
+								style="font-size: 18px; margin-top: 2px; margin-bottom: 0px; color: #333;">${item.productName}</h2>
+							<p style="margin-bottom: 10px; margin-top: 3px;"
+								class="product-short-description">${item.description}</p>
+							<span class="price"
+								style="font-size: 16px; font-weight: bold; color: #3498db; margin-bottom: 5px;">
+								<fmt:formatNumber type="currency"
+									value="${item.displayedPromotionPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
+							</span> <span class="actual-price"
+								style="font-size: 12px; color: #888; text-decoration: line-through;">
+								<fmt:formatNumber type="currency"
+									value="${item.displayedOriginalPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
+							</span>
 						</div>
-						<div class="form-group col-xs-12 col-sm-9 col-lg-10">
-							<textarea
-								style="width: 100%; padding: 15px; box-sizing: border-box; font-size: 1.2rem; height: 150px"
-								class="form-control" id="message" placeholder="Your message"
-								required=""></textarea>
-						</div>
-				</fieldset>
-				<button type="submit"
-					style="margin-top: 10px; padding: 10px; background-color: #4CAF50; color: #fff; border: none; cursor: pointer;"
-					class="btn btn-normal pull-right">Submit</button>
-			</form>
+
+					</div>
+				</c:forEach>
+			</div>
+
 		</div>
-	</div>
 </section>
 
 <!-- content -->
 <section class="product">
-	<h2 class="product-category">sản phẩm liên quan</h2>
+	<h2 class="product-category">sản phẩm cùng loại</h2>
 	<button class="pre-btn">
 		<img src="images/arrow.png" alt="">
 	</button>

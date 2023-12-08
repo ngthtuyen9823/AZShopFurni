@@ -12,14 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.azshop.models.CartModel;
+import com.azshop.models.ItemModel;
 import com.azshop.models.UserModel;
 import com.azshop.service.ICartService;
+import com.azshop.service.IItemService;
 import com.azshop.service.impl.CartServiceImpl;
+import com.azshop.service.impl.ItemServiceImpl;
 
-@WebServlet({ "/carts", "/addToCart", "/buyNow", "/deleteCart", "/deleteCarts" })
+@WebServlet({ "/carts", "/addToCart", "/buyNow", "/deleteCart", "/deleteCarts", "/updateCart" })
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ICartService cartService = new CartServiceImpl();
+	IItemService itemService = new ItemServiceImpl();
 	RequestDispatcher rd = null;
 
 	@Override
@@ -36,7 +40,22 @@ public class CartController extends HttpServlet {
 			deleteCarts(req, resp);
 		} else if (url.contains("deleteCart")) {
 			deleteCart(req, resp);
+		} else if (url.contains("updateCart")) {
+			updateCart(req, resp);
 		}
+	}
+
+	private void updateCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		int customerID = Integer.parseInt(req.getParameter("customerID"));
+		int itemID = Integer.parseInt(req.getParameter("itemID"));
+		int quantity = Integer.parseInt(req.getParameter("quantity"));
+		CartModel cart = new CartModel();
+		cart.setCustomerID(customerID);
+		cart.setItemID(itemID);
+		cart.setQuantity(quantity);
+
+		cartService.update(cart);
+		resp.sendRedirect("carts");
 	}
 
 	private void deleteCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -49,7 +68,6 @@ public class CartController extends HttpServlet {
 
 	private void deleteCarts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		HttpSession session = req.getSession(true);
-
 		if (session == null || session.getAttribute("user") == null) {
 			resp.sendRedirect(req.getContextPath() + "/login");
 			return;
@@ -57,14 +75,12 @@ public class CartController extends HttpServlet {
 
 		UserModel user = (UserModel) session.getAttribute("user");
 		int customerID = user.getUserID();
-
 		cartService.deleteAllByCustomerID(customerID);
 		resp.sendRedirect("carts");
 	}
 
 	private void getAllCart(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		HttpSession session = req.getSession(true);
-
 		if (session == null || session.getAttribute("user") == null) {
 			resp.sendRedirect(req.getContextPath() + "/login");
 			return;
@@ -74,14 +90,12 @@ public class CartController extends HttpServlet {
 		List<CartModel> listCart = cartService.findByCustomerId(user.getUserID());
 
 		int subTotal = 0;
-
 		for (CartModel cart : listCart) {
 			subTotal += cart.getTotalPrice();
 		}
 
 		req.setAttribute("carts", listCart);
 		req.setAttribute("subTotal", subTotal);
-
 		rd = req.getRequestDispatcher("/views/web/carts/carts.jsp");
 		rd.forward(req, resp);
 	}
@@ -89,35 +103,42 @@ public class CartController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(true);
-
 		if (session == null || session.getAttribute("user") == null) {
 			resp.sendRedirect(req.getContextPath() + "/login");
+			// Return JSON response with redirect information
+//			resp.setContentType("application/json");
+			resp.getWriter().write("{\"redirect\":\"" + req.getContextPath() + "/login\"}");
 			return;
 		}
 
 		UserModel user = (UserModel) session.getAttribute("user");
 		CartModel cart = new CartModel();
 		CartModel oldCart = new CartModel();
-
 		int customerID = user.getUserID();
 		int itemID = Integer.parseInt(req.getParameter("selectedItemID"));
 		int quantity = Integer.parseInt(req.getParameter("selectedQuantity"));
 
 		cart.setCustomerID(customerID);
 		cart.setItemID(itemID);
-
 		oldCart = cartService.findOne(customerID, itemID);
+		quantity += oldCart.getQuantity();
+		cart.setQuantity(quantity);
+		System.out.println("quantity" + quantity);
+		ItemModel item = new ItemModel();
+		item = itemService.findOne(itemID);
+		System.out.println("item" + item);
 
-		if (oldCart.getQuantity() != 0) {
-			cart.setQuantity(quantity + oldCart.getQuantity());
-			System.out.println("oldcart" + oldCart);
-			cartService.update(cart);
+		if (item.getStock() >= quantity) {
+			if (oldCart.getQuantity() != 0) {
+				cartService.update(cart);
+				System.out.println("update");
+			} else {
+				cartService.insert(cart);
+				System.out.println("insert");
+			}
 		} else {
-			cart.setQuantity(quantity);
-			System.out.println(cart);
-			cartService.insert(cart);
+			System.out.println("Stock not support enough!");
 		}
-		resp.getWriter().write("Item added to cart successfully");
 		resp.sendRedirect("carts");
 	}
 }

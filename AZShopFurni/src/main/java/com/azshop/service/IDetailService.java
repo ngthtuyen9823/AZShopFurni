@@ -5,7 +5,7 @@ import java.util.List;
 import com.azshop.models.DetailModel;
 
 public interface IDetailService {
-	List<DetailModel> getAllDetail();
+	List<DetailModel> findDetailByProductID(int productID);
 
 	DetailModel getOneDetail(int id);
 
