@@ -102,7 +102,7 @@ a {
 									Hồ sơ cá nhân </a></li>
 							<li class="bor18"><a
 								href="${pageContext.request.contextPath}/listOrder"
-								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="color: #6C7AE0;">
 									Đơn mua </a></li>
 							<li class="bor18"><a href="#"
 								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
@@ -111,14 +111,14 @@ a {
 					</div>
                 </div>
             </div>
-
+			<!-- List order -->
             <div class="col-xl-8">
                 <c:forEach var="i" items="${listOrder}">
                     <div class="card border shadow-none mb-4">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <i class="bx bxs-star text-warning">${i.orderDate}</i>
+                                    <i class="bx bxs-star text-warning"><fmt:formatDate value="${i.orderDate}" pattern="dd/MM/yyyy"/></i>
                                     <p class="mb-0 mt-1">
                                         <span class="fw-medium ${i.status == 0 ? 'text-orange' : ''} 
 													           ${i.status == 1 ? 'text-green' : ''} 
@@ -130,7 +130,7 @@ a {
                                                i.status == 1 ? 'Đơn hàng đã được xác nhận' :
                                                i.status == 2 ? 'Đơn hàng đang được chuẩn bị' :
                                                i.status == 3 ? 'Đơn hàng đang được giao đến bạn' :
-                                               i.status == 4 ? 'Đơn hàng đã được giao thành công' :
+                                               i.status == 4 ? 'Đơn hàng đã được giao đến bạn' :
                                                i.status == 5 ? 'Đơn hàng đã bị hủy' : ''}
                                         </span>
                                     </p>
@@ -157,9 +157,12 @@ a {
                                                     <p class="mb-0 mt-1"> <span class="fw-medium"> 
                                                         x${j.quantity}</span> </p>
                                                 </div>
-                                                <div class="price-info font-size-20">
+                                                <div class="price-info font-size-20" style="color: orange">
                                                     <span class="text-muted me-2"> <del class="font-size-16 fw-normal">
-                                                        ${j.item.originalPrice}</del> </span>${j.item.promotionPrice } VND
+                                                    <fmt:formatNumber type="currency" value="${j.item.originalPrice}" currencyCode="VND"
+													pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice} </del> </span> 
+													<fmt:formatNumber type="currency" value="${j.item.promotionPrice }" currencyCode="VND"
+													pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice} 
                                                 </div>
                                             </div>
                                         </c:if>
@@ -171,9 +174,9 @@ a {
                                 <div class="col-md-12">
                                 <div class="row">
                                     <div class = "ms-auto" style = "margin-left: auto">
-                                        <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                            Chat </a>
                                         <form action="customerConfirm" method="post" enctype="multipart/form-data">
+                                        <a href="${pageContext.request.contextPath}/detailOrder?orderID=${i.orderID}" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                            Chi tiết </a>
                                             <input type="hidden" name="orderID" value="${i.orderID}">
                                             <c:choose>
                                                 <c:when test="${i.status <= 2 }">
@@ -181,11 +184,11 @@ a {
                                                     <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
                                                         Hủy đơn</button>
                                                 </c:when>
-                                                <c:when test="${i.status == 3 }"> <input type="hidden" name="action" value="confirmOrder">
+                                                <c:when test="${i.status == 4 && i.customerConfirmation != 1 }"> <input type="hidden" name="action" value="confirmOrder">
                                                     <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
                                                         Xác nhận</button>
                                                 </c:when>
-                                                <c:when test="${i.status == 4 }">
+                                                <c:when test="${i.status == 4 && i.customerConfirmation == 1}">
                                                     <input type="hidden" name="action" value="rateOrder">
                                                     <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
                                                         Đánh giá</button>
@@ -193,9 +196,11 @@ a {
                                             </c:choose>
                                         </form>
                                     </div>
-                                    <div class="col-md-3 text-end font-size-20">
+                                    <div class="col-md-3 text-end ">
                                         <p class="text-muted mb-2">Thành tiền</p>
-                                        <h5>${i.totalMoney }</h5>
+                                        <h5 class="font-size-20" style="color: orange">
+                                        	<fmt:formatNumber type="currency" value="${i.totalMoney}" currencyCode="VND"
+											pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice} </h5>
                                     </div>
                                 </div>
                                 </div>

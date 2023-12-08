@@ -12,7 +12,7 @@
 						<ul>
 							<li class="bor18"><a
 								href="${pageContext.request.contextPath}/infoUser"
-								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="color: #6C7AE0;">
 									Hồ sơ cá nhân </a></li>
 							<li class="bor18"><a
 								href="${pageContext.request.contextPath}/listOrder"
@@ -72,7 +72,7 @@
 					<div style="display: flex; align-items: center;">
 						<span class="mtext-106 cl2" style="margin-right: 10px;">
 							Ngày sinh:</span>
-						<p style="font-size: 20px;">${userModel.dob}</p>
+						<p style="font-size: 20px;"> <fmt:formatDate value="${userModel.dob}" pattern="dd/MM/yyyy"/></p>
 					</div>
 					<h4 class="mtext-105 cl2 js-name-detail p-b-14"></h4>
 					<h4 class="mtext-105 cl2 js-name-detail p-b-14"></h4>

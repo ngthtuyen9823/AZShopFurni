@@ -27,14 +27,10 @@ public class OrderServiceImpl implements IOrderService{
 	public void confirmOrder(int orderID, int confirm) {
 		orderDAO.confirmOrder(orderID, confirm);
 	}
-	
-	public static void main(String[] args) {
-		IOrderService orderSer = new  OrderServiceImpl();
-		List<OrderModel> list = orderSer.listOrderByCustomerID(120007);
-		list.forEach(o -> {
-			System.out.println(o);
-			o.getDetails().forEach(d -> System.out.println(d));
-			});
-		
+	@Override
+	public OrderModel getOrderByOrderID(int orderID) {
+		OrderModel order = orderDAO.getOrderByOrderID(orderID);
+		order.setDetails(detailDAO.listDetail(order.getOrderID()));
+		return order;
 	}
 }
