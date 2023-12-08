@@ -4,14 +4,17 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>About</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Add this line in your head tag -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/favicon.png"/>">
-	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/icon-heart-02.png"/>">
+<title>About</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add this line in your head tag -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	href="<c:url value="/templates/web/images/icons/favicon.png"/>">
+<link rel="icon" type="image/png"
+	href="<c:url value="/templates/web/images/icons/icon-heart-02.png"/>">
 <!--===============================================================================================-->
 <!--===============================================================================================-->
 <!--===============================================================================================-->
@@ -33,9 +36,12 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/css-hamburgers/hamburgers.min.css"/>">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/util.css"/>">
-	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/main.css"/>">
-	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/products/products.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/util.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/main.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/products/products.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/animsition/css/animsition.min.css"/>">
 <!--===============================================================================================-->
@@ -54,16 +60,26 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/MagnificPopup/magnific-popup.css"/>">
 <!--===============================================================================================-->
-<link href='<c:url value="/templates/web/css/products/tiny-slider.css"/>'
+<link
+	href='<c:url value="/templates/web/css/products/tiny-slider.css"/>'
 	rel="stylesheet" />
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 	rel="stylesheet">
-<link href='<c:url value="/templates/web/css/products/product-detail.css"/>'
+<link
+	href='<c:url value="/templates/web/css/products/product-detail.css"/>'
 	rel="stylesheet" />
-	
+
 <link href='<c:url value="/templates/web/css/carts/carts.css"/>'
 	rel="stylesheet" />
+	
+<link href='<c:url value="/templates/web/css/checkout/checkout.css"/>'
+	rel="stylesheet" />
+	
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" />
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+	rel="stylesheet">
 
 </head>
 <body>

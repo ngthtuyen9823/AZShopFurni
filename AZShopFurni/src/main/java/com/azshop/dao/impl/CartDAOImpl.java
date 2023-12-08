@@ -67,13 +67,13 @@ public class CartDAOImpl implements ICartDAO {
 	}
 
 	@Override
-	public void deleteAll() {
-		String sql = "Truncate table CART";
+	public void deleteAllByCustomerID(int customerID) {
+		String sql = "Delete from CART where CustomerID=?";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-
+			ps.setInt(1, customerID);
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -122,6 +122,45 @@ public class CartDAOImpl implements ICartDAO {
 			new DBConnection();
 			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				CartModel cart = new CartModel();
+				cart.setCustomerID(rs.getInt("CustomerID"));
+				cart.setItemID(rs.getInt("ItemID"));
+				cart.setQuantity(rs.getInt("Quantity"));
+				cart.setColor(rs.getString("Color"));
+				cart.setSize(rs.getString("Size"));
+				cart.setPromotionPrice(rs.getInt("PromotionPrice"));
+				cart.setProductName(rs.getString("ProductName"));
+				cart.setTotalPrice(rs.getInt("TotalPrice"));
+				cart.setImage(rs.getString("Image"));
+				cart.setProductID(rs.getInt("ProductID"));
+				listCart.add(cart);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listCart;
+	}
+
+	public List<CartModel> findByCustomerId(int customerId) {
+		List<CartModel> listCart = new ArrayList<CartModel>();
+		String sql = "SELECT\r\n" + "    c.*,\r\n" + "    i.Color,\r\n" + "    i.Size,\r\n"
+				+ "    i.PromotionPrice,\r\n" + "    p.productID,\r\n" + "    p.ProductName,\r\n"
+				+ "    i.PromotionPrice * c.Quantity AS TotalPrice,\r\n" + "    ii.Image\r\n" + "FROM\r\n"
+				+ "    CART c\r\n" + "JOIN\r\n" + "    ITEM i ON c.ItemID = i.ItemID\r\n" + "JOIN\r\n"
+				+ "    PRODUCT p ON i.ProductID = p.ProductID\r\n" + "JOIN\r\n" + "    (\r\n" + "        SELECT\r\n"
+				+ "            ItemID,\r\n" + "            Image,\r\n"
+				+ "            ROW_NUMBER() OVER (PARTITION BY ItemID ORDER BY ItemImageID) AS ImageRank\r\n"
+				+ "        FROM\r\n" + "            ITEMIMAGE\r\n"
+				+ "    ) ii ON i.ItemID = ii.ItemID AND ii.ImageRank = 1\r\n" + "WHERE\r\n" + "    c.CustomerID = ?;";
+
+		System.out.println(sql);
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, customerId);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				CartModel cart = new CartModel();

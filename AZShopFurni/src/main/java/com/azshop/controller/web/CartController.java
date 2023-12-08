@@ -9,9 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.azshop.models.CartModel;
-
+import com.azshop.models.UserModel;
 import com.azshop.service.ICartService;
 import com.azshop.service.impl.CartServiceImpl;
 
@@ -47,12 +48,31 @@ public class CartController extends HttpServlet {
 	}
 
 	private void deleteCarts(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		cartService.deleteAll();
+		HttpSession session = req.getSession(true);
+
+		if (session == null || session.getAttribute("user") == null) {
+			resp.sendRedirect(req.getContextPath() + "/login");
+			return;
+		}
+
+		UserModel user = (UserModel) session.getAttribute("user");
+		int customerID = user.getUserID();
+
+		cartService.deleteAllByCustomerID(customerID);
 		resp.sendRedirect("carts");
 	}
 
 	private void getAllCart(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		List<CartModel> listCart = cartService.findAll();
+		HttpSession session = req.getSession(true);
+
+		if (session == null || session.getAttribute("user") == null) {
+			resp.sendRedirect(req.getContextPath() + "/login");
+			return;
+		}
+
+		UserModel user = (UserModel) session.getAttribute("user");
+		List<CartModel> listCart = cartService.findByCustomerId(user.getUserID());
+
 		int subTotal = 0;
 
 		for (CartModel cart : listCart) {
@@ -68,10 +88,18 @@ public class CartController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession(true);
+
+		if (session == null || session.getAttribute("user") == null) {
+			resp.sendRedirect(req.getContextPath() + "/login");
+			return;
+		}
+
+		UserModel user = (UserModel) session.getAttribute("user");
 		CartModel cart = new CartModel();
 		CartModel oldCart = new CartModel();
 
-		int customerID = 100001; // note
+		int customerID = user.getUserID();
 		int itemID = Integer.parseInt(req.getParameter("selectedItemID"));
 		int quantity = Integer.parseInt(req.getParameter("selectedQuantity"));
 
