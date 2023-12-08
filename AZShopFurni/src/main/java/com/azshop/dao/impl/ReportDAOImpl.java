@@ -61,4 +61,79 @@ public class ReportDAOImpl implements IReportDAO {
 		return cal.getTime();
 	}
 
+	@Override
+	public List<MyItem> reportKPISeller(Date date, int id) {
+		List<MyItem> list = new ArrayList<>();
+		Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+		for (int i = 1; i <= 12; i++) {					
+			MyItem myItem = new MyItem();
+			myItem.setTime(covertMY(i,year));
+			myItem.setValue(countItemByMonth(year,i,id));
+			list.add(myItem);
+		}
+		return list;
+	}
+	private String covertMY(int month, int year) {
+		 // Adjust the month since Calendar.MONTH is zero-based
+	    month--;
+
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.set(Calendar.MONTH, month);
+	    calendar.set(Calendar.YEAR, year);
+	    Date modifiedDate = calendar.getTime();
+	    // Use SimpleDateFormat to format the date
+	    DateFormat df = new SimpleDateFormat("MM/yyyy");
+	    String formattedDate = df.format(modifiedDate);
+	    return formattedDate;
+	}
+	private int countItemByMonth(int year, int month, int id) {
+		String sql = "SELECT COUNT(*) FROM AZShop.ORDER WHERE DATE_FORMAT(OrderDate, '%Y-%m') = ? and SellerID=? and Status=4";
+		int itemCount = 0;
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, String.format("%d-%02d", year, month));
+			ps.setInt(2, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				itemCount = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return itemCount;
+	}
+	
+	@Override
+	public List<MyItem> reportBestItemSeller(int id) {
+		List<MyItem> list = new ArrayList<>();
+		String sql ="SELECT AZShop.PRODUCT.ProductID,AZShop.PRODUCT.ProductName, COUNT(AZShop.ORDER.OrderID) AS OrderCount "
+				+ "FROM AZShop.ORDER "
+				+ "JOIN AZShop.DETAIL ON AZShop.ORDER.OrderID = AZShop.DETAIL.OrderID "
+				+ "join AZShop.ITEM on AZShop.DETAIL.ItemID = AZShop.ITEM.ItemID "
+				+ "join AZShop.PRODUCT on AZShop.ITEM.ProductID = AZShop.PRODUCT.ProductID "
+				+ "WHERE AZShop.ORDER.SellerID = ? "
+				+ "GROUP BY AZShop.PRODUCT.ProductID "
+				+ "ORDER BY OrderCount DESC LIMIT 5";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				MyItem item = new MyItem();	
+				item.setItem(rs.getString("ProductName"));
+				item.setValue(rs.getInt("OrderCount"));			
+				list.add(item);
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

@@ -45,4 +45,9 @@ public class SellerServiceImpl implements ISellerService {
 		return id + 1;
 	}
 
+	@Override
+	public List<UserModel> findBestSeller() {
+		return sellerDAO.findBestSeller();
+	}
+
 }
