@@ -17,7 +17,7 @@ public class OrderDAOImpl implements IOrderDAO {
 	@Override
 	public List<OrderModel> listOrderByCustomerID(int customerID) {
 		List<OrderModel> listOrder = new ArrayList<OrderModel>();
-		String sql =  "SELECT O.OrderID, O.CustomerID, O.OrderDate, O.`Status`, O.Discount, O.TotalMoney, O.SellerID, O.ShipperID "
+		String sql =  "SELECT O.OrderID, O.CustomerID, O.OrderDate, O.`Status`, O.CustomerConfirmation, O.Discount, O.TotalMoney, O.SellerID, O.ShipperID, O.TransportFee "
 					+ "FROM `ORDER` O "
 					+ "WHERE O.CustomerID = ?";
 		try {
@@ -33,10 +33,12 @@ public class OrderDAOImpl implements IOrderDAO {
 				order.setCustomerID(rs.getInt(2));
 				order.setOrderDate(rs.getDate(3));
 				order.setStatus(rs.getInt(4));
-				order.setDiscount(rs.getInt(5));
-				order.setTotalMoney(rs.getInt(6));
-				order.setSellerID(rs.getInt(7));
-				order.setShipperID(rs.getInt(8));
+				order.setCustomerConfirmation(rs.getInt(5));
+				order.setDiscount(rs.getInt(6));
+				order.setTotalMoney(rs.getInt(7));
+				order.setSellerID(rs.getInt(8));
+				order.setShipperID(rs.getInt(9));
+				order.setTransportFee(rs.getInt(10));
 				listOrder.add(order);
 			}
 		} catch (Exception e) {
@@ -76,5 +78,35 @@ public class OrderDAOImpl implements IOrderDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public OrderModel getOrderByOrderID(int orderID) {
+		OrderModel order = new OrderModel();
+		String sql =  "SELECT O.OrderID, O.CustomerID, O.OrderDate, O.`Status`, O.CustomerConfirmation, O.Discount, O.TotalMoney, O.SellerID, O.ShipperID, O.TransportFee "
+					+ "FROM `ORDER` O "
+					+ "WHERE O.OrderID = ?";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, orderID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				order.setOrderID(rs.getInt(1));
+				order.setCustomerID(rs.getInt(2));
+				order.setOrderDate(rs.getDate(3));
+				order.setStatus(rs.getInt(4));
+				order.setCustomerConfirmation(rs.getInt(5));
+				order.setDiscount(rs.getInt(6));
+				order.setTotalMoney(rs.getInt(7));
+				order.setSellerID(rs.getInt(8));
+				order.setShipperID(rs.getInt(9));
+				order.setTransportFee(rs.getInt(10));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return order;
 	}
 }

@@ -17,7 +17,7 @@ import com.azshop.models.UserModel;
 import com.azshop.service.IOrderService;
 import com.azshop.service.impl.OrderServiceImpl;
 
-@WebServlet(urlPatterns = { "/listOrder", "/customerConfirm" })
+@WebServlet(urlPatterns = { "/listOrder", "/customerConfirm", "/detailOrder" })
 @MultipartConfig
 public class OrderController extends HttpServlet {
 
@@ -31,9 +31,11 @@ public class OrderController extends HttpServlet {
 			String url = req.getRequestURI().toString();
 			if (url.contains("listOrder")) {
 				listOrder(req, resp);
-			} else {
-				resp.sendRedirect(req.getContextPath() + "/login");
+			} else if (url.contains("detailOrder")) {
+				detailOrder(req, resp);
 			}
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 	}
 
@@ -49,8 +51,10 @@ public class OrderController extends HttpServlet {
 				listOrder(req, resp);
 			} else if ("confirmOrder".equals(act)) {
 				orderService.confirmOrder(orderID, 1);
-				orderService.updateOrder(orderID, 4);
 				listOrder(req, resp);
+			} else if ("confirmDetailOrder".equals(act)) {
+				orderService.confirmOrder(orderID, 1);
+				detailOrder(req, resp);
 			} else if ("rateOrder".equals(conf)) {
 				// adasd
 			}
@@ -63,6 +67,15 @@ public class OrderController extends HttpServlet {
 		List<OrderModel> listOrder = orderService.listOrderByCustomerID(user.getUserID());
 		req.setAttribute("listOrder", listOrder);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/listOrder.jsp");
+		rd.forward(req, resp);
+	}
+	
+	private void detailOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int orderID = Integer.parseInt(req.getParameter("orderID"));
+		
+		OrderModel order = orderService.getOrderByOrderID(orderID);
+		req.setAttribute("order", order);
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/detailOrder.jsp");
 		rd.forward(req, resp);
 	}
 }
