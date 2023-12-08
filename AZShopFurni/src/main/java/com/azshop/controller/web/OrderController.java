@@ -65,6 +65,7 @@ public class OrderController extends HttpServlet {
 		HttpSession session = req.getSession(false);
 		UserModel user = (UserModel) session.getAttribute("user");
 		List<OrderModel> listOrder = orderService.listOrderByCustomerID(user.getUserID());
+		
 		req.setAttribute("listOrder", listOrder);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/listOrder.jsp");
 		rd.forward(req, resp);

@@ -165,14 +165,13 @@ z-index: 0
 								href="${pageContext.request.contextPath}/listOrder"
 								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="color: #6C7AE0;">
 									Đơn mua </a></li>
-							<li class="bor18"><a href="#"
+							<li class="bor18"><a href="${pageContext.request.contextPath}/listVoucher"
 								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
 									Kho voucher </a></li>
 						</ul>
 					</div>
                 </div>
             </div>
-
             <div class="col-xl-8">
                    <div class="card border shadow-none mb-4">
                        <div class="card-body">
@@ -225,7 +224,7 @@ z-index: 0
                                    <input type="hidden" name="sellerID" value="${order.sellerID}">
                                    <input type="hidden" name="shipperID" value="${order.shipperID}">
                                </div>
-                               <% int money = 0; %>
+                               
                                <div class="col-md-12 order-details-container">
                                    <c:forEach var="j" items="${order.details}">
                                        <c:if test="${j != null}">
