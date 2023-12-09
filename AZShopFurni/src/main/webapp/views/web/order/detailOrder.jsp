@@ -203,7 +203,7 @@ z-index: 0
                                            <input type="hidden" name="orderID" value="${order.orderID}">
                                            <c:choose>
                                                <c:when test="${order.status <= 2 }">
-                                                   <input type="hidden" name="action" value="cancelOrder">
+                                                   <input type="hidden" name="action" value="cancelDetailOrder">
                                                    <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
                                                        Hủy đơn</button>
                                                </c:when>
@@ -254,7 +254,7 @@ z-index: 0
                                    </c:forEach>
                                    <hr class="my-4">
                                    <c:choose>
-                                    <c:when test="${order.status == 0 }">
+                                    <c:when test="${order.status == 0 || order.status==5}">
                                     <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
 							        		<span class="off-dot"></span>
 							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
