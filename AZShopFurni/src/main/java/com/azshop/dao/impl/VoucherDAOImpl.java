@@ -12,10 +12,10 @@ import com.azshop.dao.IVoucherDAO;
 import com.azshop.models.VoucherModel;
 
 public class VoucherDAOImpl implements IVoucherDAO {
+	Connection conn = null;
 
 	@Override
 	public List<VoucherModel> findAllVoucher() {
-		Connection conn = null;
 		String sql = "SELECT * FROM AZShop.VOUCHER";
 		List<VoucherModel> listVoucher = new ArrayList<VoucherModel>();
 		try {
@@ -46,7 +46,6 @@ public class VoucherDAOImpl implements IVoucherDAO {
 
 	@Override
 	public void insertVoucher(VoucherModel model) {
-		Connection conn = null;
 		String sql = "Insert into AZShop.VOUCHER(Description, Discount, MinimumPrice, Quantity, Mfg, Exp) Values (?,?,?,?,?,?)";
 		try {
 			conn = DBConnection.getConnection();// ket noi csdl
@@ -70,7 +69,6 @@ public class VoucherDAOImpl implements IVoucherDAO {
 
 	@Override
 	public void updateVoucher(VoucherModel model) {
-		Connection conn = null;
 		String sql = "Update AZShop.VOUCHER set Description=?, Discount=?, MinimumPrice=?, Quantity=?, Mfg=?, Exp=? where VoucherID=?";
 		try {
 			conn = DBConnection.getConnection();
@@ -95,7 +93,6 @@ public class VoucherDAOImpl implements IVoucherDAO {
 
 	@Override
 	public VoucherModel findOne(int id) {
-		Connection conn = null;
 		String sql = "Select * from AZShop.VOUCHER where VoucherID=?";
 		VoucherModel voucher = new VoucherModel();
 
@@ -119,6 +116,37 @@ public class VoucherDAOImpl implements IVoucherDAO {
 		}
 
 		return voucher;
+	}
+
+	@Override
+	public List<VoucherModel> findAllVoucherOfCustomer(int customerId) {
+		String sql = "SELECT v.* FROM VOUCHER v JOIN VOUCHERCUSTOMER vc ON v.VoucherID = vc.VoucherID WHERE CustomerID=?";
+		List<VoucherModel> listVoucher = new ArrayList<VoucherModel>();
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, customerId);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				VoucherModel voucher = new VoucherModel();
+
+				voucher.setVoucherID(rs.getInt("VoucherID"));
+				voucher.setDescription(rs.getString("Description"));
+				voucher.setDiscount(rs.getInt("Discount"));
+				voucher.setMinimumPrice(rs.getInt("MinimumPrice"));
+				voucher.setQuantity(rs.getInt("Quantity"));
+				voucher.setMfg(rs.getDate("Mfg"));
+				voucher.setExp(rs.getDate("Exp"));
+
+				listVoucher.add(voucher);
+			}
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listVoucher;
 	}
 
 }

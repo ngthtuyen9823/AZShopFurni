@@ -14,12 +14,40 @@
 </head>
 
 <body class="checkout-body">
+	<link rel="stylesheet" type="text/css"
+		href="<c:url value="/templates/web/css/voucher/voucher.css"/>">
+
+
 	<c:set var="cityList" value="${City.getListCity()}" />
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog voucher-modal" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Mã khuyến mãi</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body voucher-card-container">
+					<c:forEach var="voucher" items="${listVoucher}">
+						<div class="">
+							<c:set var="voucher" value="${voucher}" scope="request" />
+							<jsp:include page="./components/voucherCard.jsp" />
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="checkout-container">
 		<div class="row">
 			<div class="col-xl-7">
-				<div class="card">
+				<div class="card card-info">
 					<div class="card-body">
 						<ol class="activity-checkout mb-0 px-4 mt-3">
 							<li class="checkout-item">
@@ -194,26 +222,37 @@
 				</div>
 				<div class="row my-4">
 					<div class="col">
-						<a href="ecommerce-products.html" class="btn btn-link text-muted">
-							<i class="mdi mdi-arrow-left me-1"></i> Tiếp tục mua sắm
+						<a href="<c:url value='/products'/>"
+							class="btn btn-link text-muted"> <i
+							class="mdi mdi-arrow-left me-1"></i> Tiếp tục mua sắm
 						</a>
-					</div>
-					<div class="col">
-						<div class="text-end mt-2 mt-sm-0 process-button">
-							<a href="#" class="btn btn-success"> <i
-								class="mdi mdi-cart-outline me-1"></i> Đặt hàng
-							</a>
-						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-xl-5">
-				<div class="card checkout-order-summary">
+			<div class="col-xl-5 cart-detail-container">
+				<div class="card checkout-order-summary card-info">
+					<div class="voucher-list-container">
+						<button type="button" data-toggle="modal"
+							data-target="#exampleModal">
+							<i class="fa-solid fa-ticket"></i> Áp dụng khuyến mãi
+						</button>
+					</div>
+
 					<div class="card-body">
 						<div class="p-3 bg-light mb-3">
-							<h5 class="font-size-16 mb-0">
-								Order Summary <span class="float-end ms-2">#MN0124</span>
-							</h5>
+							<c:choose>
+								<c:when test="${voucherErrorMessage != null}">
+									<h5 class="font-size-16 mb-0 error-message">
+										Giá trị tối thiểu đơn hàng phải đạt
+										<fmt:formatNumber type="currency"
+											value="${voucherErrorMessage}" currencyCode="VND"
+											pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</h5>
+								</c:when>
+								<c:otherwise>
+									<h5 class="font-size-16 mb-0">Chi tiết đơn hàng</h5>
+								</c:otherwise>
+							</c:choose>
+
 						</div>
 						<div class="table-responsive">
 							<table class="table table-centered mb-0 table-nowrap">
@@ -259,13 +298,17 @@
 										<td colspan="2">
 											<h5 class="font-size-14 m-0">Tổng phí :</h5>
 										</td>
-										<td>$ 780</td>
+										<td><fmt:formatNumber type="currency" value="${rawPrice}"
+												currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</td>
 									</tr>
 									<tr>
 										<td colspan="2">
 											<h5 class="font-size-14 m-0">Giảm giá :</h5>
 										</td>
-										<td>- $ 78</td>
+										<td><fmt:formatNumber type="currency"
+												value="${discount != null ? discount : 0}"
+												currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />-
+											${formattedPrice}</td>
 									</tr>
 									<tr>
 										<td colspan="2">
@@ -285,17 +328,27 @@
 										<td colspan="2">
 											<h5 class="font-size-14 m-0">Thành tiền:</h5>
 										</td>
-										<td>$ 745.2</td>
+										<td><fmt:formatNumber type="currency"
+												value="${totalCost}" currencyCode="VND" pattern="#,##0 VND"
+												var="formattedPrice" />${formattedPrice}</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
+
+				</div>
+				<div class="text-end mt-2 mt-sm-0 process-button">
+					<a href="#" class="btn btn-success"> <i
+						class="mdi mdi-cart-outline me-1"></i> Đặt hàng
+					</a>
 				</div>
 			</div>
-		</div>
 
+
+		</div>
 	</div>
+
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>

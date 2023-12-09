@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.azshop.models.UserModel;
 import com.azshop.models.VoucherModel;
 import com.azshop.service.IVoucherService;
 import com.azshop.service.impl.VoucherServiceImpl;
@@ -40,7 +41,14 @@ public class VoucherController extends HttpServlet{
 	}
 	
 	private void listVoucher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<VoucherModel> listVoucher = voucherService.findAllVoucher();
+		HttpSession session = req.getSession(true);
+		if (session == null || session.getAttribute("user") == null) {
+			resp.sendRedirect(req.getContextPath() + "/login");
+			return;
+		}
+		UserModel user = (UserModel) session.getAttribute("user");
+		
+		List<VoucherModel> listVoucher = voucherService.findAllVoucherOfCustomer(user.getUserID());
 		
 		req.setAttribute("listVoucher", listVoucher);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/voucher/listVoucher.jsp");

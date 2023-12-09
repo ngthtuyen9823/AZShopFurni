@@ -26,5 +26,9 @@ public class VoucherServiceImpl implements IVoucherService{
 	public VoucherModel findOne(int id) {
 		return voucherDAO.findOne(id);
 	}
+	@Override
+	public List<VoucherModel> findAllVoucherOfCustomer(int customerId) {
+		return voucherDAO.findAllVoucherOfCustomer(customerId);
+	}
 
 }
