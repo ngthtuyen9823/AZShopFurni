@@ -89,7 +89,10 @@ public class ReportDAOImpl implements IReportDAO {
 	    return formattedDate;
 	}
 	private int countItemByMonth(int year, int month, int id) {
-		String sql = "SELECT COUNT(*) FROM AZShop.ORDER WHERE DATE_FORMAT(OrderDate, '%Y-%m') = ? and SellerID=? and Status=4";
+		String sql = "SELECT COUNT(*)\r\n"
+				+ "FROM AZShop.ORDER\r\n"
+				+ "JOIN AZShop.DETAIL ON AZShop.ORDER.OrderID = AZShop.DETAIL.OrderID\r\n"
+				+ "WHERE DATE_FORMAT(OrderDate, '%Y-%m') = ? and SellerID=? and Status=4";
 		int itemCount = 0;
 		try {
 			new DBConnection();
@@ -115,7 +118,7 @@ public class ReportDAOImpl implements IReportDAO {
 				+ "JOIN AZShop.DETAIL ON AZShop.ORDER.OrderID = AZShop.DETAIL.OrderID "
 				+ "join AZShop.ITEM on AZShop.DETAIL.ItemID = AZShop.ITEM.ItemID "
 				+ "join AZShop.PRODUCT on AZShop.ITEM.ProductID = AZShop.PRODUCT.ProductID "
-				+ "WHERE AZShop.ORDER.SellerID = ? "
+				+ "WHERE AZShop.ORDER.SellerID = ? AND AZShop.ORDER.Status=4 "
 				+ "GROUP BY AZShop.PRODUCT.ProductID "
 				+ "ORDER BY OrderCount DESC LIMIT 5";
 		try {

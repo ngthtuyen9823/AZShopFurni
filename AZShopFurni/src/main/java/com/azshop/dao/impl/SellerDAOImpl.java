@@ -156,7 +156,13 @@ public class SellerDAOImpl implements ISellerDAO {
 	@Override
 	public List<UserModel> findBestSeller() {
 		Connection conn = null;
-		String sql = "Select UserID, FirstName, LastName, Address, Gender, Phone, DoB, CID, Avatar, KPI from AZShop.USER where Type=1 ORDER BY KPI DESC LIMIT 10";
+		String sql = "Select AZShop.USER.*, count(AZShop.DETAIL.ItemID) as SL\r\n"
+				+ "from AZShop.USER \r\n"
+				+ "join AZShop.ORDER on AZShop.USER.UserID = AZShop.ORDER.SellerID\r\n"
+				+ "join AZShop.DETAIL on AZShop.ORDER.OrderID = AZShop.DETAIL.OrderID\r\n"
+				+ "where AZShop.USER.Type=1 AND AZShop.ORDER.Status=4\r\n"
+				+ "GROUP BY AZShop.USER.UserID\r\n"
+				+ "ORDER BY SL DESC LIMIT 10;";
 		List<UserModel> listSeller = new ArrayList<UserModel>();
 		try {
 			new DBConnection();

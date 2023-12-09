@@ -19,8 +19,7 @@
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">Insert
-								Shipper</h3>
+							<h3 class="text-center font-weight-light my-4">Thêm người giao hàng</h3>
 						</div>
 						<div class="card-body">
 							<form action="adminInsertShipper" method="post">
@@ -28,48 +27,47 @@
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="userID"
-												readonly="readonly" /> <label>ID</label>
+												readonly="readonly" /> <label>Mã</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="firstName" />
-											<label>First Name</label>
+											<label>Họ</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="lastName" /> <label>Last
-												Name</label>
+											<input class="form-control" type="text" name="lastName" /> <label>Tên</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="address" /> <label>Address</label>
+											<input class="form-control" type="text" name="address" /> <label>Địa chỉ</label>
 										</div>
 										<div class="form-floating mb-3">
 											<select class="form-control" name="gender">
 												<option value="0">Nam</option>
 												<option value="1">Nữ</option>
-											</select> <label> Gender </label>
+											</select> <label> Giới tính </label>
 										</div>
 
 
 									</div>
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="phone" /> <label>Phone</label>
+											<input class="form-control" type="text" name="phone" /> <label>Số điện thoại</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="date" name="dob" /> <label>DoB</label>
+											<input class="form-control" type="date" name="dob" /> <label>Ngày sinh</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="cid" /> <label>CID</label>
+											<input class="form-control" type="text" name="cid" /> <label>CCCD</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="avatar" value="https://storage.googleapis.com/web-budget/Image/Avatar/first.png"/> <label>Avatar</label>
+											<input class="form-control" type="text" name="avatar" value="https://storage.googleapis.com/web-budget/Image/Avatar/first.png"/> <label>Ảnh đại diện</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="area" /> <label>Area</label>
+											<input class="form-control" type="text" name="area" /> <label>Khu vực</label>
 										</div>
 									</div>
 								</div>
 								<div class="text-center mt-4">
-									<input type="submit" class="btn btn-primary" value="Insert" />
+									<input type="submit" class="btn btn-primary" value="Thêm" />
 								</div>
 							</form>
 						</div>

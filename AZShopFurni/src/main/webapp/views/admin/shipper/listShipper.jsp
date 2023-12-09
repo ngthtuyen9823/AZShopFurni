@@ -10,16 +10,16 @@
 <body>
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">Tables Shipper</h1>
+			<h1 class="mt-4">BẢNG NGƯỜI GIAO HÀNG</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-				<li class="breadcrumb-item active">Shipper</li>
+				<li class="breadcrumb-item">Trang chính</a></li>
+				<li class="breadcrumb-item active">Người giao hàng</li>
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
 					<a href="<c:url value='/adminInsertShipper'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i> Add new shipper
+							<i class="ace-icon fa fa-pencil"></i> Thêm người giao hàng mới
 						</button>
 					</a>
 				</div>
@@ -31,23 +31,22 @@
 			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
-					<i class="fas fa-table me-1"></i> DataTable Shippers
+					<i class="fas fa-table me-1"></i> Bảng dữ liệu người bán hàng
 				</div>
 				<div class="card-body">
 					<table id="datatablesSimple">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>FirstName</th>
-								<th>LastName</th>
-								<th>Address</th>
-								<th>Gender</th>
-								<th>Phone</th>
-								<th>DoB</th>
-								<th>CID</th>
-								<th>Avatar</th>
-								<th>Area</th>
-								<th>Update</th>
+								<th>Mã</th>
+								<th>Tên</th>
+								<th>Địa chỉ</th>
+								<th>Giới tính</th>
+								<th>Số điện thoại</th>
+								<th>Ngày sinh</th>
+								<th>CCCD</th>
+								<th>Ảnh đại diện</th>
+								<th>Khu vực</th>
+								<th>Hành động</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -55,8 +54,7 @@
 							<c:forEach var="i" items="${listshipper}">
 								<tr>
 									<td>${i.userID}</td>
-									<td>${i.firstName}</td>
-									<td>${i.lastName}</td>
+									<td>${i.firstName} ${i.lastName}</td>
 									<td>${i.address}</td>
 									<td><c:choose>
 											<c:when test="${i.gender == 1}">Nữ</c:when>

@@ -10,15 +10,15 @@
 <body>
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">Statistics Chart</h1>
+			<h1 class="mt-4">Thống kê biểu đồ</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item active">Statistics Chart</li>
+				<li class="breadcrumb-item active">Thống kê biểu đồ</li>
 			</ol>
 			<div class="row">
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-area me-1"></i>Seller's KPI for the year
+							<i class="fas fa-chart-area me-1"></i>KPI của người bán trong năm
 						</div>
 						<div class="card-body">
 							<canvas id="viewchart1" width="100%" height="40"></canvas>
@@ -27,7 +27,7 @@
 					                  labels: [<c:forEach var="item" items="${listReceipt}">'${item.time}',</c:forEach>],
 					                  datasets: [
 					                       {
-					                    	   	 label:'KPIs',
+					                    	   	 label:'Sản phẩm',
 					                             data: [<c:forEach var="item" items="${listReceipt}">${item.value},</c:forEach>],
 					                       		 backgroundColor:'rgba(255, 99, 132, 0.6)'
 					                       }
@@ -45,7 +45,7 @@
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-bar me-1"></i>Seller's best-selling product
+							<i class="fas fa-chart-bar me-1"></i>Sản phẩm người bán đã bán chạy nhất
 						</div>
 						<div class="card-body">
 							<canvas id="myChart" width="100%" height="40"></canvas>
@@ -55,7 +55,7 @@
                                                     datasets: [
                                                         {
                                                         	fillColor: "#FC8213",
-                                                        	label:'Items',
+                                                        	label:'Sản phẩm',
                                                             data: [<c:forEach var="item" items="${listItem}">${item.value},</c:forEach>],
                                                             backgroundColor:'rgba(0, 98, 201, 0.8)'
                                                         }
@@ -80,23 +80,22 @@
 			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
-					<i class="fas fa-table me-1"></i> DataTable Sellers
+					<i class="fas fa-table me-1"></i> Bảng dữ liệu về người bán hàng
 				</div>
 				<div class="card-body">
 					<table id="datatablesSimple">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>FirstName</th>
-								<th>LastName</th>
-								<th>Address</th>
-								<th>Gender</th>
-								<th>Phone</th>
-								<th>DoB</th>
-								<th>CID</th>
-								<th>Avatar</th>
+								<th>Mã</th>
+								<th>Tên</th>
+								<th>Địa chỉ</th>
+								<th>Giới tính</th>
+								<th>Số điện thoại</th>
+								<th>Ngày sinh</th>
+								<th>CCCD</th>
+								<th>Ảnh đại diện</th>
 								<th>KPI</th>
-								<th>Update</th>
+								<th>Chi tiết</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -104,8 +103,7 @@
 							<c:forEach var="i" items="${listseller}">
 								<tr>
 									<td>${i.userID}</td>
-									<td>${i.firstName}</td>
-									<td>${i.lastName}</td>
+									<td>${i.firstName} ${i.lastName}</td>
 									<td>${i.address}</td>
 									<td><c:choose>
 											<c:when test="${i.gender == 1}">Nữ</c:when>
