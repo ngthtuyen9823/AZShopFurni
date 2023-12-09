@@ -8,7 +8,7 @@
 * {
 	margin: 0;
 	padding: 0;
-	border: 0;
+	border: 2;
 	box-sizing: border-box
 }
 
@@ -25,7 +25,7 @@ h1 {
 	font-weight: 900;
 	border-left: 10px solid #fec500;
 	padding-left: 10px;
-	margin-bottom: 30px
+	margin-bottom: 20px
 }
 
 .row {
@@ -34,13 +34,13 @@ h1 {
 
 .card {
 	display: table-row;
-	width: 80%;
+	width: 91%;
 	background-color: #fff;
 	color: #989898;
 	margin-bottom: 30px;
 	font-family: 'Oswald', sans-serif;
 	text-transform: uppercase;
-	border-radius: 4px;
+	border-radius: 5px;
 	position: relative
 }
 
@@ -149,6 +149,10 @@ h1 {
 		font-size: 75%
 	}
 }
+
+.border-input{
+	border: 1px solid #000;
+}
 </style>
 
 <section class="container">
@@ -173,31 +177,54 @@ h1 {
 			</div>
 		</div>
 		<div class="col-md-9">
-		<c:forEach var="i" items="${listVoucher}">
-			<div class="p-t-55">
-				<article class="card fl-left">
-					<section class="date">
-						<time datetime="23th feb">
-							<span style="color: #EE4D2D">${i.discount }%</span><span>sale-off</span>
-						</time>
-					</section>
-					<section class="card-cont mb-2">
-						<p>${i.voucherID }</p>
-						<h3>${i.description }</h3>
-						<div class="even-date mb-2">
-							<time>
-								<span>Số lượng: ${i.quantity }</span> 
-								<span><fmt:formatDate value="${i.mfg }" pattern="dd/MM/yyyy"/> đến
-									  <fmt:formatDate value="${i.exp }" pattern="dd/MM/yyyy"/></span>
-							</time>
+			<div class="row">
+				<div class="col-md-2">
+					<div class="panel-search p-t-30 p-b-30">
+						<span class="mtext-106 cl2">Tìm kiếm voucher:</span>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<form action="${pageContext.request.contextPath}/searchVoucher" method="get">
+						<div class="panel-search p-t-30 p-b-15">
+							<div class="bor8 dis-flex p-l-15">
+								<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04 ">
+									<i class="zmdi zmdi-search"></i>
+								</button>
+								<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text"
+									name="keyword" placeholder="Nhập mã voucher tại đây">
+							</div>
 						</div>
-						<div class="even-info">
-							<p>áp dụng với đơn hàng trên ${i.minimumPrice }</p>
-							<a class="mt-20" href="#">Áp dụng</a>
-						</div>
-					</section>
-				</article>
+					</form>
+				</div>
 			</div>
+		<!-- List Voucher -->
+			<c:forEach var="i" items="${listVoucher}">
+				<div class="p-t-20">
+					<article class="card fl-left">
+						<section class="date">
+							<time datetime="23th feb">
+								<span style="color: #EE4D2D">${i.discount }%</span><span>saleoff</span>
+							</time>
+						</section>
+						<section class="card-cont mb-2">
+							<p>${i.voucherID }</p>
+							<h3>${i.description }</h3>
+							<div class="even-date mb-2">
+								<time>
+									<span>Số lượng: ${i.quantity }</span> 
+									<span><fmt:formatDate value="${i.mfg }" pattern="dd/MM/yyyy"/> đến
+										  <fmt:formatDate value="${i.exp }" pattern="dd/MM/yyyy"/></span>
+								</time>
+							</div>
+							<div class="even-info">
+								<p>áp dụng với đơn hàng trên  
+								<fmt:formatNumber type="currency" value="${i.minimumPrice }" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice} </p>
+								<a class="mt-20" href="#">Áp dụng</a>
+							</div>
+						</section>
+					</article>
+				</div>
 			</c:forEach>
 		</div>	
 	</div>

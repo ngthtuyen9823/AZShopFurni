@@ -1,6 +1,7 @@
 package com.azshop.controller.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +17,7 @@ import com.azshop.models.VoucherModel;
 import com.azshop.service.IVoucherService;
 import com.azshop.service.impl.VoucherServiceImpl;
 
-@WebServlet(urlPatterns = { "/listVoucher" })
+@WebServlet(urlPatterns = { "/listVoucher", "/searchVoucher" })
 @MultipartConfig
 public class VoucherController extends HttpServlet{
 
@@ -30,7 +31,9 @@ public class VoucherController extends HttpServlet{
 			String url = req.getRequestURI().toString();
 			if (url.contains("listVoucher")) {
 				listVoucher(req, resp);
-			} 
+			} else if(url.contains("searchVoucher")) {
+				searchVoucher(req, resp);
+			}
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/login");
 		}
@@ -43,4 +46,29 @@ public class VoucherController extends HttpServlet{
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/voucher/listVoucher.jsp");
 		rd.forward(req, resp);
 	}
+	
+	private void searchVoucher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String keyword = req.getParameter("keyword");
+		List<VoucherModel> listVoucher = new ArrayList<VoucherModel>();
+		
+		if(!containsNonDigit(keyword)) {
+			int voucherID = Integer.parseInt(keyword);
+			VoucherModel voucher = voucherService.findOne(voucherID);
+			listVoucher.add(voucher);
+		} else {
+			listVoucher = voucherService.findAllVoucher();
+		}
+		req.setAttribute("listVoucher", listVoucher);
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/voucher/listVoucher.jsp");
+		rd.forward(req, resp);
+	}
+
+	private static boolean containsNonDigit(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return true; 
+            }
+        }
+        return false; 
+    }
 }
