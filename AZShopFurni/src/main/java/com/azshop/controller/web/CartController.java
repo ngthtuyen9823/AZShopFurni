@@ -19,7 +19,7 @@ import com.azshop.service.IItemService;
 import com.azshop.service.impl.CartServiceImpl;
 import com.azshop.service.impl.ItemServiceImpl;
 
-@WebServlet({ "/carts", "/addToCart", "/buyNow", "/deleteCart", "/deleteCarts", "/updateCart" })
+@WebServlet({ "/carts", "/addToCart", "/deleteCart", "/deleteCarts", "/updateCart" })
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ICartService cartService = new CartServiceImpl();
@@ -102,11 +102,20 @@ public class CartController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html");
+		resp.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
+
+		String url = req.getRequestURI().toString();
+		if (url.contains("addToCart")) {
+			addToCart(req, resp);
+		}
+	}
+
+	private void addToCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		HttpSession session = req.getSession(true);
 		if (session == null || session.getAttribute("user") == null) {
-			resp.sendRedirect(req.getContextPath() + "/login");
-			// Return JSON response with redirect information
-//			resp.setContentType("application/json");
+			resp.setContentType("application/json");
 			resp.getWriter().write("{\"redirect\":\"" + req.getContextPath() + "/login\"}");
 			return;
 		}
@@ -123,22 +132,18 @@ public class CartController extends HttpServlet {
 		oldCart = cartService.findOne(customerID, itemID);
 		quantity += oldCart.getQuantity();
 		cart.setQuantity(quantity);
-		System.out.println("quantity" + quantity);
 		ItemModel item = new ItemModel();
 		item = itemService.findOne(itemID);
-		System.out.println("item" + item);
-
 		if (item.getStock() >= quantity) {
 			if (oldCart.getQuantity() != 0) {
 				cartService.update(cart);
-				System.out.println("update");
 			} else {
 				cartService.insert(cart);
-				System.out.println("insert");
 			}
+			resp.sendRedirect("carts");
 		} else {
-			System.out.println("Stock not support enough!");
+			resp.setContentType("application/json");
+			resp.getWriter().write("{\"error\":\"Stock not sufficient!\"}");
 		}
-		resp.sendRedirect("carts");
 	}
 }

@@ -87,12 +87,15 @@
 								aria-label="Basic outlined example">
 								<c:forEach items="${product.listItem}" var="item"
 									varStatus="loop">
-									<button type="button" id="${item.itemID}" onmouseover="changeMainImage('${item.image}')"
+									<button type="button" id="${item.itemID}"
+										onmouseover="changeMainImage('${item.image}')"
 										value="${item.size}"
 										style="border-color: #bdc3c7; border-style: solid; margin: 6px; padding: 8px">${item.size}
 										${item.color}</button>
 								</c:forEach>
-								<div id="errorContainer" style="color: red;"></div>
+								<div id="errorContainer" style="color: red;">
+									<c:if test="${message != null}">${message}</c:if>
+								</div>
 							</div>
 						</dd>
 					</div>
@@ -117,27 +120,17 @@
 					</div>
 					<div class="mt-5 row">
 						<dd class="col-5">
-							<form id="buyNowForm" action="buyNow" method="post">
+							<form id="addToCartForm" action="#" method="post">
 								<div>
 									<input type="hidden" name="selectedItemID" id="selectedItemID"
 										value=""> <input type="hidden" name="selectedQuantity"
 										id="selectedQuantity" value="1">
 								</div>
 								<div class="text-center">
-									<input type="submit" value="Buy now"
-										style="width: 100%; padding: 1rem; cursor: pointer;"
-										class="mr-1 btn btn-warning shadow-0" readonly
-										onmouseover="this.style.cursor='pointer';"
-										onmouseout="this.style.cursor='default';" />
-								</div>
-							</form>
-						</dd>
-						<dd class="col-5">
-							<form id="addToCartForm" action="#" method="post">
-								<div class="text-center">
 									<input onclick="addToCart()"
-										style="width: 100%; padding: 1rem; cursor: pointer;"
-										class="btn btn-primary shadow-0" value="Add to cart" readonly
+										style="width: 100%; padding: 1rem; cursor: pointer; float: right"
+										class="btn btn-primary shadow-0 flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+										value="Add to cart" readonly
 										onmouseover="this.style.cursor='pointer';"
 										onmouseout="this.style.cursor='default';" />
 								</div>
@@ -218,47 +211,47 @@
 								</div>
 							</div>
 						</c:forEach>
-						<!-- Review Form -->
-						<div class="review-form"
-							style="margin-top: 20px; padding: 20px; background-color: #f9f9f9; border-radius: 5px;">
-							<form action="submitReview" method="post">
-								<h3 style="margin-bottom: 25px; color: #333;">Add new
-									Comment</h3>
-								<fieldset>
-									<div class="row">
-										<div class="col-sm-3 col-lg-1 hidden-xs">
-											<img style="width: 50px; height: 50px; border-radius: 50%;"
-												class="img-responsive" src="${avatar}" alt="">
+						<c:if test="${avatar != null}">
+							<div class="review-form"
+								style="margin-top: 20px; padding: 20px; background-color: #f9f9f9; border-radius: 5px;">
+								<form action="submitReview" method="post">
+									<h3 style="margin-bottom: 25px; color: #333;">Add new
+										Comment</h3>
+									<fieldset>
+										<div class="row">
+											<div class="col-sm-3 col-lg-1 hidden-xs">
+												<img style="width: 50px; height: 50px; border-radius: 50%;"
+													class="img-responsive" src="${avatar}" alt="">
+											</div>
+											<div style="width: 91%; padding: 1.1rem;">
+												<div id="starRating" class="star-rating">
+													<span class="star" onclick="setRating(1)">&#9733;</span> <span
+														class="star" onclick="setRating(2)">&#9733;</span> <span
+														class="star" onclick="setRating(3)">&#9733;</span> <span
+														class="star" onclick="setRating(4)">&#9733;</span> <span
+														class="star" onclick="setRating(5)">&#9733;</span>
+												</div>
+												<div>
+													<input type="hidden" name="itemID" value="10100101">
+													<input type="hidden" name="orderID" value="1007"> <input
+														class="form-control" type="hidden" name="rating" value="3" />
+												</div>
+												<div class="form-group stext-105 cl3">
+													<textarea class="form-control" name="content"
+														placeholder="Let us know what you think"
+														id="exampleFormControlTextarea1" rows="3"></textarea>
+												</div>
+											</div>
 										</div>
-										<div style="width: 91%; padding: 1.1rem;">
-											<div id="starRating" class="star-rating">
-												<span class="star" onclick="setRating(1)">&#9733;</span> <span
-													class="star" onclick="setRating(2)">&#9733;</span> <span
-													class="star" onclick="setRating(3)">&#9733;</span> <span
-													class="star" onclick="setRating(4)">&#9733;</span> <span
-													class="star" onclick="setRating(5)">&#9733;</span>
-											</div>
-											<div>
-												<input type="hidden" name="itemID" value="10100101">
-												<input type="hidden" name="orderID" value="1007"> <input
-													class="form-control" type="hidden" name="rating" value="3" />
-											</div>
-											<div class="form-group stext-105 cl3">
-												<textarea class="form-control" name="content"
-													placeholder="Let us know what you think"
-													id="exampleFormControlTextarea1" rows="3"></textarea>
-											</div>
-										</div>
-									</div>
-								</fieldset>
-								<input type="submit" style="float: right; margin-top: -0.8rem;"
-									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-									value="Submit" />
-							</form>
-						</div>
+									</fieldset>
+									<input type="submit" style="float: right; margin-top: -0.8rem;"
+										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+										value="Submit" />
+								</form>
+							</div>
+						</c:if>
 					</div>
 				</div>
-
 			</div>
 			<div class="col-lg-3">
 				<c:forEach items="${supProList}" var="item" varStatus="loop">
@@ -298,7 +291,6 @@
 		</div>
 	</div>
 </section>
-<!-- content -->
 <section class="product">
 	<h2 class="product-category">sản phẩm cùng loại</h2>
 	<button class="pre-btn">

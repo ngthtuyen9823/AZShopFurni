@@ -75,7 +75,7 @@ public class ProductController extends HttpServlet {
 				List<ProductModel> supProList = productService.findBySupplierID(productModel.getSupplierID());
 				List<DetailModel> detailList = detailService.findDetailByProductID(productModel.getProductID());
 				List<RatingModel> ratingList = ratingService.findRatinglByProductID(productModel.getProductID());
-				
+
 				HttpSession session = req.getSession(true);
 				if (session.getAttribute("user") != null) {
 					UserModel user = (UserModel) session.getAttribute("user");
@@ -83,9 +83,6 @@ public class ProductController extends HttpServlet {
 					UserModel customer = new UserModel();
 					customer = customerService.getOneCustomer(userID);
 					req.setAttribute("avatar", customer.getAvatar());
-				}
-				else {
-					req.setAttribute("avatar", "https://cdn-icons-png.flaticon.com/512/6596/6596121.png");
 				}
 
 				req.setAttribute("ratingList", ratingList);
