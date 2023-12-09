@@ -242,5 +242,23 @@
 			})
 		});
 	</script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script>
+		var selectedRating = 0;
+
+		function setRating(rating) {
+			selectedRating = rating;
+
+			// Highlight selected stars
+			for (var i = 1; i <= 5; i++) {
+				var star = document.getElementById("starRating").children[i - 1];
+				if (i <= rating) {
+					star.classList.add("selected");
+				} else {
+					star.classList.remove("selected");
+				}
+			}
+		}
+	</script>
 </body>
 </html>

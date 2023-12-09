@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.azshop.dao.IDetailDAO;
@@ -46,64 +47,22 @@ public class DetailDAOImpl implements IDetailDAO {
 	}
 
 	@Override
-	public DetailModel getOneDetail(int id) {
-		return null;
-	}
+	public void updateDetail(DetailModel detail) {
+		String sql = "UPDATE `DETAIL` SET Rating = ?, Content = ?, EvaluationDate = ? WHERE ItemID = ? AND OrderID = ?";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
 
-	@Override
-	public boolean insertDetail(DetailModel detail) {
-//		String sql = "INSERT INTO `AZShop`.`Detail` (`UserID`, `UserName`, `Password`) VALUES (?, ?,?);";
-//		try {
-//			new DBConnection();
-//			Connection conn = DBConnection.getConnection();
-//			PreparedStatement ps = conn.prepareStatement(sql);
-//			ps.setInt(1, Detail.getUserID());
-//			ps.setString(2, Detail.getUserName());
-//			ps.setString(3, Detail.getPassword());
-//			ps.executeUpdate();
-//			conn.close();
-//		} catch (Exception e) {
-//			System.out.println(e);
-//			return false;
-//		}
-//		return true;
-		return false;
-	}
+			ps.setInt(1, detail.getRating());
+			ps.setString(2, detail.getContent());
+			ps.setDate(3, new java.sql.Date(detail.getEvaluationDate().getTime()));
+			ps.setInt(4, detail.getItemID());
+			ps.setInt(5, detail.getOrderID());
 
-	public static void main(String[] args) {
-		// Test the DetailDAOImpl methods
-		DetailDAOImpl DetailDAO = new DetailDAOImpl();
-
-		// Delete
-//		DetailDAO.delete(100001, 10100101);
-
-		// Insert
-//		DetailModel newDetail = new DetailModel();
-//		newDetail.setCustomerID(100001);
-//		newDetail.setItemID(10100101);
-//		newDetail.setQuantity(3);
-//		DetailDAO.insert(newDetail);
-
-		// Update
-//		DetailModel existingDetail = DetailDAO.findOne(100001, 10100101);
-//		if (existingDetail != null) {
-//			existingDetail.setQuantity(existingDetail.getQuantity() + 1);
-//			DetailDAO.update(existingDetail);
-//		}
-//
-//		// FindOne
-//		DetailModel foundDetail = DetailDAO.findOne(100001, 10100101);
-//		if (foundDetail != null) {
-//			System.out.println("Found Detail: " + foundDetail.getCustomerID() + ", " + foundDetail.getItemID() + ", "
-//					+ foundDetail.getQuantity());
-//		} else {
-//			System.out.println("Detail not found.");
-//		}
-
-//		// FindAll
-		/*
-		 * System.out.println("All Details:"); for (DetailModel Detail :
-		 * DetailDAO.getAllDetail()) { System.out.println(Detail); }
-		 */
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

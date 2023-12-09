@@ -47,13 +47,20 @@
 					<h3 class="title text-dark">${product.productName}</h3>
 					<div class="d-flex flex-row my-3">
 						<div class="text-warning mb-1 me-2">
-							<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fas fa-star-half-alt"></i> <span class="ms-1">
-								${product.avgRating} </span>
+							<span class="stext-105 cl3"> <i class="fas fa-star"
+								style="${product.avgRating >= 1 ? 'color: gold;' : ''}"></i> <i
+								class="fas fa-star"
+								style="${product.avgRating >= 2 ? 'color: gold;' : ''}"></i> <i
+								class="fas fa-star"
+								style="${product.avgRating >= 3 ? 'color: gold;' : ''}"></i> <i
+								class="fas fa-star"
+								style="${product.avgRating >= 4 ? 'color: gold;' : ''}"></i> <i
+								class="fas fa-star"
+								style="${product.avgRating >= 5 ? 'color: gold;' : ''}"></i>
+							</span>
 						</div>
-						<span style="padding-left: 1rem;" class="text-muted">${product.numOfRating}
-							ratings | ${product.soldTotal} sold</span>
+						<span style="padding-left: 1rem;" class="text-muted"> |
+							${product.description}</span>
 					</div>
 					<div class="mb-3">
 						<span class="h5"> <fmt:formatNumber type="currency"
@@ -80,9 +87,9 @@
 								aria-label="Basic outlined example">
 								<c:forEach items="${product.listItem}" var="item"
 									varStatus="loop">
-									<button type="button" id="${item.itemID}"
-										value="${item.itemID}"
-										style="border-color: #bdc3c7; border-style: solid; margin: 6px; padding: 12px">${item.itemID}
+									<button type="button" id="${item.itemID}" onmouseover="changeMainImage('${item.image}')"
+										value="${item.size}"
+										style="border-color: #bdc3c7; border-style: solid; margin: 6px; padding: 8px">${item.size}
 										${item.color}</button>
 								</c:forEach>
 								<div id="errorContainer" style="color: red;"></div>
@@ -160,32 +167,38 @@
 							<div class="col-md-6">
 								<table class="stars-counters" style="width: 100%;">
 									<tbody>
-										<tr>
-											<td>
-												<button
-													class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">5
-													Stars</button>
-											</td>
-											<td>
-												<div class="text-warning mb-1 me-2"
-													style="font-size: 1.2rem;">
-													<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-														class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-														class="fas fa-star"></i><span
-														style="font-size: 1.3rem; font-color: black; color: black; padding-left: 1.2rem; font-weight: 420;"
-														class="ms-1 star-num"> (5) </span>
-												</div>
+										<c:forEach items="${ratingList}" var="item" varStatus="loop">
+											<tr>
+												<td>
+													<button
+														class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">${item.numOfStar}
+														Stars</button>
+												</td>
+												<td>
+													<div class="text-warning mb-1 me-2"
+														style="font-size: 1.2rem;">
+														<span class="stext-105 cl3"> <i class="fas fa-star"
+															style="${item.numOfStar >= 1 ? 'color: gold;' : ''}"></i>
+															<i class="fas fa-star"
+															style="${item.numOfStar >= 2 ? 'color: gold;' : ''}"></i>
+															<i class="fas fa-star"
+															style="${item.numOfStar >= 3 ? 'color: gold;' : ''}"></i>
+															<i class="fas fa-star"
+															style="${item.numOfStar >= 4 ? 'color: gold;' : ''}"></i>
+															<i class="fas fa-star"
+															style="${item.numOfStar >= 5 ? 'color: gold;' : ''}"></i>
+														</span><span
+															style="font-size: 1.3rem; font-color: black; color: black; padding-left: 1.2rem; font-weight: 420;"
+															class="ms-1 star-num"> (${item.numOfRating}) </span>
+													</div>
 
-											</td>
-										</tr>
-
-										<!-- Add similar rows for other star ratings -->
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
 						</div>
-
-						<!-- Iterate over the detailList and display media items -->
 						<c:forEach items="${detailList}" var="item" varStatus="loop">
 							<div class="media"
 								style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px; background-color: #f9f9f9;">
@@ -208,37 +221,39 @@
 						<!-- Review Form -->
 						<div class="review-form"
 							style="margin-top: 20px; padding: 20px; background-color: #f9f9f9; border-radius: 5px;">
-							<form>
+							<form action="submitReview" method="post">
 								<h3 style="margin-bottom: 25px; color: #333;">Add new
 									Comment</h3>
-
 								<fieldset>
 									<div class="row">
 										<div class="col-sm-3 col-lg-1 hidden-xs">
 											<img style="width: 50px; height: 50px; border-radius: 50%;"
 												class="img-responsive" src="${avatar}" alt="">
 										</div>
-
 										<div style="width: 91%; padding: 1.1rem;">
-											<span id="rateMe2" class="empty-stars"></span> <span
-												class="stext-105 cl3"> <i class="fas fa-star"
-												style="color: gold;"></i> <i class="fas fa-star"
-												style="color: gold;"></i> <i class="fas fa-star"
-												style="color: gold;"></i> <i class="fas fa-star" style=""></i>
-												<i class="fas fa-star" style=""></i>
-											</span>
-											<div class="bor8 m-b-30">
-												<textarea
-													class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25"
-													name="msg" placeholder="Let us know what you think"
-													style="width: 100%;"></textarea>
+											<div id="starRating" class="star-rating">
+												<span class="star" onclick="setRating(1)">&#9733;</span> <span
+													class="star" onclick="setRating(2)">&#9733;</span> <span
+													class="star" onclick="setRating(3)">&#9733;</span> <span
+													class="star" onclick="setRating(4)">&#9733;</span> <span
+													class="star" onclick="setRating(5)">&#9733;</span>
+											</div>
+											<div>
+												<input type="hidden" name="itemID" value="10100101">
+												<input type="hidden" name="orderID" value="1007"> <input
+													class="form-control" type="hidden" name="rating" value="3" />
+											</div>
+											<div class="form-group stext-105 cl3">
+												<textarea class="form-control" name="content"
+													placeholder="Let us know what you think"
+													id="exampleFormControlTextarea1" rows="3"></textarea>
 											</div>
 										</div>
-
 									</div>
 								</fieldset>
-								<button style="float: right; margin-top: -0.8rem;"
-									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">Submit</button>
+								<input type="submit" style="float: right; margin-top: -0.8rem;"
+									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+									value="Submit" />
 							</form>
 						</div>
 					</div>
@@ -280,10 +295,9 @@
 					</div>
 				</c:forEach>
 			</div>
-
 		</div>
+	</div>
 </section>
-
 <!-- content -->
 <section class="product">
 	<h2 class="product-category">sản phẩm cùng loại</h2>

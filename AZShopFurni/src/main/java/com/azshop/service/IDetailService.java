@@ -7,7 +7,5 @@ import com.azshop.models.DetailModel;
 public interface IDetailService {
 	List<DetailModel> findDetailByProductID(int productID);
 
-	DetailModel getOneDetail(int id);
-
-	boolean insertDetail(DetailModel detail);
+	void updateDetail(DetailModel detail);
 }

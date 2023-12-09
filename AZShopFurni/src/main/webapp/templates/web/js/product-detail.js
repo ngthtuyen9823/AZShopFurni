@@ -28,7 +28,7 @@ $(document).ready(function() {
 	var selectedItemID = ""; // Variable to store the selected item ID
 
 	$(".btn-group button").click(function() {
-		selectedItemID = $(this).val();
+		selectedItemID = $(this).attr('id');
 		$("#selectedItemID").val(selectedItemID);
 
 		// Log to the console

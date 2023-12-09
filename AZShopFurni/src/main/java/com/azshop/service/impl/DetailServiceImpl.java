@@ -16,13 +16,8 @@ public class DetailServiceImpl implements IDetailService {
 	}
 
 	@Override
-	public DetailModel getOneDetail(int id) {
-		return detailDAO.getOneDetail(id);
-	}
-
-	@Override
-	public boolean insertDetail(DetailModel detail) {
-		return detailDAO.insertDetail(detail);
+	public void updateDetail(DetailModel detail) {
+		detailDAO.updateDetail(detail);
 	}
 
 }

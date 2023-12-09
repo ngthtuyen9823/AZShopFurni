@@ -25,11 +25,13 @@ import com.azshop.models.ProductModel;
 import com.azshop.models.SearchHistoryModel;
 import com.azshop.models.SupplierModel;
 import com.azshop.models.UserModel;
+import com.azshop.models.submodels.RatingModel;
 import com.azshop.service.ICartService;
 import com.azshop.service.ICategoryService;
 import com.azshop.service.ICustomerService;
 import com.azshop.service.IDetailService;
 import com.azshop.service.IProductService;
+import com.azshop.service.IRatingService;
 import com.azshop.service.ISearchHistoryService;
 import com.azshop.service.ISupplierService;
 import com.azshop.service.impl.CartServiceImpl;
@@ -37,6 +39,7 @@ import com.azshop.service.impl.CategoryServiceImpl;
 import com.azshop.service.impl.CustomerServiceImpl;
 import com.azshop.service.impl.DetailServiceImpl;
 import com.azshop.service.impl.ProductServiceImpl;
+import com.azshop.service.impl.RatingServiceImpl;
 import com.azshop.service.impl.SearchHistoryServiceImpl;
 import com.azshop.service.impl.SupplierServiceImpl;
 
@@ -52,6 +55,7 @@ public class ProductController extends HttpServlet {
 	ISearchHistoryService searchHistoryService = new SearchHistoryServiceImpl();
 	ICartService cartService = new CartServiceImpl();
 	IDetailService detailService = new DetailServiceImpl();
+	IRatingService ratingService = new RatingServiceImpl();
 	RequestDispatcher rd = null;
 
 	@Override
@@ -70,7 +74,8 @@ public class ProductController extends HttpServlet {
 				List<ProductModel> cateProList = productService.findByCategoryID(productModel.getCategoryID());
 				List<ProductModel> supProList = productService.findBySupplierID(productModel.getSupplierID());
 				List<DetailModel> detailList = detailService.findDetailByProductID(productModel.getProductID());
-
+				List<RatingModel> ratingList = ratingService.findRatinglByProductID(productModel.getProductID());
+				
 				HttpSession session = req.getSession(true);
 				if (session.getAttribute("user") != null) {
 					UserModel user = (UserModel) session.getAttribute("user");
@@ -83,6 +88,7 @@ public class ProductController extends HttpServlet {
 					req.setAttribute("avatar", "https://cdn-icons-png.flaticon.com/512/6596/6596121.png");
 				}
 
+				req.setAttribute("ratingList", ratingList);
 				req.setAttribute("detailList", detailList);
 				req.setAttribute("cateProList", cateProList);
 				req.setAttribute("supProList", supProList);
