@@ -9,4 +9,5 @@ public interface IDetailDAO {
 	void updateDetail(DetailModel detail);
 	public List<DetailModel> listDetail(int orderID);
 	DetailModel findDetailByItemID(int orderID, int itemID);
+	public List<List<Object>> listBestSeller();
 }

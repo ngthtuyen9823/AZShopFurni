@@ -28,5 +28,9 @@ public class DetailServiceImpl implements IDetailService {
 	public List<DetailModel> listDetail(int orderID) {
 		return detailDAO.listDetail(orderID);
 	}
+	@Override
+	public List<List<Object>> listBestSeller() {
+		return detailDAO.listBestSeller();
+	}
 
 }

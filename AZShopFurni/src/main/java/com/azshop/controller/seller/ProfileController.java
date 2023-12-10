@@ -67,7 +67,7 @@ public class ProfileController extends HttpServlet{
 	}
 	private void getInforSeller(HttpServletRequest req, HttpServletResponse resp, UserModel user) throws ServletException, IOException {
 		req.setAttribute("userModel", user);
-		req.getRequestDispatcher("/views/seller/profile/profile.jsp").forward(req, resp);
+		req.getRequestDispatcher("/views/seller/profile/profile1.jsp").forward(req, resp);
 	}
 	private void updateAvatar(HttpServletRequest req, HttpServletResponse resp, int userID) throws ServletException, IOException {
 		Part filepart = req.getPart("image");
@@ -95,7 +95,7 @@ public class ProfileController extends HttpServlet{
 		int userID = userModel.getUserID();
 		UserModel user = userService.getInfoUser(userID);
 		req.setAttribute("userModel", user);
-		RequestDispatcher rd = req.getRequestDispatcher("/views/seller/profile/updateProfile.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/seller/profile/updateProfile2.jsp");
 		rd.forward(req, resp);
 	}
 	private void createUserModel(HttpServletRequest req, HttpServletResponse resp)	throws ServletException, IOException {
@@ -132,6 +132,10 @@ public class ProfileController extends HttpServlet{
 		user.setPhone(phone);
 		user.setDob(dob);
 		user.setCid(cid);
+		//user.setType(type);
+		//user.setAvatar(avatar);
+		//user.setKpi(kpi);
+		//user.setArea(area);
 		user.setEmail(email);
 
 		userService.updateUser(user);
