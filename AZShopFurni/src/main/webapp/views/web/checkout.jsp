@@ -69,8 +69,8 @@
 														<div class="row">
 															<div class="col-lg-4">
 																<div class="mb-3">
-																	<label class="form-label" for="billing-name">Name</label>
-																	<input type="text" class="form-control"
+																	<label class="form-label" for="billing-name">Họ
+																		và tên</label> <input type="text" class="form-control"
 																		readonly="readonly"
 																		value="${user.firstName} ${user.lastName}"
 																		id="billing-name" placeholder="Enter name">
@@ -78,53 +78,58 @@
 															</div>
 															<div class="col-lg-4">
 																<div class="mb-3">
-																	<label class="form-label" for="billing-email-address">Email
-																		Address</label> <input type="email" class="form-control"
+																	<label class="form-label" for="billing-email-address">Email</label>
+																	<input type="email" class="form-control"
 																		readonly="readonly" value="${user.email}"
 																		id="billing-email-address" placeholder="Enter email">
 																</div>
 															</div>
 															<div class="col-lg-4">
 																<div class="mb-3">
-																	<label class="form-label" for="billing-phone">Phone</label>
-																	<input type="text" class="form-control"
+																	<label class="form-label" for="billing-phone">Số
+																		điện thoại</label> <input type="text" class="form-control"
 																		readonly="readonly" value="${user.phone}"
 																		id="billing-phone" placeholder="Enter Phone no.">
 																</div>
 															</div>
 														</div>
 														<div class="mb-3">
-															<label class="form-label" for="billing-address">Address</label>
+															<label class="form-label" for="billing-address">Địa
+																chỉ</label>
 															<textarea class="form-control" id="billing-address"
-																rows="3" placeholder="Enter full address">${user.address}</textarea>
+																name="address" rows="3"
+																placeholder="Nhập địa chỉ giao hàng">${address != null ? address : user.address}</textarea>
+														</div>
+														<div class="mb-3">
+															<label class="form-label" for="billing-address">Ghi
+																chú</label>
+															<textarea class="form-control" id="billing-address"
+																name="note" rows="3" placeholder="Nhập ghi chú">${note != null ? note : ''}</textarea>
 														</div>
 														<div class="row">
-															<div class="col-lg-4">
+															<!-- <div class="col-lg-4">
 																<div class="mb-4 mb-lg-0">
-																	<label class="form-label">Country</label> <select
+																	<label class="form-label">Quốc gia</label> <select
 																		name="country" class="form-control form-select"
 																		title="Country">
-																		<option value="0">Select Country</option>
+																		<option value="0">Chọn quốc gia</option>
 																		<option value="AF">Việt Nam</option>
 																	</select>
 																</div>
-															</div>
+															</div> -->
 															<div class="col-lg-4">
-																<label class="form-label">City</label> <select
-																	name="city" class="form-control form-select"
-																	title="City">
-																	<option value="0">Select City</option>
+																<label class="form-label">Thành phố</label> <select
+																	data-live-search="true" name="city"
+																	class="form-control form-select" title="City">
+																	<option value="none">Chọn thành phố</option>
 																	<c:forEach items="${cityList}" var="cityName">
-																		<option value="${cityName}">${cityName}</option>
+																		<option value="${cityName}"
+																			${city != null && city == cityName ? 'selected' : ''}>${cityName}</option>
 																	</c:forEach>
 																</select>
-															</div>
-															<div class="col-lg-4">
-																<div class="mb-0">
-																	<label class="form-label" for="zip-code">Zip /
-																		Postal code</label> <input type="text" class="form-control"
-																		id="zip-code" placeholder="Enter Postal code">
-																</div>
+																<c:if test="${cityError != null}">
+																	<div class="error-message">${cityError}</div>
+																</c:if>
 															</div>
 														</div>
 													</div>
@@ -186,7 +191,7 @@
 													<div>
 														<label class="card-radio-label"> <input
 															type="radio" name="pay-method" id="pay-methodoption3"
-															class="card-radio-input" checked> <span
+															class="card-radio-input" checked value="0"> <span
 															class="card-radio py-3 text-center text-truncate">
 																<i class="bx bx-money d-block h2 mb-3"></i> <span>Thanh
 																	toán khi giao hàng</span>
@@ -198,7 +203,7 @@
 													<div data-bs-toggle="collapse">
 														<label class="card-radio-label"> <input
 															type="radio" name="pay-method" id="pay-methodoption1"
-															class="card-radio-input"> <span
+															class="card-radio-input" value="1"> <span
 															class="card-radio py-3 text-center text-truncate">
 																<i class="bx bx-credit-card d-block h2 mb-3"></i> Thẻ
 																tín dụng / thẻ ghi nợ
@@ -237,9 +242,8 @@
 									<c:when test="${voucherErrorMessage != null}">
 										<h5 class="font-size-16 mb-0 error-message">
 											Giá trị tối thiểu đơn hàng phải đạt
-											<fmt:formatNumber type="currency"
-												value="${voucherErrorMessage}" currencyCode="VND"
-												pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</h5>
+											<fmt:formatNumber type="currency" value="${minimumPrice}"
+												currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</h5>
 									</c:when>
 									<c:otherwise>
 										<h5 class="font-size-16 mb-0">Chi tiết đơn hàng</h5>
@@ -300,16 +304,18 @@
 											<td colspan="2">
 												<h5 class="font-size-14 m-0">Giảm giá :</h5>
 											</td>
-											<td><fmt:formatNumber type="currency"
+											<td><input type="hidden"
+												value="${discount != null ? discount : 0}" name="discount" />
+												<fmt:formatNumber type="currency"
 													value="${discount != null ? discount : 0}"
-													currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />-
+													currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />${discount != null ? '- ' : ''}
 												${formattedPrice}</td>
 										</tr>
 										<tr>
 											<td colspan="2">
 												<h5 class="font-size-14 m-0">Phí vận chuyển :</h5>
 											</td>
-											<td><fmt:formatNumber type="currency" value="40000"
+											<td><fmt:formatNumber type="currency" value="0"
 													currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</td>
 										</tr>
 										<tr>
@@ -323,7 +329,8 @@
 											<td colspan="2">
 												<h5 class="font-size-14 m-0">Thành tiền:</h5>
 											</td>
-											<td><fmt:formatNumber type="currency"
+											<td><input type="hidden" value="${totalCost}"
+												name="totalCost" /> <fmt:formatNumber type="currency"
 													value="${totalCost}" currencyCode="VND" pattern="#,##0 VND"
 													var="formattedPrice" />${formattedPrice}</td>
 										</tr>

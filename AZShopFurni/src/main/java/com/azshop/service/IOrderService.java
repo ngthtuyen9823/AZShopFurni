@@ -9,4 +9,5 @@ public interface IOrderService {
 	OrderModel getOrderByOrderID(int orderID);
 	void updateOrder (int orderID, int status);
 	void confirmOrder (int orderID, int confirm);
+	OrderModel insertOrder (OrderModel order);
 }
