@@ -10,16 +10,16 @@
 <body>
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">Tables Voucher</h1>
+			<h1 class="mt-4">BẢNG MÃ KHUYẾN MÃI</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-				<li class="breadcrumb-item active">Voucher</li>
+				<li class="breadcrumb-item"><a href="index.html">Trang chính</a></li>
+				<li class="breadcrumb-item active">Mã khuyến mãi</li>
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
 					<a href="<c:url value='/adminInsertVoucher'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i> Add new voucher
+							<i class="ace-icon fa fa-pencil"></i> Thêm mã khuyến mãi mới
 						</button>
 					</a>
 				</div>
@@ -31,20 +31,20 @@
 			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
-					<i class="fas fa-table me-1"></i> DataTable Vouchers
+					<i class="fas fa-table me-1"></i> Bảng dữ liệu mã khuyến mãi
 				</div>
 				<div class="card-body">
 					<table id="datatablesSimple">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>Description</th>
-								<th>Discount</th>
-								<th>MinimumPrice</th>
-								<th>Quantity</th>
-								<th>Mfg</th>
-								<th>Exp</th>
-								<th>Action</th>
+								<th>Mã</th>
+								<th>Mô tả</th>
+								<th>Giảm giá</th>
+								<th>Số tiền tối thiểu</th>
+								<th>Số lượng</th>
+								<th>Ngày bắt đầu</th>
+								<th>Ngày kết thúc</th>
+								<th>Cập nhật</th>
 							</tr>
 						</thead>
 						<tfoot>

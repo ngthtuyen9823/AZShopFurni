@@ -339,7 +339,7 @@
 	</main>
 	<script>
 	
-	/// Biều đồ đường.
+	/// Biểu đồ cột.
 	
         var barChartData = {
         		
@@ -361,7 +361,7 @@
 
                            
 	
-	/// Biểu đồ cột.
+	/// Biều đồ đường.
 	
         var lineChartData = {
             labels: [<c:forEach var="item" items="${listPayMentInMonth}">'${item.get(0)}',</c:forEach>],
@@ -430,7 +430,7 @@
 		      options: {
 		        rotation: 1 * Math.PI,
 		        circumference: 2 * Math.PI,
-		        cutoutPercentage: 70, // Tùy chỉnh độ lõm của doughnut
+		        cutoutPercentage: 50, // Tùy chỉnh độ lõm của doughnut
 		        animation: {
 		            onComplete: function () {
 		              var chartInstance = this.chart,

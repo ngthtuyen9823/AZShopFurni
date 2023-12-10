@@ -35,7 +35,7 @@
 							<div class="col-md-6">
 								<div class="info-pair">
 									<h5>Họ Tên :</h5>
-									<p class="lead">${user.lastName}${user.firstName}</p>
+									<p class="lead">${user.lastName} ${user.firstName}</p>
 								</div>
 								<div class="info-pair">
 									<h5>Địa chỉ:</h5>

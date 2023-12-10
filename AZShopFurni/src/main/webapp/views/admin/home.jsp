@@ -72,19 +72,40 @@
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-area me-1"></i> Area Chart Example
+							<i class="fas fa-chart-area me-1"></i> Tổng doanh thu của tháng:
+							<span class="highlighted"
+								style="font-size: 1.2em; color: #6060F8; font-weight: bold;"><fmt:formatNumber
+									type="currency" value="${sumTotal}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}</span>
+
 						</div>
 						<div class="card-body">
-							<canvas id="myAreaChart" width="100%" height="40"></canvas>
+							<canvas id="myTotalMoneyChart" width="100%" height="40"></canvas>
+							<script>
+							 var lineChartData = {
+							            labels: [<c:forEach var="item" items="${listPayMentInMonth}">'${item.get(0)}',</c:forEach>],
+							            datasets: [
+							                {
+							                	//fillColor: "#FC8213",
+							                	label:'Doanh thu',
+							                    data: [<c:forEach var="item" items="${listPayMentInMonth}">${item.get(1)},</c:forEach>],
+							                    backgroundColor:' rgba(0, 0, 255, 0.6)'
+							                }
+							            ]
+
+							        };                                          
+							        new Chart(document.getElementById("myTotalMoneyChart").getContext("2d"), {
+							            type: 'line',
+							            data: lineChartData
+							        });
+							</script>
 						</div>
 					</div>
-					
 				</div>
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-bar me-1"></i> Bar chart of Orders in recent 7 days
-						</div>
+							<i class="fas fa-chart-bar me-1"></i>Số đơn hàng trong 7 ngày gần đây nhất</div>
 						<div class="card-body">
 							<canvas id="myChart" width="100%" height="40"></canvas>
 							<script>
@@ -93,7 +114,7 @@
                                                     datasets: [
                                                         {
                                                         	fillColor: "#FC8213",
-                                                        	label:'Orders',
+                                                        	label:'Đơn hàng',
                                                             data: [<c:forEach var="item" items="${listReceipt}">${item.value},</c:forEach>],
                                                             backgroundColor:'rgba(255, 99, 132, 0.6)'
                                                         }
@@ -153,5 +174,6 @@
 			</div>
 		</div>
 	</main>
+
 </body>
 </html>

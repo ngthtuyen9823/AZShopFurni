@@ -29,10 +29,18 @@ public class HomeController extends HttpServlet {
 		if (url.contains("adminHome")) {
 			Date date = new Date();
 	        List<MyItem> listItem = reportService.reportReceipt(date, 7);
-	        for (MyItem myItem : listItem) {
-				System.out.println(myItem.getTime()+" "+myItem.getValue());
-			}
 	        req.setAttribute("listReceipt", listItem);
+	        
+	        int sumTotal = 0;
+	        List<List<Object>> listTotal = reportService.reportTotalMoneyInMonth();
+	        for (List<Object> list : listTotal) {
+				sumTotal += (int) list.get(1);
+			}
+	        
+	        req.setAttribute("sumTotal", sumTotal);
+	        req.setAttribute("listPayMentInMonth", listTotal);
+	        
+	        
 			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
 			rd.forward(req, resp);
 		}

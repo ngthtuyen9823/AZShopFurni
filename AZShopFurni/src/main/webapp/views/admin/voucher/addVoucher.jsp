@@ -19,8 +19,7 @@
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">Insert
-								Voucher</h3>
+							<h3 class="text-center font-weight-light my-4">Thêm Mã Khuyến Mãi</h3>
 						</div>
 						<div class="card-body">
 							<form action="adminInsertVoucher" method="post">
@@ -28,34 +27,34 @@
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="voucherID"
-												readonly="readonly" /> <label>ID</label>
+												readonly="readonly" /> <label>Mã</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="description" />
-											<label>Description</label>
+											<label>Mô tả</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="discount" /> <label>Discount</label>
+											<input class="form-control" type="text" name="discount" /> <label>Giảm giá</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="minimumPrice" />
-											<label>Minimum Price</label>
+											<label>Giá tiền tối thiểu</label>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="quantity" /> <label>Quantity</label>
+											<input class="form-control" type="text" name="quantity" /> <label>Sổ lượng</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="date" name="mfg" /> <label>Mfg</label>
+											<input class="form-control" type="date" name="mfg" /> <label>Ngày bắt đầu</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="date" name="exp" /> <label>Exp</label>
+											<input class="form-control" type="date" name="exp" /> <label>Ngày kết thúc</label>
 										</div>
 									</div>
 								</div>
 								<div class="text-center mt-4">
-									<input type="submit" class="btn btn-primary" value="Insert" />
+									<input type="submit" class="btn btn-primary" value="Thêm" />
 								</div>
 							</form>
 						</div>
