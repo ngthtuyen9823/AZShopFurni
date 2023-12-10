@@ -17,4 +17,5 @@ public interface IOrderDAO {
 	List<OrderModel> findOrderBySeller();
 	void updateStatusOrder(int OrderID,int sellerID, int status);
 	OrderModel getOrderByID(int orderID);
+	OrderModel insertOrder (OrderModel order);
 }

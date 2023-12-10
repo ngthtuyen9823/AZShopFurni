@@ -13,10 +13,10 @@ import com.azshop.models.UserModel;
 import com.azshop.models.VoucherModel;
 
 public class VoucherDAOImpl implements IVoucherDAO {
+	Connection conn = null;
 
 	@Override
 	public List<VoucherModel> findAllVoucher() {
-		Connection conn = null;
 		String sql = "SELECT * FROM AZShop.VOUCHER";
 		List<VoucherModel> listVoucher = new ArrayList<VoucherModel>();
 		try {
@@ -47,7 +47,6 @@ public class VoucherDAOImpl implements IVoucherDAO {
 
 	@Override
 	public void insertVoucher(VoucherModel model) {
-		Connection conn = null;
 		String sql = "Insert into AZShop.VOUCHER(Description, Discount, MinimumPrice, Quantity, Mfg, Exp) Values (?,?,?,?,?,?)";
 		try {
 			conn = DBConnection.getConnection();// ket noi csdl
@@ -71,7 +70,6 @@ public class VoucherDAOImpl implements IVoucherDAO {
 
 	@Override
 	public void updateVoucher(VoucherModel model) {
-		Connection conn = null;
 		String sql = "Update AZShop.VOUCHER set Description=?, Discount=?, MinimumPrice=?, Quantity=?, Mfg=?, Exp=? where VoucherID=?";
 		try {
 			conn = DBConnection.getConnection();
@@ -96,7 +94,6 @@ public class VoucherDAOImpl implements IVoucherDAO {
 
 	@Override
 	public VoucherModel findOne(int id) {
-		Connection conn = null;
 		String sql = "Select * from AZShop.VOUCHER where VoucherID=?";
 		VoucherModel voucher = new VoucherModel();
 
@@ -180,4 +177,5 @@ public class VoucherDAOImpl implements IVoucherDAO {
 		}
 		return voucher;
 	}
+
 }
