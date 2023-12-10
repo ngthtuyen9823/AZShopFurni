@@ -134,6 +134,14 @@ h1 {
 	background-color: #6c7ae0
 }
 
+.border-input{
+	border: 1px solid #000;
+}
+
+.panel-search {
+	width: 70%;
+}
+
 @media screen and (max-width: 860px) {
 	.voucher-card {
 		display: block;

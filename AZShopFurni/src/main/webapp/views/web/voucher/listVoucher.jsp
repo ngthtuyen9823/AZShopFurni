@@ -29,8 +29,24 @@
 			</div>
 		</div>
 		<div class="col-md-9">
+			<div class="row">
+				<div class="col-md-9">
+					<form action="${pageContext.request.contextPath}/searchVoucher"
+						method="get">
+						<div class="panel-search p-t-30 p-b-15">
+							<div class="bor8 dis-flex p-l-15">
+								<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04 ">
+									<i class="zmdi zmdi-search"></i>
+								</button>
+								<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text"
+									name="keyword" placeholder="Nhập mã voucher tại đây">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 			<c:forEach var="voucher" items="${listVoucher}">
-				<div class="p-t-55">
+				<div class="p-t-20">
 					<c:set var="voucher" value="${voucher}" scope="request" />
 					<jsp:include page="../components/voucherCard.jsp" />
 				</div>

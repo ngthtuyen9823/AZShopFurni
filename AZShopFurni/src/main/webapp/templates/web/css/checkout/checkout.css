@@ -256,7 +256,6 @@ a {
 
 .checkout-card {
 	display: flex;
-	justify-content: space-between;
 }
 
 .process-button {
@@ -277,7 +276,7 @@ a {
 	overflow: auto;
 }
 
-.voucher-card-container .voucher-card{
+.voucher-card-container .voucher-card {
 	width: 100% !important;
 }
 
@@ -291,14 +290,14 @@ a {
 	width: 100%;
 }
 
-.cart-detail-container .process-button a{
+.cart-detail-container .process-button button {
 	width: 100%;
 }
- 
- .voucher-list-container {
-	 display: flex;
-	 justify-content: end;
-	 padding: 20px 20px 0 20px;
+
+.voucher-list-container {
+	display: flex;
+	justify-content: end;
+	padding: 20px 20px 0 20px;
 }
 
 .error-message {
@@ -309,3 +308,8 @@ a {
 	margin-top: 50px;
 }
 
+.btn-checkout {
+	background-color: #28a745;
+	border-color: #28a745;
+	color: #FFFFFF;
+}
