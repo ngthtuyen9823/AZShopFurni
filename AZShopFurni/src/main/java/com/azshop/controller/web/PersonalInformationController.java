@@ -14,12 +14,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.azshop.models.AccountModel;
 import com.azshop.models.UserModel;
+import com.azshop.service.IAccountService;
 import com.azshop.service.IUserService;
+import com.azshop.service.impl.AccountServiceImpl;
 import com.azshop.service.impl.UserServiceImpl;
+import com.azshop.utils.MessageUtil;
 
 import Orther.UploadImage;
 
@@ -31,13 +35,18 @@ public class PersonalInformationController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url = req.getRequestURI().toString();
-		if (url.contains("infoUser")) {
-			getInfUser(req, resp);
-		} else if (url.contains("updateUser")) {
-			updateInfUser(req, resp);
-		} else if (url.contains("updateAccount")) {
-			updateInfAccount(req, resp);
+		HttpSession session = req.getSession(false);
+		if (session != null && session.getAttribute("user") != null) {
+			String url = req.getRequestURI().toString();
+			if (url.contains("infoUser")) {
+				getInfUser(req, resp);
+			} else if (url.contains("updateUser")) {
+				updateInfUser(req, resp);
+			} else if (url.contains("updateAccount")) {
+				updateInfAccount(req, resp);
+			}
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 	}
 
@@ -48,19 +57,21 @@ public class PersonalInformationController extends HttpServlet {
 		String url = req.getRequestURI().toString();
 		if (url.contains("updateUser")) {
 			createUserModel(req, resp);
+			resp.sendRedirect("infoUser");
 		} else if (url.contains("updateAccount")) {
 			createAccountModel(req, resp);
-		} else if(url.contains("updateAvatar")) {
+			updateInfAccount(req,resp);
+		} else if (url.contains("updateAvatar")) {
 			updateAvatar(req, resp);
+			resp.sendRedirect("infoUser");
 		}
-		resp.sendRedirect("infoUser");
 	}
 
 	private void getInfUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserModel user = userService.getInfoUser(110001);
-
+		HttpSession session = req.getSession(false);
+		UserModel user = (UserModel) session.getAttribute("user");
 		req.setAttribute("userModel", user);
-		RequestDispatcher rd = req.getRequestDispatcher("/views/web/infoUser.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/user/infoUser.jsp");
 		rd.forward(req, resp);
 	}
 
@@ -69,23 +80,21 @@ public class PersonalInformationController extends HttpServlet {
 		UserModel user = userService.getInfoUser(userID);
 
 		req.setAttribute("userModel", user);
-		RequestDispatcher rd = req.getRequestDispatcher("/views/web/updateUser.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/user/updateUser.jsp");
 		rd.forward(req, resp);
 	}
 
-	private void updateInfAccount(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		int userID = Integer.parseInt(req.getParameter("userID"));
-		AccountModel account = userService.getInfAccount(userID);
-
+	private void updateInfAccount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
+		UserModel user = (UserModel) session.getAttribute("user");
+		AccountModel account = userService.getInfAccount(user.getUserID());
+		
 		req.setAttribute("accountModel", account);
-		RequestDispatcher rd = req.getRequestDispatcher("/views/web/updateAccount.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/user/updateAccount.jsp");
 		rd.forward(req, resp);
 	}
 
-	private void createUserModel(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-
+	private void createUserModel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int userID = Integer.parseInt(req.getParameter("UserID"));
 		String firstName = req.getParameter("FirstName");
 		String lastName = req.getParameter("LastName");
@@ -96,11 +105,10 @@ public class PersonalInformationController extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date dob = null;
 		try {
-			dob = sdf.parse(dobString); 
+			dob = sdf.parse(dobString);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
 		String cid = req.getParameter("Cid");
 		int type = Integer.parseInt(req.getParameter("Type"));
 		String email = req.getParameter("Email");
@@ -126,8 +134,7 @@ public class PersonalInformationController extends HttpServlet {
 		userService.updateUser(user);
 	}
 
-	private void createAccountModel(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	private void createAccountModel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int userID = Integer.parseInt(req.getParameter("UserID"));
 		String userName = req.getParameter("UserName");
 		String oldPassword = req.getParameter("OldPassWord");
@@ -137,24 +144,24 @@ public class PersonalInformationController extends HttpServlet {
 		if (userService.checkPassword(oldPassword, account.getPassword())) {
 			AccountModel newaccount = new AccountModel(userID, userName, password);
 			userService.updateAccount(newaccount);
+			MessageUtil.showMessage(req,"updateAccountTrue");
 		} else {
-			PrintWriter out = resp.getWriter();
-			out.println("<font color=red>Either user name or password is wrong.</font>");
-			req.getRequestDispatcher("/views/web/updateAccount.jsp").include(req, resp);
+			MessageUtil.showMessage(req,"updateAccountFail");
+			//req.getRequestDispatcher("/views/web/user/updateAccount.jsp").forward(req, resp);
 		}
 	}
-	
+
 	private void updateAvatar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 		int userID = Integer.parseInt(req.getParameter("UserID"));
-		System.out.println(userID);
 		Part filepart = req.getPart("image");
 		Random rnd = new Random();
 		String rdCode = String.valueOf(rnd.nextInt(100, 999));
-		UploadImage.uploadImage("mysql-web", "web-budget","Image/Avatar/"+ userID +rdCode+ ".jpg",filepart.getInputStream());
+		UploadImage.uploadImage("mysql-web", "web-budget", "Image/Avatar/" + userID + rdCode + ".jpg", filepart.getInputStream());
 		String avatar = "https://storage.googleapis.com/web-budget/Image/Avatar/" + userID + rdCode + ".jpg";
 		
 		userService.updateAvatar(userID, avatar);
+		HttpSession session = req.getSession(true);
+		session.setAttribute("user",userService.getInfoUser(userID));
 		getInfUser(req, resp);
 	}
 }

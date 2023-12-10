@@ -11,17 +11,28 @@ import com.azshop.service.IOrderService;
 
 public class OrderServiceImpl implements IOrderService{
 	IOrderDAO orderDAO = new OrderDAOImpl();
-	IDetailDAO detailDAO =new DetailDAOImpl();
+	IDetailDAO detailDAO = new DetailDAOImpl();
 	@Override
 	public List<OrderModel> listOrderByCustomerID(int customerID) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderModel> list = orderDAO.listOrderByCustomerID(customerID);
+		list.forEach(order -> order.setDetails(detailDAO.listDetail(order.getOrderID())));
+		return list;
+	}
+	@Override
+	public void updateStatusOrder(int orderID, int status) {
+		orderDAO.updateStatusOrder(orderID, status);
 	}
 
 	@Override
 	public void confirmOrder(int orderID, int confirm) {
-		// TODO Auto-generated method stub
+		orderDAO.confirmOrder(orderID, confirm);
 		
+	}
+	@Override
+	public OrderModel getOrderByOrderID(int orderID) {
+		OrderModel order = orderDAO.getOrderByOrderID(orderID);
+		order.setDetails(detailDAO.listDetail(order.getOrderID()));
+		return order;
 	}
 
 	@Override
@@ -42,13 +53,6 @@ public class OrderServiceImpl implements IOrderService{
 		list.forEach(order -> order.setDetails(detailDAO.listDetail(order.getOrderID())));
 		return list;
 	}
-
-	@Override
-	public OrderModel getOrderByOrderID(int orderID) {
-		OrderModel order=orderDAO.getOrderByOrderID(orderID);
-		order.setDetails(detailDAO.listDetail(order.getOrderID()));
-		return order;
-	}
 	
 	
 	@Override
@@ -57,20 +61,23 @@ public class OrderServiceImpl implements IOrderService{
 	}
 	@Override
 	public void updateOrder(OrderModel order) {
-		// TODO Auto-generated method stub
 		orderDAO.updateOrder(order);
 		
 	}
 	@Override
 	public void deleteOrder(int orderID) {
-		// TODO Auto-generated method stub
 		orderDAO.deleteOrder(orderID);
 		
 	}
 	@Override
 	public OrderModel findByOrderID(int orderID) {
-		// TODO Auto-generated method stub
 		return orderDAO.findByOrderID(orderID);
+	}
+	@Override
+	public OrderModel getOrderByID(int orderID) {
+		OrderModel order = orderDAO.getOrderByID(orderID);
+		order.setDetails(detailDAO.listDetail(order.getOrderID()));
+		return order;
 	}
 	
 	

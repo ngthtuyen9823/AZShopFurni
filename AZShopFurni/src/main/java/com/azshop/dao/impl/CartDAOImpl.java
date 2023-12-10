@@ -9,7 +9,6 @@ import java.util.List;
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.ICartDAO;
 import com.azshop.models.CartModel;
-import com.azshop.models.CategoryModel;
 
 public class CartDAOImpl implements ICartDAO {
 	Connection conn = null;
@@ -67,13 +66,13 @@ public class CartDAOImpl implements ICartDAO {
 	}
 
 	@Override
-	public void deleteAll() {
-		String sql = "Truncate table CART";
+	public void deleteAllByCustomerID(int customerID) {
+		String sql = "Delete from CART where CustomerID=?";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			
+			ps.setInt(1, customerID);
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -109,9 +108,15 @@ public class CartDAOImpl implements ICartDAO {
 	@Override
 	public List<CartModel> findAll() {
 		List<CartModel> listCart = new ArrayList<CartModel>();
-		String sql = "Select c.*, i.Color, i.Size, i.PromotionPrice, p.ProductName, i.PromotionPrice * c.Quantity as TotalPrice\r\n"
-				+ "from CART c\r\n" + "join ITEM i\r\n" + "on c.ItemID = i.ItemID\r\n" + "join PRODUCT p\r\n"
-				+ "on i.ProductID = p.ProductID";
+		String sql = "SELECT\r\n" + "    c.*,\r\n" + "    i.Color,\r\n" + "    i.Size,\r\n"
+				+ "    i.PromotionPrice,\r\n" + "    p.productID,\r\n" + "    p.ProductName,\r\n"
+				+ "    i.PromotionPrice * c.Quantity AS TotalPrice,\r\n" + "    ii.Image\r\n" + "FROM\r\n"
+				+ "    CART c\r\n" + "JOIN\r\n" + "    ITEM i ON c.ItemID = i.ItemID\r\n" + "JOIN\r\n"
+				+ "    PRODUCT p ON i.ProductID = p.ProductID\r\n" + "JOIN\r\n" + "    (\r\n" + "        SELECT\r\n"
+				+ "            ItemID,\r\n" + "            Image,\r\n"
+				+ "            ROW_NUMBER() OVER (PARTITION BY ItemID ORDER BY ItemImageID) AS ImageRank\r\n"
+				+ "        FROM\r\n" + "            ITEMIMAGE\r\n"
+				+ "    ) ii ON i.ItemID = ii.ItemID AND ii.ImageRank = 1;\r\n" + "";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -127,6 +132,8 @@ public class CartDAOImpl implements ICartDAO {
 				cart.setPromotionPrice(rs.getInt("PromotionPrice"));
 				cart.setProductName(rs.getString("ProductName"));
 				cart.setTotalPrice(rs.getInt("TotalPrice"));
+				cart.setImage(rs.getString("Image"));
+				cart.setProductID(rs.getInt("ProductID"));
 				listCart.add(cart);
 			}
 		} catch (Exception e) {
@@ -135,41 +142,42 @@ public class CartDAOImpl implements ICartDAO {
 		return listCart;
 	}
 
-	public static void main(String[] args) {
-		// Test the CartDAOImpl methods
-		CartDAOImpl cartDAO = new CartDAOImpl();
+	public List<CartModel> findByCustomerId(int customerId) {
+		List<CartModel> listCart = new ArrayList<CartModel>();
+		String sql = "SELECT\r\n" + "    c.*,\r\n" + "    i.Color,\r\n" + "    i.Size,\r\n"
+				+ "    i.PromotionPrice,\r\n" + "    p.productID,\r\n" + "    p.ProductName,\r\n"
+				+ "    i.PromotionPrice * c.Quantity AS TotalPrice,\r\n" + "    ii.Image\r\n" + "FROM\r\n"
+				+ "    CART c\r\n" + "JOIN\r\n" + "    ITEM i ON c.ItemID = i.ItemID\r\n" + "JOIN\r\n"
+				+ "    PRODUCT p ON i.ProductID = p.ProductID\r\n" + "JOIN\r\n" + "    (\r\n" + "        SELECT\r\n"
+				+ "            ItemID,\r\n" + "            Image,\r\n"
+				+ "            ROW_NUMBER() OVER (PARTITION BY ItemID ORDER BY ItemImageID) AS ImageRank\r\n"
+				+ "        FROM\r\n" + "            ITEMIMAGE\r\n"
+				+ "    ) ii ON i.ItemID = ii.ItemID AND ii.ImageRank = 1\r\n" + "WHERE\r\n" + "    c.CustomerID = ?;";
 
-		// Delete
-//		cartDAO.delete(100001, 10100101);
-
-		// Insert
-//		CartModel newCart = new CartModel();
-//		newCart.setCustomerID(100001);
-//		newCart.setItemID(10100101);
-//		newCart.setQuantity(3);
-//		cartDAO.insert(newCart);
-
-		// Update
-//		CartModel existingCart = cartDAO.findOne(100001, 10100101);
-//		if (existingCart != null) {
-//			existingCart.setQuantity(existingCart.getQuantity() + 1);
-//			cartDAO.update(existingCart);
-//		}
-//
-//		// FindOne
-//		CartModel foundCart = cartDAO.findOne(100001, 10100101);
-//		if (foundCart != null) {
-//			System.out.println("Found Cart: " + foundCart.getCustomerID() + ", " + foundCart.getItemID() + ", "
-//					+ foundCart.getQuantity());
-//		} else {
-//			System.out.println("Cart not found.");
-//		}
-
-//		// FindAll
-		System.out.println("All Carts:");
-		for (CartModel cart : cartDAO.findAll()) {
-			System.out.println(cart);
+		System.out.println(sql);
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, customerId);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				CartModel cart = new CartModel();
+				cart.setCustomerID(rs.getInt("CustomerID"));
+				cart.setItemID(rs.getInt("ItemID"));
+				cart.setQuantity(rs.getInt("Quantity"));
+				cart.setColor(rs.getString("Color"));
+				cart.setSize(rs.getString("Size"));
+				cart.setPromotionPrice(rs.getInt("PromotionPrice"));
+				cart.setProductName(rs.getString("ProductName"));
+				cart.setTotalPrice(rs.getInt("TotalPrice"));
+				cart.setImage(rs.getString("Image"));
+				cart.setProductID(rs.getInt("ProductID"));
+				listCart.add(cart);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return listCart;
 	}
-
 }

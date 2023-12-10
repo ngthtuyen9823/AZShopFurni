@@ -42,9 +42,13 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public void deleteAll() {
-		cartDAO.deleteAll();
+	public void deleteAllByCustomerID(int customerID) {
+		cartDAO.deleteAllByCustomerID(customerID);
 
 	}
 
+	@Override
+	public List<CartModel> findByCustomerId(int customerId) {
+		return cartDAO.findByCustomerId(customerId);
+	}
 }

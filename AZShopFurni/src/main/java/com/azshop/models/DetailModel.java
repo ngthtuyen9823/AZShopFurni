@@ -1,24 +1,29 @@
 package com.azshop.models;
-import com.google.api.client.util.DateTime;
+
+import java.util.Date;
 
 public class DetailModel {
+	public DetailModel() {
+		super();
+	}
+
 	private int itemID;
 	private int orderID;
 	private int quantity;
 	private String link;
 	private String content;
-	private DateTime evaluationDate;
+	private Date evaluationDate;
 	private int rating;
+	private String avatar;
+	private String name;
+
 	
 	private ItemModel item = new ItemModel();
 	private ProductModel product = new ProductModel();
 	private OrderModel order = new OrderModel();
 	
-	public DetailModel() {
-		super();
-	}
-	public DetailModel(int itemID, int orderID, int quantity, String link, String content, DateTime evaluationDate,
-			int rating) {
+	public DetailModel(int itemID, int orderID, int quantity, String link, String content, Date evaluationDate,
+			int rating, String avatar, String name) {
 		super();
 		this.itemID = itemID;
 		this.orderID = orderID;
@@ -27,6 +32,8 @@ public class DetailModel {
 		this.content = content;
 		this.evaluationDate = evaluationDate;
 		this.rating = rating;
+		this.avatar = avatar;
+		this.name = name;
 	}
 	
 	public int getItemID() {
@@ -68,12 +75,10 @@ public class DetailModel {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	public DateTime getEvaluationDate() {
+	public Date getEvaluationDate() {
 		return evaluationDate;
 	}
-	
-	public void setEvaluationDate(DateTime evaluationDate) {
+	public void setEvaluationDate(Date evaluationDate) {
 		this.evaluationDate = evaluationDate;
 	}
 	
@@ -112,7 +117,24 @@ public class DetailModel {
 	@Override
 	public String toString() {
 		return "DetailModel [itemID=" + itemID + ", orderID=" + orderID + ", quantity=" + quantity + ", link=" + link
-				+ ", content=" + content + ", evaluationDate=" + evaluationDate + ", rating=" + rating + "]";
+				+ ", content=" + content + ", evaluationDate=" + evaluationDate + ", rating=" + rating + ",avatar="
+				+ avatar + " name, " + name + "]";
 	}
-	
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

@@ -72,4 +72,8 @@ public class ProductServiceImpl implements IProductService {
 	public List<ProductModel> sortByPrice() {
 		return productDAO.sortByPrice();
 	}
+	@Override
+	public List<ProductModel> findBySupplierID(int supplierId) {
+		return productDAO.findBySupplierID(supplierId);
+	}
 }

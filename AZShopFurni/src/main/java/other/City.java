@@ -80,7 +80,7 @@ public enum City {
         return vietnameseName;
     }
     
-    public List<String> getListCity(){
+	public static List<String> getListCity(){
     	List<String> listcity = new ArrayList<String>();
     	for (City city : City.values()) {
     		listcity.add(city.getVietnameseName());

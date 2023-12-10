@@ -104,9 +104,7 @@ public class OrderController extends HttpServlet {
 			int orderID = Integer.parseInt(req.getParameter("orderID"));
 			int ustatusOrder = Integer.parseInt(req.getParameter("uStatuOrder"));
 			int ustatusPay = Integer.parseInt(req.getParameter("uStatuPayment"));
-			OrderModel order = orderService.findByOrderID(orderID);
-			order.setStatus(ustatusOrder);
-			orderService.updateOrder(order);
+			orderService.updateStatusOrder(orderID, ustatusOrder);
 			PaymentModel pay = paymentService.findPaymentByID(orderID);
 			pay.setStatus(ustatusPay);
 			paymentService.updatePayment(pay);

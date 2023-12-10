@@ -118,8 +118,66 @@ public class VoucherDAOImpl implements IVoucherDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return voucher;
 	}
 
+	@Override
+	public List<VoucherModel> findVoucherByCustomerID(int customerID) {
+		List<VoucherModel> listVoucher = new ArrayList<VoucherModel>();
+		String sql = "SELECT * FROM VOUCHER WHERE VoucherID "
+				   + "NOT IN (SELECT VoucherID FROM VOUCHERCUSTOMER WHERE CustomerID = ? )";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, customerID);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				VoucherModel voucher = new VoucherModel();
+
+				voucher.setVoucherID(rs.getInt("VoucherID"));
+				voucher.setDescription(rs.getString("Description"));
+				voucher.setDiscount(rs.getInt("Discount"));
+				voucher.setMinimumPrice(rs.getInt("MinimumPrice"));
+				voucher.setQuantity(rs.getInt("Quantity"));
+				voucher.setMfg(rs.getDate("Mfg"));
+				voucher.setExp(rs.getDate("Exp"));
+
+				listVoucher.add(voucher);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listVoucher;
+	}
+
+	@Override
+	public VoucherModel findOneByCustomerID(int voucherID, int customerID) {
+		Connection conn = null;
+		String sql = "SELECT * FROM VOUCHER WHERE VoucherID = ?  "
+				   + "AND VoucherID NOT IN ( SELECT VoucherID FROM VOUCHERCUSTOMER WHERE CustomerID = ? )";
+		VoucherModel voucher = new VoucherModel();
+
+		try {
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, voucherID);
+			ps.setInt(2, customerID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				voucher.setVoucherID(rs.getInt("VoucherID"));
+				voucher.setDescription(rs.getString("Description"));
+				voucher.setDiscount(rs.getInt("Discount"));
+				voucher.setMinimumPrice(rs.getInt("MinimumPrice"));
+				voucher.setQuantity(rs.getInt("Quantity"));
+				voucher.setMfg(rs.getDate("Mfg"));
+				voucher.setExp(rs.getDate("Exp"));
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return voucher;
+	}
 }

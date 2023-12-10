@@ -31,9 +31,12 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/css-hamburgers/hamburgers.min.css"/>">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/util.css"/>">
-	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/main.css"/>">
-	<link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/products/products.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/util.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/main.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/products/products.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/animsition/css/animsition.min.css"/>">
 <!--===============================================================================================-->
@@ -52,16 +55,26 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/MagnificPopup/magnific-popup.css"/>">
 <!--===============================================================================================-->
-<link href='<c:url value="/templates/web/css/products/tiny-slider.css"/>'
+<link
+	href='<c:url value="/templates/web/css/products/tiny-slider.css"/>'
 	rel="stylesheet" />
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 	rel="stylesheet">
-<link href='<c:url value="/templates/web/css/products/product-detail.css"/>'
+<link
+	href='<c:url value="/templates/web/css/products/product-detail.css"/>'
 	rel="stylesheet" />
-	
+
 <link href='<c:url value="/templates/web/css/carts/carts.css"/>'
 	rel="stylesheet" />
+
+<link href='<c:url value="/templates/web/css/checkout/checkout.css"/>'
+	rel="stylesheet" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" />
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+	rel="stylesheet">
 
 </head>
 <body>
@@ -224,6 +237,39 @@
 			})
 		});
 	</script>
+	<script>
+		function setRating(index) {
+			// Get all buttons
+			var stars = document.getElementsByClassName("star");
 
+			// Remove highlight class from all buttons
+			for (var i = 0; i < stars.length; i++) {
+				stars[i].classList.remove("highlight");
+			}
+
+			// Add highlight class to buttons from 1 to the clicked index
+			for (var i = 0; i < index; i++) {
+				stars[i].classList.add("highlight");
+			}
+
+			// Update the value of the hidden input with the selected index
+			document.getElementById("ratingInput").value = index;
+		}
+		function handleButtonClick(button) {
+			// Remove the active class from all buttons
+			var buttons = document.querySelectorAll('.btn-group button');
+			buttons.forEach(function(btn) {
+				btn.style.borderColor = '#bdc3c7';
+			});
+
+			// Add the active class to the clicked button
+			button.style.borderColor = '#4b4b4b'; // Change to your desired active border color
+
+			// Additional logic if needed
+			// For example, you can update some hidden input with the selected value
+			var selectedValue = button.value;
+			document.getElementById('hiddenInput').value = selectedValue;
+		}
+	</script>
 </body>
 </html>
