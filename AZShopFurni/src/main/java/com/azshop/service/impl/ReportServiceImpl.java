@@ -17,6 +17,15 @@ public class ReportServiceImpl implements IReportService{
 		return reportDAO.reportReceipt(date, limit);
 	}
 	@Override
+	public List<MyItem> reportKPISeller(Date date, int id) {
+		return reportDAO.reportKPISeller(date, id);
+	}
+	@Override
+	public List<MyItem> reportBestItemSeller(int id) {
+		return reportDAO.reportBestItemSeller(id);
+	}
+
+	@Override
 	public List<List<Object>> reportTotalMoneyInMonth() {
 		
 		return reportDAO.reportTotalMoneyInMonth();

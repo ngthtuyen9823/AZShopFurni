@@ -10,16 +10,16 @@
 					<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
 					Dashboard
 				</a>
-				<div class="sb-sidenav-menu-heading">Management</div>
+				<div class="sb-sidenav-menu-heading">Quản lý</div>
 				<a class="nav-link" href="adminAccount"> <div class="sb-nav-link-icon"><i class="bi bi-person-vcard-fill"></i>
-					</div> Account
+					</div> Tài khoản
 				</a> 
 				<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 					data-bs-target="#collapseLayouts" aria-expanded="false"
 					aria-controls="collapseLayouts">
 					<div class="sb-nav-link-icon">
 						<i class="bi bi-people"></i>
-					</div> User
+					</div> Người dùng
 					<div class="sb-sidenav-collapse-arrow">
 						<i class="fas fa-angle-down"></i>
 					</div>
@@ -27,14 +27,20 @@
 				<div class="collapse" id="collapseLayouts"
 					aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 					<nav class="sb-sidenav-menu-nested nav">
-						<a class="nav-link" href="<c:url value='/adminCustomer'/>">Customer</a>
-						<a class="nav-link" href="<c:url value='/adminSeller'/>">Seller</a>
-						<a class="nav-link" href="<c:url value='/adminShipper'/>">Shipper</a>
+						<a class="nav-link" href="<c:url value='/adminCustomer'/>">Khách hàng</a>
+						<a class="nav-link" href="<c:url value='/adminSeller'/>">Người bán hàng</a>
+						<a class="nav-link" href="<c:url value='/adminShipper'/>">Người giao hàng</a>
 					</nav>
 
 				</div>
 				<a class="nav-link" href="adminProduct"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
-					</div> Product
+					</div> Sản phẩm
+				</a> 
+				<a class="nav-link" href="adminVoucher"> <div class="sb-nav-link-icon"><i class="bi bi-nvme"></i>
+					</div> Mã khuyến mãi
+				</a> 
+				<a class="nav-link" href="adminKPI"> <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i>
+					</div> KPI
 				</a> 
 				<a class="nav-link" href="adminOrder"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
 					</div> Order

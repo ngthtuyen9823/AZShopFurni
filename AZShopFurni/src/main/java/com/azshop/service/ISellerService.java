@@ -11,4 +11,5 @@ public interface ISellerService {
 	void deleteSeller(int id);
 	void insertSeller(UserModel model);
 	int createSellerID();
+	List<UserModel> findBestSeller();
 }
