@@ -217,8 +217,8 @@ public class ReportDAOImpl implements IReportDAO {
 	        ps.setInt(1, sellerID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				row.add(rs.getString("Thang"));
 				List<Object> row = new ArrayList<Object>();
+				row.add(rs.getString("Thang"));
 				row.add(rs.getLong("Tong"));
 				row.add(rs.getInt("SL"));
 				list.add(row);
