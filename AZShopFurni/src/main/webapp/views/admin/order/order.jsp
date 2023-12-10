@@ -7,15 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Table - Order</title>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-doughnutlabel"></script>
+
 
 </head>
 <body>
 
 	<main>
-		<script type="text/javascript">
-		var 
-	</script>
-
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">Đơn hàng</h1>
 			<ol class="breadcrumb mb-4">
@@ -125,29 +123,15 @@
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-area me-1"></i> Tổng doanh thu của tháng
+							<i class="fas fa-chart-area me-1"></i> Tổng doanh thu của tháng:
+							<span class="highlighted"
+								style="font-size: 1.2em; color: #6060F8; font-weight: bold;"><fmt:formatNumber
+									type="currency" value="${sumTotal}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}</span>
+
 						</div>
 						<div class="card-body">
 							<canvas id="myTotalMoneyChart" width="100%" height="40"></canvas>
-							<script>
-                                                var lineChartData = {
-                                                    labels: [<c:forEach var="item" items="${listPayMentInMonth}">'${item.get(0)}',</c:forEach>],
-                                                    datasets: [
-                                                        {
-                                                        	//fillColor: "#FC8213",
-                                                        	label:'Store revenue',
-                                                            data: [<c:forEach var="item" items="${listPayMentInMonth}">${item.get(1)},</c:forEach>],
-                                                            backgroundColor:' rgba(0, 0, 255, 0.6)'
-                                                        }
-                                                    ]
-
-                                                };                                          
-                                                new Chart(document.getElementById("myTotalMoneyChart").getContext("2d"), {
-                                                    type: 'line',
-                                                    data: lineChartData
-                                                });
-
-                            </script>
 						</div>
 					</div>
 				</div>
@@ -155,31 +139,40 @@
 					<div class="card mb-4">
 						<div class="card-header">
 							<i class="fas fa-chart-bar me-1"></i> Thống kê đơn hàng trong
-							tháng
+							tháng <span
+								style="font-size: 1.2em; color: #ff5733; font-weight: bold;">
+								Tổng : ${sumOrder} đơn</span>
 						</div>
 						<div class="card-body">
 							<canvas id="myChart" width="100%" height="40"></canvas>
-							<script>
-                                                var barChartData = {
-                                                		
-                                                    labels: [<c:forEach var="item" items="${listPayMentInMonth}">'${item.get(0)}',</c:forEach>],
-                                                    datasets: [
-                                                        {
-                                                        	fillColor: "#FC8213",
-                                                        	label:'Orders',
-                                                            data: [<c:forEach var="item" items="${listPayMentInMonth}">${item.get(2)},</c:forEach>],
-                                                            backgroundColor:'rgba(255, 99, 132, 0.6)'
-                                                        }
-                                                    ]
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-6">
+					<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-chart-area me-1"></i> Phương thức thanh toán
+						</div>
+						<div class="card-body">
+							<div class="chart-container"
+								style="display: block; justify-content: space-between;">
+								<canvas id="myHorizontalDoughnutChart" width="100%" height="40"></canvas>
+								<canvas id="lot" width="100%" height="40"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-6">
+					<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-chart-bar me-1"></i> Thống kê tình trạng đơn
+							hàng trong 6 tháng
+						</div>
+						<div class="card-body">
+							<canvas id="myChartDouble" width="100%" height="40"></canvas>
 
-                                                };                                          
-                                                new Chart(document.getElementById("myChart").getContext("2d"), {
-                                                    type: 'bar',
-                                                    data: barChartData
-                                                   
-                                                });
-
-                            </script>
 						</div>
 					</div>
 				</div>
@@ -272,11 +265,9 @@
 								</label>
 							</div>
 						</form>
-
 					</div>
 
 					<table id="datatablesSimple">
-
 						<thead>
 							<tr>
 								<th>Mã đơn hàng</th>
@@ -295,21 +286,41 @@
 								<tr>
 									<td>${i.orderID}</td>
 									<td>${i.orderDate}</td>
-									<td>${i.customer.lastName} ${i.customer.firstName}</td>
-									<td>${i.seller.lastName} ${i.seller.firstName}</td>
-									<td>${i.shipper.lastName } ${ i.shipper.firstName}</td>
-									<td><c:choose>
-											<c:when test="${i.status == 0}">Chờ xác nhận</c:when>
-											<c:when test="${i.status == 1}">Đã xác nhận</c:when>
-											<c:when test="${i.status == 2}">Đóng gói</c:when>
-											<c:when test="${i.status == 3}">Đang giao</c:when>
-											<c:when test="${i.status == 4}">Giao thành công</c:when>
-											<c:when test="${i.status == 5}">Đã hủy</c:when>
-										</c:choose></td>
-									<td><c:choose>
-											<c:when test="${i.payment.status == 0}">Chưa thanh toán</c:when>
-											<c:when test="${i.payment.status == 1}">Đã thanh toán</c:when>
-										</c:choose></td>
+									<td>${i.customer.lastName}${i.customer.firstName}</td>
+									<td>${i.seller.lastName}${i.seller.firstName}</td>
+									<td>${i.shipper.lastName }${ i.shipper.firstName}</td>
+									<td>
+										<div class="d-flex justify-content-start">
+											<c:choose>
+												<c:when test="${i.status == 5}">
+													<i style="color: red"> Đã hủy</i>
+												</c:when>
+												<c:when
+													test="${i.status == 4 && i.customerConfirmation == 1}">
+													<i style="color: green"> Đã giao</i>
+												</c:when>
+												<c:otherwise>
+													<i style="color: orange"> Chưa xác nhận</i>
+												</c:otherwise>
+											</c:choose>
+										</div>
+									</td>
+									<td>
+										<div class="d-flex justify-content-center">
+											<c:choose>
+												<c:when test="${i.payment.status==1}">
+													<div style="color: green; font-size: 20;">
+														<strong>✔</strong>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div style="color: red; font-size: 20;">
+														<strong>✖</strong>
+													</div>
+												</c:otherwise>
+											</c:choose>
+										</div>
+									</td>
 
 									<td>${i.totalMoney}</td>
 									<td>
@@ -332,48 +343,158 @@
 			</div>
 		</div>
 	</main>
-	<!-- <script>
-		function onOrderDateChange() {
-			filterData(); // Gọi hàm lọc dữ liệu khi combobox Order Date thay đổi
-		}
+	<script>
+	
+	/// Biều đồ đường.
+	
+        var barChartData = {
+        		
+            labels: [<c:forEach var="item" items="${listPayMentInMonth}">'${item.get(0)}',</c:forEach>'',],
+            datasets: [
+                {
+                	fillColor: "#FC8213",
+                	label:'Orders',
+                    data: [<c:forEach var="item" items="${listPayMentInMonth}">${item.get(2)},</c:forEach>0,],
+                    backgroundColor:'rgba(255, 99, 132, 0.6)'
+                }]
 
-		function onStatusOrderChange() {
-			filterData(); // Gọi hàm lọc dữ liệu khi combobox Status Order thay đổi
-		}
+        };                                          
+        new Chart(document.getElementById("myChart").getContext("2d"), {
+            type: 'bar',
+            data: barChartData
+            
+        });
 
-		function onStatusPaymentChange() {
-			filterData(); // Gọi hàm lọc dữ liệu khi combobox Status Payment thay đổi
-		}
+                           
+	
+	/// Biểu đồ cột.
+	
+        var lineChartData = {
+            labels: [<c:forEach var="item" items="${listPayMentInMonth}">'${item.get(0)}',</c:forEach>],
+            datasets: [
+                {
+                	//fillColor: "#FC8213",
+                	label:'Store revenue',
+                    data: [<c:forEach var="item" items="${listPayMentInMonth}">${item.get(1)},</c:forEach>],
+                    backgroundColor:' rgba(0, 0, 255, 0.6)'
+                }
+            ]
 
-		function filterData() {
-			// Lấy giá trị của các combobox
-			var orderDateValue = document.getElementById("orderDateSelector").value;
-			var statusOrderValue = document
-					.getElementById("statusOrderSelector").value;
-			var statusPaymentValue = document
-					.getElementById("statusPaymentSelector").value;
+        };                                          
+        new Chart(document.getElementById("myTotalMoneyChart").getContext("2d"), {
+            type: 'line',
+            data: lineChartData
+        });
+        
+                            
+	
+	/// Biểu đồ tròn.
+			var ctx = document.getElementById('myHorizontalDoughnutChart').getContext('2d');
+		    var myHorizontalDoughnutChart = new Chart(ctx, {
+		      type: 'doughnut',
+		      data: {
+		        datasets: [{
+		          data: [${countPaymentCard}, ${countPaymentNormal}, ${countNoPay}],
+		          backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)','rgba(75, 192, 192, 0.6)'],
+		        }],
+		        labels: ['Chuyển khoản', 'Thanh toán khi nhận hàng', 'Chưa thanh toán'],
+		      },
+		      options: {
+		        rotation: 1 * Math.PI,
+		        circumference: 2 * Math.PI,
+		        cutoutPercentage: 50, // Tùy chỉnh độ lõm của doughnut
+		        animation: {
+		            onComplete: function () {
+		              var chartInstance = this.chart,
+		                ctx = chartInstance.ctx,
+		                width = chartInstance.canvas.width,
+		                height = chartInstance.canvas.height;
 
-			// Gửi yêu cầu POST đến servlet để xử lý việc lọc
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "/your_project/OrderFilterServlet", true);
-			xhr.setRequestHeader("Content-Type",
-					"application/x-www-form-urlencoded");
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					// Xử lý kết quả nếu cần
-					console.log(xhr.responseText);
-				}
-			};
+		              ctx.font = '14px Arial';
+		              ctx.fillStyle = 'black';
+		              ctx.textBaseline = 'middle';
+		              ctx.textAlign = 'center';
 
-			// Tạo dữ liệu truyền đi
-			var data = "orderDateFilter=" + orderDateValue
-					+ "&statusOrderFilter=" + statusOrderValue
-					+ "&statusPaymentFilter=" + statusPaymentValue;
+		              var text = "${countPaymentCard+countPaymentNormal+ countNoPay} đơn"; // Text bạn muốn hiển thị
+		              ctx.fillText(text, width /2 -70, height / 2);
+		            }							        
+		        }		
+		      },
+		    });
+		
+		    // Add a second doughnut chart
+		    var ctx2 = document.getElementById('lot').getContext('2d');
+		    var myHorizontalDoughnutChart2 = new Chart(ctx2, {
+		      type: 'doughnut',
+		      data: {
+		        datasets: [{
+		        	data: [${totalPaymentCard}, ${totalPayMentNormal}],
+		          backgroundColor: ['rgba(255, 206, 86, 0.6)', 'rgba(75, 192, 192, 0.6)'],
+		        }],
+		        labels: ['Chuyển khoản', 'Thanh toán khi nhận hàng'],
+		      },
+		      options: {
+		        rotation: 1 * Math.PI,
+		        circumference: 2 * Math.PI,
+		        cutoutPercentage: 70, // Tùy chỉnh độ lõm của doughnut
+		        animation: {
+		            onComplete: function () {
+		              var chartInstance = this.chart,
+		                ctx = chartInstance.ctx,
+		                width = chartInstance.canvas.width,
+		                height = chartInstance.canvas.height;
 
-			// Gửi yêu cầu
-			xhr.send(data);
-		}
-	</script> -->
+		              ctx.font = '14px Arial';
+		              ctx.fillStyle = 'black';
+		              ctx.textBaseline = 'middle';
+		              ctx.textAlign = 'center';
+
+		              var text = "${totalPaymentCard+totalPayMentNormal} đ"; // Text bạn muốn hiển thị
+		              ctx.fillText(text, width /2 - 70, height / 2);
+		            }							        
+		        }				     
+		      },
+		    }); 
+							  
+	/// Biểu đồ cột đôi
+	
+		var ctx = document.getElementById("myChartDouble").getContext("2d");
+
+		var data = {
+		    labels: [<c:forEach var="item" items="${listOrderSta}">"${item.get(0)}/2023",</c:forEach>],
+		    datasets: [
+		        {
+		        	label: 'Thành công',
+	                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+	                data: [<c:forEach var="item" items="${listOrderSta}">${item.get(1)},</c:forEach>],
+		        },
+		        {
+		        	label: 'Hủy',
+	                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+	                data: [<c:forEach var="item" items="${listOrderSta}">${item.get(2)},</c:forEach>],
+	                
+		        } 
+		    ]
+		};
+
+		var myBarChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: data,
+		    options: {
+		        barValueSpacing: 20,
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    min: 0,
+		                }
+		            }]
+		        }
+		    }
+		});
+							
+		
+	</script>
+
 </body>
 
 

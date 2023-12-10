@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.azshop.bean.MyItem;
+import com.azshop.bean.Top3Customer;
 import com.azshop.dao.IReportDAO;
 import com.azshop.dao.impl.ReportDAOImpl;
 import com.azshop.service.IReportService;
@@ -20,5 +21,8 @@ public class ReportServiceImpl implements IReportService{
 		
 		return reportDAO.reportTotalMoneyInMonth();
 	}
-
+	@Override
+	public List<Top3Customer> reportTop3Customer() {
+		return reportDAO.reportTop3Customer();
+	}
 }

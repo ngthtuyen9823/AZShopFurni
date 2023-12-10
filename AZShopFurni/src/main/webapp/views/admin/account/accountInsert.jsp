@@ -19,25 +19,23 @@
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">Insert
-								Account</h3>
+							<h3 class="text-center font-weight-light my-4">Tạo tài khoản</h3>
 						</div>
 						<div class="card-body">
 							<form action="adminInsertAccount" method="post">
 								<div class="row">
 									<div class="form-floating mb-3">
-										<input class="form-control" type="text" name="userID" /> <label>UserID</label>
+										<input class="form-control" type="text" name="userID" /> <label>Mã khách hàng</label>
 									</div>
 									<div class="form-floating mb-3">
-										<input class="form-control" type="text" name="userName" /> <label>User
-											Name</label>
+										<input class="form-control" type="text" name="userName" /> <label>Tên đăng nhập</label>
 									</div>
 									<div class="form-floating mb-3">
-										<input class="form-control" type="text" name="password" /> <label>Password</label>
+										<input class="form-control" type="text" name="password" /> <label>Mật khẩu</label>
 									</div>
 								</div>
 								<div class="text-center mt-4">
-									<input type="submit" class="btn btn-primary" value="Insert" />
+									<input type="submit" class="btn btn-primary" value="Tạo tài khoản" />
 								</div>
 							</form>
 						</div>

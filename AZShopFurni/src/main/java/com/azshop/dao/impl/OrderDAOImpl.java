@@ -46,7 +46,7 @@ public class OrderDAOImpl implements IOrderDAO {
 	@Override
 	public List<OrderModel> findAllOrder() {
 		List<OrderModel> listOrder = new ArrayList<OrderModel>();
-		String sql = "SELECT DISTINCT k.*,p.* " + "FROM PAYMENT AS p " + "INNER JOIN ( "
+		String sql = "SELECT DISTINCT k.*,p.Method as Method,p.Time as TimePay, p.Bank as Bank, p.CardOwner as CardOwner, p.AccountNumber as AccountNumber, p.Status as StatusPay " + "FROM PAYMENT AS p " + "INNER JOIN ( "
 				+ "    SELECT DISTINCT o.*, c.FirstName AS FirstNameCustomer, c.LastName AS LastNameCustomer, c.Phone AS PhoneCustomer, c.CID AS CIDCustomer, "
 				+ "		 c.Email AS EmailCustomer,  c.DoB AS DoBCustomer, c.Address AS AddressCustomer, "
 				+ "        se.FirstName AS FirstNameSeller, se.LastName AS LastNameSeller, se.Phone AS PhoneSeller, se.CID AS CIDSeller, "
@@ -76,7 +76,7 @@ public class OrderDAOImpl implements IOrderDAO {
 				order.setOrderID(rs.getInt("OrderID"));
 				order.setOrderDate(rs.getDate("OrderDate"));
 				order.setAddress(rs.getString("Address"));
-				order.setStatus(rs.getInt(4));
+				order.setStatus(rs.getInt("Status"));
 				order.setTransportFee(rs.getInt("TransportFee"));
 				order.setDiscount(rs.getInt("Discount"));
 				order.setTotalMoney(rs.getInt("TotalMoney"));
@@ -110,10 +110,10 @@ public class OrderDAOImpl implements IOrderDAO {
 				pay.setOrderID(rs.getInt("OrderID"));
 				pay.setMethod(rs.getInt("Method"));
 				pay.setBank(rs.getString("Bank"));
-				pay.setTime(rs.getTimestamp("Time"));
+				pay.setTime(rs.getTimestamp("TimePay"));
 				pay.setCardOwner(rs.getString("CardOwner"));
 				pay.setAccountNumber(rs.getString("AccountNumber"));
-				pay.setStatus(rs.getInt(37));
+				pay.setStatus(rs.getInt("StatusPay"));
 
 				order.setCustomer(customer);
 				order.setSeller(seller);
