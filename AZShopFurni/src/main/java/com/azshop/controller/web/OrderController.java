@@ -12,16 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.azshop.models.DetailModel;
 import com.azshop.models.OrderModel;
 import com.azshop.models.UserModel;
+import com.azshop.service.IDetailService;
 import com.azshop.service.IOrderService;
+import com.azshop.service.impl.DetailServiceImpl;
 import com.azshop.service.impl.OrderServiceImpl;
 
-@WebServlet(urlPatterns = { "/listOrder", "/customerConfirm", "/detailOrder" })
+@WebServlet(urlPatterns = { "/listOrder", "/customerConfirm", "/detailOrder", "/itemRating" })
 @MultipartConfig
 public class OrderController extends HttpServlet {
 
 	IOrderService orderService = new OrderServiceImpl();
+	IDetailService detailService = new DetailServiceImpl();
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -33,6 +37,8 @@ public class OrderController extends HttpServlet {
 				listOrder(req, resp);
 			} else if (url.contains("detailOrder")) {
 				detailOrder(req, resp);
+			} else if (url.contains("itemRating")) {
+				itemRating(req, resp);
 			}
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/login");
@@ -68,18 +74,34 @@ public class OrderController extends HttpServlet {
 		HttpSession session = req.getSession(false);
 		UserModel user = (UserModel) session.getAttribute("user");
 		List<OrderModel> listOrder = orderService.listOrderByCustomerID(user.getUserID());
-		
+
 		req.setAttribute("listOrder", listOrder);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/listOrder.jsp");
 		rd.forward(req, resp);
 	}
-	
+
 	private void detailOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int orderID = Integer.parseInt(req.getParameter("orderID"));
-		
+
 		OrderModel order = orderService.getOrderByOrderID(orderID);
 		req.setAttribute("order", order);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/detailOrder.jsp");
 		rd.forward(req, resp);
 	}
+
+	private void itemRating(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int orderID = Integer.parseInt(req.getParameter("orderID"));
+		int itemID = Integer.parseInt(req.getParameter("itemID"));
+		
+		System.out.println(orderID + itemID);
+		DetailModel detail = detailService.findDetailByItemID(orderID, itemID);
+		OrderModel order = orderService.getOrderByOrderID(orderID);
+		
+		req.setAttribute("detail", detail);
+		req.setAttribute("order", order);
+		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/rating.jsp");
+		rd.forward(req, resp);
+	}
+	
+	
 }

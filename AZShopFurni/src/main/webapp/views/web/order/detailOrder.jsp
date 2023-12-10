@@ -146,25 +146,6 @@ a {
 .card-stepper {
 	z-index: 0
 }
-
-.star-rating {
-	font-size: 0;
-}
-
-.star {
-	display: inline-block;
-	font-size: 24px;
-	cursor: pointer;
-	margin-right: 5px;
-	border: none;
-	background: none;
-	outline: none;
-	color: black;
-}
-
-.highlight {
-	color: #fff200;
-}
 </style>
 
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
@@ -468,39 +449,7 @@ a {
 						</div>
 					</div>
 				</div>
-
-				<div class="review-form col-md-12"
-					style="margin-top: 15px; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);">
-					<div>
-						<h3 style="color: #333; font-size: 1.5em; margin-bottom: 15px;">Add
-							new Comment</h3>
-						<div id="starRating" class="star-rating">
-							<button class="star" onclick="setRating(1)" data-index="1">&#9733;</button>
-							<button class="star" onclick="setRating(2)" data-index="2">&#9733;</button>
-							<button class="star" onclick="setRating(3)" data-index="3">&#9733;</button>
-							<button class="star" onclick="setRating(4)" data-index="4">&#9733;</button>
-							<button class="star" onclick="setRating(5)" data-index="5">&#9733;</button>
-						</div>
-						<form action="submitReview" method="post">
-							<fieldset>
-								<div>
-									<input type="hidden" name="itemID" value="10100101"> <input
-										type="hidden" name="orderID" value="1007"> <input
-										class="form-control" type="hidden" name="rating"
-										id="ratingInput" value="5" />
-								</div>
-								<div class="form-group stext-105 cl3" style="margin-top: 15px;">
-									<textarea class="form-control" name="content"
-										placeholder="Let us know what you think"
-										id="exampleFormControlTextarea1" rows="5"></textarea>
-								</div>
-							</fieldset>
-							<input type="submit" style="float: right; margin-top: 2.5rem;"
-								class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-								value="Submit" />
-						</form>
-					</div>
-				</div>
 			</div>
 		</div>
+	</div>
 </section>

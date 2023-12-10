@@ -20,4 +20,9 @@ public class DetailServiceImpl implements IDetailService {
 		detailDAO.updateDetail(detail);
 	}
 
+	@Override
+	public DetailModel findDetailByItemID(int orderID, int itemID) {
+		return detailDAO.findDetailByItemID(orderID, itemID);
+	}
+
 }
