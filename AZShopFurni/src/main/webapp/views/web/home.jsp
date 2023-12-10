@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@include file="/common/taglib.jsp"%>
 <style>
 	
 section{
     padding: 60px 0;
 }
-
 #height_reset{
     height: 0;
 }
@@ -216,6 +216,13 @@ section{
     opacity: 1;
 }
 </style>
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.green.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <div id="carouselExampleDark" class="carousel carousel-dark slide">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -354,137 +361,54 @@ section{
         </div>
         
     </section>
-	<section class="product"> 
-        <h2 class="product-category">sản phẩm bán chạy</h2>
-        <button class="pre-btn"><img src="images/arrow.png" alt=""></button>
-        <button class="nxt-btn"><img src="images/arrow.png" alt=""></button>
-        <div class="product-container">
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card1.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">Sofa giường, 170 x 76 x 68 cm</p>
-                    <span class="price">10,400,000đ</span><span class="actual-price">15,400,000đ</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card2.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">a short line about the cloth..</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card3.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">a short line about the cloth..</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card4.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">a short line about the cloth..</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card5.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">a short line about the cloth..</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card6.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">a short line about the cloth..</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card7.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">a short line about the cloth..</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card8.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">a short line about the cloth..</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card9.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">a short line about the cloth..</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">
-                    <span class="discount-tag">50%</span>
-                    <img src="images/card10.jpg" class="product-thumb" alt="">
-                    
-                </div>
-                <div class="product-info">
-                    <h2 class="product-brand">brand</h2>
-                    <p class="product-short-description">a short line about the cloth..</p>
-                    <span class="price">$20</span><span class="actual-price">$40</span>
-                </div>
-            </div>
-        </div>
-    </section>
+    
+<section class="product">
+	<h2 class="product-category">sản phẩm bán chạy</h2>
+	<button class="pre-btn">
+		<img src="images/arrow.png" alt="">
+	</button>
+	<button class="nxt-btn">
+		<img src="images/arrow.png" alt="">
+	</button>
+	<div class="product-container">
+		<c:forEach var="i" items="${list}">
+			<div class="product-card">
+				<input type="hidden" name="itemID" value="${i.get(1)}"> <input
+					type="hidden" name="productID" value="${i.get(0)}">
+				<div class="product-image">
+					<img src="${i.get(6)}" class="product-thumb" alt="">
+				</div>
+				<div class="product-info">
+					<h2 class="product-brand">${i.get(2)}</h2>
+					<p class="product-short-description">${i.get(3)}</p>
+
+					<c:if test="${i.get(5) != 0}">
+						<span class="price"> <fmt:formatNumber type="currency"
+								value="${i.get(5)}" currencyCode="VND" pattern="#,##0 VND"
+								var="formattedOriginalPrice" />${formattedOriginalPrice}
+						</span>
+						<span class="actual-price"> <fmt:formatNumber
+								type="currency" value="${i.get(4)}" currencyCode="VND"
+								pattern="#,##0 VND" var="formattedOriginalPrice" />${formattedOriginalPrice}
+							${i.get(4)}
+						</span>
+					</c:if>
+					<c:if test="${i.get(5) == 0}">
+						<span class="price"> <fmt:formatNumber type="currency"
+								value="${i.get(4)}" currencyCode="VND" pattern="#,##0 VND"
+								var="formattedOriginalPrice" />${formattedOriginalPrice}
+						</span>
+					</c:if>
+
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+</section>
           <!-- edit slider -->
       
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" > </script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" > </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
      <script>
      const productContainers = [...document.querySelectorAll('.product-container')];
      const nxtBtn = [...document.querySelectorAll('.nxt-btn')];

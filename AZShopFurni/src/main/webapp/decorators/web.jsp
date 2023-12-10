@@ -79,7 +79,10 @@
 </head>
 <body>
 	<%@ include file="/common/web/header.jsp"%>
-	<decorator:body></decorator:body>
+	<div class="m-t-84">
+		<decorator:body></decorator:body>
+	</div>
+	
 	<%@ include file="/common/web/footer.jsp"%>
 
 	<!--===============================================================================================-->

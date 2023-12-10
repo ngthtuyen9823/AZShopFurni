@@ -9,4 +9,5 @@ public interface IDetailService {
 	DetailModel findDetailByItemID(int orderID, int itemID);
 	void updateDetail(DetailModel detail);
 	public List<DetailModel> listDetail(int orderID);
+	public List<List<Object>> listBestSeller();
 }

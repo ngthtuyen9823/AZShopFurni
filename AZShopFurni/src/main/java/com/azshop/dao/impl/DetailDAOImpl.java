@@ -147,3 +147,39 @@ public class DetailDAOImpl implements IDetailDAO {
 }
 	
 
+
+	@Override
+	public List<List<Object>> listBestSeller() {
+		List<List<Object>> listBestSeller = new ArrayList<List<Object>>();
+		String sql = "SELECT P.ProductID, I.ItemID, P.ProductName, P.Description, I.OriginalPrice, I.PromotionPrice, IM.Image \r\n"
+				   + "FROM PRODUCT AS P \r\n"
+				   + "			INNER JOIN ITEM I ON P.ProductID = I.ProductID \r\n"
+				   + "			INNER JOIN (SELECT itemID AS ItemID, COUNT(ItemID) AS SL\r\n"
+				   + "						FROM DETAIL GROUP BY itemID\r\n"
+				   + "						ORDER BY SL DESC LIMIT 10) AS D on I.ItemID = D.ItemID \r\n"
+				   + "			INNER JOIN (SELECT MIN(II.ItemImageID) AS ItemImageID, II.ItemID, MIN(II.Image) AS Image \r\n"
+				   + "						FROM ITEMIMAGE II, ITEM IT WHERE II.ItemID = IT.ItemID \r\n"
+			       + "						GROUP BY II.ItemID) IM ON IM.ItemID = I.ItemID";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				List<Object> row = new ArrayList<Object>();
+				row.add(rs.getInt("ProductID"));
+				row.add(rs.getInt("ItemID"));
+				row.add(rs.getString("ProductName"));
+				row.add(rs.getString("Description"));
+				row.add(rs.getInt("OriginalPrice"));
+				row.add(rs.getInt("PromotionPrice"));
+				row.add(rs.getString("Image"));
+				
+				listBestSeller.add(row);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listBestSeller;
+	}
+}

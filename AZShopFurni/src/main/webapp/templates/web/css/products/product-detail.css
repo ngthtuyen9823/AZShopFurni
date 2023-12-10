@@ -55,7 +55,7 @@
 .product-card {
 	flex: 0 0 auto;
 	width: 270px;
-	height: 343px;
+	height: fit-content;
 	margin-right: 40px;
 	overflow: hidden;
 }
