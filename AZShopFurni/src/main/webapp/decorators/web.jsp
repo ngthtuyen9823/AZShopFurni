@@ -265,6 +265,5 @@
 			console.log("Selected rating: " + index);
 		}
 	</script>
-
 </body>
 </html>

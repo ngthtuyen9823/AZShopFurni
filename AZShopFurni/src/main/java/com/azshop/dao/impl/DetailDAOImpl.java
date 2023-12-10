@@ -65,8 +65,6 @@ public class DetailDAOImpl implements IDetailDAO {
 			e.printStackTrace();
 		}
 	}
-}
-
 	@Override
 	public List<DetailModel> listDetail(int orderID) {
 		List<DetailModel> listDetail = new ArrayList<DetailModel>();

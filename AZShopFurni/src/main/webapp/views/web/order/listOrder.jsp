@@ -84,6 +84,7 @@ a {
 
 .order-details-container {
     margin-bottom: 0; 
+
 }
 </style>
 
@@ -199,6 +200,8 @@ a {
                                         	<fmt:formatNumber type="currency" value="${i.totalMoney}" currencyCode="VND"
 											pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice} </h5>
                                     </div>
+                                    
+                                   
                                 </div>
                                 </div>
                             </div>

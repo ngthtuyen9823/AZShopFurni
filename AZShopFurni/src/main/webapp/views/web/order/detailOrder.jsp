@@ -147,6 +147,27 @@ font-size: 12px;
 .card-stepper {
 z-index: 0
 }
+
+
+
+.star-rating {
+	font-size: 0;
+}
+
+.star {
+	display: inline-block;
+	font-size: 24px;
+	cursor: pointer;
+	margin-right: 5px;
+	border: none;
+	background: none;
+	outline: none;
+	color: black; /* Initial color of the stars */
+}
+
+.highlight {
+	color: yellow; /* Color when highlighted */
+	}
 </style>
 
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
@@ -366,6 +387,40 @@ z-index: 0
 													pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
                                         </h5>
                                     </div>
+                                     <div class="review-form"
+								style="margin-top: 20px; padding: 20px; background-color: #f9f9f9; border-radius: 5px;">
+								<form action="submitReview" method="post">
+									<h3 style="margin-bottom: 25px; color: #333;">Add new
+										Comment</h3>
+									<fieldset>
+										<div class="row">
+											<div style="width: 91%; padding: 1.1rem;">
+												<div id="starRating" class="star-rating">
+													<button class="star" onclick="setRating(1)" data-index="1">&#9733;</button>
+													<button class="star" onclick="setRating(2)" data-index="2">&#9733;</button>
+													<button class="star" onclick="setRating(3)" data-index="3">&#9733;</button>
+													<button class="star" onclick="setRating(4)" data-index="4">&#9733;</button>
+													<button class="star" onclick="setRating(5)" data-index="5">&#9733;</button>
+												</div>
+												<div>
+													<input type="hidden" name="itemID" value="10100101">
+													<input type="hidden" name="orderID" value="1007"> <input
+														class="form-control" type="hidden" name="rating"
+														id="ratingInput" value="3" />
+												</div>
+												<div class="form-group stext-105 cl3">
+													<textarea class="form-control" name="content"
+														placeholder="Let us know what you think"
+														id="exampleFormControlTextarea1" rows="3"></textarea>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+									<input type="submit" style="float: right; margin-top: -0.8rem;"
+										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+										value="Submit" />
+								</form>
+							</div>
                                 </div>
                                </div>
                            </div>

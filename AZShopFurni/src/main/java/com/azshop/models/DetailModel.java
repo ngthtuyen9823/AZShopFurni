@@ -18,6 +18,30 @@ public class DetailModel {
 	private ProductModel product = new ProductModel();
 	private OrderModel order = new OrderModel();
 	
+	public ItemModel getItem() {
+		return item;
+	}
+
+	public void setItem(ItemModel item) {
+		this.item = item;
+	}
+
+	public ProductModel getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductModel product) {
+		this.product = product;
+	}
+
+	public OrderModel getOrder() {
+		return order;
+	}
+
+	public void setOrder(OrderModel order) {
+		this.order = order;
+	}
+
 	public DetailModel() {
 		super();
 	}
@@ -65,10 +89,10 @@ public class DetailModel {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public DateTime getEvaluationDate() {
+	public Date getEvaluationDate() {
 		return evaluationDate;
 	}
-	public void setEvaluationDate(DateTime evaluationDate) {
+	public void setEvaluationDate(Date evaluationDate) {
 		this.evaluationDate = evaluationDate;
 	}
 	public int getRating() {
