@@ -96,7 +96,7 @@ public class LoginController extends HttpServlet {
 			if (user.getType() == 0)
 				url = "/testcustomer";
 			else if (user.getType() == 1)
-				url = "/testseller";
+				url = "/sellerHome";
 			else if (user.getType() == 2)
 				url = "/testshipper";
 			else if (user.getType() == 3)

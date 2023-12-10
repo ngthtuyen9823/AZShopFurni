@@ -12,4 +12,5 @@ public interface IReportDAO {
     public List<MyItem> reportBestItemSeller(int id);
     public List<List<Object>> reportTotalMoneyInMonth();
     public List<Top3Customer> reportTop3Customer();
+    public List<List<Object>> reportSellerOrderByYear(int sellerID);
 }
