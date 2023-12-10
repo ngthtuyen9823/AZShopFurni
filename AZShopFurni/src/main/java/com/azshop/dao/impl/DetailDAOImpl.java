@@ -144,10 +144,6 @@ public class DetailDAOImpl implements IDetailDAO {
 		}
 		return detail;
 	}
-}
-	
-
-
 	@Override
 	public List<List<Object>> listBestSeller() {
 		List<List<Object>> listBestSeller = new ArrayList<List<Object>>();
