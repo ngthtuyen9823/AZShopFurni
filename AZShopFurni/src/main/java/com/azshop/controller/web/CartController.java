@@ -49,12 +49,17 @@ public class CartController extends HttpServlet {
 		int customerID = Integer.parseInt(req.getParameter("customerID"));
 		int itemID = Integer.parseInt(req.getParameter("itemID"));
 		int quantity = Integer.parseInt(req.getParameter("quantity"));
+
 		CartModel cart = new CartModel();
 		cart.setCustomerID(customerID);
 		cart.setItemID(itemID);
-		cart.setQuantity(quantity);
 
-		cartService.update(cart);
+		ItemModel item = new ItemModel();
+		item = itemService.findOne(itemID);
+		if (item.getStock() >= quantity) {
+			cart.setQuantity(quantity);
+			cartService.update(cart);
+		}
 		resp.sendRedirect("carts");
 	}
 
