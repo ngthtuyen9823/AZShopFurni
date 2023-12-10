@@ -242,23 +242,29 @@
 			})
 		});
 	</script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script>
-		var selectedRating = 0;
+		function setRating(index) {
+			// Get all buttons
+			var stars = document.getElementsByClassName("star");
 
-		function setRating(rating) {
-			selectedRating = rating;
-
-			// Highlight selected stars
-			for (var i = 1; i <= 5; i++) {
-				var star = document.getElementById("starRating").children[i - 1];
-				if (i <= rating) {
-					star.classList.add("selected");
-				} else {
-					star.classList.remove("selected");
-				}
+			// Remove highlight class from all buttons
+			for (var i = 0; i < stars.length; i++) {
+				stars[i].classList.remove("highlight");
 			}
+
+			// Add highlight class to buttons from 1 to the clicked index
+			for (var i = 0; i < index; i++) {
+				stars[i].classList.add("highlight");
+			}
+
+			// Update the value of the hidden input with the selected index
+			document.getElementById("ratingInput").value = index;
+
+			// Your existing rating logic here...
+			// For now, let's just log the selected index
+			console.log("Selected rating: " + index);
 		}
 	</script>
+
 </body>
 </html>

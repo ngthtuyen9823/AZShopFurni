@@ -3,6 +3,24 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <style>
+.star-rating {
+	font-size: 0;
+}
+
+.star {
+	display: inline-block;
+	font-size: 24px;
+	cursor: pointer;
+	margin-right: 5px;
+	border: none;
+	background: none;
+	outline: none;
+	color: black; /* Initial color of the stars */
+}
+
+.highlight {
+	color: yellow; /* Color when highlighted */
+}
 </style>
 <header>
 	<div class="container pt-5">
@@ -225,16 +243,17 @@
 											</div>
 											<div style="width: 91%; padding: 1.1rem;">
 												<div id="starRating" class="star-rating">
-													<span class="star" onclick="setRating(1)">&#9733;</span> <span
-														class="star" onclick="setRating(2)">&#9733;</span> <span
-														class="star" onclick="setRating(3)">&#9733;</span> <span
-														class="star" onclick="setRating(4)">&#9733;</span> <span
-														class="star" onclick="setRating(5)">&#9733;</span>
+													<button class="star" onclick="setRating(1)" data-index="1">&#9733;</button>
+													<button class="star" onclick="setRating(2)" data-index="2">&#9733;</button>
+													<button class="star" onclick="setRating(3)" data-index="3">&#9733;</button>
+													<button class="star" onclick="setRating(4)" data-index="4">&#9733;</button>
+													<button class="star" onclick="setRating(5)" data-index="5">&#9733;</button>
 												</div>
 												<div>
 													<input type="hidden" name="itemID" value="10100101">
 													<input type="hidden" name="orderID" value="1007"> <input
-														class="form-control" type="hidden" name="rating" value="3" />
+														class="form-control" type="hidden" name="rating"
+														id="ratingInput" value="3" />
 												</div>
 												<div class="form-group stext-105 cl3">
 													<textarea class="form-control" name="content"
