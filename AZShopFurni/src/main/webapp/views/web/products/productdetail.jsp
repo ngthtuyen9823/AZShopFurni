@@ -2,26 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
-<style>
-.star-rating {
-	font-size: 0;
-}
-
-.star {
-	display: inline-block;
-	font-size: 24px;
-	cursor: pointer;
-	margin-right: 5px;
-	border: none;
-	background: none;
-	outline: none;
-	color: black; /* Initial color of the stars */
-}
-
-.highlight {
-	color: yellow; /* Color when highlighted */
-}
-</style>
 <header>
 	<div class="container pt-5">
 		<nav class="d-flex">
@@ -91,15 +71,15 @@
 						</span>
 					</div>
 					<div class="row">
-						<dt class="col-3">Material</dt>
+						<dt class="col-3">Chất liệu</dt>
 						<dd class="col-9">${product.material}</dd>
-						<dt class="col-3">Brand</dt>
+						<dt class="col-3">Nhà cung cấp</dt>
 						<dd class="col-9">${product.supplierName}</dd>
-						<dt class="col-3">Origin</dt>
+						<dt class="col-3">Xuất xứ</dt>
 						<dd class="col-9">${product.origin}</dd>
 					</div>
 					<div class="row">
-						<dt class="col-3">Item</dt>
+						<dt class="col-3">Mặt hàng</dt>
 						<dd class="col-9">
 							<div style="display: block;" class="btn-group" role="group"
 								aria-label="Basic outlined example">
@@ -107,9 +87,12 @@
 									varStatus="loop">
 									<button type="button" id="${item.itemID}"
 										onmouseover="changeMainImage('${item.image}')"
-										value="${item.size}"
-										style="border-color: #bdc3c7; border-style: solid; margin: 6px; padding: 8px">${item.size}
-										${item.color}</button>
+										onclick="handleButtonClick(this)" value="${item.size}"
+										style="border-color: #bdc3c7; border-style: solid; margin: 6px; padding: 8px">
+										<span
+											style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: ${item.colorCode};"></span>
+										<span>${item.size}</span>
+									</button>
 								</c:forEach>
 								<div id="errorContainer" style="color: red;">
 									<c:if test="${message != null}">${message}</c:if>
@@ -122,7 +105,7 @@
 
 						<label
 							style="font-weight: 700; margin-left: 1rem; margin-right: 3rem;"
-							class="mb-2">Quantity </label>
+							class="mb-2">Số lượng </label>
 						<button class="px-3" type="button" id="button-addon1"
 							data-mdb-ripple-color="dark" onclick="updateQuantity(-1)">
 							<i class="fas fa-minus"></i>
@@ -148,7 +131,7 @@
 									<input onclick="addToCart()"
 										style="width: 100%; padding: 1rem; cursor: pointer; float: right"
 										class="btn btn-primary shadow-0 flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-										value="Add to cart" readonly
+										value="Thêm vào giỏ hàng" readonly
 										onmouseover="this.style.cursor='pointer';"
 										onmouseout="this.style.cursor='default';" />
 								</div>
@@ -168,10 +151,8 @@
 				<div class="container">
 					<div
 						style="box-shadow: 0 -1px 0px 1px rgba(0, 0, 0, 0.1); background-color: #fff; padding: 20px; border-radius: 10px;">
-
-						<h3 style="margin-bottom: 20px; padding: 25px; color: #333;">Product
-							Ratings</h3>
-
+						<h3 style="margin-bottom: 20px; padding: 25px; color: #333;">Đánh
+							giá về sản phẩm</h3>
 						<div id="reviews" class="review-section"
 							style="border-bottom: none; padding-top: 5px; padding-bottom: 15px; display: flex; justify-content: space-between;">
 
@@ -213,7 +194,6 @@
 						<c:forEach items="${detailList}" var="item" varStatus="loop">
 							<div class="media"
 								style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px; background-color: #f9f9f9;">
-
 								<a class="pull-left" href="#"><img class="media-object"
 									src="${item.avatar}" alt=""
 									style="border-radius: 50%; width: 80px; height: 80px;"></a>
@@ -233,6 +213,8 @@
 				</div>
 			</div>
 			<div class="col-lg-3">
+				<h5 style="font-size: 1.2rem; font-weight: 600; padding: 1.2rem">CÙNG
+					NHÀ CUNG CẤP</h5>
 				<c:forEach items="${supProList}" var="item" varStatus="loop">
 					<div class="product-card"
 						style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; background-color: #fff; transition: transform 0.3s ease-in-out;">
@@ -283,9 +265,8 @@
 			<div class="product-card">
 				<div class="product-image">
 					<a href="<c:url value='/products?id=${item.productID}' />"
-						class="product-image"> <span class="discount-tag">50%</span> <img
-						src="${item.displayedImage}" class="product-thumb" alt="">
-					</a>
+						class="product-image"><img src="${item.displayedImage}"
+						class="product-thumb" alt=""> </a>
 				</div>
 				<div class="product-info">
 					<h2 class="product-brand">${item.productName}</h2>

@@ -76,15 +76,6 @@ public class ProductController extends HttpServlet {
 				List<DetailModel> detailList = detailService.findDetailByProductID(productModel.getProductID());
 				List<RatingModel> ratingList = ratingService.findRatinglByProductID(productModel.getProductID());
 
-				HttpSession session = req.getSession(true);
-				if (session.getAttribute("user") != null) {
-					UserModel user = (UserModel) session.getAttribute("user");
-					int userID = user.getUserID();
-					UserModel customer = new UserModel();
-					customer = customerService.getOneCustomer(userID);
-					req.setAttribute("avatar", customer.getAvatar());
-				}
-
 				req.setAttribute("ratingList", ratingList);
 				req.setAttribute("detailList", detailList);
 				req.setAttribute("cateProList", cateProList);

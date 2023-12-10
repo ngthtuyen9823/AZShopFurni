@@ -7,13 +7,13 @@
 		<table class="table">
 			<thead>
 				<tr class="table_head">
-					<th>Product Name</th>
-					<th class="text-center">Unit Price</th>
-					<th class="text-center">Quantity</th>
-					<th class="text-center">Total Price</th>
+					<th>Tên sản phẩm</th>
+					<th class="text-center">Giá một sản phẩm</th>
+					<th class="text-center">Số lượng</th>
+					<th class="text-center">Tổng tiền</th>
 					<th class="text-center"><a
 						class="btn btn-sm btn-outline-danger"
-						href="<c:url value='/deleteCarts' />">Clear Cart</a></th>
+						href="<c:url value='/deleteCarts' />">Xóa tất cả</a></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,7 +29,7 @@
 									<h4 class="product-title">
 										<a href="#">${i.productName}</a>
 									</h4>
-									<span><em>Size:</em>${i.size}</span><span><em>Color:</em>${i.color}</span>
+									<span><em>Cỡ:</em>${i.size}</span><span><em>Màu:</em>${i.color}</span>
 								</div>
 							</div>
 						</td>
@@ -73,9 +73,9 @@
 	</div>
 	<div class="shopping-cart-footer">
 		<div class="column">
-			<div style="padding: 1.3rem; font-size: 1.5rem;"
+			<div style="padding: 1.3rem; font-size: 1.2rem;"
 				class="column text-lg">
-				Subtotal: <span style="font-weight: 500; font-size: 1.5rem;"
+				Tổng (chưa tính phí vận chuyển): <span style="font-weight: 500; font-size: 1.5rem;"
 					class="text-lg"><fmt:formatNumber type="currency"
 						value="${subTotal}" currencyCode="VND" pattern="#,##0 VND"
 						var="formattedPrice" /> ${formattedPrice}</span>
@@ -83,7 +83,7 @@
 			<a style="float: right;" href="<c:url value='/products' />"><button
 					style="width: 260px; float: right; padding: 1.2rem;"
 					class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-					Process to checkout</button></a>
+					Tiến hành thanh toán</button></a>
 		</div>
 	</div>
 </div>

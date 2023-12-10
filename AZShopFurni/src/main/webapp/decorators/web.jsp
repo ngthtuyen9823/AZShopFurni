@@ -259,10 +259,21 @@
 
 			// Update the value of the hidden input with the selected index
 			document.getElementById("ratingInput").value = index;
+		}
+		function handleButtonClick(button) {
+			// Remove the active class from all buttons
+			var buttons = document.querySelectorAll('.btn-group button');
+			buttons.forEach(function(btn) {
+				btn.style.borderColor = '#bdc3c7';
+			});
 
-			// Your existing rating logic here...
-			// For now, let's just log the selected index
-			console.log("Selected rating: " + index);
+			// Add the active class to the clicked button
+			button.style.borderColor = '#4b4b4b'; // Change to your desired active border color
+
+			// Additional logic if needed
+			// For example, you can update some hidden input with the selected value
+			var selectedValue = button.value;
+			document.getElementById('hiddenInput').value = selectedValue;
 		}
 	</script>
 </body>

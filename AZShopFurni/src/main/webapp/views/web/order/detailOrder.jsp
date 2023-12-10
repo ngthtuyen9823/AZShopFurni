@@ -3,7 +3,6 @@
 <%@include file="/common/taglib.jsp"%>
 <title>Chi tiết đơn hàng</title>
 <style>
-
 .avatar-lg {
 	height: 5rem;
 	width: 5rem;
@@ -55,100 +54,98 @@ a {
 }
 
 .product-item {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: flex;
-    margin-top: 20px; 
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: flex;
+	margin-top: 20px;
 }
 
 .product-image {
-    margin-left: 30px;
-    margin-top: 10px;
-    margin-bottom: 0px;
+	margin-left: 30px;
+	margin-top: 10px;
+	margin-bottom: 0px;
 }
 
 .product-info {
-    flex-grow: 2; 
+	flex-grow: 2;
 }
 
 .price-info {
-    flex-grow: 10;
-    justify-content: flex-start;
-    text-align: center; 
-    align-items: center; 
+	flex-grow: 10;
+	justify-content: flex-start;
+	text-align: center;
+	align-items: center;
 }
 
 .order-details-container {
-    margin-bottom: 0; 
+	margin-bottom: 0;
 }
 
 .track-line {
-height: 2px !important;
-background-color: #488978;
-opacity: 1;
-flex: 1 1 auto !important;
+	height: 2px !important;
+	background-color: #488978;
+	opacity: 1;
+	flex: 1 1 auto !important;
 }
 
 .off-track-line {
-height: 2px !important;
-background-color: #808080;
-opacity: 1;
-flex: 1 1 auto !important;
+	height: 2px !important;
+	background-color: #808080;
+	opacity: 1;
+	flex: 1 1 auto !important;
 }
 
 .dot {
-height: 10px;
-width: 10px;
-margin-left: 3px;
-margin-right: 3px;
-margin-top: 0px;
-background-color: #488978;
-border-radius: 50%;
-display: inline-block
+	height: 10px;
+	width: 10px;
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-top: 0px;
+	background-color: #488978;
+	border-radius: 50%;
+	display: inline-block
 }
 
-.off-dot{
-height: 10px;
-width: 10px;
-margin-left: 3px;
-margin-right: 3px;
-margin-top: 0px;
-background-color: #808080;
-border-radius: 50%;
-display: inline-block
+.off-dot {
+	height: 10px;
+	width: 10px;
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-top: 0px;
+	background-color: #808080;
+	border-radius: 50%;
+	display: inline-block
 }
 
 .big-dot {
-height: 25px;
-width: 25px;
-margin-left: 0px;
-margin-right: 0px;
-margin-top: 0px;
-background-color: #488978;
-border-radius: 50%;
-display: inline-block;
+	height: 25px;
+	width: 25px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	background-color: #488978;
+	border-radius: 50%;
+	display: inline-block;
 }
 
 .off-big-dot {
-height: 25px;
-width: 25px;
-margin-left: 0px;
-margin-right: 0px;
-margin-top: 0px;
-background-color: #808080;
-border-radius: 50%;
-display: inline-block;
+	height: 25px;
+	width: 25px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	background-color: #808080;
+	border-radius: 50%;
+	display: inline-block;
 }
 
 .big-dot i {
-font-size: 12px;
+	font-size: 12px;
 }
 
 .card-stepper {
-z-index: 0
+	z-index: 0
 }
-
-
 
 .star-rating {
 	font-size: 0;
@@ -162,20 +159,20 @@ z-index: 0
 	border: none;
 	background: none;
 	outline: none;
-	color: black; /* Initial color of the stars */
+	color: black;
 }
 
 .highlight {
-	color: yellow; /* Color when highlighted */
-	}
+	color: #fff200;
+}
 </style>
 
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-lg-2 p-b-80">
-                <div class="side-menu">
-                    <div class="p-t-55">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 col-lg-2 p-b-80">
+				<div class="side-menu">
+					<div class="p-t-55">
 						<h4 class="mtext-112 cl2 p-b-33">TÀI KHOẢN</h4>
 						<ul>
 							<li class="bor18"><a
@@ -184,249 +181,326 @@ z-index: 0
 									Hồ sơ cá nhân </a></li>
 							<li class="bor18"><a
 								href="${pageContext.request.contextPath}/listOrder"
-								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" style="color: #6C7AE0;">
-									Đơn mua </a></li>
-							<li class="bor18"><a href="${pageContext.request.contextPath}/listVoucher"
+								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4"
+								style="color: #6C7AE0;"> Đơn mua </a></li>
+							<li class="bor18"><a
+								href="${pageContext.request.contextPath}/listVoucher"
 								class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
 									Kho voucher </a></li>
 						</ul>
 					</div>
-                </div>
-            </div>
-            <div class="col-xl-8">
-                   <div class="card border shadow-none mb-4">
-                       <div class="card-body">
-                           <div class="row">
-                               <div class="col-md-10">
-                                   <p class="mb-0 mt-1"> Mã đơn hàng: <span class="fw-medium">
-                                                       ${order.orderID}</span> </p>
-                                   <p class="mb-0 mt-1"> Ngày đặt: <span class="fw-medium">
-                                                     <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy"/>  </span> </p>                    
-                                   
-                                   <p class="mb-0 mt-1">
-                                       <span class="fw-medium ${order.status == 0 ? 'text-orange' : ''} 
+				</div>
+			</div>
+			<div class="col-xl-8">
+				<div class="card border shadow-none mb-4">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-10">
+								<p class="mb-0 mt-1">
+									Mã đơn hàng: <span class="fw-medium"> ${order.orderID}</span>
+								</p>
+								<p class="mb-0 mt-1">
+									Ngày đặt: <span class="fw-medium"> <fmt:formatDate
+											value="${order.orderDate}" pattern="dd/MM/yyyy" />
+									</span>
+								</p>
+
+								<p class="mb-0 mt-1">
+									<span
+										class="fw-medium ${order.status == 0 ? 'text-orange' : ''} 
 												           ${order.status == 1 ? 'text-green' : ''} 
 												           ${order.status == 2 ? 'text-blue' : ''} 
 												           ${order.status == 3 ? 'text-purple' : ''} 
 												           ${order.status == 4 ? 'text-success' : ''} 
 												           ${order.status == 5 ? 'text-danger' : ''}">
-                                            ${order.status == 0 ? 'Đơn hàng chờ xác nhận' :
+										${order.status == 0 ? 'Đơn hàng chờ xác nhận' :
                                               order.status == 1 ? 'Đơn hàng đã được xác nhận' :
                                               order.status == 2 ? 'Đơn hàng đang được chuẩn bị' :
                                               order.status == 3 ? 'Đơn hàng đang được giao đến bạn' :
                                               order.status == 4 ? 'Đơn hàng đã được giao đến bạn' :
                                               order.status == 5 ? 'Đơn hàng đã bị hủy' : ''}
-                                       </span>
-                                   </p>
-                               </div>
-                               <div class = "ms-auto" style="margin: 0 auto">
-                                       <form action="customerConfirm" method="post" enctype="multipart/form-data">
-                                           <input type="hidden" name="orderID" value="${order.orderID}">
-                                           <c:choose>
-                                               <c:when test="${order.status <= 2 }">
-                                                   <input type="hidden" name="action" value="cancelDetailOrder">
-                                                   <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                                       Hủy đơn</button>
-                                               </c:when>
-                                               <c:when test="${order.status == 4 && order.customerConfirmation != 1}"> <input type="hidden" name="action" value="confirmDetailOrder">
-                                                   <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                                       Xác nhận</button>
-                                               </c:when>
-                                               <c:when test="${order.status == 4 && order.customerConfirmation == 1}">
-                                                   <input type="hidden" name="action" value="rateOrder">
-                                                   <button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                                       Đánh giá</button>
-                                               </c:when>
-                                           </c:choose>
-                                       </form>
-                                   </div>
-                               <div class="d-none">
-                                   <input type="hidden" name="orderID" value="${order.orderID}">
-                                   <input type="hidden" name="sellerID" value="${order.sellerID}">
-                                   <input type="hidden" name="shipperID" value="${order.shipperID}">
-                               </div>
-                               
-                               <div class="col-md-12 order-details-container">
-                                   <c:forEach var="j" items="${order.details}">
-                                       <c:if test="${j != null}">
-                                           <div class="product-item">
-                                               <div class="product-image w-50 h-50">
-                                                   <img src="${j.item.image}" alt="" width="150" height="150">
-                                               </div>
-                                               <div class="product-info">
-                                                   <h5 class="text-truncate font-size-20"> <a href="#" class="text-dark">
-                                                       ${j.product.productName}</a> </h5>
-                                                   <p class="mb-0 mt-1"> Màu sắc: <span class="fw-medium">
-                                                       ${j.item.color}</span> </p>
-                                                   <p class="mb-0 mt-1"> Size: <span class="fw-medium">
-                                                           ${j.item.size}</span> </p>
-                                                   <p class="mb-0 mt-1"> <span class="fw-medium"> 
-                                                       x${j.quantity}</span> </p>
-                                               </div>
-                                               <div class="price-info font-size-20" style="color: orange">
-                                                   <span class="text-muted me-2"> <del class="font-size-16 fw-normal">
-                                                   <fmt:formatNumber type="currency" value="${j.item.originalPrice}" currencyCode="VND"
-													pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice} </del> </span>
-												<fmt:formatNumber type="currency" value="${j.item.promotionPrice }" currencyCode="VND"
-													pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
-                                               </div>
-                                           </div>
-                                       </c:if>
-                                   </c:forEach>
-                                   <hr class="my-4">
-                                   <c:choose>
-                                    <c:when test="${order.status == 0 || order.status==5}">
-                                    <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-							        		<span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span
-							                	class="d-flex justify-content-center align-items-center off-big-dot off-dot">
-							                	<i class="fa fa-check text-white"></i></span>
-							            </div>
-                                    </c:when>
-                                    
-                                    <c:when test="${order.status == 1 }">
-                                    <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-							        		<span class="dot"></span>
-							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span
-							                	class="d-flex justify-content-center align-items-center off-big-dot off-dot">
-							                	<i class="fa fa-check text-white"></i></span>
-							            </div>
-                                    </c:when>
-                                    
-                                    <c:when test="${order.status == 2 }">
-                                    <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-							        		<span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span class="dot"></span>
-							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span
-							                	class="d-flex justify-content-center align-items-center off-big-dot off-dot">
-							                	<i class="fa fa-check text-white"></i></span>
-							            </div>
-                                    </c:when>
-                                    
-                                    <c:when test="${order.status == 3 }">
-                                    <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-							        		<span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span class="dot"></span>
-							              	<hr class="flex-fill off-track-line"><span class="off-dot"></span>
-							              	<hr class="flex-fill off-track-line"><span
-							                	class="d-flex justify-content-center align-items-center off-big-dot off-dot">
-							                	<i class="fa fa-check text-white"></i></span>
-							            </div>
-                                    </c:when>
-                                    
-                                    <c:when test="${order.status == 4  && order.customerConfirmation != 1}">
-                                    <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-							        		<span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span class="dot"></span>
-							              	<hr class="flex-fill off-track-line"><span
-							                	class="d-flex justify-content-center align-items-center off-big-dot off-dot">
-							                	<i class="fa fa-check text-white"></i></span>
-							            </div>
-                                    </c:when>
-                                    
-                                    <c:when test="${order.status == 4  && order.customerConfirmation == 1}">
-                                    <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-							        		<span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span class="dot"></span>
-							              	<hr class="flex-fill track-line"><span
-							                	class="d-flex justify-content-center align-items-center big-dot dot">
-							                	<i class="fa fa-check text-white"></i></span>
-							            </div>
-                                    </c:when>
-                                </c:choose>
-					           
-					
-					            <div class="d-flex flex-row justify-content-between align-items-center">
-					              <div class="d-flex flex-column align-items-start"><span>Xác nhận đơn</span></div>
-					              <div class="d-flex flex-column justify-content-center"><span>Chuẩn bị hàng</span></div>
-					              <div class="d-flex flex-column justify-content-center align-items-center"><span>Đang giao hàng</span></div>
-					              <div class="d-flex flex-column align-items-center"><span>Đã giao hàng</span></div>
-					              <div class="d-flex flex-column align-items-end"><span>Hoàn thành đơn hàng</span></div>
-					            </div>
-                                   <hr>
-                               </div>
-                               <!-- Actions and Total -->
-                              
-                               <div class="col-md-12">
-                                <div class="row">
-                                 	<div class="col-md-6"></div>
-                                    <div class="col-md-3 text-end ">
-                                        <p class="text-muted mb-2">Tổng tiền</p>
-                                        <p class="text-muted mb-2">Phí vận chuyển</p>
-                                        <p class="text-muted mb-2">Giảm giá</p>
-                                        <p class="text-muted">Thành tiền</p>
-                                    </div>
-                                    <div class="col-md-3 text-end ">
-                                        <h5 class="font-size-20 mb-2">
-                                        	<fmt:formatNumber type="currency" value="888888888" currencyCode="VND"
-													pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
-                                        </h5>
-                                        <h5 class="font-size-20 mb-2">
-                                        	<fmt:formatNumber type="currency" value="${order.transportFee}" currencyCode="VND"
-													pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
-                                        </h5>
-                                        <h5 class="font-size-20 mb-2">
-                                        	<fmt:formatNumber type="currency" value="${order.discount}" currencyCode="VND"
-													pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
-                                        </h5>
-                                        <h5 class="font-size-20 mb-2" style="color: orange">
-                                        	<fmt:formatNumber type="currency" value="${order.totalMoney}" currencyCode="VND"
-													pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
-                                        </h5>
-                                    </div>
-                                     <div class="review-form"
-								style="margin-top: 20px; padding: 20px; background-color: #f9f9f9; border-radius: 5px;">
-								<form action="submitReview" method="post">
-									<h3 style="margin-bottom: 25px; color: #333;">Add new
-										Comment</h3>
-									<fieldset>
-										<div class="row">
-											<div style="width: 91%; padding: 1.1rem;">
-												<div id="starRating" class="star-rating">
-													<button class="star" onclick="setRating(1)" data-index="1">&#9733;</button>
-													<button class="star" onclick="setRating(2)" data-index="2">&#9733;</button>
-													<button class="star" onclick="setRating(3)" data-index="3">&#9733;</button>
-													<button class="star" onclick="setRating(4)" data-index="4">&#9733;</button>
-													<button class="star" onclick="setRating(5)" data-index="5">&#9733;</button>
-												</div>
-												<div>
-													<input type="hidden" name="itemID" value="10100101">
-													<input type="hidden" name="orderID" value="1007"> <input
-														class="form-control" type="hidden" name="rating"
-														id="ratingInput" value="3" />
-												</div>
-												<div class="form-group stext-105 cl3">
-													<textarea class="form-control" name="content"
-														placeholder="Let us know what you think"
-														id="exampleFormControlTextarea1" rows="3"></textarea>
-												</div>
-											</div>
-										</div>
-									</fieldset>
-									<input type="submit" style="float: right; margin-top: -0.8rem;"
-										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-										value="Submit" />
+									</span>
+								</p>
+							</div>
+							<div class="ms-auto" style="margin: 0 auto">
+								<form action="customerConfirm" method="post"
+									enctype="multipart/form-data">
+									<input type="hidden" name="orderID" value="${order.orderID}">
+									<c:choose>
+										<c:when test="${order.status <= 2 }">
+											<input type="hidden" name="action" value="cancelDetailOrder">
+											<button type="submit"
+												class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+												Hủy đơn</button>
+										</c:when>
+										<c:when
+											test="${order.status == 4 && order.customerConfirmation != 1}">
+											<input type="hidden" name="action" value="confirmDetailOrder">
+											<button type="submit"
+												class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+												Xác nhận</button>
+										</c:when>
+										<c:when
+											test="${order.status == 4 && order.customerConfirmation == 1}">
+											<input type="hidden" name="action" value="rateOrder">
+											<button type="submit"
+												class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+												Đánh giá</button>
+										</c:when>
+									</c:choose>
 								</form>
 							</div>
-                                </div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-            </div>
-        </div>
-    </div>
+							<div class="d-none">
+								<input type="hidden" name="orderID" value="${order.orderID}">
+								<input type="hidden" name="sellerID" value="${order.sellerID}">
+								<input type="hidden" name="shipperID" value="${order.shipperID}">
+							</div>
+
+							<div class="col-md-12 order-details-container">
+								<c:forEach var="j" items="${order.details}">
+									<c:if test="${j != null}">
+										<div class="product-item">
+											<div class="product-image w-50 h-50">
+												<img src="${j.item.image}" alt="" width="150" height="150">
+											</div>
+											<div class="product-info">
+												<h5 class="text-truncate font-size-20">
+													<a href="#" class="text-dark"> ${j.product.productName}</a>
+												</h5>
+												<p class="mb-0 mt-1">
+													Màu sắc: <span class="fw-medium"> ${j.item.color}</span>
+												</p>
+												<p class="mb-0 mt-1">
+													Size: <span class="fw-medium"> ${j.item.size}</span>
+												</p>
+												<p class="mb-0 mt-1">
+													<span class="fw-medium"> x${j.quantity}</span>
+												</p>
+											</div>
+											<div class="price-info font-size-20" style="color: orange">
+												<span class="text-muted me-2"> <del
+														class="font-size-16 fw-normal">
+														<fmt:formatNumber type="currency"
+															value="${j.item.originalPrice}" currencyCode="VND"
+															pattern="#,##0 VND" var="formattedPrice" />
+														${formattedPrice}
+													</del>
+												</span>
+												<fmt:formatNumber type="currency"
+													value="${j.item.promotionPrice }" currencyCode="VND"
+													pattern="#,##0 VND" var="formattedPrice" />
+												${formattedPrice}
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+								<hr class="my-4">
+								<c:choose>
+									<c:when test="${order.status == 0 || order.status==5}">
+										<div
+											class="d-flex flex-row justify-content-between align-items-center align-content-center">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span
+												class="d-flex justify-content-center align-items-center off-big-dot off-dot">
+												<i class="fa fa-check text-white"></i>
+											</span>
+										</div>
+									</c:when>
+
+									<c:when test="${order.status == 1 }">
+										<div
+											class="d-flex flex-row justify-content-between align-items-center align-content-center">
+											<span class="dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span
+												class="d-flex justify-content-center align-items-center off-big-dot off-dot">
+												<i class="fa fa-check text-white"></i>
+											</span>
+										</div>
+									</c:when>
+
+									<c:when test="${order.status == 2 }">
+										<div
+											class="d-flex flex-row justify-content-between align-items-center align-content-center">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span class="dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span
+												class="d-flex justify-content-center align-items-center off-big-dot off-dot">
+												<i class="fa fa-check text-white"></i>
+											</span>
+										</div>
+									</c:when>
+
+									<c:when test="${order.status == 3 }">
+										<div
+											class="d-flex flex-row justify-content-between align-items-center align-content-center">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span class="dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span class="off-dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span
+												class="d-flex justify-content-center align-items-center off-big-dot off-dot">
+												<i class="fa fa-check text-white"></i>
+											</span>
+										</div>
+									</c:when>
+
+									<c:when
+										test="${order.status == 4  && order.customerConfirmation != 1}">
+										<div
+											class="d-flex flex-row justify-content-between align-items-center align-content-center">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span class="dot"></span>
+											<hr class="flex-fill off-track-line">
+											<span
+												class="d-flex justify-content-center align-items-center off-big-dot off-dot">
+												<i class="fa fa-check text-white"></i>
+											</span>
+										</div>
+									</c:when>
+
+									<c:when
+										test="${order.status == 4  && order.customerConfirmation == 1}">
+										<div
+											class="d-flex flex-row justify-content-between align-items-center align-content-center">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span class="dot"></span>
+											<hr class="flex-fill track-line">
+											<span
+												class="d-flex justify-content-center align-items-center big-dot dot">
+												<i class="fa fa-check text-white"></i>
+											</span>
+										</div>
+									</c:when>
+								</c:choose>
+
+
+								<div
+									class="d-flex flex-row justify-content-between align-items-center">
+									<div class="d-flex flex-column align-items-start">
+										<span>Xác nhận đơn</span>
+									</div>
+									<div class="d-flex flex-column justify-content-center">
+										<span>Chuẩn bị hàng</span>
+									</div>
+									<div
+										class="d-flex flex-column justify-content-center align-items-center">
+										<span>Đang giao hàng</span>
+									</div>
+									<div class="d-flex flex-column align-items-center">
+										<span>Đã giao hàng</span>
+									</div>
+									<div class="d-flex flex-column align-items-end">
+										<span>Hoàn thành đơn hàng</span>
+									</div>
+								</div>
+								<hr>
+							</div>
+							<!-- Actions and Total -->
+
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-6"></div>
+									<div class="col-md-3 text-end ">
+										<p class="text-muted mb-2">Tổng tiền</p>
+										<p class="text-muted mb-2">Phí vận chuyển</p>
+										<p class="text-muted mb-2">Giảm giá</p>
+										<p class="text-muted">Thành tiền</p>
+									</div>
+									<div class="col-md-3 text-end ">
+										<h5 class="font-size-20 mb-2">
+											<fmt:formatNumber type="currency" value="888888888"
+												currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
+											${formattedPrice}
+										</h5>
+										<h5 class="font-size-20 mb-2">
+											<fmt:formatNumber type="currency"
+												value="${order.transportFee}" currencyCode="VND"
+												pattern="#,##0 VND" var="formattedPrice" />
+											${formattedPrice}
+										</h5>
+										<h5 class="font-size-20 mb-2">
+											<fmt:formatNumber type="currency" value="${order.discount}"
+												currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
+											${formattedPrice}
+										</h5>
+										<h5 class="font-size-20 mb-2" style="color: orange">
+											<fmt:formatNumber type="currency" value="${order.totalMoney}"
+												currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
+											${formattedPrice}
+										</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="review-form col-md-12"
+					style="margin-top: 15px; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);">
+					<div>
+						<h3 style="color: #333; font-size: 1.5em; margin-bottom: 15px;">Add
+							new Comment</h3>
+						<div id="starRating" class="star-rating">
+							<button class="star" onclick="setRating(1)" data-index="1">&#9733;</button>
+							<button class="star" onclick="setRating(2)" data-index="2">&#9733;</button>
+							<button class="star" onclick="setRating(3)" data-index="3">&#9733;</button>
+							<button class="star" onclick="setRating(4)" data-index="4">&#9733;</button>
+							<button class="star" onclick="setRating(5)" data-index="5">&#9733;</button>
+						</div>
+						<form action="submitReview" method="post">
+							<fieldset>
+								<div>
+									<input type="hidden" name="itemID" value="10100101"> <input
+										type="hidden" name="orderID" value="1007"> <input
+										class="form-control" type="hidden" name="rating"
+										id="ratingInput" value="5" />
+								</div>
+								<div class="form-group stext-105 cl3" style="margin-top: 15px;">
+									<textarea class="form-control" name="content"
+										placeholder="Let us know what you think"
+										id="exampleFormControlTextarea1" rows="5"></textarea>
+								</div>
+							</fieldset>
+							<input type="submit" style="float: right; margin-top: 2.5rem;"
+								class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+								value="Submit" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 </section>

@@ -7,17 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.azshop.connection.DBConnection;
-import com.azshop.constants.DefaultImage;
-import com.azshop.dao.ICategoryDAO;
 import com.azshop.dao.IItemDAO;
-import com.azshop.dao.IItemImageDAO;
 import com.azshop.dao.IProductDAO;
 import com.azshop.models.ProductModel;
 
 public class ProductDAOImpl implements IProductDAO {
-	ICategoryDAO cateDAO = new CategoryDAOImpl();
 	IItemDAO itemDAO = new ItemDAOImpl();
-	IItemImageDAO itemImageDAO = new ItemImageDAOImpl();
 	Connection conn = null;
 
 	@Override
@@ -136,22 +131,6 @@ public class ProductDAOImpl implements IProductDAO {
 			e.printStackTrace();
 		}
 		return list;
-	}
-
-	public static void main(String[] args) {
-		IProductDAO productDAO = new ProductDAOImpl();
-
-//		List<ProductModel> list = productDAO.findAll();
-//		System.out.println(list);
-
-		List<ProductModel> listByCate = productDAO.findBySupplierID(101);
-		System.out.println(listByCate);
-//
-//		List<ProductModel> listWithCount = productDAO.findWithCount(1);
-//		System.out.println(listWithCount);
-
-//		ProductModel model = productDAO.findOne(101004);
-//		System.out.println(model);
 	}
 
 	@Override
@@ -358,13 +337,16 @@ public class ProductDAOImpl implements IProductDAO {
 
 	@Override
 	public ProductModel findOne(int id) {
-		String sql = "SELECT\r\n" + "    p.*, c.CategoryID, c.CategoryName, s.SupplierName,\r\n"
+		String sql = "SELECT\r\n" + "    p.*,\r\n" + "    c.CategoryID,\r\n" + "    c.CategoryName,\r\n"
+				+ "    s.SupplierName,\r\n"
 				+ "    (SELECT MIN(i.PromotionPrice) FROM ITEM i WHERE i.ProductID = p.ProductID) AS MinPromotionPrice,\r\n"
-				+ "    (SELECT MIN(i.OriginalPrice) FROM ITEM i WHERE i.ProductID = p.ProductID) AS MinOriginalPrice\r\n"
-				+ "FROM\r\n" + "    PRODUCT p\r\n" + "JOIN\r\n" + "    ITEM i ON p.ProductID = i.ProductID\r\n"
-				+ "JOIN \r\n" + "	CATEGORY c ON c.CategoryID = p.CategoryID\r\n" + "JOIN \r\n"
-				+ "	SUPPLIER s ON s.SupplierID = p.SupplierID\r\n" + "WHERE\r\n" + "    p.ProductID = ?\r\n"
-				+ "GROUP BY\r\n" + "    p.ProductID;";
+				+ "    (SELECT MIN(i.OriginalPrice) FROM ITEM i WHERE i.ProductID = p.ProductID) AS MinOriginalPrice,\r\n"
+				+ "     AVG(rating) as Rating\r\n" + "FROM\r\n" + "    PRODUCT p\r\n" + "JOIN\r\n"
+				+ "    ITEM i ON p.ProductID = i.ProductID\r\n" + "JOIN\r\n"
+				+ "    CATEGORY c ON c.CategoryID = p.CategoryID\r\n" + "JOIN\r\n"
+				+ "    SUPPLIER s ON s.SupplierID = p.SupplierID\r\n" + "LEFT JOIN\r\n"
+				+ "    DETAIL d ON d.ItemID = i.ItemID\r\n" + "WHERE\r\n" + "    p.ProductID = ?\r\n" + "GROUP BY\r\n"
+				+ "    p.ProductID;";
 		ProductModel model = new ProductModel();
 
 		try {
@@ -387,9 +369,7 @@ public class ProductDAOImpl implements IProductDAO {
 				model.setCategoryName(rs.getString("CategoryName"));
 				model.setSupplierName(rs.getString("SupplierName"));
 
-				model.setAvgRating((float) 4.9); // truy xuat trong bang detail (chưa có)
-				model.setNumOfRating(195); // truy xuat trong bang detail (chưa có)
-				model.setSoldTotal(980); // truy xuat trong order (chưa có)
+				model.setAvgRating(rs.getFloat("rating"));
 
 				model.setDisplayedPromotionPrice(rs.getInt("MinPromotionPrice"));
 				model.setDisplayedOriginalPrice(rs.getInt("MinOriginalPrice"));
