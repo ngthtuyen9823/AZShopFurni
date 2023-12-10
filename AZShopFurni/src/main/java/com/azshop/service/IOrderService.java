@@ -7,7 +7,7 @@ import com.azshop.models.OrderModel;
 public interface IOrderService {
 	List<OrderModel> listOrderByCustomerID(int customerID);
 	OrderModel getOrderByOrderID(int orderID);
-	void updateOrder (int orderID, int status);
+	void updateStatusOrder (int orderID, int status);
 	void confirmOrder (int orderID, int confirm);
 	List<OrderModel> findAllOrder();
 	OrderModel findByOrderID(int orderID);
@@ -16,4 +16,5 @@ public interface IOrderService {
 	List<OrderModel> findOrderBySeller();
 	void updateOrder (OrderModel order);
 	void deleteOrder (int orderID);
+	OrderModel getOrderByID(int orderID);
 }

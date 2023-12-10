@@ -105,7 +105,7 @@ public class ReportDAOImpl implements IReportDAO {
 				top3.setId(rs.getInt(1));
 				top3.setFirstName(rs.getString(2));
 				top3.setLastName(rs.getString(3));
-				top3.setTotalMoney(rs.getInt(4));
+				top3.setTotalMoney(rs.getLong(4));
 				list.add(top3);
 			}
 			conn.close();

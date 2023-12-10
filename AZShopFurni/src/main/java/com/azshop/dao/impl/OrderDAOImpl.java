@@ -145,16 +145,14 @@ public class OrderDAOImpl implements IOrderDAO {
 	}
 
 	@Override
-	public void updateOrder(int orderID, int status) {
+	public void updateStatusOrder(int orderID, int status) {
 		String sql = "UPDATE `ORDER` SET Status = ? WHERE OrderID = ?";
 		try {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-
 			ps.setInt(1, status);
-			ps.setInt(2, sellerID);
-			ps.setInt(3, OrderID);
+			ps.setInt(2, orderID);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -165,7 +163,7 @@ public class OrderDAOImpl implements IOrderDAO {
 	@Override
 	public List<OrderModel> listOrderByCustomerID(int customerID) {
 		List<OrderModel> listOrder = new ArrayList<OrderModel>();
-		String sql = "SELECT O.OrderID, O.CustomerID, O.OrderDate, O.`Status`, O.Discount, O.TotalMoney, O.SellerID, O.ShipperID "
+		String sql = "SELECT O.OrderID, O.CustomerID, O.OrderDate, O.`Status`, O.Discount, O.TotalMoney, O.SellerID, O.ShipperID, O.CustomerConfirmation "
 				+ "FROM `ORDER` O " + "WHERE O.CustomerID = ?";
 		try {
 			new DBConnection();
@@ -184,6 +182,7 @@ public class OrderDAOImpl implements IOrderDAO {
 				order.setTotalMoney(rs.getInt(6));
 				order.setSellerID(rs.getInt(7));
 				order.setShipperID(rs.getInt(8));
+				order.setCustomerConfirmation(rs.getInt(9));
 				listOrder.add(order);
 			}
 
@@ -195,7 +194,17 @@ public class OrderDAOImpl implements IOrderDAO {
 
 	@Override
 	public void confirmOrder(int orderID, int confirm) {
-		// TODO Auto-generated method stub
+		String sql = "UPDATE `ORDER` SET CustomerConfirmation = ? WHERE OrderID = ?";
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, confirm);
+			ps.setInt(2, orderID);
+			ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -329,7 +338,6 @@ public class OrderDAOImpl implements IOrderDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return listOrder;
 	}
 
 	@Override
@@ -364,7 +372,7 @@ public class OrderDAOImpl implements IOrderDAO {
 	}
 
 	@Override
-	public OrderModel getOrderByOrderID(int orderID) {
+	public OrderModel getOrderByID(int orderID) {
 		OrderModel order = new OrderModel();
 		String sql =  "SELECT O.OrderID, O.CustomerID, O.OrderDate, O.`Status`, O.CustomerConfirmation, O.Discount, O.TotalMoney, O.SellerID, O.ShipperID, O.TransportFee "
 					+ "FROM `ORDER` O "
@@ -392,4 +400,5 @@ public class OrderDAOImpl implements IOrderDAO {
 		}
 		return order;
 	}
+	
 }

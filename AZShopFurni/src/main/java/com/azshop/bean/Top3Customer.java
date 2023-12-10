@@ -4,7 +4,7 @@ public class Top3Customer {
 	private int id;
 	private String firstName;
 	private String lastName;
-	private int totalMoney;
+	private long totalMoney;
 	
 	public int getId() {
 		return id;
@@ -24,10 +24,10 @@ public class Top3Customer {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public int getTotalMoney() {
+	public long getTotalMoney() {
 		return totalMoney;
 	}
-	public void setTotalMoney(int totalMoney) {
+	public void setTotalMoney(long totalMoney) {
 		this.totalMoney = totalMoney;
 	}
 }

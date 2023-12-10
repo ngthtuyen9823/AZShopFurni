@@ -53,7 +53,7 @@ public class OrderController extends HttpServlet {
 			String conf = req.getParameter("confirm");
 			int orderID = Integer.parseInt(req.getParameter("orderID"));
 			if ("cancelOrder".equals(act)) {
-				orderService.updateOrder(orderID, 5);
+				orderService.updateStatusOrder(orderID, 5);
 				listOrder(req, resp);
 			} else if ("confirmOrder".equals(act)) {
 				orderService.confirmOrder(orderID, 1);
@@ -62,7 +62,7 @@ public class OrderController extends HttpServlet {
 				orderService.confirmOrder(orderID, 1);
 				detailOrder(req, resp);
 			} else if ("cancelDetailOrder".equals(act)) {
-				orderService.updateOrder(orderID, 5);
+				orderService.updateStatusOrder(orderID, 5);
 				detailOrder(req, resp);
 			} else if ("rateOrder".equals(conf)) {
 				// adasd
@@ -83,7 +83,7 @@ public class OrderController extends HttpServlet {
 	private void detailOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int orderID = Integer.parseInt(req.getParameter("orderID"));
 
-		OrderModel order = orderService.getOrderByOrderID(orderID);
+		OrderModel order = orderService.getOrderByID(orderID);
 		req.setAttribute("order", order);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/detailOrder.jsp");
 		rd.forward(req, resp);

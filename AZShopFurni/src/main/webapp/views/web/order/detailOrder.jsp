@@ -392,7 +392,7 @@ a {
 								<div
 									class="d-flex flex-row justify-content-between align-items-center">
 									<div class="d-flex flex-column align-items-start">
-										<span>Xác nhận đơn</span>
+										<span>Xác nhận đơn </span>
 									</div>
 									<div class="d-flex flex-column justify-content-center">
 										<span>Chuẩn bị hàng</span>
@@ -419,7 +419,7 @@ a {
 										<p class="text-muted mb-2">Tổng tiền</p>
 										<p class="text-muted mb-2">Phí vận chuyển</p>
 										<p class="text-muted mb-2">Giảm giá</p>
-										<p class="text-muted">Thành tiền</p>
+										<p class="text-muted">Thành tiền </p>
 									</div>
 									<div class="col-md-3 text-end ">
 										<h5 class="font-size-20 mb-2">

@@ -146,4 +146,4 @@ public class DetailDAOImpl implements IDetailDAO {
 	}
 }
 	
-}
+

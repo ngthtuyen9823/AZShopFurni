@@ -286,12 +286,24 @@
 									<td>
 										<div class="d-flex justify-content-start">
 											<c:choose>
-												<c:when test="${i.status == 5}">
-													<i style="color: red"> Đã hủy</i>
+												<c:when test="${i.status == 0}">
+													<i style="color: #5D5DF6"> Chưa xác nhận</i>
+												</c:when>
+												<c:when test="${i.status == 1}">
+													<i style="color: #818001"> Đã xác nhận</i>
+												</c:when>
+												<c:when test="${i.status == 2}">
+													<i style="color: #FFC107"> Đang chuẩn bị</i>
+												</c:when>
+												<c:when test="${i.status == 3}">
+													<i style="color: #007BFF"> Đang vận chuyển</i>
 												</c:when>
 												<c:when
-													test="${i.status == 4 && i.customerConfirmation == 1}">
+													test="${i.status == 4}">
 													<i style="color: green"> Đã giao</i>
+												</c:when>
+												<c:when test="${i.status == 5}">
+													<i style="color: red"> Đã hủy</i>
 												</c:when>
 												<c:otherwise>
 													<i style="color: orange"> Chưa xác nhận</i>

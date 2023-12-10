@@ -180,8 +180,4 @@ public class VoucherDAOImpl implements IVoucherDAO {
 		}
 		return voucher;
 	}
-
-		return voucher;
-	}
-
 }
