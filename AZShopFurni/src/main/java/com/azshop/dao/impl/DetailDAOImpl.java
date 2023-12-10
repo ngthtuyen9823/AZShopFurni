@@ -70,7 +70,7 @@ public class DetailDAOImpl implements IDetailDAO {
 	@Override
 	public List<DetailModel> listDetail(int orderID) {
 		List<DetailModel> listDetail = new ArrayList<DetailModel>();
-		String sql =  "SELECT  P.ProductID, I.ItemID, O.OrderID, P.ProductName, I.Color, I.Size, D.Quantity, I.OriginalPrice, I.PromotionPrice, IM.Image\r\n"
+		String sql =  "SELECT  P.ProductID, P.Description, I.ItemID, O.OrderID, P.ProductName, I.Color, I.Size, D.Quantity, I.OriginalPrice, I.PromotionPrice, IM.Image\r\n"
 					+ "FROM PRODUCT AS P \r\n"
 					+ "			INNER JOIN ITEM I ON P.ProductID = I.ProductID \r\n"
 					+ "			INNER JOIN DETAIL D on I.ItemID = D.ItemID\r\n"
@@ -90,15 +90,16 @@ public class DetailDAOImpl implements IDetailDAO {
 			while (rs.next()) {
 				DetailModel detail = new DetailModel();
 				detail.getProduct().setProductID(rs.getInt(1));
-				detail.setItemID(rs.getInt(2));
-				detail.setOrderID(rs.getInt(3));
-				detail.getProduct().setProductName(rs.getString(4));
-				detail.getItem().setColor(rs.getString(5));
-				detail.getItem().setSize(rs.getString(6));
-				detail.setQuantity(rs.getInt(7));
-				detail.getItem().setOriginalPrice(rs.getInt(8));
-				detail.getItem().setPromotionPrice(rs.getInt(9));
-				detail.getItem().setImage(rs.getString(10));
+				detail.getProduct().setDescription(rs.getString(2));
+				detail.setItemID(rs.getInt(3));
+				detail.setOrderID(rs.getInt(4));
+				detail.getProduct().setProductName(rs.getString(5));
+				detail.getItem().setColor(rs.getString(6));
+				detail.getItem().setSize(rs.getString(7));
+				detail.setQuantity(rs.getInt(8));
+				detail.getItem().setOriginalPrice(rs.getInt(9));
+				detail.getItem().setPromotionPrice(rs.getInt(10));
+				detail.getItem().setImage(rs.getString(11));
 				
 				listDetail.add(detail);
 			}

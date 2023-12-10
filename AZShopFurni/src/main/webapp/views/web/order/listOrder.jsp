@@ -148,14 +148,11 @@ a {
                                                     <img src="${j.item.image}" alt="" width="150" height="150">
                                                 </div>
                                                 <div class="product-info">
-                                                    <h5 class="text-truncate font-size-20"> <a href="#" class="text-dark">
-                                                        ${j.product.productName}</a> </h5>
-                                                    <p class="mb-0 mt-1"> Màu sắc: <span class="fw-medium">
-                                                        ${j.item.color}</span> </p>
-                                                    <p class="mb-0 mt-1"> Size: <span class="fw-medium">
-                                                            ${j.item.size}</span> </p>
-                                                    <p class="mb-0 mt-1"> <span class="fw-medium"> 
-                                                        x${j.quantity}</span> </p>
+                                                    <h5 class="text-truncate font-size-20"> <a href="#" class="text-dark"> ${j.product.productName}</a> </h5>
+                                                    <p class="mb-0 mt-1">  ${j.product.description} </p> 
+                                                    <p class="mb-0 mt-1"> Màu sắc: <span class="fw-medium"> ${j.item.color}</span> </p>
+                                                    <p class="mb-0 mt-1"> Size: <span class="fw-medium"> ${j.item.size}</span> </p>
+                                                    <p class="mb-0 mt-1"> <span class="fw-medium"> x${j.quantity}</span> </p>
                                                 </div>
                                                 <div class="price-info font-size-20" style="color: orange">
                                                     <span class="text-muted me-2"> <del class="font-size-16 fw-normal">

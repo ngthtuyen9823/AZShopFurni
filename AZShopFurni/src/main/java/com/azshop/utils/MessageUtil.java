@@ -24,6 +24,13 @@ public class MessageUtil {
 		} else if (typeMessage.equals("updateFail")) {
 			messageResponse = "Update fail";
 			alert = "danger";
+		} else if(typeMessage.equals("updateAccountTrue")) {
+			messageResponse = "Thay đổi mật khẩu thành công";
+			alert = "success";
+		}
+		else if (typeMessage.equals("updateAccountFail")) {
+			messageResponse = "Mật khẩu cũ không đúng. Vui lòng nhập lại";
+			alert = "danger";
 		}
 		request.setAttribute("message", messageResponse);
 		request.setAttribute("alert", alert);

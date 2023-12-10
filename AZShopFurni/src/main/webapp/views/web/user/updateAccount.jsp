@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<!DOCTYPE html>
-<html>
 <title>Đổi mật khẩu</title>
 <form action="updateAccount" method="post" enctype="multipart/form-data">
 	<section class="bg0 p-t-52 p-b-20">
@@ -33,13 +31,17 @@
 					<div class="p-r-45 p-r-0-lg">
 						<div class="p-t-40">
 							<h5 class="mtext-113 cl2 p-b-12">thay đổi mật khẩu</h5>
-
+							<c:if test="${not empty message }">
+								<div class="alert alert-${alert}">
+									<strong>${message}!</strong>
+								</div>
+							</c:if>
 							<input type="hidden" name="UserID" value="${accountModel.userID}">
 							<input type="hidden" name="UserName" value="${accountModel.userName}">
 							<div class="row">
 								<div class=" m-b-30 mr-3">
 									<label> Mật khẩu cũ </label> 
-									<input class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="password"
+									<input class="bor19 stext-111 cl2 plh3 size-116 p-lr-18" type="password" id="oldPassword"
 											name="OldPassWord" style="width: 300px;">
 								</div>
 								<div class=" m-b-30">
@@ -53,8 +55,8 @@
 						</div>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</section>
 </form>
-</html>
