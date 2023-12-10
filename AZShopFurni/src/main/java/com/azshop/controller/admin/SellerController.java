@@ -91,6 +91,7 @@ public class SellerController extends HttpServlet {
 			String avatar = req.getParameter("avatar");
 			String cid = req.getParameter("cid");
 			int kpi = Integer.parseInt(req.getParameter("kpi"));
+			String email = req.getParameter("email");
 			String dobString = req.getParameter("dob");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng của ngày tháng
 			Date dob = null;
@@ -112,14 +113,14 @@ public class SellerController extends HttpServlet {
 			newUser.setDob(dob);
 			newUser.setCid(cid);
 			newUser.setKpi(kpi);
+			newUser.setEmail(email);
 			// goi pt insert trong service
 			sellerService.insertSeller(newUser);
 			MessageUtil.showMessage(req,"addSuccess");
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req,"addFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/addSeller.jsp");
-		rd.forward(req, resp);
+		findAllSeller(req, resp);
 	}
 
 	private void updateSeller(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -139,6 +140,7 @@ public class SellerController extends HttpServlet {
 			String cid = req.getParameter("cid");
 			int kpi = Integer.parseInt(req.getParameter("kpi"));
 			String dobString = req.getParameter("dob");
+			String email = req.getParameter("email");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng của ngày tháng
 			Date dob = null;
 			try {
@@ -158,14 +160,14 @@ public class SellerController extends HttpServlet {
 			newUser.setDob(dob);
 			newUser.setCid(cid);
 			newUser.setKpi(kpi);
+			newUser.setEmail(email);
 
 			sellerService.updateSeller(newUser);
 			MessageUtil.showMessage(req,"updateSuccess");
 		}catch(Exception ex) {
 			MessageUtil.showMessage(req,"updateFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/updateSeller.jsp");
-		rd.forward(req, resp);
+		findAllSeller(req, resp);
 	}
 
 	private void findAllSeller(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

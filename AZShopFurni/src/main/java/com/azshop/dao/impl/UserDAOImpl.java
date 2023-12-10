@@ -17,7 +17,6 @@ public class UserDAOImpl implements IUserDAO {
 	public UserModel getInfoUser(int userID) {
 		UserModel user = new UserModel();
 		String sql = "SELECT * FROM USER WHERE UserID = ?";
-		
 		try {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
@@ -65,7 +64,6 @@ public class UserDAOImpl implements IUserDAO {
 			ps.setString(7, user.getCid());
 			ps.setString(8, user.getAvatar());
 			ps.setInt(9, user.getUserID());
-			
 			ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -125,4 +123,6 @@ public class UserDAOImpl implements IUserDAO {
 			e.printStackTrace();
 		}
 	}
+
+	
 }

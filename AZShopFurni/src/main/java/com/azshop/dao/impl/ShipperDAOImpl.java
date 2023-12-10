@@ -16,7 +16,7 @@ public class ShipperDAOImpl implements IShipperDAO {
 	@Override
 	public List<UserModel> findAllShipper() {
 		Connection conn = null;
-		String sql = "Select UserID, FirstName, LastName, Address, Gender, Phone, DoB, CID, Avatar, Area from AZShop.USER where Type=2";
+		String sql = "Select UserID, FirstName, LastName, Address, Gender, Phone, DoB, CID, Avatar, Area, Email from AZShop.USER where Type=2";
 		List<UserModel> listShipper = new ArrayList<UserModel>();
 		try {
 			new DBConnection();
@@ -36,6 +36,7 @@ public class ShipperDAOImpl implements IShipperDAO {
 				shipper.setCid(rs.getString("CID"));
 				shipper.setAvatar(rs.getString("Avatar"));
 				shipper.setArea(rs.getString("Area"));
+				shipper.setEmail(rs.getString("Email"));
 
 				listShipper.add(shipper);
 			}
@@ -50,7 +51,7 @@ public class ShipperDAOImpl implements IShipperDAO {
 	@Override
 	public void updateShipper(UserModel model) {
 		Connection conn = null;
-		String sql = "Update AZShop.USER set FirstName=?, LastName=?, Address=?, Gender=?, Phone=?, DoB=?, CID=?, Avatar=?, Area=? where UserID=?";
+		String sql = "Update AZShop.USER set FirstName=?, LastName=?, Address=?, Gender=?, Phone=?, DoB=?, CID=?, Avatar=?, Area=?, Email=? where UserID=?";
 		try {
 			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -65,7 +66,8 @@ public class ShipperDAOImpl implements IShipperDAO {
 			ps.setString(7, model.getCid());
 			ps.setString(8, model.getAvatar());
 			ps.setString(9, model.getArea());
-			ps.setInt(10, model.getUserID());
+			ps.setString(10, model.getEmail());
+			ps.setInt(11, model.getUserID());
 
 			ps.executeUpdate();// thuc thi cau query va tra ve Resultset
 			conn.close();
@@ -97,6 +99,7 @@ public class ShipperDAOImpl implements IShipperDAO {
 				shipper.setCid(rs.getString("CID"));
 				shipper.setAvatar(rs.getString("Avatar"));
 				shipper.setArea(rs.getString("Area"));
+				shipper.setEmail(rs.getString("Email"));
 			}
 			conn.close();
 		} catch (Exception e) {
@@ -127,7 +130,7 @@ public class ShipperDAOImpl implements IShipperDAO {
 	@Override
 	public void insertShipper(UserModel model) {
 		Connection conn = null;
-		String sql = "Insert into AZShop.USER(UserID, FirstName, LastName, Address, Gender, Phone, DoB, CID, Avatar, Area, Type) Values (?,?,?,?,?,?,?,?,?,?,2)";
+		String sql = "Insert into AZShop.USER(UserID, FirstName, LastName, Address, Gender, Phone, DoB, CID, Avatar, Area, Email, Type) Values (?,?,?,?,?,?,?,?,?,?,?,2)";
 		try {
 			conn = DBConnection.getConnection();// ket noi csdl
 			PreparedStatement ps = conn.prepareStatement(sql);// nem cau lenh sql bang phat bieu prepare
@@ -144,6 +147,7 @@ public class ShipperDAOImpl implements IShipperDAO {
 			ps.setString(8, model.getCid());
 			ps.setString(9, model.getAvatar());
 			ps.setString(10, model.getArea());
+			ps.setString(11, model.getEmail());
 
 			ps.executeUpdate();// thuc thi cau query va tra ve Resultset
 			conn.close();
