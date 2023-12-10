@@ -155,5 +155,4 @@ public class CustomerDAOImpl implements ICustomerDAO {
 		}
 		return true;
 	}
-
 }

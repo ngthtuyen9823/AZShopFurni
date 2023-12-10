@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import com.azshop.bean.MyItem;
+import com.azshop.bean.Top3Customer;
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.IReportDAO;
 
@@ -85,6 +86,31 @@ public class ReportDAOImpl implements IReportDAO {
 			}
 			conn.close();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Top3Customer> reportTop3Customer() {
+		String sql = "SELECT U.UserID, U.FirstName, U.LastName, Sum(TotalMoney) AS TotalMoney FROM `ORDER` O, `USER` U \r\n"
+				   + "WHERE U.UserID = O.CustomerID GROUP BY CustomerID ORDER BY TotalMoney DESC LIMIT 3 ";
+		List<Top3Customer> list = new ArrayList<Top3Customer>();
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Top3Customer top3 = new Top3Customer();
+				top3.setId(rs.getInt(1));
+				top3.setFirstName(rs.getString(2));
+				top3.setLastName(rs.getString(3));
+				top3.setTotalMoney(rs.getInt(4));
+				list.add(top3);
+			}
+			conn.close();
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;

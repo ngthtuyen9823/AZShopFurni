@@ -14,12 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.azshop.bean.Top3Customer;
 import com.azshop.models.AccountModel;
 import com.azshop.models.UserModel;
 import com.azshop.service.IAccountService;
 import com.azshop.service.ICustomerService;
+import com.azshop.service.IReportService;
 import com.azshop.service.impl.AccountServiceImpl;
 import com.azshop.service.impl.CustomerServiceImpl;
+import com.azshop.service.impl.ReportServiceImpl;
 import com.azshop.utils.MessageUtil;
 
 @WebServlet(urlPatterns = { "/adminCustomer", "/adminInsertCustomer", "/adminUpdateCustomer", "/adminDeleteCustomer",
@@ -29,7 +32,7 @@ public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ICustomerService customerService = new CustomerServiceImpl();
 	IAccountService accountService = new AccountServiceImpl();
-	
+	IReportService reportService = new ReportServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -181,7 +184,10 @@ public class CustomerController extends HttpServlet {
 
 	private void getAllCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<UserModel> listCustomer = customerService.getAllCustomer();
+		List<Top3Customer> list3 = reportService.reportTop3Customer();
 		req.setAttribute("listCustomer", listCustomer);
+		req.setAttribute("list3", list3);
+		
 		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/customer/customer.jsp");
 		rd.forward(req, resp);
 

@@ -17,11 +17,14 @@
 			<div class="row">
 				<div class="col-xl-3 col-md-6">
 					<div class="card bg-primary text-white mb-4">
-						<div class="card-body">Primary Card</div>
+						<div class="card-body">CustomerID: ${list3[0].totalMoney}</div>
+						<div class="card-body">${list3[0].firstName} ${list3[0].lastName}</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
+							<a class="small text-white">
+								<fmt:formatNumber type="currency" value="${list3[0].totalMoney}" currencyCode="VND"
+								pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
+							</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -30,11 +33,13 @@
 				</div>
 				<div class="col-xl-3 col-md-6">
 					<div class="card bg-warning text-white mb-4">
-						<div class="card-body">Warning Card</div>
+						<div class="card-body">CustomerID: ${list3[1].totalMoney}</div>
+						<div class="card-body">${list3[1].firstName} ${list3[1].lastName}</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
+							<a class="small text-white" >
+								<fmt:formatNumber type="currency" value="${list3[1].totalMoney}" currencyCode="VND"
+								pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -43,11 +48,12 @@
 				</div>
 				<div class="col-xl-3 col-md-6">
 					<div class="card bg-success text-white mb-4">
-						<div class="card-body">Success Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
+						<div class="card-body">CustomerID: ${list3[2].totalMoney}</div>
+						<div class="card-body">${list3[2].firstName} ${list3[2].lastName}</div>
+						<div class="card-footer d-flex align-items-center justify-content-between">
+							<a class="small text-white ">
+								<fmt:formatNumber type="currency" value="${list3[2].totalMoney}" currencyCode="VND"
+								pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
