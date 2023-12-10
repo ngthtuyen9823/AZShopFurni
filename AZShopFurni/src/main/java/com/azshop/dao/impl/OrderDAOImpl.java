@@ -152,7 +152,8 @@ public class OrderDAOImpl implements IOrderDAO {
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setInt(1, status);
-			ps.setInt(2, orderID);
+			ps.setInt(2, sellerID);
+			ps.setInt(3, OrderID);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -326,6 +327,7 @@ public class OrderDAOImpl implements IOrderDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return listOrder;
 	}
 
 	@Override

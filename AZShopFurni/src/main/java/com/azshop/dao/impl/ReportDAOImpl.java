@@ -201,4 +201,33 @@ public class ReportDAOImpl implements IReportDAO {
 		}
 		return list;
 	}
+	@Override
+	public List<List<Object>> reportSellerOrderByYear(int sellerID) {
+		String sql = "SELECT DATE_FORMAT(OrderDate, '%Y-%m') AS Thang, SUM(TotalMoney) AS Tong, COUNT(OrderID) AS SL\r\n"
+				+ "FROM AZShop.`ORDER`\r\n"
+				+ "WHERE YEAR(OrderDate) = YEAR(CURDATE()) AND SellerID = ?\r\n"
+				+ "GROUP BY Thang\r\n"
+				+ "ORDER BY Thang;";
+
+		List<List<Object>> list = new ArrayList<List<Object>>();
+		try {
+			new DBConnection();
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+	        ps.setInt(1, sellerID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				List<Object> row = new ArrayList<Object>();
+				row.add(rs.getString("Thang"));
+				row.add(rs.getLong("Tong"));
+				row.add(rs.getInt("SL"));
+				list.add(row);
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

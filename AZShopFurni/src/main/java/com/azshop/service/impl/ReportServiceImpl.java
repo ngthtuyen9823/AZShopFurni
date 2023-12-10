@@ -34,4 +34,8 @@ public class ReportServiceImpl implements IReportService{
 	public List<Top3Customer> reportTop3Customer() {
 		return reportDAO.reportTop3Customer();
 	}
+	@Override
+	public List<List<Object>> reportSellerOrderByYear(int sellerID) {
+		return reportDAO.reportSellerOrderByYear(sellerID);
+	}
 }

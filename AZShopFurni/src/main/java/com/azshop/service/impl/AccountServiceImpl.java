@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.azshop.dao.IAccountDAO;
 import com.azshop.dao.ICustomerDAO;
+import com.azshop.dao.IUserDAO;
 import com.azshop.dao.impl.AccountDAOImpl;
 import com.azshop.dao.impl.CustomerDAOImpl;
+import com.azshop.dao.impl.UserDAOImpl;
 import com.azshop.models.AccountModel;
 import com.azshop.models.UserModel;
 import com.azshop.service.IAccountService;
@@ -69,6 +71,15 @@ public class AccountServiceImpl implements IAccountService {
 	@Override
 	public AccountModel findByEmail(String email) {
 		return accountDao.findByEmail(email);
+	}
+
+	@Override
+	public boolean checkPassword(int userID, String password) {
+		AccountModel account=accountDao.getOneAccount(userID);
+		if(account!=null && account.getPassword().equals(password)) {
+			return true;
+		}
+		return false;
 	}
 	
 	
