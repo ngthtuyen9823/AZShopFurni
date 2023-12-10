@@ -72,7 +72,7 @@
 					</div>
 				</div>
 			</div>
-			<h1 class="mt-4">Tables of 10 Best Sellers</h1>
+			<h1 class="mt-4">TOP 10 NGƯỜI BÁN HÀNG XUẤT SẮC NHẤT</h1>
 			<c:if test="${not empty message }">
 				<div class="alert alert-${alert}">
 					<strong>${message}!</strong>

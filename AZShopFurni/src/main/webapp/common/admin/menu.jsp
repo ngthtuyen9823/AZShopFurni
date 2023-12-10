@@ -43,7 +43,7 @@
 					</div> KPI
 				</a> 
 				<a class="nav-link" href="adminOrder"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
-					</div> Order
+					</div> Đơn hàng
 				</a> 
 				<div class="sb-sidenav-menu-heading">Addons</div>
 				<a class="nav-link" href="charts.html"> <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i>

@@ -46,6 +46,7 @@
 								<th>CCCD</th>
 								<th>Ảnh đại diện</th>
 								<th>Khu vực</th>
+								<th>Email</th>
 								<th>Hành động</th>
 							</tr>
 						</thead>
@@ -66,6 +67,7 @@
 									<td>${i.cid}</td>
 									<td>${i.avatar}</td>
 									<td>${i.area}</td>
+									<td>${i.email}</td>
 									<td>
 										<div class="hidden-sm hidden-xs btn-group">
 											<a

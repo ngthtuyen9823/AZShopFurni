@@ -65,8 +65,7 @@ public class AccountController extends HttpServlet{
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req,"addFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/account/accountInsert.jsp");
-		rd.forward(req, resp);
+		getAllAccount(req, resp);
 	}
 
 	private void deleteAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -104,7 +103,7 @@ public class AccountController extends HttpServlet{
 		}
 		
 		//System.out.println(account.getUserName() + " " + account.getPassword());
-		req.getRequestDispatcher("/views/admin/account/accountUpdate.jsp").forward(req, resp);
+		getAllAccount(req, resp);
 		
 	}
 

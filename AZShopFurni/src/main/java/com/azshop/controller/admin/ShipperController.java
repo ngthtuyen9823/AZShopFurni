@@ -102,6 +102,7 @@ public class ShipperController extends HttpServlet {
 			String avatar = req.getParameter("avatar");
 			String cid = req.getParameter("cid");
 			String area = req.getParameter("area");
+			String email = req.getParameter("email");
 			String dobString = req.getParameter("dob");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng của ngày tháng
 			Date dob = null;
@@ -123,6 +124,7 @@ public class ShipperController extends HttpServlet {
 			newUser.setDob(dob);
 			newUser.setCid(cid);
 			newUser.setArea(area);
+			newUser.setEmail(email);
 			// goi pt insert trong service
 			shipperService.insertShipper(newUser);
 			MessageUtil.showMessage(req, "addSuccess");
@@ -148,6 +150,7 @@ public class ShipperController extends HttpServlet {
 			String avatar = req.getParameter("avatar");
 			String cid = req.getParameter("cid");
 			String area = req.getParameter("area");
+			String email = req.getParameter("email");
 			String dobString = req.getParameter("dob");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng của ngày tháng
 			Date dob = null;
@@ -168,6 +171,7 @@ public class ShipperController extends HttpServlet {
 			newUser.setDob(dob);
 			newUser.setCid(cid);
 			newUser.setArea(area);
+			newUser.setEmail(email);
 
 			shipperService.updateShipper(newUser);
 			MessageUtil.showMessage(req,"updateSuccess");

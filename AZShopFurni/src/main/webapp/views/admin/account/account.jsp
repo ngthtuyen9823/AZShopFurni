@@ -137,8 +137,10 @@
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-pencil"></i>
 												</button>
-											</a> <a
-												href="<c:url value='/adminDeleteAccount?userID=${i.userID}'/>">
+											</a>
+											<a href="#" class="trigger-btn" data-toggle="modal"
+												data-target="#myModal"
+												data-link="<c:url value='/adminDeleteAccount?userID=${i.userID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn">
 													<i class="ace-icon fa fa-trash"></i>

@@ -131,8 +131,7 @@ public class CustomerController extends HttpServlet {
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req, "updateFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/customer/customerUpdate.jsp");
-		rd.forward(req, resp);
+		getAllCustomer(req, resp);
 	}
 
 	private void insertCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -177,8 +176,7 @@ public class CustomerController extends HttpServlet {
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req, "addFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/customer/customerInsert.jsp");
-		rd.forward(req, resp);
+		getAllCustomer(req, resp);
 
 	}
 

@@ -17,7 +17,7 @@ public class SellerDAOImpl implements ISellerDAO {
 	@Override
 	public List<UserModel> findAllSeller() {
 		Connection conn = null;
-		String sql = "Select UserID, FirstName, LastName, Address, Gender, Phone, DoB, CID, Avatar, KPI from AZShop.USER where Type=1";
+		String sql = "Select UserID, FirstName, LastName, Address, Gender, Phone, DoB, CID, Avatar, KPI, Email from AZShop.USER where Type=1";
 		List<UserModel> listSeller = new ArrayList<UserModel>();
 		try {
 			new DBConnection();
@@ -37,6 +37,7 @@ public class SellerDAOImpl implements ISellerDAO {
 				seller.setCid(rs.getString("CID"));
 				seller.setAvatar(rs.getString("Avatar"));
 				seller.setKpi(rs.getInt("KPI"));
+				seller.setEmail(rs.getString("Email"));
 
 				listSeller.add(seller);
 			}
@@ -51,7 +52,7 @@ public class SellerDAOImpl implements ISellerDAO {
 	@Override
 	public void updateSeller(UserModel model) {
 		Connection conn = null;
-		String sql = "Update AZShop.USER set FirstName=?, LastName=?, Address=?, Gender=?, Phone=?, DoB=?, CID=?, Avatar=?, KPI=? where UserID=?";
+		String sql = "Update AZShop.USER set FirstName=?, LastName=?, Address=?, Gender=?, Phone=?, DoB=?, CID=?, Avatar=?, KPI=?, Email=? where UserID=?";
 		try {
 			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -66,7 +67,8 @@ public class SellerDAOImpl implements ISellerDAO {
 			ps.setString(7, model.getCid());
 			ps.setString(8, model.getAvatar());
 			ps.setInt(9, model.getKpi());
-			ps.setInt(10, model.getUserID());
+			ps.setString(10, model.getEmail());
+			ps.setInt(11, model.getUserID());
 
 			ps.executeUpdate();// thuc thi cau query va tra ve Resultset
 			conn.close();
@@ -97,6 +99,7 @@ public class SellerDAOImpl implements ISellerDAO {
 				seller.setCid(rs.getString("CID"));
 				seller.setAvatar(rs.getString("Avatar"));
 				seller.setKpi(rs.getInt("KPI"));
+				seller.setEmail(rs.getString("Email"));
 			}
 			conn.close();
 		} catch (Exception e) {
@@ -127,7 +130,7 @@ public class SellerDAOImpl implements ISellerDAO {
 	@Override
 	public void insertSeller(UserModel model) {
 		Connection conn = null;
-		String sql = "Insert into AZShop.USER(UserID, FirstName, LastName, Address, Gender, Phone, DoB, CID, Avatar, KPI, Type) Values (?,?,?,?,?,?,?,?,?,?,1)";
+		String sql = "Insert into AZShop.USER(UserID, FirstName, LastName, Address, Gender, Phone, DoB, CID, Avatar, KPI, Email, Type) Values (?,?,?,?,?,?,?,?,?,?,?,1)";
 		try {
 			conn = DBConnection.getConnection();// ket noi csdl
 			PreparedStatement ps = conn.prepareStatement(sql);// nem cau lenh sql bang phat bieu prepare
@@ -144,6 +147,7 @@ public class SellerDAOImpl implements ISellerDAO {
 			ps.setString(8, model.getCid());
 			ps.setString(9, model.getAvatar());
 			ps.setInt(10, model.getKpi());
+			ps.setString(11, model.getEmail());
 
 			ps.executeUpdate();// thuc thi cau query va tra ve Resultset
 			conn.close();
@@ -182,6 +186,7 @@ public class SellerDAOImpl implements ISellerDAO {
 				seller.setCid(rs.getString("CID"));
 				seller.setAvatar(rs.getString("Avatar"));
 				seller.setKpi(rs.getInt("KPI"));
+				seller.setEmail(rs.getString("Email"));
 
 				listSeller.add(seller);
 			}

@@ -29,8 +29,7 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
+							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -46,8 +45,7 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
+							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -62,8 +60,7 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
+							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -78,8 +75,7 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
+							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -94,8 +90,7 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
+							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -110,8 +105,7 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
+							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -171,7 +165,7 @@
 							hàng trong 6 tháng
 						</div>
 						<div class="card-body">
-							<canvas id="myChartDouble" width="100%" height="40"></canvas>
+							<canvas id="myChartDouble" width="100%" height="80"></canvas>
 
 						</div>
 					</div>
@@ -179,14 +173,14 @@
 			</div>
 			<h1 class="mt-4">Quản lý đơn hàng</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-				<li class="breadcrumb-item active">Order</li>
+				<li class="breadcrumb-item"><a href="index.html">Trang chính</a></li>
+				<li class="breadcrumb-item active">Đơn hàng</li>
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
 					<a href="<c:url value='/adminInsertCustomer'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i> Add new Order
+							<i class="ace-icon fa fa-pencil"></i> Thêm đơn hàng mới
 						</button>
 					</a>
 				</div>
@@ -198,7 +192,7 @@
 			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
-					<i class="fas fa-table me-1"></i> DataTable Order
+					<i class="fas fa-table me-1"></i> Bảng dữ liệu đơn hàng
 				</div>
 				<div class="card-body">
 					<div style="margin-bottom: 30px;">

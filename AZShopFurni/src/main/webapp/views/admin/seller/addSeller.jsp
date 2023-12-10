@@ -41,6 +41,9 @@
 											<input class="form-control" type="text" name="address" /> <label>Địa chỉ</label>
 										</div>
 										<div class="form-floating mb-3">
+											<input class="form-control" type="text" name="email" /> <label>Email</label>
+										</div>
+										<div class="form-floating mb-3">
 											<select class="form-control" name="gender">
 												<option value="0">Nam</option>
 												<option value="1">Nữ</option>

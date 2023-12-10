@@ -18,46 +18,63 @@
 			<div class="row">
 				<div class="col-xl-3 col-md-6">
 					<div class="card bg-primary text-white mb-4">
-						<div class="card-body">CustomerID: ${list3[0].totalMoney}</div>
-						<div class="card-body">${list3[0].firstName} ${list3[0].lastName}</div>
+						<div class="card-body">
+							Khách hàng: ${list3[0].id} <br> ${list3[0].firstName}
+							${list3[0].lastName} <br> Tổng thanh toán :
+							<fmt:formatNumber type="currency" value="${list3[0].totalMoney}"
+								currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
+							${formattedPrice}
+						</div>
+
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white">
-								<fmt:formatNumber type="currency" value="${list3[0].totalMoney}" currencyCode="VND"
-								pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
-							</a>
-								
+							<a
+								href="/AZShopFurni/adminInformationCustomer?customerID=${list3[0].id}"
+								class="small text-white">Xem chi tiết</a>
 							<div class="small text-white">
-								<i class="fas fa-angle-right"></i>
+								<i class="fas fa-angle-right"> </i>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-xl-3 col-md-6">
 					<div class="card bg-warning text-white mb-4">
-						<div class="card-body">CustomerID: ${list3[1].totalMoney}</div>
-						<div class="card-body">${list3[1].firstName} ${list3[1].lastName}</div>
+						<div class="card-body">
+							Khách hàng: ${list3[1].id} <br> ${list3[1].firstName}
+							${list3[1].lastName} <br> Tổng thanh toán :
+							<fmt:formatNumber type="currency" value="${list3[1].totalMoney}"
+								currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
+							${formattedPrice}
+						</div>
+
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white" >
-								<fmt:formatNumber type="currency" value="${list3[1].totalMoney}" currencyCode="VND"
-								pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}</a>
+							<a
+								href="/AZShopFurni/adminInformationCustomer?customerID=${list3[1].id}"
+								class="small text-white">Xem chi tiết</a>
 							<div class="small text-white">
-								<i class="fas fa-angle-right"></i>
+								<i class="fas fa-angle-right"> </i>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-xl-3 col-md-6">
 					<div class="card bg-success text-white mb-4">
-						<div class="card-body">CustomerID: ${list3[2].totalMoney}</div>
-						<div class="card-body">${list3[2].firstName} ${list3[2].lastName}</div>
-						<div class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white ">
-								<fmt:formatNumber type="currency" value="${list3[2].totalMoney}" currencyCode="VND"
-								pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}</a>
+						<div class="card-body">
+							Khách hàng: ${list3[2].id} <br> ${list3[2].firstName}
+							${list3[2].lastName} <br> Tổng thanh toán :
+							<fmt:formatNumber type="currency" value="${list3[2].totalMoney}"
+								currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
+							${formattedPrice}
+						</div>
+
+						<div
+							class="card-footer d-flex align-items-center justify-content-between">
+							<a
+								href="/AZShopFurni/adminInformationCustomer?customerID=${list3[2].id}"
+								class="small text-white">Xem chi tiết</a>
 							<div class="small text-white">
-								<i class="fas fa-angle-right"></i>
+								<i class="fas fa-angle-right"> </i>
 							</div>
 						</div>
 					</div>
@@ -146,13 +163,16 @@
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-pencil"></i>
 												</button>
-											</a> <a
-												href="<c:url value='/adminDeleteCustomer?customerID=${i.userID}'/>">
+											</a> 
+											<a href="#" class="trigger-btn" data-toggle="modal"
+												data-target="#myModal"
+												data-link="<c:url value='/adminDeleteCustomer?customerID=${i.userID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn">
 													<i class="ace-icon fa fa-trash"></i>
 												</button>
-											</a> <a
+											</a>
+											<a
 												href="<c:url value='/adminInformationCustomer?customerID=${i.userID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn">
