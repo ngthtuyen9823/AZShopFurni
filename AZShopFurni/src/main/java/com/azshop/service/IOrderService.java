@@ -17,4 +17,5 @@ public interface IOrderService {
 	void updateOrder (OrderModel order);
 	void deleteOrder (int orderID);
 	OrderModel getOrderByID(int orderID);
+	OrderModel insertOrder (OrderModel order);
 }
