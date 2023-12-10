@@ -1,5 +1,7 @@
 package com.azshop.service.impl;
 
+import java.util.List;
+
 import com.azshop.dao.IUserDAO;
 import com.azshop.dao.impl.UserDAOImpl;
 import com.azshop.models.AccountModel;
@@ -36,9 +38,10 @@ public class UserServiceImpl implements IUserService {
 		}
 		else return false;
 	}
-
 	@Override
 	public void updateAvatar(int userID, String avatar) {
 		userDAO.updateAvatar(userID, avatar);
 	}
+
+	
 }

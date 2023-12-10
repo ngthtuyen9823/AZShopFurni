@@ -19,7 +19,7 @@
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">Update customer</h3>
+							<h3 class="text-center font-weight-light my-4">Cập nhật thông tin khách hàng</h3>
 						</div>
 						<div class="card-body">
 							<form action="adminUpdateCustomer" method="post">
@@ -27,41 +27,41 @@
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="customerID"
-												value="${customer.userID}" readonly="readonly" /> <label>ID</label>
+												value="${customer.userID}" readonly="readonly" /> <label>Mã khách hàng</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="firstName"
-												value="${customer.firstName}" /> <label>First Name</label>
+												value="${customer.firstName}" /> <label>Tên khách hàng</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="lastName"
-												value="${customer.lastName}" /> <label>Last Name</label>
+												value="${customer.lastName}" /> <label>Họ</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="address"
-												value="${customer.address}" /> <label>Address</label>
+												value="${customer.address}" /> <label>Địa chỉ</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="gender"
-												value="${customer.gender}" /> <label>Gender</label>
+												value="${customer.gender}" /> <label>Giới tính</label>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="phone"
-												value="${customer.phone}" /> <label>Phone</label>
+												value="${customer.phone}" /> <label>Số điện thoại</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="date" name="dob"
-												value="${customer.dob}" /> <label>DoB</label>
+												value="${customer.dob}" /> <label>Ngày sinh</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="cid"
-												value="${customer.cid}" /> <label>CID</label>
+												value="${customer.cid}" /> <label>Căn cước công dân</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="avatar"
-												value="${customer.avatar}" /> <label>Avatar</label>
+												value="${customer.avatar}" /> <label>ảnh đại diện</label>
 										</div>	
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="email"
@@ -70,7 +70,7 @@
 									</div>
 								</div>
 								<div class="text-center mt-4">
-									<input type="submit" class="btn btn-primary" value="Update" />
+									<input type="submit" class="btn btn-primary" value="Cập nhật" />
 								</div>
 							</form>
 						</div>

@@ -102,6 +102,7 @@ public class ShipperController extends HttpServlet {
 			String avatar = req.getParameter("avatar");
 			String cid = req.getParameter("cid");
 			String area = req.getParameter("area");
+			String email = req.getParameter("email");
 			String dobString = req.getParameter("dob");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng của ngày tháng
 			Date dob = null;
@@ -123,14 +124,14 @@ public class ShipperController extends HttpServlet {
 			newUser.setDob(dob);
 			newUser.setCid(cid);
 			newUser.setArea(area);
+			newUser.setEmail(email);
 			// goi pt insert trong service
 			shipperService.insertShipper(newUser);
 			MessageUtil.showMessage(req, "addSuccess");
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req, "addFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/addShipper.jsp");
-		rd.forward(req, resp);
+		findAllShipper(req, resp);
 	}
 
 	private void updateShipper(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -149,6 +150,7 @@ public class ShipperController extends HttpServlet {
 			String avatar = req.getParameter("avatar");
 			String cid = req.getParameter("cid");
 			String area = req.getParameter("area");
+			String email = req.getParameter("email");
 			String dobString = req.getParameter("dob");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng của ngày tháng
 			Date dob = null;
@@ -169,14 +171,14 @@ public class ShipperController extends HttpServlet {
 			newUser.setDob(dob);
 			newUser.setCid(cid);
 			newUser.setArea(area);
+			newUser.setEmail(email);
 
 			shipperService.updateShipper(newUser);
 			MessageUtil.showMessage(req,"updateSuccess");
 		}catch (Exception ex) {
 			MessageUtil.showMessage(req,"updateFail");
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/updateShipper.jsp");
-		rd.forward(req, resp);
+		findAllShipper(req, resp);
 
 	}
 }

@@ -15,4 +15,5 @@ public interface IAccountService {
 	UserModel findUserByUsername(String username);
 	UserModel login(String username,String password);
 	AccountModel findByEmail(String email);
+	boolean checkPassword(int userID, String password);
 }

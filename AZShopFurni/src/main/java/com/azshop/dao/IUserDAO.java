@@ -1,5 +1,6 @@
 package com.azshop.dao;
 
+
 import com.azshop.models.AccountModel;
 import com.azshop.models.UserModel;
 
@@ -10,3 +11,4 @@ public interface IUserDAO {
 	AccountModel getInfAccount(int userID);
 	void updateAccount(AccountModel account);
 }
+

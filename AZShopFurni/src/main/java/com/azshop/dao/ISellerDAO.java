@@ -10,4 +10,5 @@ public interface ISellerDAO {
 	UserModel findOne(int id);
 	void deleteSeller(int id);
 	void insertSeller(UserModel model);
+	List<UserModel> findBestSeller();
 }

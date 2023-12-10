@@ -10,9 +10,9 @@
 <body>
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">Dashboard</h1>
+			<h1 class="mt-4">TÀI KHOẢN</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item active">Dashboard</li>
+				<li class="breadcrumb-item active">Tài khoản</li>
 			</ol>
 			<div class="row">
 				<div class="col-xl-3 col-md-6">
@@ -90,32 +90,37 @@
 					</div>
 				</div>
 			</div>
-			<h1 class="mt-4">Tables Account</h1>
+			<h1 class="mt-4">Quản lý tài khoản</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-				<li class="breadcrumb-item active">Account</li>
+				<li class="breadcrumb-item"><a href="index.html">Tài khoản</a></li>
+				<li class="breadcrumb-item active">Tài khoản</li>
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
 					<a href="<c:url value='/adminInsertAccount'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i> Add new Account
+							<i class="ace-icon fa fa-pencil"></i> Thêm mới
 						</button>
 					</a>
 				</div>
 			</div>
+			<c:if test="${not empty message }">
+				<div class="alert alert-${alert}">
+					<strong>${message}!</strong>
+				</div>
+			</c:if>
 			<div class="card mb-4">
 				<div class="card-header">
-					<i class="fas fa-table me-1"></i> DataTable Account
+					<i class="fas fa-table me-1"></i> Bảng tài khoản
 				</div>
 				<div class="card-body">
 					<table id="datatablesSimple">
 						<thead>
 							<tr>
-								<th>AccountId</th>
-								<th>AccountName</th>
-								<th>Password</th>
-								<th>Action</th>
+								<th>Mã khách hàng</th>
+								<th>Tên tài khoản</th>
+								<th>Mật khẩu</th>
+								<th>Cập nhật</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -132,8 +137,10 @@
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-pencil"></i>
 												</button>
-											</a> <a
-												href="<c:url value='/adminDeleteAccount?userID=${i.userID}'/>">
+											</a>
+											<a href="#" class="trigger-btn" data-toggle="modal"
+												data-target="#myModal"
+												data-link="<c:url value='/adminDeleteAccount?userID=${i.userID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn">
 													<i class="ace-icon fa fa-trash"></i>
@@ -149,20 +156,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="toast-container position-fixed bottom-0 end-0 p-3 ">
-			<div id="liveToast" class="toast" role="alert" aria-live="assertive"
-				aria-atomic="true">
-				<div class="toast-header">
-					<strong class="me-auto">Bootstrap</strong> <small>11 mins
-						ago</small>
-					<button type="button" class="btn-close" data-bs-dismiss="toast"
-						aria-label="Close"></button>
-				</div>
-				<div class="toast-body">
-					<c:if test="${message != null}">${message}</c:if>
-				</div>
-			</div>
-		</div>
+		
 	</main>
 </body>
 </html>

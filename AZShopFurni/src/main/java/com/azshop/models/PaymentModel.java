@@ -2,6 +2,8 @@ package com.azshop.models;
 
 import java.sql.Timestamp;
 
+import com.google.api.client.util.DateTime;
+
 public class PaymentModel {
 	private int orderID;
 	private int method;

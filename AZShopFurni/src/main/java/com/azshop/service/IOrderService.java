@@ -9,4 +9,11 @@ public interface IOrderService {
 	OrderModel getOrderByOrderID(int orderID);
 	void updateOrder (int orderID, int status);
 	void confirmOrder (int orderID, int confirm);
+	List<OrderModel> findAllOrder();
+	OrderModel findByOrderID(int orderID);
+	List<OrderModel> findHisOrder(int sellerID);
+	void updateStatusOrder(int orderID, int sellerID, int status);
+	List<OrderModel> findOrderBySeller();
+	void updateOrder (OrderModel order);
+	void deleteOrder (int orderID);
 }

@@ -10,7 +10,6 @@ import com.azshop.models.OrderModel;
 import com.azshop.service.IOrderService;
 
 public class OrderServiceImpl implements IOrderService{
-	
 	IOrderDAO orderDAO = new OrderDAOImpl();
 	IDetailDAO detailDAO = new DetailDAOImpl();
 	@Override
@@ -22,10 +21,17 @@ public class OrderServiceImpl implements IOrderService{
 	@Override
 	public void updateOrder(int orderID, int status) {
 		orderDAO.updateOrder(orderID, status);
+	IDetailDAO detailDAO =new DetailDAOImpl();
+	@Override
+	public List<OrderModel> listOrderByCustomerID(int customerID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public void confirmOrder(int orderID, int confirm) {
-		orderDAO.confirmOrder(orderID, confirm);
+		// TODO Auto-generated method stub
+		
 	}
 	@Override
 	public OrderModel getOrderByOrderID(int orderID) {
@@ -33,4 +39,52 @@ public class OrderServiceImpl implements IOrderService{
 		order.setDetails(detailDAO.listDetail(order.getOrderID()));
 		return order;
 	}
+
+	@Override
+	public List<OrderModel> findOrderBySeller() {
+		List<OrderModel> list = orderDAO.findOrderBySeller();
+		list.forEach(order -> order.setDetails(detailDAO.listDetail(order.getOrderID())));
+		return list;
+	}
+
+	@Override
+	public void updateStatusOrder(int orderID,int sellerID, int status) {
+		orderDAO.updateStatusOrder(orderID,sellerID, status);
+	}
+
+	@Override
+	public List<OrderModel> findHisOrder(int sellerID) {
+		List<OrderModel> list = orderDAO.findHisOrder(sellerID);
+		list.forEach(order -> order.setDetails(detailDAO.listDetail(order.getOrderID())));
+		return list;
+	}
+
+	@Override
+	public OrderModel getOrderByOrderID(int orderID) {
+		OrderModel order=orderDAO.getOrderByOrderID(orderID);
+		order.setDetails(detailDAO.listDetail(order.getOrderID()));
+		return order;
+	}
+	
+	
+	@Override
+	public List<OrderModel> findAllOrder() {
+		return orderDAO.findAllOrder();
+	}
+	@Override
+	public void updateOrder(OrderModel order) {
+		orderDAO.updateOrder(order);
+		
+	}
+	@Override
+	public void deleteOrder(int orderID) {
+		orderDAO.deleteOrder(orderID);
+		
+	}
+	@Override
+	public OrderModel findByOrderID(int orderID) {
+		return orderDAO.findByOrderID(orderID);
+	}
+	
+	
 }

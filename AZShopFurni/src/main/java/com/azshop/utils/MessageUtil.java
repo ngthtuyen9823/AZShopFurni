@@ -7,22 +7,22 @@ public class MessageUtil {
 		String messageResponse = "";
 		String alert = "";
 		if (typeMessage.equals("delSuccess")) {
-			messageResponse = "Delete success";
+			messageResponse = "Xóa thành công";
 			alert = "success";
 		} else if (typeMessage.equals("delFail")) {
-			messageResponse = "Delete fail";
+			messageResponse = "Xóa thất bại";
 			alert = "danger";
 		} else if (typeMessage.equals("addSuccess")) {
-			messageResponse = "Inserted success";
+			messageResponse = "Thêm thành công";
 			alert = "success";
 		} else if (typeMessage.equals("addFail")) {
-			messageResponse = "Inserted fail";
+			messageResponse = "Thêm thất bại";
 			alert = "danger";
 		} else if (typeMessage.equals("updateSuccess")) {
-			messageResponse = "Update success";
+			messageResponse = "Cập nhật thành công";
 			alert = "success";
 		} else if (typeMessage.equals("updateFail")) {
-			messageResponse = "Update fail";
+			messageResponse = "Cập nhật thất bại";
 			alert = "danger";
 		} else if(typeMessage.equals("updateAccountTrue")) {
 			messageResponse = "Thay đổi mật khẩu thành công";

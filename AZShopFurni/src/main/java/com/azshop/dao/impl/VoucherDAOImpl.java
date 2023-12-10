@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.IVoucherDAO;
+import com.azshop.models.UserModel;
 import com.azshop.models.VoucherModel;
 
 public class VoucherDAOImpl implements IVoucherDAO {
@@ -90,6 +91,7 @@ public class VoucherDAOImpl implements IVoucherDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
@@ -178,4 +180,8 @@ public class VoucherDAOImpl implements IVoucherDAO {
 		}
 		return voucher;
 	}
+
+		return voucher;
+	}
+
 }

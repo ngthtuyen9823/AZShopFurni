@@ -68,7 +68,7 @@ public class DetailDAOImpl implements IDetailDAO {
 	@Override
 	public List<DetailModel> listDetail(int orderID) {
 		List<DetailModel> listDetail = new ArrayList<DetailModel>();
-		String sql =  "SELECT  P.ProductID, P.Description, I.ItemID, O.OrderID, P.ProductName, I.Color, I.Size, D.Quantity, I.OriginalPrice, I.PromotionPrice, IM.Image\r\n"
+		String sql =  "SELECT  P.ProductID,P.Description, I.ItemID, O.OrderID, P.ProductName, I.Color, I.Size, D.Quantity, I.OriginalPrice, I.PromotionPrice, IM.Image\r\n"
 					+ "FROM PRODUCT AS P \r\n"
 					+ "			INNER JOIN ITEM I ON P.ProductID = I.ProductID \r\n"
 					+ "			INNER JOIN DETAIL D on I.ItemID = D.ItemID\r\n"
@@ -144,4 +144,6 @@ public class DetailDAOImpl implements IDetailDAO {
 		}
 		return detail;
 	}
+}
+	
 }

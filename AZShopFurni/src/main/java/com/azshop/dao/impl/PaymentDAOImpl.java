@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.azshop.connection.DBConnection;
 import com.azshop.dao.IPaymentDAO;
+import com.azshop.models.OrderModel;
 import com.azshop.models.PaymentModel;
 
 public class PaymentDAOImpl implements IPaymentDAO {
@@ -47,6 +48,7 @@ public class PaymentDAOImpl implements IPaymentDAO {
 			new DBConnection();
 			Connection conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, orderID);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				payment.setOrderID(rs.getInt("OrderID"));

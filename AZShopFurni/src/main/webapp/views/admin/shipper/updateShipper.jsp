@@ -19,8 +19,7 @@
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">Update
-								Shipper</h3>
+							<h3 class="text-center font-weight-light my-4">Cập nhật thông tin người giao hàng</h3>
 						</div>
 						<div class="card-body">
 							<form action="adminUpdateShipper" method="post">
@@ -28,55 +27,58 @@
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="userID"
-												value="${shipper.userID}" readonly="readonly" /> <label>ID</label>
+												value="${shipper.userID}" readonly="readonly" /> <label>Mã</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="firstName"
-												value="${shipper.firstName}" /> <label>First Name</label>
+												value="${shipper.firstName}" /> <label>Họ</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="lastName"
-												value="${shipper.lastName}" /> <label>Last Name</label>
+												value="${shipper.lastName}" /> <label>Tên</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="address"
-												value="${shipper.address}" /> <label>Address</label>
+												value="${shipper.address}" /> <label>Địa chỉ</label>
+										</div>
+										<div class="form-floating mb-3">
+											<input class="form-control" type="text" name="email"
+												value="${shipper.email}" /> <label>Email</label>
 										</div>
 										<div class="form-floating mb-3">
 											<div class="form-floating mb-3">
 												<select class="form-control" name="gender">
-													<option value="0">Nam</option>
-													<option value="1">Nữ</option>
-												</select> 
-												<label> Gender </label>
+													<option value="0" ${seller.gender == 0 ? 'selected' : ''}>Nam</option>
+													<option value="1" ${seller.gender == 1 ? 'selected' : ''}>Nữ</option>
+												</select> <label> Giới tính </label>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="phone"
-												value="${shipper.phone}" /> <label>Phone</label>
+												value="${shipper.phone}" /> <label>Số điện thoại</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="date" name="dob"
-												value="${shipper.dob}" /> <label>DoB</label>
+												value="${shipper.dob}" /> <label>Ngày sinh</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="cid"
-												value="${shipper.cid}" /> <label>CID</label>
+												value="${shipper.cid}" /> <label>CCCD</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="avatar"
-												value="${shipper.avatar}" /> <label>Avatar</label>
+												value="${shipper.avatar}" /> <label>Ảnh đại diện</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="area"
-												value="${shipper.area}" /> <label>Area</label>
+												value="${shipper.area}" /> <label>Khu vực</label>
 										</div>
 									</div>
 								</div>
 								<div class="text-center mt-4">
-									<input type="submit" class="btn btn-primary" value="Update" />
+									<input type="submit" class="btn btn-primary" value="Cập nhật" />
 								</div>
 							</form>
 						</div>

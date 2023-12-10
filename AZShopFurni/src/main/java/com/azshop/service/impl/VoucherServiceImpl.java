@@ -34,4 +34,5 @@ public class VoucherServiceImpl implements IVoucherService{
 	public VoucherModel findOneByCustomerID(int voucherID, int customerID) {
 		return voucherDAO.findOneByCustomerID(voucherID, customerID);
 	}
+
 }
