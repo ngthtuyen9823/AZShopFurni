@@ -47,20 +47,14 @@ public class OrderController extends HttpServlet {
 			String conf = req.getParameter("confirm");
 			int orderID = Integer.parseInt(req.getParameter("orderID"));
 			if ("cancelOrder".equals(act)) {
-				orderService.updateOrder(orderID, 5);
-				listOrder(req, resp);
-			} else if ("confirmOrder".equals(act)) {
-				orderService.confirmOrder(orderID, 1);
-				listOrder(req, resp);
-			} else if ("confirmDetailOrder".equals(act)) {
-				orderService.confirmOrder(orderID, 1);
-				detailOrder(req, resp);
-			} else if ("cancelDetailOrder".equals(act)) {
-				orderService.updateOrder(orderID, 5);
-				detailOrder(req, resp);
-			} else if ("rateOrder".equals(conf)) {
-				// adasd
-			}
+                //orderService.updateOrder(orderID, 5);
+                listOrder(req, resp);
+            } else if ("confirmOrder".equals(act)) {
+            	orderService.confirmOrder(orderID, 1);
+            	listOrder(req, resp);
+            } else if ("rateOrder".equals(conf)) {
+            	//adasd
+            }
 		}
 	}
 
