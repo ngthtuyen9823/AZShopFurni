@@ -158,7 +158,6 @@ public class PersonalInformationController extends HttpServlet {
 		String rdCode = String.valueOf(rnd.nextInt(100, 999));
 		UploadImage.uploadImage("mysql-web", "web-budget", "Image/Avatar/" + userID + rdCode + ".jpg", filepart.getInputStream());
 		String avatar = "https://storage.googleapis.com/web-budget/Image/Avatar/" + userID + rdCode + ".jpg";
-		
 		userService.updateAvatar(userID, avatar);
 		HttpSession session = req.getSession(true);
 		session.setAttribute("user",userService.getInfoUser(userID));

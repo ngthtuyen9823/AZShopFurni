@@ -18,4 +18,8 @@ public interface IOrderService {
 	void deleteOrder (int orderID);
 	OrderModel getOrderByID(int orderID);
 	OrderModel insertOrder (OrderModel order);
+	public List<OrderModel> findNeedShipByArea(String area);
+	public List<OrderModel> findShipingByShipperID(int ShipperID);
+	public List<OrderModel> findHisDeliveryByShipperID(int ShipperID);
+	public OrderModel findShipByID(int OrderID);
 }
