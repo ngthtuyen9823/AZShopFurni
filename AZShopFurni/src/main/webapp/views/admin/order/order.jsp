@@ -173,7 +173,7 @@
 			</div>
 			<h1 class="mt-4">Quản lý đơn hàng</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item"><a href="index.html">Trang chính</a></li>
+				<li class="breadcrumb-item"><a href="/adminHome">Trang chính</a></li>
 				<li class="breadcrumb-item active">Đơn hàng</li>
 			</ol>
 			<div class="card mb-4">
@@ -197,10 +197,6 @@
 				<div class="card-body">
 					<div style="margin-bottom: 30px;">
 						<form action="adminFilterOrder" method="post">
-							<div style="display: inline-block; margin-right: 40px;">
-								<input type="submit" value=" Lọc ">
-							</div>
-
 							<div style="display: inline-block; margin-right: 40px;">
 								<label> <select name="fOrderDate"
 									class="datatable-selector">
@@ -243,7 +239,7 @@
 								</label>
 							</div>
 
-							<div style="display: inline-block; margin-right: 60px;">
+							<div style="display: inline-block; margin-right: 40px;">
 								<label> <select name="fStatuPayment"
 									class="datatable-selector">
 										<option value="-1"
@@ -257,6 +253,9 @@
 											thanh toán</option>
 								</select> Trạng thái thanh toán
 								</label>
+							</div>
+								<div style="display: inline-block;">
+								<input type="submit" value=" Tìm kiếm ">
 							</div>
 						</form>
 					</div>
@@ -287,7 +286,7 @@
 										<div class="d-flex justify-content-start">
 											<c:choose>
 												<c:when test="${i.status == 0}">
-													<i style="color: #5D5DF6"> Chưa xác nhận</i>
+													<i style="color: #5D5DF6"> Chờ xác nhận</i>
 												</c:when>
 												<c:when test="${i.status == 1}">
 													<i style="color: #818001"> Đã xác nhận</i>
@@ -300,13 +299,13 @@
 												</c:when>
 												<c:when
 													test="${i.status == 4}">
-													<i style="color: green"> Đã giao</i>
+													<i style="color: green"> Thành công</i>
 												</c:when>
 												<c:when test="${i.status == 5}">
 													<i style="color: red"> Đã hủy</i>
 												</c:when>
 												<c:otherwise>
-													<i style="color: orange"> Chưa xác nhận</i>
+													<i style="color: orange"> Chờ xác nhận</i>
 												</c:otherwise>
 											</c:choose>
 										</div>
@@ -320,7 +319,7 @@
 													</div>
 												</c:when>
 												<c:otherwise>
-													<div style="color: red; font-size: 20;">
+													<div style="color: #FF0000; font-size: 20;">
 														<strong>✖</strong>
 													</div>
 												</c:otherwise>

@@ -5,10 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,20 +20,24 @@ import com.azshop.models.UserModel;
 import com.azshop.service.IAccountService;
 import com.azshop.service.ICustomerService;
 import com.azshop.service.IReportService;
+import com.azshop.service.IUserService;
 import com.azshop.service.impl.AccountServiceImpl;
 import com.azshop.service.impl.CustomerServiceImpl;
 import com.azshop.service.impl.ReportServiceImpl;
+import com.azshop.service.impl.UserServiceImpl;
 import com.azshop.utils.MessageUtil;
+
 
 @WebServlet(urlPatterns = { "/adminCustomer", "/adminInsertCustomer", "/adminUpdateCustomer", "/adminDeleteCustomer",
 		"/adminInformationCustomer"})
+@MultipartConfig
 public class CustomerController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	ICustomerService customerService = new CustomerServiceImpl();
 	IAccountService accountService = new AccountServiceImpl();
 	IReportService reportService = new ReportServiceImpl();
-
+	IUserService userService = new UserServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -62,13 +66,13 @@ public class CustomerController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
-
 		String url = req.getRequestURI().toString();
+		
 		if (url.contains("adminInsertCustomer")) {
 			insertCustomer(req, resp);
 		} else if (url.contains("adminUpdateCustomer")) {
 			updateCustomer(req, resp);
-		}
+		} 
 	}
 
 	private void deleteCustomer(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -96,8 +100,9 @@ public class CustomerController extends HttpServlet {
 	}
 
 	private void updateCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int customerID = Integer.parseInt(req.getParameter("customerID"));
 		try {
-			int customerID = Integer.parseInt(req.getParameter("customerID"));
+			
 			String firstName = req.getParameter("firstName");
 			String lastName = req.getParameter("lastName");
 			String address = req.getParameter("address");
@@ -114,7 +119,6 @@ public class CustomerController extends HttpServlet {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-
 			UserModel newUser = new UserModel();
 			newUser.setUserID(customerID);
 			newUser.setFirstName(firstName);
@@ -127,13 +131,13 @@ public class CustomerController extends HttpServlet {
 			newUser.setCid(cid);
 			newUser.setEmail(email);
 			customerService.updateCustomer(newUser);
-			MessageUtil.showMessage(req, "updateSuccess");
+			MessageUtil.showMessage(req, "updateSuccess");			
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req, "updateFail");
 		}
-		getAllCustomer(req, resp);
+		resp.sendRedirect("adminInformationCustomer?customerID="+customerID);		
 	}
-
+	
 	private void insertCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {

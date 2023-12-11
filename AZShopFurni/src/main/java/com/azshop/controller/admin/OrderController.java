@@ -148,7 +148,12 @@ public class OrderController extends HttpServlet {
 		HttpSession session = req.getSession(true);
 		Date currentDate = new Date();
 		int monthNow = currentDate.getMonth() + 1;
-		
+		int today = currentDate.getDate();
+		/*
+		 * for(int k=1; k<=today;k++) {
+		 * 
+		 * for (List<Object> list : listTotal) { if ( list.get(0) ) } }
+		 */
 		for (List<Object> list : listTotal) {
 			sumTotal += (int) list.get(1);
 			sumOrder += (int) list.get(2);
@@ -231,7 +236,6 @@ public class OrderController extends HttpServlet {
 		session.setAttribute("totalPaymentCard", totalPaymentCard);
 		session.setAttribute("totalPayMentNormal", totalPayMentNormal); 
 		session.setAttribute("countNoPay", countNoPay);
-		System.out.println("couunt "+countNoPay);
 		req.setAttribute("listOrder", listOrder);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/order/order.jsp");
 		rd.forward(req, resp);

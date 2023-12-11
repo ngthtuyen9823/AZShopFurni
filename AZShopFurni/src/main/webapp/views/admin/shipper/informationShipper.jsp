@@ -79,6 +79,11 @@ a{
 	text-decoration: none;
 }
 </style>
+<c:if test="${not empty message }">
+				<div class="alert alert-${alert}">
+					<strong>${message}!</strong>
+				</div>
+			</c:if>
 <div class="seller-profile">
 	<div class="seller-info">
 		<p>
@@ -103,8 +108,11 @@ a{
 			<strong>Ngày sinh:</strong>
 			<fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy" />
 		</p>
+		<p>
+			<strong>Khu vực:</strong> ${user.area}
+		</p>
 		<div id="paragraphContainer"></div>
-		<a href="adminUpdateCustomer?customerID=${user.userID}">
+		<a href="adminUpdateShipper?userID=${user.userID}">
 			<button class="update">Cập nhật</button>
 		</a>
 		<a href="adminUpdateAccount?userID=${user.userID}">
@@ -121,6 +129,6 @@ a{
 	
 	function closePage() {
 		// JavaScript để chuyển trang
-		window.location.href = 'adminCustomer'; // Thay 'url_moi' bằng URL mới bạn muốn chuyển đến
+		window.location.href = 'adminShipper'; // Thay 'url_moi' bằng URL mới bạn muốn chuyển đến
 	}
 </script>

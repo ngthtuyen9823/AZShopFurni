@@ -42,8 +42,12 @@
 												value="${customer.address}" /> <label>Địa chỉ</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="gender"
-												value="${customer.gender}" /> <label>Giới tính</label>
+											<div class="form-floating mb-3">
+												<select class="form-control" name="gender">
+													<option value="0" ${customer.gender == 0 ? 'selected' : ''}>Nam</option>
+													<option value="1" ${customer.gender == 1 ? 'selected' : ''}>Nữ</option>
+												</select> <label> Giới tính </label>
+											</div>
 										</div>
 									</div>
 									<div class="col-md-6">

@@ -103,8 +103,11 @@ a{
 			<strong>Ngày sinh:</strong>
 			<fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy" />
 		</p>
+		<p>
+			<strong>KPI:</strong> ${user.kpi}
+		</p>
 		<div id="paragraphContainer"></div>
-		<a href="adminUpdateCustomer?customerID=${user.userID}">
+		<a href="adminUpdateShipper?userID=${user.userID}">
 			<button class="update">Cập nhật</button>
 		</a>
 		<a href="adminUpdateAccount?userID=${user.userID}">
@@ -121,6 +124,6 @@ a{
 	
 	function closePage() {
 		// JavaScript để chuyển trang
-		window.location.href = 'adminCustomer'; // Thay 'url_moi' bằng URL mới bạn muốn chuyển đến
+		window.location.href = 'adminSeller'; // Thay 'url_moi' bằng URL mới bạn muốn chuyển đến
 	}
 </script>

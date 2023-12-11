@@ -75,7 +75,7 @@ public class CheckoutController extends HttpServlet {
 		req.setAttribute("listVoucher", listVoucher);
 		req.setAttribute("user", user);
 		req.setAttribute("listCart", listCart);
-
+		
 		redirectCheckoutPage(req, resp);
 	}
 
@@ -90,6 +90,7 @@ public class CheckoutController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 		String city = req.getParameter("city");
+		System.out.println("Post checkout : "+city);
 		String address = req.getParameter("address");
 		String note = req.getParameter("note");
 		String payMethod = req.getParameter("pay-method");
@@ -130,11 +131,11 @@ public class CheckoutController extends HttpServlet {
 		payment.setMethod(Integer.parseInt(payMethod));
 		System.out.println(Integer.parseInt(payMethod));
 		payment.setOrderID(createdOrder.getOrderID());
+	
 		//*INFO: SET DEFAULT STATUS = 0 (NOT CHECKOUT). UPDATE LATER
 		payment.setStatus(0);
 		payment.setTime(new Timestamp(new Date().getTime()));
 		paymentService.insertPayment(payment);
-		
 		
 		resp.sendRedirect(req.getContextPath() + "/detailOrder?orderID=" + createdOrder.getOrderID());
 		return;

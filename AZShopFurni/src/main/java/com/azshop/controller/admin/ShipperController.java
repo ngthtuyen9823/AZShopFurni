@@ -18,7 +18,8 @@ import com.azshop.service.IShipperService;
 import com.azshop.service.impl.ShipperServiceImpl;
 import com.azshop.utils.MessageUtil;
 
-@WebServlet(urlPatterns = { "/adminShipper", "/adminUpdateShipper", "/adminDeleteShipper", "/adminInsertShipper" })
+@WebServlet(urlPatterns = { "/adminShipper", "/adminUpdateShipper", "/adminDeleteShipper", "/adminInsertShipper"
+		,"/adminInformationShipper"})
 public class ShipperController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -37,6 +38,12 @@ public class ShipperController extends HttpServlet {
 			rd.forward(req, resp);
 		} else if (url.contains("adminInsertShipper")) {
 			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/addShipper.jsp");
+			rd.forward(req, resp);
+		} else if (url.contains("adminInformationShipper")) {
+			int userID = Integer.parseInt(req.getParameter("userID"));
+			UserModel shipper = shipperService.findOne(userID);
+			req.setAttribute("user", shipper);
+			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/informationShipper.jsp");
 			rd.forward(req, resp);
 		}
 	}
@@ -77,6 +84,8 @@ public class ShipperController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		resp.setCharacterEncoding("utf-8");
 		String url = req.getRequestURI().toString();
 
 		if (url.contains("adminUpdateShipper")) {
@@ -135,13 +144,13 @@ public class ShipperController extends HttpServlet {
 	}
 
 	private void updateShipper(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		int id = Integer.parseInt(req.getParameter("userID"));
 		try {
 			// thiet lap ngon ngu
-			req.setCharacterEncoding("utf-8");
-			resp.setCharacterEncoding("utf-8");
+			
 
 			// nhan du lieu tu form
-			int id = Integer.parseInt(req.getParameter("userID"));
+			
 			String firstName = req.getParameter("firstName");
 			String lastName = req.getParameter("lastName");
 			String address = req.getParameter("address");
@@ -178,7 +187,7 @@ public class ShipperController extends HttpServlet {
 		}catch (Exception ex) {
 			MessageUtil.showMessage(req,"updateFail");
 		}
-		findAllShipper(req, resp);
+		resp.sendRedirect("adminInformationShipper?userID="+id);		
 
 	}
 }

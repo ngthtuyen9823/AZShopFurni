@@ -48,8 +48,8 @@
 										<div class="form-floating mb-3">
 											<div class="form-floating mb-3">
 												<select class="form-control" name="gender">
-													<option value="0" ${seller.gender == 0 ? 'selected' : ''}>Nam</option>
-													<option value="1" ${seller.gender == 1 ? 'selected' : ''}>Nữ</option>
+													<option value="0" ${shipper.gender == 0 ? 'selected' : ''}>Nam</option>
+													<option value="1" ${shipper.gender == 1 ? 'selected' : ''}>Nữ</option>
 												</select> <label> Giới tính </label>
 											</div>
 										</div>
