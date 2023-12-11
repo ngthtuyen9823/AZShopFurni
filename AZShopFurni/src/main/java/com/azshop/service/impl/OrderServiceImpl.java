@@ -89,4 +89,29 @@ public class OrderServiceImpl implements IOrderService {
 	public OrderModel insertOrder(OrderModel order) {
 		return orderDAO.insertOrder(order);
 	}
+    
+	@Override
+	public List<OrderModel> findNeedShipByArea(String area) {
+		return addDetailToList(orderDAO.findNeedShipByArea(area));
+	}
+	@Override
+	public List<OrderModel> findShipingByShipperID(int ShipperID) {
+		return addDetailToList(orderDAO.findShipingByShipperID(ShipperID));
+	}
+	@Override
+	public List<OrderModel> findHisDeliveryByShipperID(int ShipperID) {
+		//return addDetailToList(orderDAO.findHisDeliveryByShipperID(ShipperID));
+		return orderDAO.findHisDeliveryByShipperID(ShipperID);
+	}
+	@Override
+	public OrderModel findShipByID(int OrderID) {
+		OrderModel order = orderDAO.findShipByID(OrderID);
+		order.setDetails(detailDAO.listDetail(OrderID));
+		return order;
+	}
+	
+	private List<OrderModel> addDetailToList(List<OrderModel> list){
+		list.forEach(order -> order.setDetails(detailDAO.listDetail(order.getOrderID())));
+		return list;
+	}
 }

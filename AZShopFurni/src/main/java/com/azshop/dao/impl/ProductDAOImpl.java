@@ -223,7 +223,7 @@ public class ProductDAOImpl implements IProductDAO {
 			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, "%" + key + "%");
-			ps.setString(2, "%" + key + "%");
+			ps.setString(2, key + "%");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				ProductModel model = new ProductModel();

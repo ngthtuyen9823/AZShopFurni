@@ -1,11 +1,16 @@
 package com.azshop.dao.impl;
 
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import com.azshop.connection.DBConnection;
@@ -51,22 +56,32 @@ public class OrderDAOImpl implements IOrderDAO {
 	@Override
 	public List<OrderModel> findAllOrder() {
 		List<OrderModel> listOrder = new ArrayList<OrderModel>();
-		String sql = "SELECT DISTINCT k.*,p.Method as Method,p.Time as TimePay, p.Bank as Bank, p.CardOwner as CardOwner, p.AccountNumber as AccountNumber, p.Status as StatusPay " + "FROM PAYMENT AS p " + "INNER JOIN ( "
+		String sql = "SELECT DISTINCT k.*,p.Method as Method,p.Time as TimePay, p.Bank as Bank, p.CardOwner as CardOwner, p.AccountNumber as AccountNumber, p.Status as StatusPay "
+				+ "FROM PAYMENT AS p "
+				+ "INNER JOIN ( "
 				+ "    SELECT DISTINCT o.*, c.FirstName AS FirstNameCustomer, c.LastName AS LastNameCustomer, c.Phone AS PhoneCustomer, c.CID AS CIDCustomer, "
-				+ "		 c.Email AS EmailCustomer,  c.DoB AS DoBCustomer, c.Address AS AddressCustomer, "
+				+ "		 c.Email AS EmailCustomer,  c.Avatar AS AvatarCustomer, "
 				+ "        se.FirstName AS FirstNameSeller, se.LastName AS LastNameSeller, se.Phone AS PhoneSeller, se.CID AS CIDSeller, "
-				+ "		 se.Email AS EmailSeller, "
+				+ "		 se.Email AS EmailSeller, se.Avatar as AvatarSeller, "
 				+ "        sh.FirstName AS FirstNameShipper, sh.LastName AS LastNameShipper, sh.Phone AS PhoneShipper, sh.CID AS CIDShipper, "
-				+ "		 sh.Email AS EmailShipper " + "    FROM AZShop.`ORDER` o " + "    LEFT JOIN ( "
-				+ "        SELECT DISTINCT USER.UserID, USER.FirstName, USER.LastName , USER.Phone, USER.CID, USER.Email, USER.DoB, USER.Address "
-				+ "        FROM AZShop.`ORDER` " + "        INNER JOIN USER ON `ORDER`.CustomerID = USER.UserID "
-				+ "    ) AS c ON o.CustomerID = c.UserID " + "    LEFT JOIN ( "
-				+ "        SELECT DISTINCT USER.UserID, USER.FirstName, USER.LastName, USER.Phone, USER.CID, USER.Email "
-				+ "        FROM AZShop.`ORDER` " + "        INNER JOIN USER ON `ORDER`.SellerID = USER.UserID "
-				+ "    ) AS se ON o.SellerID = se.UserID " + "    LEFT JOIN ( "
-				+ "        SELECT DISTINCT USER.UserID, USER.FirstName, USER.LastName, USER.Phone, USER.CID, USER.Email "
-				+ "        FROM AZShop.`ORDER` " + "        INNER JOIN USER ON `ORDER`.ShipperID = USER.UserID "
-				+ "    ) AS sh ON o.ShipperID = sh.UserID " + ") AS k ON p.OrderID = k.OrderID;";
+				+ "		 sh.Email AS EmailShipper, sh.Avatar AS AvatarShipper "
+				+ "    FROM AZShop.`ORDER` o "
+				+ "    LEFT JOIN ( "
+				+ "        SELECT DISTINCT USER.UserID, USER.FirstName, USER.LastName , USER.Phone, USER.CID, USER.Email, USER.Avatar "
+				+ "        FROM AZShop.`ORDER` "
+				+ "        INNER JOIN USER ON `ORDER`.CustomerID = USER.UserID "
+				+ "    ) AS c ON o.CustomerID = c.UserID "
+				+ "    LEFT JOIN ( "
+				+ "        SELECT DISTINCT USER.UserID, USER.FirstName, USER.LastName, USER.Phone, USER.CID, USER.Email, USER.Avatar "
+				+ "        FROM AZShop.`ORDER` "
+				+ "        INNER JOIN USER ON `ORDER`.SellerID = USER.UserID "
+				+ "    ) AS se ON o.SellerID = se.UserID "
+				+ "    LEFT JOIN ( "
+				+ "        SELECT DISTINCT USER.UserID, USER.FirstName, USER.LastName, USER.Phone, USER.CID, USER.Email, USER.Avatar "
+				+ "        FROM AZShop.`ORDER` "
+				+ "        INNER JOIN USER ON `ORDER`.ShipperID = USER.UserID "
+				+ "    ) AS sh ON o.ShipperID = sh.UserID "
+				+ ") AS k ON p.OrderID = k.OrderID;";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -91,26 +106,26 @@ public class OrderDAOImpl implements IOrderDAO {
 				order.setCustomerID(rs.getInt("CustomerID"));
 				order.setSellerID(rs.getInt("SellerID"));
 				order.setShipperID(rs.getInt("ShipperID"));
-
-				customer.setLastName(rs.getString("LastNameCustomer"));
+customer.setLastName(rs.getString("LastNameCustomer"));
 				customer.setFirstName(rs.getString("FirstNameCustomer"));
 				customer.setCid(rs.getString("CIDCustomer"));
 				customer.setPhone(rs.getString("PhoneCustomer"));
 				customer.setEmail(rs.getString("EmailCustomer"));
-				customer.setAddress(rs.getString("AddressCustomer"));
-				customer.setDob(rs.getDate("DoBCustomer"));
+				customer.setAvatar(rs.getString("AvatarCustomer"));
 
 				seller.setLastName(rs.getString("LastNameSeller"));
 				seller.setFirstName(rs.getString("FirstNameSeller"));
 				seller.setCid(rs.getString("CIDSeller"));
 				seller.setPhone(rs.getString("PhoneSeller"));
 				seller.setEmail(rs.getString("EmailSeller"));
+				seller.setAvatar(rs.getString("AvatarSeller"));
 
 				shipper.setLastName(rs.getString("LastNameShipper"));
 				shipper.setFirstName(rs.getString("FirstNameShipper"));
 				shipper.setCid(rs.getString("CIDShipper"));
 				shipper.setPhone(rs.getString("PhoneShipper"));
 				shipper.setEmail(rs.getString("EmailShipper"));
+				shipper.setAvatar(rs.getString("AvatarShipper"));
 
 				pay.setOrderID(rs.getInt("OrderID"));
 				pay.setMethod(rs.getInt("Method"));
@@ -202,7 +217,7 @@ public class OrderDAOImpl implements IOrderDAO {
 			new DBConnection();
 			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			
+
 			ps.setInt(1, confirm);
 			ps.setInt(2, orderID);
 			ps.executeUpdate();
@@ -238,7 +253,7 @@ public class OrderDAOImpl implements IOrderDAO {
 				order.setShipperID(rs.getInt("ShipperID"));
 				order.getCustomer().setFirstName(rs.getString("FirstName"));
 				order.getCustomer().setLastName(rs.getString("LastName"));
-				// order.getCustomer().setPhone(rs.getString("Phone"));
+				order.getCustomer().setPhone(rs.getString("Phone"));
 				order.getPayment().setMethod(rs.getInt("Method"));
 				order.getPayment().setStatus(rs.getInt("PayStatus"));
 			}
@@ -410,7 +425,6 @@ public class OrderDAOImpl implements IOrderDAO {
 		String sql = "INSERT INTO AZShop.ORDER " + "(OrderDate, Address, City, Status, TransportFee, "
 				+ "Discount, TotalMoney, Note, DeliveryTime, CustomerConfirmation, CustomerID) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
-		System.out.println(sql);
 
 		try {
 			new DBConnection();
@@ -424,7 +438,7 @@ public class OrderDAOImpl implements IOrderDAO {
 			ps.setInt(6, order.getDiscount());
 			ps.setInt(7, order.getTotalMoney());
 			ps.setString(8, order.getNote());
-			ps.setDate(9, (Date) order.getDeliveryTime());
+			ps.setDate(9, (java.sql.Date) order.getDeliveryTime());
 			ps.setInt(10, order.getCustomerConfirmation());
 			ps.setInt(11, order.getCustomerID());
 			ps.executeUpdate();
@@ -462,5 +476,193 @@ public class OrderDAOImpl implements IOrderDAO {
 			e.printStackTrace();
 		}
 		return order;
+	}
+
+	@Override
+	public List<OrderModel> findNeedShipByArea(String area) {
+		String condition = " WHERE o.Status = 3 AND ShipperID IS NULL AND ?;";
+		return findDeliveryByCondition(condition, 1);
+	}
+
+	@Override
+	public List<OrderModel> findShipingByShipperID(int ShipperID) {
+		String condition = "	WHERE o.Status = 3 AND ShipperID = ?";
+		return findDeliveryByCondition(condition, ShipperID);
+	}
+
+	@Override
+	public List<OrderModel> findHisDeliveryByShipperID(int ShipperID) {
+		String condition = "	WHERE (o.Status = 4 OR o.Status = 5) AND ShipperID = ? "
+				+ "ORDER BY o.DeliveryTime DESC";
+		return findDeliveryByCondition(condition, ShipperID);
+	}
+
+	@Override
+	public OrderModel findShipByID(int OrderID) {
+		String condition = "	WHERE o.OrderID = " + OrderID + " AND ?";
+		return findDeliveryByCondition(condition, 1).get(0);
+	}
+
+	private final String sqltemp = "SELECT o.*, FirstName, LastName, Phone, \r\n"
+			+ "	   p.Method, p.Status as PayStatus\r\n" + "	   FROM AZShop.ORDER as o\r\n"
+			+ "    LEFT JOIN AZShop.PAYMENT as p ON o.OrderID = p.OrderID\r\n"
+			+ "    INNER JOIN USER as c ON  o.CustomerID = c.UserID\r\n";
+
+	private List<OrderModel> findDeliveryByCondition(String condition, int ShipperID) {
+		List<OrderModel> listOrder = new ArrayList<OrderModel>();
+		String sql = sqltemp + condition;
+		try {
+			new DBConnection();
+			Connection conn;
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, ShipperID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				OrderModel order = new OrderModel();
+				order.setOrderID(rs.getInt("OrderID"));
+				order.setOrderDate(rs.getDate("OrderDate"));
+				order.setAddress(rs.getString("Address"));
+				order.setStatus(rs.getInt("Status"));
+				order.setTransportFee(rs.getInt("TransportFee"));
+				order.setTotalMoney(rs.getInt("TotalMoney"));
+				order.setNote(rs.getString("Note"));
+				order.setDeliveryTime(rs.getDate("DeliveryTime"));
+				order.setCustomerConfirmation(rs.getInt("CustomerConfirmation"));
+				// order.setDiscount(rs.getInt("Discount"));
+				order.setCustomerID(rs.getInt("CustomerID"));
+				order.setSellerID(rs.getInt("SellerID"));
+				order.setShipperID(rs.getInt("ShipperID"));
+				order.getCustomer().setFirstName(rs.getString("FirstName"));
+				order.getCustomer().setLastName(rs.getString("LastName"));
+				order.getCustomer().setPhone(rs.getString("Phone"));
+				order.getPayment().setMethod(rs.getInt("Method"));
+				order.getPayment().setStatus(rs.getInt("PayStatus"));
+				listOrder.add(order);
+			}
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+		return listOrder;
+	}
+
+	public Object[] findKPIByShipper(int ShipperID) {
+		String sql = "SELECT o.DeliveryTime, s.KPI,\r\n"
+				+ "Count(*) as Oall, SUM(o.Status = 4) as Complete, SUM(o.Status = 5) as Cancel, SUM(o.Status  < 4) as Doing\r\n"
+				+ "	FROM AZShop.ORDER as o\r\n"
+				+ "		JOIN (SELECT * FROM AZShop.USER as u WHERE u.userID = ? ) as s\r\n"
+				+ "        ON s.UserID = o.ShipperID\r\n" + " WHERE MONTH(o.DeliveryTime) = MONTH(current_date()) \r\n"
+				+ "		AND YEAR(o.DeliveryTime) = YEAR(current_date()) " + "	GROUP BY o.DeliveryTime "
+				+ " ORDER BY o.DeliveryTime ASC";
+		
+		Date curday = new Date();
+		
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+        	curday = dateFormat.parse(dateFormat.format(curday));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		List<Integer> listdate = getDatesInNowMonth(new Date());
+		List<Integer> listkpi = new ArrayList<>(Collections.nCopies(listdate.size(), 0));
+		List<Integer> listall = new ArrayList<>(Collections.nCopies(listdate.size(), 0));
+		List<Integer> listcomplete = new ArrayList<>(Collections.nCopies(listdate.size(), 0));
+		List<Integer> listcancel = new ArrayList<>(Collections.nCopies(listdate.size(), 0));
+		List<Integer> listdoing = new ArrayList<>(Collections.nCopies(listdate.size(), 0));
+		int kpi = 0;
+				
+		
+
+		// list
+		try {
+			new DBConnection();
+			Connection conn;
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, ShipperID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int day = rs.getDate("DeliveryTime").getDate() - 1;
+				kpi = rs.getInt("KPI");
+				listall.set(day, rs.getInt("Oall"));
+				listcomplete.set(day, rs.getInt("Complete"));
+				listcancel.set(day, rs.getInt("Cancel"));
+				listdoing.set(day, rs.getInt("Doing"));
+				//listdate.set(day, rs.getDate("DeliveryTime"));
+				
+			}
+			
+		listkpi = new ArrayList<>(Collections.nCopies(listdate.size(), kpi));
+		
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Object[] list = { listdate, listkpi, listall, listcomplete, listcancel, listdoing };
+		return list;
+	}
+
+	public List<Date> getDayInNowWeek() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+
+		calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+		List<Date> daysOfWeek = new ArrayList<>();
+
+		// Thêm các ngày trong tuần vào danh sách
+		for (int i = 0; i < 7; i++) {
+			daysOfWeek.add(calendar.getTime());
+			calendar.add(Calendar.DAY_OF_WEEK, 1);
+		}
+		return daysOfWeek;
+	}
+
+	@SuppressWarnings("deprecation")
+	public static List<Integer> getDatesInNowMonth(Date date) {
+
+		List<Integer> datesInMonth = new ArrayList<>();
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(date.getYear(), date.getMonth(), 1); // Tháng trong Java bắt đầu từ 0
+		while (calendar.get(Calendar.MONTH) == (date.getMonth())) {	
+			datesInMonth.add(calendar.getTime().getDate());
+			calendar.add(Calendar.DAY_OF_MONTH, 1);
+		}
+
+		return datesInMonth;
+	}
+
+	public List<Object[]> findCateForShipper(int ShipperID) {
+		String sql = "SELECT c.CategoryName, Sum(d.Quantity) as Num\r\n" + "	FROM AZShop.DETAIL as d\r\n"
+				+ "	JOIN AZShop.ORDER as o ON d.OrderID = o.OrderID\r\n"
+				+ "    JOIN AZShop.ITEM as i ON d.ItemID = i.ItemID\r\n"
+				+ "    JOIN AZShop.PRODUCT p ON i.ProductID = p.ProductID\r\n"
+				+ "    JOIN AZShop.CATEGORY as c ON p.CategoryID = c.CategoryID\r\n" + "    WHERE o.ShipperID = ? \r\n"
+				+ "    GROUP BY c.CategoryName";
+		List<Object[]> list = new ArrayList<Object[]>();
+		Object[] row = { "'Loai hang'", "'SL'" };
+		list.add(row);
+
+		try {
+			new DBConnection();
+			Connection conn;
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, ShipperID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String str = "'" + rs.getString("CategoryName") + "'";
+				int num = rs.getInt("Num");
+				Object[] row1 = { str, num };
+				list.add(row1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

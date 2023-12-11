@@ -68,13 +68,15 @@ a {
 
 .product-info {
 	flex-grow: 2;
+	width: 70%;
 }
 
 .price-info {
 	flex-grow: 10;
-	justify-content: flex-start;
+	justify-content: flex-end;
 	text-align: center;
 	align-items: center;
+	width: 40%;
 }
 
 .order-details-container {
@@ -146,19 +148,7 @@ a {
 .card-stepper {
 	z-index: 0
 }
-.status-update {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-
-    .status-update > div {
-        margin-right: 5px;
-    }
 </style>
-<div style="text-align: center; margin-top: 75px;">
-	<h2>Chi tiết đơn hàng</h2>
-</div>
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
 	<div class="container">
 		<div class="row">
@@ -179,9 +169,7 @@ a {
 								<p class="mb-0 mt-1">
 									Ngày đặt: <span class="fw-medium"> ${order.orderDate}</span>
 								</p>
-								<p class="mb-0 mt-1">
-									SĐT: <span class="fw-medium"> ${order.customer.phone}</span>
-								</p>
+
 								<p class="mb-0 mt-1">
 									<span
 										class="fw-medium ${i.status == 0 ? 'text-orange' : ''} 
@@ -200,12 +188,10 @@ a {
 								</p>
 							</div>
 							<div class="col-md-6 font-size-18">
-								<div class="mb-0 mt-1 d-flex justify-content-end">
-									Khách hàng: ${order.customer.lastName} ${order.customer.firstName}
-								</div>
-								<div class="mb-0 mt-1 d-flex justify-content-end">
-									Địa chỉ: ${order.address}
-								</div>
+								<div class="mb-0 mt-1 d-flex justify-content-end">Khách
+									hàng: ${order.customer.lastName} ${order.customer.firstName}</div>
+								<div class="mb-0 mt-1 d-flex justify-content-end">Địa chỉ:
+									${order.address}</div>
 							</div>
 
 							<div class="d-none">
@@ -214,11 +200,12 @@ a {
 								<input type="hidden" name="shipperID" value="${order.shipperID}">
 							</div>
 							<div class="col-md-12 order-details-container">
+								<hr>
 								<c:forEach var="j" items="${order.details}">
 									<c:if test="${j != null}">
-										<div class="product-item">
-											<div class="product-image w-50 h-50">
-												<img src="${j.item.image}" alt="" width="150" height="150">
+										<div class="product-item d-flex align-items-center">
+											<div class="product-image w-25 h-50">
+												<img src="${j.item.image}" alt="" width="120" height="120">
 											</div>
 											<div class="product-info">
 												<h5 class="text-truncate font-size-20">
@@ -230,34 +217,50 @@ a {
 												<p class="mb-0 mt-1">
 													Size: <span class="fw-medium"> ${j.item.size}</span>
 												</p>
-												<p class="mb-0 mt-1">
-													<span class="fw-medium"> x${j.quantity}</span>
-												</p>
 											</div>
-											<div class="price-info font-size-20" style="color: orange">
-												<span class="text-muted me-2"> <del
-														class="font-size-16 fw-normal">
-														<fmt:formatNumber type="currency"
-															value="${j.item.originalPrice}" currencyCode="VND"
-															pattern="#,##0 VND" var="formattedPrice" />
-														${formattedPrice}
-													</del>
-												</span>
-												<fmt:formatNumber type="currency"
-													value="${j.item.promotionPrice }" currencyCode="VND"
-													pattern="#,##0 VND" var="formattedPrice" />
-												${formattedPrice}
+											<div class="price-info">
+												<div class="font-size-15 d-flex justify-content-end mb-2">
+													<span class="text-muted me-2"> <fmt:formatNumber
+															type="currency" value="${j.item.promotionPrice}"
+															currencyCode="VND" pattern="#,##0đ" var="formattedPrice" />
+														${formattedPrice} x ${j.quantity}
+													</span>
+												</div>
+												<div class="font-size-18 d-flex justify-content-end"
+													style="color: orange">
+													<fmt:formatNumber type="currency"
+														value="${j.item.promotionPrice * j.quantity}"
+														currencyCode="VND" pattern="#,##0đ" var="formattedPrice" />
+													${formattedPrice}
+												</div>
 											</div>
 										</div>
 									</c:if>
 								</c:forEach>
+								<hr>
 								<div class="col-md-12"></div>
-									<div class="mb-0 mt-1 d-flex font-size-18">
-									Ghi chú đơn hàng: <c:if test="${order.note==null}">Không có</c:if>${order.note}
+								<div class="mb-0 mt-1 d-flex font-size-18">Ghi chú đơn hàng: 
+									<c:if test="${order.note==null}">Không có</c:if>${order.note}
 								</div>
-								<div class="col-md-12 mb-3">
+								<div class="col-md-12">
 									<div class="row">
-										<div class="col-md-3">
+										<div class="col-md-3 d-flex flex-column-reverse">
+											<a
+												href="${pageContext.request.contextPath}/shipper-list-${
+													(order.status == 4 || order.status == 5)?'history-ship':
+													(order.status == 3 && order.shipperID == null)?'need-ship':
+													'shipping'}"><button
+													class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+													Trở về</button></a>
+											<c:if test="${order.status == 3}">
+												<form class="pb-0" action="shipper-${order.shipperID == null?'accept':'complete'}" method="post">
+													<input type="hidden" name="orderID" value="${order.orderID}">
+													<button type="submit"
+														class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+														${order.shipperID == null?'Nhận đơn':'Đã giao'}</button>
+												</form>
+											</c:if>
+
 										</div>
 										<div class="col-md-4 text-end ">
 											<p class="text-muted mb-2">Tổng tiền</p>
@@ -269,79 +272,57 @@ a {
 											<p class="text-muted">Trạng thái đơn hàng</p>
 										</div>
 										<div class="col-md-5 text-end ">
-											<h5 class="font-size-19 mb-2">
+											<h5 class="font-size-20 mb-2">
 												<fmt:formatNumber type="currency"
 													value="${order.totalMoney}" currencyCode="VND"
 													pattern="#,##0 VND" var="formattedPrice" />
 												${formattedPrice}
 											</h5>
-											<h5 class="font-size-19 mb-2">
+											<h5 class="font-size-20 mb-2">
 												<fmt:formatNumber type="currency"
 													value="${order.transportFee}" currencyCode="VND"
 													pattern="#,##0 VND" var="formattedPrice" />
 												${formattedPrice}
 											</h5>
-											<h5 class="font-size-19 mb-2">
+											<h5 class="font-size-20 mb-2">
 												<fmt:formatNumber type="currency" value="${order.discount}"
 													currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
 												${formattedPrice}
 											</h5>
-											<h5 class="font-size-19 mb-2" style="color: orange">
+											<h5 class="font-size-20 mb-2" style="color: orange">
 												<fmt:formatNumber type="currency"
 													value="${order.totalMoney}" currencyCode="VND"
 													pattern="#,##0 VND" var="formattedPrice" />
 												${formattedPrice}
 											</h5>
-											<h5 class="font-size-19 mb-2">
-												${order.payment.method==0?'Thanh toán tiền mặt':'Chuyển khoản ngân hàng'}							
+											<h5 class="font-size-20 mb-2">
+												${order.payment.method==0?'Thanh toán tiền mặt':'Chuyển khoản ngân hàng'}
 											</h5>
-											<h5 class="font-size-19 mb-2" style="color: 
+											<h5 class="font-size-20 mb-2"
+												style="color: 
 												${order.payment.status== 0 ? 'text-orange' : ''} 
 													           ${order.payment.status == 1 ? 'green' : ''}">
-												${order.payment.status==1?'Đã thanh toán':'Chưa thanh toán'}							
+												${order.payment.status==1?'Đã thanh toán':'Chưa thanh toán'}
 											</h5>
-											<h5 class="font-size-19 mb-2" style="color:
-												${order.status == 0 ? 'orange' : ''} 
+											<h5 class="font-size-20 mb-2"
+												style="color:
+												${order.status == 0 ? 'text-orange' : ''} 
 													           ${order.status == 1 ? 'green' : ''} 
 													           ${order.status == 2 ? 'blue' : ''} 
 													           ${order.status == 3 ? 'purple' : ''} 
-													           ${order.status == 4 ? 'green' : ''} 
-													           ${order.status == 5 ? 'red' : ''}">
-										${order.status == 0 ? 'Đơn hàng chờ xác nhận' :
+													           ${order.status == 4 ? 'success' : ''} 
+													           ${order.status == 5 ? 'danger' : ''}">
+												${order.status == 0 ? 'Đơn hàng chờ xác nhận' :
                                                order.status == 1 ? 'Đã xác nhận' :
                                                order.status == 2 ? 'Đang được chuẩn bị' :
                                                order.status == 3 ? 'Đang được giao' :
                                                order.status == 4 ? 'Giao thành công' :
-                                               order.status == 5 ? 'Đã bị hủy' : ''}							
+                                               order.status == 5 ? 'Đã bị hủy' : ''}
 											</h5>
 										</div>
 									</div>
 								</div>
-								<div class="ms-auto" style="margin: 0 auto">
-									<form action="sellerUpdateOrder" method="post">
-										<input type="hidden" name="orderID" value="${order.orderID}">
-										 <div class="status-update">
-										 <c:if test="${order.status==0 || order.status==1 }">
-	            							<div>Cập nhật trạng thái:</div>
-											<c:choose>
-												<c:when test="${order.status == 0 }">
-													<input type="hidden" name="status" value="${order.status}">
-													<button type="submit"
-														class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5" style="background-color: green; color:white">
-														Xác nhận đơn hàng</button>
-												</c:when>
-												<c:when
-													test="${order.status == 1}">
-													<input type="hidden" name="status" value="${order.status}">
-													<button type="submit"
-														class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5" style="background-color: green; color:white">
-														Chuẩn bị thành công</button>
-												</c:when>
-											</c:choose>
-										</c:if>
-										</div>
-									</form>
-								</div>
+
 							</div>
 						</div>
 					</div>

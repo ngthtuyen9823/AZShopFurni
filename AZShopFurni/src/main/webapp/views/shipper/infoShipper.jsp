@@ -3,7 +3,7 @@
 <%@ include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <style>
-.seller-profile {
+.shipper-profile {
 	padding: 20px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
@@ -15,26 +15,25 @@
 	justify-content: end;
 }
 
-.seller-info p {
+.shipper-info p {
 	margin-bottom: 25;
 }
 
-.seller-info {
+.shipper-info {
 	width: 65%;
 }
 
-.seller-avt {
+.shipper-avt {
 	width: 30%;
 	flex-direction: column;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 0;
 }
 
-button, .seller-btn {
+button, .shipper-btn {
 	padding: 10px 20px;
-	width: 120px;
+	width: 150px;
 	background-color: #fff;
 	color: #000;
 	border: black solid 0.5px;
@@ -44,20 +43,19 @@ button, .seller-btn {
 	
 }
 
-button:hover, .seller-btn:hover {
+button:hover, .shipper-btn:hover {
 	background-color: #d9d9d9;
 	border: #d9d9d9 solid 0.5px;
 }
 
-.seller-avt label{
+.shipper-avt label{
  	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin-top: 30px;
 }
 
-.seller-profile img {
+.shipper-profile img {
 	width: 100%;
 	aspect-ratio: 1/1;
 	object-fit: cover;
@@ -66,21 +64,20 @@ button:hover, .seller-btn:hover {
 	background-size: cover;
 	background-position: center;
 }
-.update-pass{
-	margin-left: 30px;
-	width: 200px !important;
-}
 
 .hind {
 	visibility: hidden;
 	position: absolute;
 }
-a{
-	text-decoration: none;
+
+.shipper-info a{
+    text-decoration: none;	
+    margin-right: 10px;	
 }
+
 </style>
-<div class="seller-profile">
-	<div class="seller-info">
+<div class="shipper-profile">
+	<div class="shipper-info">
 		<p>
 			<strong>Họ tên:</strong> ${user.lastName} ${user.firstName}
 		</p>
@@ -103,18 +100,21 @@ a{
 			<strong>Ngày sinh:</strong>
 			<fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy" />
 		</p>
+		<p>
+			<strong>Phân công:</strong> ${user.area}
+		</p>
 		<div id="paragraphContainer"></div>
-		<a href="sellerUpdateInfor">
+		<a href="shipper-update-info">
 			<button class="update">Cập nhật</button>
 		</a>
-		<a href="sellerUpdatePass">
+		<a href="shipper-update-pass">
 			<button class="update-pass">Đổi mật khẩu</button>
 		</a>
 	</div>
-	<div class="seller-avt">
+	<div class="shipper-avt">
 		<img src="${user.avatar}" id="myImage" alt="User Image">
 		<input class="hind" type="file" id="imageInput" accept="image/*"> 
-		<label class="seller-btn seller-button-img" for="imageInput">Sửa ảnh</label>
+		<label class="shipper-btn shipper-button-img mt-4" for="imageInput">Sửa ảnh</label>
 	</div>
 </div>
 <script>
@@ -128,17 +128,17 @@ a{
 
 				$.ajax({
 					type : 'POST',
-					url : 'sellerUpdateAvatar',
+					url : 'shipper-update-avatar',
 					data : formData,
 					processData : false,
 					contentType : false,
 					success : function(response) {
 						console.log('POST thành công!', response);
+						window.location.href = 'shipper-info';
 					},
 					error : function(error) {
 						console.error('Lỗi POST:', error);
 					}
 				});
-				//window.location.href = 'seller-info'
 			});
 </script>
