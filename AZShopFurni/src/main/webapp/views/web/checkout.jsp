@@ -171,9 +171,9 @@ body {
 									</div>
 									<div class="feed-item-list">
 										<div>
-											<h5 class="font-size-16 mb-1">Thông tin thanh toán</h5>
-											<p class="text-muted text-truncate mb-4">Thông tin thanh
-												toán của đơn hàng</p>
+											<h5 class="font-size-16 mb-1">Thông tin khách hàng</h5>
+											<p class="text-muted text-truncate mb-4">Thông tin đơn
+												hàng</p>
 											<div class="mb-3">
 												<form>
 													<div>
@@ -242,6 +242,7 @@ body {
 																	<div class="error-message">${cityError}</div>
 																</c:if>
 															</div>
+															
 														</div>
 													</div>
 												</form>
@@ -273,8 +274,8 @@ body {
 																		class="text-muted fw-normal text-wrap mb-1 d-block">Dự
 																		kiến giao hàng vào:
 																		${LocalDate.now().plusDays(5).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))}</span>
-																	<span class="text-muted fw-normal d-block">Phí vận chuyển : 
-																		200 000 đ</span>
+																	<span class="text-muted fw-normal d-block">Phí
+																		vận chuyển : 200 000 đ</span>
 																</div>
 															</label>
 														</div>
@@ -301,8 +302,9 @@ body {
 												<div class="col-sm-6">
 													<div>
 														<label class="card-radio-label"> <input
-															type="radio" name="pay-method" id="pay-methodoption3" onclick="hideElement()"
-															class="card-radio-input" checked value="0"> <span
+															type="radio" name="pay-method" id="pay-methodoption3"
+															onclick="hideElement()" class="card-radio-input" checked
+															value="0"> <span
 															class="card-radio py-3 text-center text-truncate">
 																<i class="bx bx-money d-block h2 mb-3"></i> <span>Thanh
 																	toán khi giao hàng</span>
@@ -327,7 +329,7 @@ body {
 										</div>
 										<div class="container d-flex justify-content-center mt-5 mb-5">
 											<div class="col-md-12" id="myElement" style="display: none;">
-												<span>Payment Method</span>
+												<span>Chuyển khoản</span>
 
 												<div class="card">
 													<div class="accordion" id="accordionExample">
@@ -378,7 +380,6 @@ body {
 																					width="30"> <img
 																					src="https://i.imgur.com/2ISgYja.png" width="30">
 																			</div>
-
 																		</div>
 																	</button>
 																</h2>
@@ -387,30 +388,32 @@ body {
 															<div id="collapseOne" class="collapse show"
 																aria-labelledby="headingOne"
 																data-parent="#accordionExample">
-																<div class="card-body payment-card-body">
-																	<span class="font-weight-normal card-text">Card
-																		Number</span>
+																<div class="card-body payment-card-body" >
+																	<span class="font-weight-normal card-text">Số thẻ</span>
 																	<div class="input">
 																		<i class="fa fa-credit-card"></i> <input type="text"
 																			class="form-control"
-																			placeholder="0000 0000 0000 0000">
+																			placeholder="0000 0000 0000 0000" name="AccountNumber" 
+																			onfocusout="checkBank(event)">
 																	</div>
+																	
 
 																	<div class="row mt-3 mb-3">
 																		<div class="col-md-6">
-																			<span class="font-weight-normal card-text">Expiry
-																				Date</span>
+																			<span  class="font-weight-normal card-text">Ngày cấp thẻ
+																				</span>
 																			<div class="input">
-																				<i class="fa fa-calendar"></i> <input type="text"
+																				<i class="fa fa-calendar"></i> <input type="date" 
 																					class="form-control" placeholder="MM/YY">
+																					
 																			</div>
 																		</div>
 
 																		<div class="col-md-6">
-																			<span class="font-weight-normal card-text">CVC/CVV</span>
+																			<span class="font-weight-normal card-text">Ngày hết hạn</span>
 																			<div class="input">
-																				<i class="fa fa-lock"></i> <input type="text"
-																					class="form-control" placeholder="000">
+																				<i class="fa fa-lock"></i> <input type="date"
+																					class="form-control" placeholder="MM/YY">
 																			</div>
 																		</div>
 																	</div>
@@ -477,8 +480,7 @@ body {
 									<tbody>
 										<c:forEach items="${listCart}" var="cart">
 											<tr>
-												<th scope="row"><img
-													src="${cart.image}"
+												<th scope="row"><img src="${cart.image}"
 													alt="product-img" title="product-img"
 													class="avatar-lg rounded"></th>
 												<td>
@@ -553,6 +555,8 @@ body {
 						</div>
 
 					</div>
+					<input type="hidden" id="idBankName" name ="Bank" >
+					<input type="hidden"" value="${user.firstName} ${user.lastName}" name="CardOwner">
 					<div class="text-end mt-2 mt-sm-0 process-button">
 						<button type="submit" class="btn btn-success">
 							<i class="mdi mdi-cart-outline me-1"></i> Đặt hàng
@@ -572,12 +576,69 @@ body {
 			var element = document.getElementById("myElement");
 			element.style.display = "block";
 		}
-		
+
 		function hideElement() {
 			var element = document.getElementById("myElement");
 			element.style.display = "none";
 		}
 	</script>
+	<!--  kiểm tra ngân hàng-->
+	<script>
+		function checkBank(event) {
+			var cardNumber = event.target.value;
+			var result = checkBankByNumber(cardNumber);
+
+			
+			// Kiểm tra xem có đủ 16 số hay không
+			if (!isValidCardNumber(cardNumber)) {
+				alert('Số thẻ không hợp lệ. Vui lòng nhập đủ 16 số.');
+				// Nếu số thẻ không hợp lệ, xóa nội dung của ô nhập
+				event.target.value = '';
+				return;
+			}
+
+			if (result) {
+				alert('Ngân hàng: ' + result);
+				document.getElementById('idBankName').setAttribute('value', result);			
+				document.getElementById('idBankName').value = result; 
+				//return result;
+			} else {
+				alert('Không xác định ngân hàng.');
+				event.target.value = '';
+				//return null;
+			}
+		}
+
+		function isValidCardNumber(cardNumber) {
+			// Kiểm tra xem có đủ 16 số hay không
+			return /^\d{16}$/.test(cardNumber);
+		}
+
+		function checkBankByNumber(cardNumber) {
+			var cardNumberStr = cardNumber.toString();
+			var bankRanges = {
+				'4' : 'Visa',
+				'5' : 'MasterCard',
+				'1000' : 'Vietinbank',
+				'0491' : 'Vietcombank',
+				'068' : 'Bản Việt',
+				'20' : 'ACB',
+				'150' : 'Agribank',
+				'9704' : 'MB Bank',
+			// Thêm các dải số khác của các ngân hàng khác
+			};
+
+			for ( var range in bankRanges) {
+				if (cardNumberStr.startsWith(range)) {
+					return bankRanges[range];
+				}
+			}
+
+			return null;
+		}
+	</script>
+  
+ 
 
 </body>
 </html>
