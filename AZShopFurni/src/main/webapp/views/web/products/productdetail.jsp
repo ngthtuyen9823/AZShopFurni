@@ -6,10 +6,12 @@
 	<div class="container pt-5">
 		<nav class="d-flex">
 			<h6 class="mb-0">
-				<a href="" class="link-dark" style="text-decoration: none;">Home</a>
-				<span class="mx-2"> > </span> <a href="" class="link-dark"
-					style="text-decoration: none;">${product.categoryName}</a> <span
-					class="mx-2"> > </span> <a href="#" class="link-dark"
+				<a href="<c:url value='/home'/>" class="link-dark"
+					style="text-decoration: none;">Home</a> <span class="mx-2">
+					> </span> <a
+					href="<c:url value='/products?cateId=${product.categoryID}'/>"
+					class="link-dark" style="text-decoration: none;">${product.categoryName}</a>
+				<span class="mx-2"> > </span> <a href="#" class="link-dark"
 					style="text-decoration: none;">${product.productName}</a>
 			</h6>
 		</nav>
@@ -61,15 +63,25 @@
 							${product.description}</span>
 					</div>
 					<div class="mb-3">
-						<span class="h5"> <fmt:formatNumber type="currency"
-								value="${product.displayedPromotionPrice}" currencyCode="VND"
-								pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
-						</span> <span style="text-decoration: line-through; color: #999;">
-							<fmt:formatNumber type="currency"
-								value="${product.displayedOriginalPrice}" currencyCode="VND"
-								pattern="#,##0 VND" var="formattedOriginalPrice" />${formattedOriginalPrice}
-						</span>
+						<c:if test="${product.displayedPromotionPrice ne 0}">
+							<span class="h5"> <fmt:formatNumber type="currency"
+									value="${product.displayedPromotionPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
+							</span>
+							<span style="text-decoration: line-through; color: #999;">
+								<fmt:formatNumber type="currency"
+									value="${product.displayedOriginalPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedOriginalPrice" />${formattedOriginalPrice}
+							</span>
+						</c:if>
+						<c:if test="${product.displayedPromotionPrice eq 0}">
+							<span class="h5"> <fmt:formatNumber type="currency"
+									value="${product.displayedOriginalPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
+							</span>
+						</c:if>
 					</div>
+
 					<div class="row">
 						<dt class="col-3">Chất liệu</dt>
 						<dd class="col-9">${product.material}</dd>
@@ -143,115 +155,170 @@
 		</div>
 	</div>
 </section>
+<c:if test="${not empty ratingList}">
+	<section class="content-item" id="comments" style="box-shadow: none;">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="container">
+						<div
+							style="box-shadow: 0 -1px 0px 1px rgba(0, 0, 0, 0.1); background-color: #fff; padding: 20px; border-radius: 10px;">
+							<h3 style="margin-bottom: 20px; padding: 25px; color: #333;">Đánh
+								giá về sản phẩm</h3>
+							<div id="reviews" class="review-section"
+								style="border-bottom: none; padding-top: 5px; padding-bottom: 15px; display: flex; justify-content: space-between;">
 
-<section class="content-item" id="comments" style="box-shadow: none;">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-9">
-				<div class="container">
-					<div
-						style="box-shadow: 0 -1px 0px 1px rgba(0, 0, 0, 0.1); background-color: #fff; padding: 20px; border-radius: 10px;">
-						<h3 style="margin-bottom: 20px; padding: 25px; color: #333;">Đánh
-							giá về sản phẩm</h3>
-						<div id="reviews" class="review-section"
-							style="border-bottom: none; padding-top: 5px; padding-bottom: 15px; display: flex; justify-content: space-between;">
+								<div class="col-md-6">
+									<table class="stars-counters" style="width: 100%;">
+										<tbody>
+											<c:forEach items="${ratingList}" var="item" varStatus="loop">
+												<tr>
+													<td>
+														<button
+															class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">${item.numOfStar}
+															Stars</button>
+													</td>
+													<td>
+														<div class="text-warning mb-1 me-2"
+															style="font-size: 1.2rem;">
+															<span class="stext-105 cl3"> <i
+																class="fas fa-star"
+																style="${item.numOfStar >= 1 ? 'color: gold;' : ''}"></i>
+																<i class="fas fa-star"
+																style="${item.numOfStar >= 2 ? 'color: gold;' : ''}"></i>
+																<i class="fas fa-star"
+																style="${item.numOfStar >= 3 ? 'color: gold;' : ''}"></i>
+																<i class="fas fa-star"
+																style="${item.numOfStar >= 4 ? 'color: gold;' : ''}"></i>
+																<i class="fas fa-star"
+																style="${item.numOfStar >= 5 ? 'color: gold;' : ''}"></i>
+															</span><span
+																style="font-size: 1.3rem; font-color: black; color: black; padding-left: 1.2rem; font-weight: 420;"
+																class="ms-1 star-num"> (${item.numOfRating}) </span>
+														</div>
 
-							<div class="col-md-6">
-								<table class="stars-counters" style="width: 100%;">
-									<tbody>
-										<c:forEach items="${ratingList}" var="item" varStatus="loop">
-											<tr>
-												<td>
-													<button
-														class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium stars-filter">${item.numOfStar}
-														Stars</button>
-												</td>
-												<td>
-													<div class="text-warning mb-1 me-2"
-														style="font-size: 1.2rem;">
-														<span class="stext-105 cl3"> <i class="fas fa-star"
-															style="${item.numOfStar >= 1 ? 'color: gold;' : ''}"></i>
-															<i class="fas fa-star"
-															style="${item.numOfStar >= 2 ? 'color: gold;' : ''}"></i>
-															<i class="fas fa-star"
-															style="${item.numOfStar >= 3 ? 'color: gold;' : ''}"></i>
-															<i class="fas fa-star"
-															style="${item.numOfStar >= 4 ? 'color: gold;' : ''}"></i>
-															<i class="fas fa-star"
-															style="${item.numOfStar >= 5 ? 'color: gold;' : ''}"></i>
-														</span><span
-															style="font-size: 1.3rem; font-color: black; color: black; padding-left: 1.2rem; font-weight: 420;"
-															class="ms-1 star-num"> (${item.numOfRating}) </span>
-													</div>
-
-												</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<c:forEach items="${detailList}" var="item" varStatus="loop">
-							<div class="media"
-								style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px; background-color: #f9f9f9;">
-								<a class="pull-left" href="#"><img class="media-object"
-									src="${item.avatar}" alt=""
-									style="border-radius: 50%; width: 80px; height: 80px;"></a>
-								<div class="media-body">
-									<h4 class="media-heading" style="color: #333;">${item.name}</h4>
-									<p>${item.content}</p>
-									<ul class="list-unstyled list-inline media-detail pull-left">
-										<li><i class="fa fa-calendar"></i>${item.evaluationDate}</li>
-									</ul>
-									<ul class="list-unstyled list-inline media-detail pull-right">
-										<li class=""><a href="#" style="color: #3498db;">Reply</a></li>
-									</ul>
+													</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
 								</div>
 							</div>
-						</c:forEach>
+							<c:forEach items="${detailList}" var="item" varStatus="loop">
+								<div class="media"
+									style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px; background-color: #f9f9f9;">
+									<a class="pull-left" href="#"><img class="media-object"
+										src="${item.avatar}" alt=""
+										style="border-radius: 50%; width: 80px; height: 80px;"></a>
+									<div class="media-body">
+										<h4 class="media-heading" style="color: #333;">${item.name}</h4>
+										<p>${item.content}</p>
+										<ul class="list-unstyled list-inline media-detail pull-left">
+											<li><i class="fa fa-calendar"></i>${item.evaluationDate}</li>
+										</ul>
+										<ul class="list-unstyled list-inline media-detail pull-right">
+											<li class=""><a href="#" style="color: #3498db;">Reply</a></li>
+										</ul>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-3">
-				<h5 style="font-size: 1.2rem; font-weight: 600; padding: 1.2rem">CÙNG
-					NHÀ CUNG CẤP</h5>
-				<c:forEach items="${supProList}" var="item" varStatus="loop">
-					<div class="product-card"
-						style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; background-color: #fff; transition: transform 0.3s ease-in-out;">
+				<div class="col-lg-3">
+					<h5 style="font-size: 1.2rem; font-weight: 600; padding: 1.2rem">CÙNG
+						NHÀ CUNG CẤP</h5>
+					<c:forEach items="${supProList}" var="item" varStatus="loop">
+						<div class="product-card"
+							style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; background-color: #fff; transition: transform 0.3s ease-in-out;">
 
-						<div class="product-image"
-							style="position: relative; overflow: hidden; height: 200px;">
-							<a href="<c:url value='/products?id=${item.productID}' />"
-								class="product-image"> <img src="${item.displayedImage}"
-								class="product-thumb" alt=""
-								style="width: 100%; height: 100%; object-fit: cover;">
-							</a>
+							<div class="product-image"
+								style="position: relative; overflow: hidden; height: 200px;">
+								<a href="<c:url value='/products?id=${item.productID}' />"
+									class="product-image"> <img src="${item.displayedImage}"
+									class="product-thumb" alt=""
+									style="width: 100%; height: 100%; object-fit: cover;">
+								</a>
+							</div>
+
+							<div class="product-info"
+								style="padding: 0px; padding-left: 1.2rem;">
+								<h2 class="product-brand"
+									style="font-size: 18px; margin-top: 2px; margin-bottom: 0px; color: #333;">${item.productName}</h2>
+								<p style="margin-bottom: 5px;" class="product-short-description">${item.description}</p>
+								<c:if test="${item.displayedPromotionPrice ne 0}">
+									<span class="price"
+										style="font-size: 16px; font-weight: bold; color: #3498db; margin-bottom: 5px;">
+										<fmt:formatNumber type="currency"
+											value="${item.displayedPromotionPrice}" currencyCode="VND"
+											pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
+									</span>
+									<span class="actual-price"
+										style="font-size: 12px; color: #888; text-decoration: line-through;">
+										<fmt:formatNumber type="currency"
+											value="${item.displayedOriginalPrice}" currencyCode="VND"
+											pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
+									</span>
+								</c:if>
+								<c:if test="${item.displayedPromotionPrice eq 0}">
+									<span class="price"
+										style="font-size: 16px; font-weight: bold; color: #3498db; margin-bottom: 5px;">
+										<fmt:formatNumber type="currency"
+											value="${item.displayedOriginalPrice}" currencyCode="VND"
+											pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
+									</span>
+								</c:if>
+							</div>
+
 						</div>
-
-						<div class="product-info" style="padding: 15px;">
-							<h2 class="product-brand"
-								style="font-size: 18px; margin-top: 2px; margin-bottom: 0px; color: #333;">${item.productName}</h2>
-							<p style="margin-bottom: 10px; margin-top: 3px;"
-								class="product-short-description">${item.description}</p>
-							<span class="price"
-								style="font-size: 16px; font-weight: bold; color: #3498db; margin-bottom: 5px;">
-								<fmt:formatNumber type="currency"
-									value="${item.displayedPromotionPrice}" currencyCode="VND"
-									pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
-							</span> <span class="actual-price"
-								style="font-size: 12px; color: #888; text-decoration: line-through;">
-								<fmt:formatNumber type="currency"
-									value="${item.displayedOriginalPrice}" currencyCode="VND"
-									pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
-							</span>
-						</div>
-
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
+</c:if>
+<c:if test="${empty ratingList}">
+	<section class="product" style="padding-bottom: 0;">
+		<h3 class="product-category" style="font-weight:500;">Không có đánh giá về sản phẩm!</h3>
+	</section>
+	<section class="product">
+		<h2 class="product-category">sản phẩm cùng nhà cung cấp</h2>
+		<button class="pre-btn">
+			<img src="images/arrow.png" alt="">
+		</button>
+		<button class="nxt-btn">
+			<img src="images/arrow.png" alt="">
+		</button>
+		<div class="product-container">
+			<c:forEach items="${supProList}" var="item" varStatus="loop">
+				<div class="product-card">
+					<div class="product-image">
+						<a href="<c:url value='/products?id=${item.productID}' />"
+							class="product-image"><img src="${item.displayedImage}"
+							class="product-thumb" alt=""> </a>
+					</div>
+					<div class="product-info">
+						<h2 class="product-brand">${item.productName}</h2>
+						<p class="product-short-description">${item.description}</p>
+						<c:if test="${item.displayedPromotionPrice ne 0}">
+							<span class="price"><fmt:formatNumber type="currency"
+									value="${item.displayedPromotionPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span>
+							<span class="actual-price"><fmt:formatNumber
+									type="currency" value="${item.displayedOriginalPrice}"
+									currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span>
+						</c:if>
+						<c:if test="${item.displayedPromotionPrice eq 0}">
+							<span class="price"><fmt:formatNumber type="currency"
+									value="${item.displayedOriginalPrice}" currencyCode="VND"
+									pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span>
+						</c:if>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</section>
+</c:if>
 <section class="product">
 	<h2 class="product-category">sản phẩm cùng loại</h2>
 	<button class="pre-btn">
@@ -271,12 +338,19 @@
 				<div class="product-info">
 					<h2 class="product-brand">${item.productName}</h2>
 					<p class="product-short-description">${item.description}</p>
-					<span class="price"><fmt:formatNumber type="currency"
-							value="${item.displayedPromotionPrice}" currencyCode="VND"
-							pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span><span
-						class="actual-price"><fmt:formatNumber type="currency"
-							value="${item.displayedOriginalPrice}" currencyCode="VND"
-							pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span>
+					<c:if test="${item.displayedPromotionPrice ne 0}">
+						<span class="price"><fmt:formatNumber type="currency"
+								value="${item.displayedPromotionPrice}" currencyCode="VND"
+								pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span>
+						<span class="actual-price"><fmt:formatNumber
+								type="currency" value="${item.displayedOriginalPrice}"
+								currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span>
+					</c:if>
+					<c:if test="${item.displayedPromotionPrice eq 0}">
+						<span class="price"><fmt:formatNumber type="currency"
+								value="${item.displayedOriginalPrice}" currencyCode="VND"
+								pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</span>
+					</c:if>
 				</div>
 			</div>
 		</c:forEach>
