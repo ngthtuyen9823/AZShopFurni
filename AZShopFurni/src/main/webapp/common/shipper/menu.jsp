@@ -53,7 +53,7 @@
 				</div> Lịch sử
 			</a>
 			<div class="sb-sidenav-menu-heading">Thông tin</div>
-			<a class="nav-link" href="index.html">
+			<a class="nav-link" href="${pageContext.request.contextPath}/shipper-satistical">
 				<div class="sb-nav-link-icon">
 					<i class="fas fa-bar-chart"></i>
 				</div> Thống kê

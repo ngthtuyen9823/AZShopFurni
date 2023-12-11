@@ -1,8 +1,6 @@
 package com.azshop.controller.shipper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.azshop.models.OrderModel;
+import com.azshop.dao.impl.OrderDAOImpl;
 import com.azshop.models.UserModel;
 import com.azshop.service.IOrderService;
 import com.azshop.service.IShipperService;
@@ -32,15 +30,22 @@ public class StatisticalController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 
-		UserModel shipper = shipperDAO.findOne(120001);
-		HttpSession session1 = req.getSession(true);
-		session1.setAttribute("user", shipper);
-
 		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("user") != null) {
 			UserModel user = (UserModel) session.getAttribute("user");
-			RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/satistical.jsp");
-			rd.forward(req, resp);
+			if (user.getType() == 2) {
+				Object[] list1 = new OrderDAOImpl().findKPIByShipper(user.getUserID());
+				// Object[] list2 = new OrderDAOImpl().findCateForShipper(user.getUserID());
+				List<Object[]> list3 = new OrderDAOImpl().findCateForShipper(user.getUserID());
+
+				req.setAttribute("list1", list1);
+				// req.setAttribute("list2", list2);
+				req.setAttribute("list3", list3);
+				RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/statistical.jsp");
+				rd.forward(req, resp);
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/login");
+			}
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/login");
 		}

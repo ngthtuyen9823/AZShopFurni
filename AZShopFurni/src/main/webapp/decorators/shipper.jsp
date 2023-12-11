@@ -59,9 +59,6 @@
 		</div>
 		<div id="layoutSidenav_content">
 			<decorator:body></decorator:body>
-			<!-- footer -->
-			<%@ include file="/common/shipper/footer.jsp"%>
-			<!-- footer -->
 		</div>
 	</div>
 </body>

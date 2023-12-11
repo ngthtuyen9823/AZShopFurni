@@ -16,13 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.azshop.dao.impl.CustomerDAOImpl;
+
 import com.azshop.dao.impl.ShipperDAOImpl;
 import com.azshop.models.AccountModel;
 import com.azshop.models.UserModel;
-import com.azshop.service.IShipperService;
 import com.azshop.service.IUserService;
-import com.azshop.service.impl.ShipperServiceImpl;
 import com.azshop.service.impl.UserServiceImpl;
 
 import Orther.UploadImage;
@@ -35,21 +33,21 @@ public class PersonalInfoController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserModel shipper = userService.getInfoUser(120001);
-		HttpSession session1 = req.getSession(true);
-		session1.setAttribute("user", shipper);
-		
-		updatesesstion(req,resp);
-		
 		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("user") != null) {
-			String url = req.getRequestURI().toString();
-			if (url.contains("shipper-info")) {
-				showInfoPage(req, resp);
-			} else if (url.contains("shipper-update-info")) {
-				showUpdateInfoPage(req, resp);
-			} else if (url.contains("shipper-update-avatar")) {
-				updateInfAccount(req, resp);
+			UserModel user = (UserModel) session.getAttribute("user");
+			if (user.getType() == 2) {
+				updatesesstion(req, resp);
+				String url = req.getRequestURI().toString();
+				if (url.contains("shipper-info")) {
+					showInfoPage(req, resp);
+				} else if (url.contains("shipper-update-info")) {
+					showUpdateInfoPage(req, resp);
+				} else if (url.contains("shipper-update-avatar")) {
+					updateInfAccount(req, resp);
+				}
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/login");
 			}
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/login");
@@ -79,7 +77,8 @@ public class PersonalInfoController extends HttpServlet {
 		rd.forward(req, resp);
 	}
 
-	private void showUpdateInfoPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void showUpdateInfoPage(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		UserModel user = (UserModel) session.getAttribute("user");
 		UserModel shipper = userService.getInfoUser(user.getUserID());
@@ -118,12 +117,11 @@ public class PersonalInfoController extends HttpServlet {
 		}
 
 		String cid = req.getParameter("cid");
-		//int type = Integer.parseInt(req.getParameter("type"));
+		// int type = Integer.parseInt(req.getParameter("type"));
 		String email = req.getParameter("email");
-		//int kpi = Integer.parseInt(req.getParameter("KPI"));
+		// int kpi = Integer.parseInt(req.getParameter("KPI"));
 		String area = req.getParameter("area");
-		//String avatar = req.getParameter("avatar");
-		
+		// String avatar = req.getParameter("avatar");
 
 		UserModel user = userService.getInfoUser(userID);
 		user.setUserID(userID);
@@ -134,13 +132,13 @@ public class PersonalInfoController extends HttpServlet {
 		user.setPhone(phone);
 		user.setDob(dob);
 		user.setCid(cid);
-		//user.setType(type);
-		//user.setAvatar(avatar);
-		//user.setKpi(kpi);
+		// user.setType(type);
+		// user.setAvatar(avatar);
+		// user.setKpi(kpi);
 		user.setArea(area);
 		user.setEmail(email);
 		System.out.println(user.getArea());
-		
+
 		new ShipperDAOImpl().updateShipper(user);
 	}
 
@@ -174,18 +172,18 @@ public class PersonalInfoController extends HttpServlet {
 		String avatar = "https://storage.googleapis.com/web-budget/Image/Avatar/" + user.getUserID() + rdCode + ".jpg";
 
 		userService.updateAvatar(user.getUserID(), avatar);
-		
-		//resp.sendRedirect("shipper-info");
-		
+
+		// resp.sendRedirect("shipper-info");
+
 	}
-	
-	private void updatesesstion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+
+	private void updatesesstion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		UserModel user = (UserModel) session.getAttribute("user");
-		
+
 		UserModel shipper = userService.getInfoUser(user.getUserID());
 		HttpSession session1 = req.getSession();
 		session1.setAttribute("user", shipper);
-		
+
 	}
 }

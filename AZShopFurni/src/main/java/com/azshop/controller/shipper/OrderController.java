@@ -33,36 +33,36 @@ public class OrderController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 
-		UserModel shipper = shipperDAO.findOne(120001);
-		HttpSession session1 = req.getSession(true);
-		session1.setAttribute("user", shipper);
-
 		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("user") != null) {
 			UserModel user = (UserModel) session.getAttribute("user");
-			List<OrderModel> listOrder = new ArrayList<OrderModel>();
+			if (user.getType() == 2) {
+				List<OrderModel> listOrder = new ArrayList<OrderModel>();
 
-			String url = req.getRequestURI().toString();
-			if (url.contains("detail")) {
-				showDetailPage(req, resp);
+				String url = req.getRequestURI().toString();
+				if (url.contains("detail")) {
+					showDetailPage(req, resp);
 
-			} else if (url.contains("need")) {
-				listOrder = orderService.findNeedShipByArea("");
-				req.setAttribute("listOrder", listOrder);
-				RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/listNeedShipOrder.jsp");
-				rd.forward(req, resp);
+				} else if (url.contains("need")) {
+					listOrder = orderService.findNeedShipByArea("");
+					req.setAttribute("listOrder", listOrder);
+					RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/listNeedShipOrder.jsp");
+					rd.forward(req, resp);
 
-			} else if (url.contains("shipping")) {
-				listOrder = orderService.findShipingByShipperID(user.getUserID());
-				req.setAttribute("listOrder", listOrder);
-				RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/listShippingOrder.jsp");
-				rd.forward(req, resp);
+				} else if (url.contains("shipping")) {
+					listOrder = orderService.findShipingByShipperID(user.getUserID());
+					req.setAttribute("listOrder", listOrder);
+					RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/listShippingOrder.jsp");
+					rd.forward(req, resp);
 
-			} else if (url.contains("history")) {
-				listOrder = orderService.findHisDeliveryByShipperID(user.getUserID());
-				req.setAttribute("listOrder", listOrder);
-				RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/listHisShipOrder.jsp");
-				rd.forward(req, resp);
+				} else if (url.contains("history")) {
+					listOrder = orderService.findHisDeliveryByShipperID(user.getUserID());
+					req.setAttribute("listOrder", listOrder);
+					RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/listHisShipOrder.jsp");
+					rd.forward(req, resp);
+				}
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/login");
 			}
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/login");
