@@ -174,7 +174,7 @@
 										data-label="New">
 										<img src="${item.image}" alt="IMG-CATEGORY"> <a
 											href="<c:url value='/products?cateId=${item.categoryID}'/>"
-											class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+											class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 											View </a>
 									</div>
 
@@ -195,6 +195,7 @@
 
 			</c:if>
 
+			<!-- List Products -->
 			<div class="row isotope-grid">
 				<c:if test="${products.size() > 0}">
 					<c:forEach items="${products}" var="item">
@@ -203,9 +204,9 @@
 								<div class="block2-pic hov-img0 label-new product-image-size"
 									data-label="New">
 									<img src="${item.displayedImage}" alt="IMG-PRODUCT"> <a
-										href="#"
-										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-										View </a>
+										href='<c:url value="/products?id=${item.productID}"/>'
+										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+										View</a>
 								</div>
 
 								<div class="block2-txt flex-w flex-t p-t-14">
@@ -304,7 +305,6 @@
 			run(0);
 		}
 	</script>
-
 
 </body>
 

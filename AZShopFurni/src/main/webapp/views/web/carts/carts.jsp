@@ -80,7 +80,7 @@
 						value="${subTotal}" currencyCode="VND" pattern="#,##0 VND"
 						var="formattedPrice" /> ${formattedPrice}</span>
 			</div>
-			<a style="float: right;" href="<c:url value='/products' />"><button
+			<a style="float: right;" href="<c:url value='/checkout' />"><button
 					style="width: 260px; float: right; padding: 1.2rem;"
 					class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 					Tiến hành thanh toán</button></a>
