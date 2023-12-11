@@ -37,8 +37,8 @@ public class HomeController extends HttpServlet {
 				subTotal += cart.getTotalPrice();
 			}
 
-			req.setAttribute("carts", listCart);
-			req.setAttribute("subTotal", subTotal);
+			getServletContext().setAttribute("carts", listCart);
+			getServletContext().setAttribute("subTotal", subTotal);
 		}
 		List<List<Object>> listBestSeller = detailService.listBestSeller();
 		req.setAttribute("list", listBestSeller);

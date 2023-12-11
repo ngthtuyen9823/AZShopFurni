@@ -199,7 +199,7 @@
 					var nameProduct = $(this).parent().parent().find(
 							'.js-name-b2').html();
 					$(this).on('click', function() {
-						swal(nameProduct, "is added to wishlist !", "success");
+						swal(nameProduct, "được thêm vào danh sách yêu thích !", "success");
 
 						$(this).addClass('js-addedwish-b2');
 						$(this).off('click');
@@ -212,7 +212,7 @@
 							'.js-name-detail').html();
 
 					$(this).on('click', function() {
-						swal(nameProduct, "is added to wishlist !", "success");
+						swal(nameProduct, "được thêm vào danh sách yêu thích !", "success");
 
 						$(this).addClass('js-addedwish-detail');
 						$(this).off('click');

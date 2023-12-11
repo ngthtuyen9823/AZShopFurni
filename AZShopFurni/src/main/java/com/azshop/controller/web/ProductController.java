@@ -76,8 +76,8 @@ public class ProductController extends HttpServlet {
 					subTotal += cart.getTotalPrice();
 				}
 
-				req.setAttribute("carts", listCart);
-				req.setAttribute("subTotal", subTotal);
+				getServletContext().setAttribute("carts", listCart);
+				getServletContext().setAttribute("subTotal", subTotal);
 			}
 
 			String idString = req.getParameter("id");
