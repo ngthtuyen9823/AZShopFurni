@@ -5,7 +5,6 @@ function changeMainImage(newImage) {
 
 var quantity = 1;
 document.getElementById('selectedQuantity').value = 1;
-console.log('Quantity updated:', quantity);
 
 function updateQuantity(change) {
 	quantity += change;
@@ -33,7 +32,6 @@ function addToCart() {
 			selectedQuantity: selectedQuantity
 		};
 
-		console.log(data);
 		$.ajax({
 			type: "POST",
 			url: "addToCart",
@@ -48,12 +46,12 @@ function addToCart() {
 				} else {
 					Swal.fire({
 						icon: 'success',
-						title: 'Item added to cart successfully',
+						title: 'Thêm vào giỏ hàng thành công',
 						showCancelButton: true,
 						confirmButtonColor: '#3085d6',
 						cancelButtonColor: '#ffc107;',
-						confirmButtonText: 'OK',
-						cancelButtonText: 'Go to Cart',
+						confirmButtonText: 'Tiếp tục mua sắm',
+						cancelButtonText: 'Đi đến giỏ hàng',
 						allowOutsideClick: false
 					}).then((result) => {
 						if (!result.isConfirmed) {
@@ -63,10 +61,10 @@ function addToCart() {
 				}
 			},
 			error: function(error) {
-				errorContainer.text("Error adding to cart. Please choose the item.");
+				errorContainer.text("Vui lòng chọn mặt hàng!");
 			}
 		});
 	} else {
-		errorContainer.text("Please select an item before adding to the cart.");
+		errorContainer.text("Vui lòng chọn mặt hàng!");
 	}
 }
