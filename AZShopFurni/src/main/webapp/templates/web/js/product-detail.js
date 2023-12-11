@@ -68,3 +68,6 @@ function addToCart() {
 		errorContainer.text("Vui lòng chọn mặt hàng!");
 	}
 }
+
+
+
