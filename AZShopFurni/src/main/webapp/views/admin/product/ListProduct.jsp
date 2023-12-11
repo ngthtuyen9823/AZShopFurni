@@ -9,72 +9,21 @@
 <title>ListProduct</title>
 <style>
 .card-body a {
-    margin-right: 10px; /* Khoảng cách giữa các phần tử <a> */
+	margin-right: 10px; /* Khoảng cách giữa các phần tử <a> */
 }
 </style>
 </head>
 <body>
 
 	<main>
+
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">Dashboard</h1>
+			<h1 class="mt-4">Sản phẩm</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item active">Dashboard</li>
+				<li class="breadcrumb-item"><a href="index.html">Bảng điều
+						khiển</a></li>
+				<li class="breadcrumb-item active">Sản phẩm</li>
 			</ol>
-			<div class="row">
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-primary text-white mb-4">
-						<div class="card-body">Primary Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
-							<div class="small text-white">
-								<i class="fas fa-angle-right"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-warning text-white mb-4">
-						<div class="card-body">Warning Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
-							<div class="small text-white">
-								<i class="fas fa-angle-right"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-success text-white mb-4">
-						<div class="card-body">Success Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
-							<div class="small text-white">
-								<i class="fas fa-angle-right"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-md-6">
-					<div class="card bg-danger text-white mb-4">
-						<div class="card-body">Danger Card</div>
-						<div
-							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">View
-								Details</a>
-							<div class="small text-white">
-								<i class="fas fa-angle-right"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="row">
 				<div class="col-xl-6">
 					<div class="card mb-4">
@@ -89,44 +38,71 @@
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-bar me-1"></i> Bar Chart Example
+							<i class="fas fa-chart-bar me-1"></i> Top 5 sản phẩm được đánh
+							giá cao nhất
 						</div>
 						<div class="card-body">
-							<canvas id="myBarChart" width="100%" height="40"></canvas>
+							<canvas id="myChart" width="100%" height="40"></canvas>
+							<script>
+                var barChartData = {
+                    labels: [
+                        <c:forEach var="item" items="${productrating}">
+                            "${item.get(1)}",
+                        </c:forEach>
+                    '',],
+                    datasets: [
+                        {
+                            label: 'Số sao trung bình',
+                            data: [
+                                <c:forEach var="item" items="${productrating}">
+                                    "${item.get(2)}",
+                                </c:forEach>
+                            0,],
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                        }
+                    ]
+                };
+
+                new Chart(document.getElementById("myChart"), {
+                    type: 'bar',
+                    data: barChartData
+                });
+            </script>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="card mb-4">
 				<div class="card-body">
-					<a href="<c:url value='/admininsertProduct'/>" style="margin-right: 50px;">
+					<a href="<c:url value='/admininsertProduct'/>"
+						style="margin-right: 50px;">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i> Add new product
+							<i class="ace-icon fa fa-pencil"></i> Thêm sản phẩm
 						</button>
-					</a> 
-					<a href="<c:url value='/adminItem'/>">
+					</a> <a href="<c:url value='/adminItem'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-list-ul"></i> List all item
+							<i class="ace-icon fa fa-list-ul"></i> Danh sách mặt hàng
 						</button>
 					</a>
 				</div>
 			</div>
+
 			<div class="card mb-4">
 				<div class="card-header">
-					<i class="fas fa-table me-1"></i> DataTable Example
+					<i class="fas fa-table me-1"></i> Bảng sản phẩm
 				</div>
 				<div class="card-body">
 					<table id="datatablesSimple">
 						<thead>
 							<tr>
-								<th>ProductID</th>
-								<th>ProductName</th>
-								<th>Description</th>
-								<th>Origin</th>
-								<th>SupplierID</th>
-								<th>CategoryID</th>
-								<th>Material</th>
-								<th>Action</th>
+								<th>Mã sản phẩm</th>
+								<th>Tên sản phẩm</th>
+								<th>Mô tả</th>
+								<th>Nguồn gốc</th>
+								<th>Mã nhà cung cấp</th>
+								<th>Mã loại</th>
+								<th>Chất liệu</th>
+								<th>Hành động</th>
 
 							</tr>
 						</thead>
@@ -146,15 +122,18 @@
 										</c:forEach></td>
 									<td>${i.material}</td>
 									<td><div class="hidden-sm hidden-xs btn-group">
-											<a href='<c:url value = '/adminviewItem?ProductID=${i.productID}'></c:url>'>
+											<a
+												href='<c:url value = '/adminviewItem?ProductID=${i.productID}'></c:url>'>
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-eye"></i>
 												</button>
-											</a> <a href="<c:url value='/adminupdateProduct?ProductID=${i.productID}'/>">
+											</a> <a
+												href="<c:url value='/adminupdateProduct?ProductID=${i.productID}'/>">
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-pencil"></i>
 												</button>
-											</a> <a href="<c:url value='/admindeleteProduct?ProductID=${i.productID}'/>">
+											</a> <a
+												href="<c:url value='/admindeleteProduct?ProductID=${i.productID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn"
 													onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm có ID là : ${i.productID} không?')">

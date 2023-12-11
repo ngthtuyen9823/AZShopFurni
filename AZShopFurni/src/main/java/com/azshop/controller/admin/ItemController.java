@@ -18,6 +18,9 @@ import com.azshop.service.IItemImageService;
 import com.azshop.service.IItemService;
 import com.azshop.service.impl.ItemImageServiceImpl;
 import com.azshop.service.impl.ItemServiceImpl;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 
 import Orther.UploadImage;
 
@@ -87,7 +90,7 @@ public class ItemController extends HttpServlet {
 		itemModel.setOriginalPrice(Integer.parseInt(req.getParameter("originalPrice")));
 		itemModel.setPromotionPrice(Integer.parseInt(req.getParameter("promotionPrice")));
 		item.updateItem(itemModel);
-		System.out.println("AAA");
+		
 		
 		Image(req, resp, itemModel);
 	}

@@ -26,4 +26,5 @@ public interface IProductService {
 	List<ProductModel> sortByPrice();
 
 	List<ProductModel> findBySupplierID(int supplierID);
+	List<List<Object>> ProductRating();
 }

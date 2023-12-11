@@ -87,4 +87,9 @@ public class ProductServiceImpl implements IProductService {
 	public List<ProductModel> findBySupplierID(int supplierId) {
 		return productDAO.findBySupplierID(supplierId);
 	}
+
+	@Override
+	public List<List<Object>> ProductRating() {
+		return productDAO.ProductRating();
+	}
 }

@@ -27,4 +27,5 @@ public interface IProductDAO {
 	List<ProductModel> sortByPrice();
 
 	List<ProductModel> findBySupplierID(int supplier);
+	List<List<Object>> ProductRating();
 }

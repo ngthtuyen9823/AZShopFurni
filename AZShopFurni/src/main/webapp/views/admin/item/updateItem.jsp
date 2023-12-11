@@ -15,7 +15,7 @@
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">Update Item</h3>
+							<h3 class="text-center font-weight-light my-4">Cập nhật mặt hàng</h3>
 						</div>
 						<div class="card-body">
 							<form action="adminupdateItem" method="post" enctype="multipart/form-data">
@@ -23,37 +23,33 @@
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="productID"
-												readonly="readonly" value="${item.productID}" /> <label>Product
-												ID</label>
+												readonly="readonly" value="${item.productID}" /> <label>Mã sản phẩm</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="color"
-												value="${item.color}" /> <label>Color</label>
+												value="${item.color}" /> <label>Màu sắc</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="color" name="colorCode"
-												id="colorCodeInput" value="${ item.colorCode}" /> <label>Color
-												Code</label>
+												id="colorCodeInput" value="${ item.colorCode}" /> <label>Mã màu</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="size"
-												value="${item.size}" /> <label>Size</label>
+												value="${item.size}" /> <label>Kích thước</label>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="stock"
-												value="${item.stock}" /> <label>Stock</label>
+												value="${item.stock}" /> <label>Số lượng tồn</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="originalPrice"
-												id="originalPriceInput" value="${item.originalPrice}" /> <label>Original
-												Price</label>
+												id="originalPriceInput" value="${item.originalPrice}" /> <label> Giá gốc</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="promotionPrice"
-												value="${item.promotionPrice}" /> <label>Promotion
-												Price</label>
+												value="${item.promotionPrice}" /> <label>Giá khuyến mãi</label>
 										</div>
 									</div>
 								</div>
@@ -69,12 +65,12 @@
 									</c:if>
 									<div class="text-center mt-4">
 										<a href="<c:url value="/updateimage?ItemID=${item.itemID}"/>"><button
-												type="button" class="btn btn-primary">Clear Image</button></a>
+												type="button" class="btn btn-primary">Xóa ảnh</button></a>
 									</div>
 								</div>
 								<div class="text-center mt-4">
 								<input type="hidden" name="itemID" value= "${item.itemID}"/>
-									<input type="submit" class="btn btn-primary" value="Update" />
+									<input type="submit" class="btn btn-primary" value="Cập nhật" />
 								</div>
 							</form>
 						</div>

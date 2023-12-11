@@ -15,7 +15,7 @@
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">Insert Item</h3>
+							<h3 class="text-center font-weight-light my-4">Thêm mặt hàng</h3>
 						</div>
 						<div class="card-body">
 							<form action="admininsertItem" method="post" enctype="multipart/form-data">
@@ -23,31 +23,30 @@
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="productID"
-												readonly="readonly" value="${ProID}" /> <label>Product
-												ID</label>
+												readonly="readonly" value="${ProID}" /> <label>Mã sản phẩm</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="color" /> <label>Color</label>
+											<input class="form-control" type="text" name="color" /> <label>Màu sắc</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="color" name="colorCode"
-												id="colorCodeInput" /> <label>Color Code</label>
+												id="colorCodeInput" /> <label>Mã màu</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="size" /> <label>Size</label>
+											<input class="form-control" type="text" name="size" /> <label>Kích thước</label>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
-											<input class="form-control" type="text" name="stock" /> <label>Stock</label>
+											<input class="form-control" type="text" name="stock" /> <label>Số lượng tồn</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="originalPrice"
-												id="originalPriceInput" /> <label>Original Price</label>
+												id="originalPriceInput" /> <label>Giá gốc</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="promotionPrice" />
-											<label>Promotion Price</label>
+											<label>Giá khuyến mãi</label>
 										</div>
 									</div>
 								</div>
@@ -55,7 +54,7 @@
 									<input type="file" name ="image" multiple="multiple">
 								</div>
 								<div class="text-center mt-4">
-									<input type="submit" class="btn btn-primary" value="Insert" />
+									<input type="submit" class="btn btn-primary" value="Thêm" />
 								</div>
 							</form>
 						</div>

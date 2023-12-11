@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.azshop.dao.ICategoryDAO;
 import com.azshop.dao.ISupplierDAO;
@@ -20,6 +21,7 @@ import com.azshop.models.ProductModel;
 import com.azshop.models.SupplierModel;
 import com.azshop.service.IProductService;
 import com.azshop.service.impl.ProductServiceImpl;
+import com.mysql.cj.Session;
 
 @WebServlet(urlPatterns = { "/adminProduct", "/admininsertProduct", "/admindeleteProduct", "/adminupdateProduct"})
 public class ProductController extends HttpServlet {
@@ -27,7 +29,7 @@ public class ProductController extends HttpServlet {
 	ICategoryDAO cate = new CategoryDAOImpl();
 	ISupplierDAO supp = new SupplierDAOImpl();
 	private static final long serialVersionUID = 1L;
-
+	HttpSession session;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI().toString();
@@ -51,7 +53,8 @@ public class ProductController extends HttpServlet {
 		req.setAttribute("listSupplier", listSupplier);
 		req.setAttribute("listProduct", listProduct);
 		req.setAttribute("listCate", listcate);
-		req.getRequestDispatcher("/views/admin/product/ListProduct.jsp").forward(req, resp);	
+		req.setAttribute("productrating", prod.ProductRating());
+		req.getRequestDispatcher("/views/admin/product/ListProduct.jsp").forward(req, resp);
 }
 	private void insert(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<CategoryModel> listcate = new ArrayList<CategoryModel>();

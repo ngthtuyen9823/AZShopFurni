@@ -14,8 +14,7 @@
 				<div class="col-lg-8">
 					<div class="card shadow-lg border-0 rounded-lg mt-5">
 						<div class="card-header">
-							<h3 class="text-center font-weight-light my-4">Update
-								Product</h3>
+							<h3 class="text-center font-weight-light my-4">Cập nhật sản phẩm</h3>
 						</div>
 						<div class="card-body">
 							<form action="adminupdateProduct" method="post">
@@ -23,21 +22,19 @@
 									<div class="col-md-6">
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="productID"
-												value="${Product.productID}" readonly="readonly" /> <label>Product
-												ID</label>
+												value="${Product.productID}" readonly="readonly" /> <label>Mã sản phẩm</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="productName"
-												value="${Product.productName}" /> <label>Product
-												Name</label>
+												value="${Product.productName}" /> <label>Tên sản phẩm</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="description"
-												value="${Product.description}" /> <label>Description</label>
+												value="${Product.description}" /> <label>Mô tả</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="origin"
-												value="${Product.origin}" /> <label>Origin</label>
+												value="${Product.origin}" /> <label>Nguồn gốc</label>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -47,7 +44,7 @@
 													<option value="${category.categoryID}"
 														<c:if test="${category.categoryID eq Product.categoryID}">selected</c:if>>${category.categoryName}</option>
 												</c:forEach>
-											</select> <label>Category</label>
+											</select> <label>Loại</label>
 										</div>
 
 										<div class="form-floating mb-3">
@@ -56,16 +53,16 @@
 													<option value="${supplier.supplierID}"
 														<c:if test="${supplier.supplierID eq Product.supplierID}">selected</c:if>>${supplier.supplierName}</option>
 												</c:forEach> 
-											</select> <label>Supplier</label>
+											</select> <label>Nhà cung cấp</label>
 										</div>
 										<div class="form-floating mb-3">
 											<input class="form-control" type="text" name="material"
-												value="${Product.material}" /> <label>Material</label>
+												value="${Product.material}" /> <label>Chất liệu</label>
 										</div>
 									</div>
 								</div>
 								<div class="text-center mt-4">
-									<input type="submit" class="btn btn-primary" value="Update" />
+									<input type="submit" class="btn btn-primary" value="Cập nhật" />
 								</div>
 							</form>
 						</div>
