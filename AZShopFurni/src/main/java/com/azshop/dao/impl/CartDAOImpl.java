@@ -144,15 +144,18 @@ public class CartDAOImpl implements ICartDAO {
 
 	public List<CartModel> findByCustomerId(int customerId) {
 		List<CartModel> listCart = new ArrayList<CartModel>();
-		String sql = "SELECT\r\n" + "    c.*,\r\n" + "    i.Color,\r\n" + "    i.Size,\r\n"
-				+ "    i.PromotionPrice,\r\n" + "    p.productID,\r\n" + "    p.ProductName,\r\n"
-				+ "    i.PromotionPrice * c.Quantity AS TotalPrice,\r\n" + "    ii.Image\r\n" + "FROM\r\n"
-				+ "    CART c\r\n" + "JOIN\r\n" + "    ITEM i ON c.ItemID = i.ItemID\r\n" + "JOIN\r\n"
+		String sql = "SELECT\r\n" + "    c.*,\r\n" + "    i.Color,\r\n" + "    i.Size,\r\n" + "    CASE\r\n"
+				+ "        WHEN i.PromotionPrice != 0 THEN i.PromotionPrice\r\n" + "        ELSE i.OriginalPrice\r\n"
+				+ "    END AS PromotionPrice,\r\n" + "    p.productID,\r\n" + "    p.ProductName,\r\n"
+				+ "    (CASE WHEN i.PromotionPrice != 0 THEN i.PromotionPrice ELSE i.OriginalPrice END) * c.Quantity AS TotalPrice,\r\n"
+				+ "    ii.Image\r\n" + "FROM\r\n" + "    CART c\r\n" + "JOIN\r\n"
+				+ "    ITEM i ON c.ItemID = i.ItemID\r\n" + "JOIN\r\n"
 				+ "    PRODUCT p ON i.ProductID = p.ProductID\r\n" + "JOIN\r\n" + "    (\r\n" + "        SELECT\r\n"
 				+ "            ItemID,\r\n" + "            Image,\r\n"
 				+ "            ROW_NUMBER() OVER (PARTITION BY ItemID ORDER BY ItemImageID) AS ImageRank\r\n"
 				+ "        FROM\r\n" + "            ITEMIMAGE\r\n"
-				+ "    ) ii ON i.ItemID = ii.ItemID AND ii.ImageRank = 1\r\n" + "WHERE\r\n" + "    c.CustomerID = ?;";
+				+ "    ) ii ON i.ItemID = ii.ItemID AND ii.ImageRank = 1\r\n" + "WHERE\r\n"
+				+ "    c.CustomerID = ?;\r\n" + "";
 
 		System.out.println(sql);
 		try {
