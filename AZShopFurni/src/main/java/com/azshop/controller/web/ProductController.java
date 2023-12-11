@@ -66,6 +66,20 @@ public class ProductController extends HttpServlet {
 		showHistorySearch(req, resp);
 		String url = req.getRequestURI().toString();
 		if (url.contains("products")) {
+			HttpSession session = req.getSession(true);
+			if (session.getAttribute("user") != null) {
+				UserModel user = (UserModel) session.getAttribute("user");
+				List<CartModel> listCart = cartService.findByCustomerId(user.getUserID());
+
+				int subTotal = 0;
+				for (CartModel cart : listCart) {
+					subTotal += cart.getTotalPrice();
+				}
+
+				req.setAttribute("carts", listCart);
+				req.setAttribute("subTotal", subTotal);
+			}
+
 			String idString = req.getParameter("id");
 			if (idString != null) {
 				int id = Integer.parseInt(req.getParameter("id"));
