@@ -114,9 +114,4 @@ public class OrderServiceImpl implements IOrderService {
 		list.forEach(order -> order.setDetails(detailDAO.listDetail(order.getOrderID())));
 		return list;
 	}
-
-	@Override
-	public void updateOrder(int orderID, int status) {
-		orderDAO.updateOrder(orderID,status);
-	}
 }

@@ -253,7 +253,7 @@ a {
 								</c:forEach>
 								<div class="col-md-12"></div>
 									<div class="mb-0 mt-1 d-flex font-size-18">
-									Ghi chú đơn hàng: ${order.note==null?'Không có':'order.note'}
+									Ghi chú đơn hàng: <c:if test="${order.note==null}">Không có</c:if>${order.note}
 								</div>
 								<div class="col-md-12 mb-3">
 									<div class="row">
@@ -310,7 +310,7 @@ a {
 										${order.status == 0 ? 'Đơn hàng chờ xác nhận' :
                                                order.status == 1 ? 'Đã xác nhận' :
                                                order.status == 2 ? 'Đang được chuẩn bị' :
-                                               order.status == 3 ? 'Đang được giao đến bạn' :
+                                               order.status == 3 ? 'Đang được giao' :
                                                order.status == 4 ? 'Giao thành công' :
                                                order.status == 5 ? 'Đã bị hủy' : ''}							
 											</h5>

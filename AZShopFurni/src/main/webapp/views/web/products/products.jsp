@@ -54,7 +54,7 @@
 								<i class="zmdi zmdi-search"></i>
 							</button>
 							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text"
-								name="keyword" placeholder="Search">
+								name="keyword" placeholder="<c:if test="{keyword==null}">Tìm kiếm</c:if>${keyword}">
 						</div>
 					</div>
 				</form>
@@ -160,7 +160,15 @@
 					</div>
 				</div>
 			</div>
-
+			<c:if test="${products.size()== 0 && keyword!=null}">
+				<div
+					style=" display: flex; justify-content: center; align-items: center;">
+					
+					<img alt="img"
+						src="https://storage.googleapis.com/web-budget/Image/Other/a60759ad1dabe909c46a817ecbf71878.png">
+					<div>Không tìm thấy sản phẩm nào phù hợp</div>
+				</div>
+			</c:if>
 			<!-- List Category -->
 			<c:if test="${childCategories.size() > 0}">
 				<div class="cate-container">

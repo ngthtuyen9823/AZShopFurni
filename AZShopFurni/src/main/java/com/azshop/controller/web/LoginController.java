@@ -96,13 +96,13 @@ public class LoginController extends HttpServlet {
 			UserModel user = (UserModel) session.getAttribute("user");
 			String url = null;
 			if (user.getType() == 0)
-				url = "/products";
+				url = "/home";
 			else if (user.getType() == 1)
 				url = "/sellerHome";
 			else if (user.getType() == 2)
-				url = "/testshipper";
+				url = "/shipper-list-shipping";
 			else if (user.getType() == 3)
-				url = "/testadmin";
+				url = "/adminHome";
 			resp.sendRedirect(req.getContextPath() + url);
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/login");

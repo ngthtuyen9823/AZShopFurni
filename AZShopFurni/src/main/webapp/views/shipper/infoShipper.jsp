@@ -33,7 +33,7 @@
 
 button, .shipper-btn {
 	padding: 10px 20px;
-	width: 120px;
+	width: 150px;
 	background-color: #fff;
 	color: #000;
 	border: black solid 0.5px;
@@ -69,6 +69,12 @@ button:hover, .shipper-btn:hover {
 	visibility: hidden;
 	position: absolute;
 }
+
+.shipper-info a{
+    text-decoration: none;	
+    margin-right: 10px;	
+}
+
 </style>
 <div class="shipper-profile">
 	<div class="shipper-info">
@@ -101,11 +107,14 @@ button:hover, .shipper-btn:hover {
 		<a href="shipper-update-info">
 			<button class="update">Cập nhật</button>
 		</a>
+		<a href="shipper-update-pass">
+			<button class="update-pass">Đổi mật khẩu</button>
+		</a>
 	</div>
 	<div class="shipper-avt">
 		<img src="${user.avatar}" id="myImage" alt="User Image">
 		<input class="hind" type="file" id="imageInput" accept="image/*"> 
-		<label class="shipper-btn shipper-button-img" for="imageInput">Sửa ảnh</label>
+		<label class="shipper-btn shipper-button-img mt-4" for="imageInput">Sửa ảnh</label>
 	</div>
 </div>
 <script>

@@ -16,19 +16,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-
 import com.azshop.dao.impl.ShipperDAOImpl;
 import com.azshop.models.AccountModel;
 import com.azshop.models.UserModel;
+import com.azshop.service.IAccountService;
 import com.azshop.service.IUserService;
+import com.azshop.service.impl.AccountServiceImpl;
 import com.azshop.service.impl.UserServiceImpl;
 
 import Orther.UploadImage;
 
-@WebServlet(urlPatterns = { "/shipper-info", "/shipper-update-info", "/shipper-update-avatar" })
+@WebServlet(urlPatterns = { "/shipper-info", "/shipper-update-info", "/shipper-update-avatar", "/shipper-update-pass" })
 @MultipartConfig
 public class PersonalInfoController extends HttpServlet {
 	IUserService userService = new UserServiceImpl();
+	IAccountService accountService = new AccountServiceImpl();
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -45,6 +47,8 @@ public class PersonalInfoController extends HttpServlet {
 					showUpdateInfoPage(req, resp);
 				} else if (url.contains("shipper-update-avatar")) {
 					updateInfAccount(req, resp);
+				} else if (url.contains("shipper-update-pass")) {
+					updatePassword(req, resp);
 				}
 			} else {
 				resp.sendRedirect(req.getContextPath() + "/login");
@@ -63,6 +67,8 @@ public class PersonalInfoController extends HttpServlet {
 			createUserModel(req, resp);
 		} else if (url.contains("shipper-update-avatar")) {
 			updateAvatar(req, resp);
+		}else if (url.contains("shipper-update-pass")) {
+			createAccountModel(req, resp);
 		}
 		resp.sendRedirect("shipper-info");
 	}
@@ -142,23 +148,23 @@ public class PersonalInfoController extends HttpServlet {
 		new ShipperDAOImpl().updateShipper(user);
 	}
 
-//	private void createAccountModel(HttpServletRequest req, HttpServletResponse resp)
-//			throws ServletException, IOException {
-//		int userID = Integer.parseInt(req.getParameter("UserID"));
-//		String userName = req.getParameter("UserName");
-//		String oldPassword = req.getParameter("OldPassWord");
-//		String password = req.getParameter("Password");
-//		AccountModel account = userService.getInfAccount(userID);
-//
-//		if (userService.checkPassword(oldPassword, account.getPassword())) {
-//			AccountModel newaccount = new AccountModel(userID, userName, password);
-//			userService.updateAccount(newaccount);
-//		} else {
-//			PrintWriter out = resp.getWriter();
-//			out.println("<font color=red>Either user name or password is wrong.</font>");
-//			req.getRequestDispatcher("/views/web/updateAccount.jsp").include(req, resp);
-//		}
-//	}
+	private void createAccountModel(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		int userID = Integer.parseInt(req.getParameter("UserID"));
+		String userName = req.getParameter("UserName");
+		String oldPassword = req.getParameter("OldPassWord");
+		String password = req.getParameter("Password");
+
+		if (accountService.checkPassword(userID, oldPassword)) {
+			AccountModel newaccount = new AccountModel(userID, userName, password);
+			userService.updateAccount(newaccount);
+			resp.sendRedirect("shipper-info");
+		} else {
+			String error = "Mật khẩu cũ không đúng. Vui lòng nhập lại";
+			req.setAttribute("message", error);
+			req.getRequestDispatcher("/views/shipper/updatePass.jsp").forward(req, resp);
+		}
+	}
 
 	private void updateAvatar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -173,8 +179,16 @@ public class PersonalInfoController extends HttpServlet {
 
 		userService.updateAvatar(user.getUserID(), avatar);
 
-		// resp.sendRedirect("shipper-info");
+	}
 
+	private void updatePassword(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		UserModel user = (UserModel) session.getAttribute("user");
+		AccountModel account = userService.getInfAccount(user.getUserID());
+		req.setAttribute("accountModel", account);
+		RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/updatePass.jsp");
+		rd.forward(req, resp);
 	}
 
 	private void updatesesstion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
