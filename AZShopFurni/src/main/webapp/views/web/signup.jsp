@@ -18,109 +18,95 @@
 <!-- Style -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/css/login.css"/>">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
+	rel='stylesheet'>
 
 
 <title>Đăng ký</title>
 </head>
 
 <body>
-
-
-
-	<div class="login">
-		<div class="contents">
-			<div class="row align-items-center justify-content-center">
-				<div class="col-md-9">
-					<h3>
-						<strong>Đăng ký tài khoản</strong>
-					</h3>
-					<h2>${exception}</h2>
-					<form action="signup" method="post">
-						<div class="row">
-							<div class="form-group mb-1 w75">
-								<label for="usernamesignup">Tên đăng nhập</label> <input
-									type="text" class="form-control"
-									placeholder="Nhập tên đăng nhập" name="usernamesignup"
-									value="${usernamesignup}">
-							</div>
-						</div>
-						<div class="row">
-
-							<div class="form-group mb-1 w-50">
-								<label for="passsignup">Mật khẩu</label> <input type="password"
-									class="form-control" placeholder="Nhập mật khẩu"
-									name="passsignup">
-							</div>
-							<div class="form-group mb-1 w-50">
-								<label for="passcheck">Nhập Mật khẩu</label> <input
-									type="password" class="form-control"
-									placeholder="Nhập mật khẩu" name="passcheck">
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group mb-1 w-50">
-								<label for="firstname">Họ</label> <input type="text"
-									class="form-control" placeholder="Nhập họ" name="firstname"
-									value="${firstname}">
-							</div>
-							<div class="form-group mb-1 w-50">
-								<label for="lastname">Tên</label> <input type="text"
-									class="form-control" placeholder="Nhập tên" name="lastname"
-									value="${lastname}">
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group mb-1 w-50">
-								<label for="email">Email</label> <input type="text"
-									class="form-control" placeholder="Nhập email" name="email"
-									value="${email}">
-							</div>
-							<div class="form-group mb-1 w-25">
-								<label for="gender">Giới tính</label><br> <select
-									name="gender" class="form-control">
-									<option value="0">Nam</option>
-									<option value="1">Nữ</option>
-								</select>
-							</div>
-							<div class="form-group mb-1 w-25">
-								<label for="dob">Ngày Sinh</label> <input type="date"
-									class="form-control p-1" name="dob" value="${dob}">
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group mb-1 w-50">
-								<label for="phone">Số điện thoại</label> <input type="text"
-									class="form-control" placeholder="Nhập số điện thoại"
-									name="phone" value="${phone}">
-							</div>
-							<div class="form-group mb-1 w-50">
-								<label for="area">Thành phố</label> <input type="text"
-									class="form-control" placeholder="Chọn thành phố" name="area"
-									list="exampleList" value="${area}">
-								<datalist id="exampleList">
-									<c:forEach var="city" items="${listcity}">
-										<option value="${city}">
-									</c:forEach>
-								</datalist>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group mb-3 w-100">
-								<label for="address">Địa chỉ</label> <input type="text"
-									class="form-control" name="address" value="${address}">
-							</div>
-						</div>
-						<input type="submit" value="Đăng ký"
-							class="btn btn-block btn-primary mb-3">
-					</form>
-					<div>
-						<span class="caption ml-auto">Nếu bạn đã có tài khoản</span> <a
-							href="${pageContext.request.contextPath}/login">Đăng nhập tại đây </a>
-					</div>
+<body>
+	<div class="wrapper signup">
+		<h1>ĐĂNG KÝ TÀI KHOẢN</h1>
+		<h4>${exception}</h4>
+		<form action="signup" method="post">
+			<div class="input-box">
+				<input type="text" placeholder="Nhập tên đăng nhập"
+					name="usernamesignup" value="${usernamesignup}" required><i
+					class='bx bxs-user-circle'></i>
+			</div>
+			<div class="input-box">
+				<div class="input-field">
+					<input type="password" placeholder="Nhập mật khẩu" name="passsignu"
+						required> <i class='bx bxs-lock-alt'></i>
+				</div>
+				<div class="input-field">
+					<input type="password" placeholder="Nhập lại mật khẩu"
+						name="passcheck" required> <i class='bx bxs-lock-alt'></i>
 				</div>
 			</div>
-		</div>
+			<div class="input-box">
+				<div class="input-field">
+					<input type="text" placeholder="Nhập họ" name="firstname"
+						value="${firstname}" required> <i
+						class='bx bxs-user-detail bx-flip-horizontal'></i>
+				</div>
+				<div class="input-field">
+					<input type="text" placeholder="Nhập tên" name="lastname"
+						value="${lastname}" required> <i
+						class='bx bxs-user-detail bx-flip-horizontal'></i>
+				</div>
+			</div>
+			<div class="input-box">
+				<div class="input-field">
+					<input type="text" placeholder="Nhập email" name="email"
+						value="${email}"> <i
+						class='bx bxs-envelope bx-flip-horizontal'></i>
+				</div>
+				<div class="input-field">
+					<select name="gender"
+						style="padding: 0 0 0 20px; margin-left: 20px; width: 180px; height: 43px; background: transparent; border: none; outline: none; border: 2px solid rgba(255, 255, 255, .2); border-radius: 40px; font-size: 16px; color: white">
+						<option style="background: transparent" value="0">Nam</option>
+						<option style="background: transparent" value="1">Nữ</option>
+					</select>
+				</div>
+				<div class="input-field">
+					<input type="date" name="dob" value="${dob}">
+				</div>
+			</div>
+			<div class="input-box">
+				<div class="input-field">
+					<input type="text" placeholder="Nhập số điện thoại" name="phone"
+						value="${phone}"> <i class='bx bxs-phone-call'></i>
+				</div>
+				<div class="input-field">
+					<input type="text" placeholder="Chọn thành phố" name="area"
+						list="exampleList" value="${area}"> <i class='bx bxs-city' ></i>
+					<datalist id="exampleList">
+						<c:forEach var="city" items="${listcity}">
+							<option value="${city}">
+						</c:forEach>
+					</datalist>
+				</div>
+			</div>
+			<div class="input-box">
+				<input type="text" placeholder="Nhập địa chỉ" name="address"
+					value="${address}"> <i class='bx bxs-building-house'></i>
+
+			</div>
+			<input type="submit" value="Đăng ký"
+				class="btn btn-block btn-primary mb-3">
+			<div class="register-link">
+				<p>
+					Nếu bạn đã có tài khoản <a
+						href="${pageContext.request.contextPath}/login">Đăng nhập tại
+						đây </a>
+				</p>
+			</div>
+		</form>
 	</div>
+
 </body>
 
 </html>

@@ -80,7 +80,7 @@ public class ForgetPassController extends HttpServlet {
 			cusService.checkValidEmail(req.getParameter("formail"));
 			req.removeAttribute("exception");
 			sendForgetPassEmail(req, resp, req.getParameter("formail"));
-			req.setAttribute("exception", "Vào email để lấy link đổi mật khẩu\nĐường link chỉ tồn tạo 5 phút");
+			req.setAttribute("exception", "Vào email để lấy link đổi mật khẩu <br> Đường link chỉ tồn tại trong 5 phút");
 			req.setAttribute("formail", req.getParameter("formail"));
 			showPageForget(req, resp);
 

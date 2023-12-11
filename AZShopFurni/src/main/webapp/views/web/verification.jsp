@@ -26,30 +26,21 @@
 
 <body>
 
-	<div class="login">
-		<div class="contents">
-			<div class="row align-items-center justify-content-center">
-				<div class="col-md-6">
-					<h3>
-						<strong>Xác nhận</strong>
-					</h3>
-					Mã xác nhận đã được gửi tới email của bạn!
-					<h2>${mess}</h2>
+	<div class="wrapper">
+			<h1>
+				XÁC NHẬN
+				</h1>
+					<h4 class="xac-nhan">Mã xác nhận đã được gửi tới email của bạn!</h4>
+					<h4>${mess}</h4>
 					<form action="verification" method="post">
-					<div class="row">
-						<div class="form-group mt-3">
-							<input type="text" class="form-control"
-								placeholder="Nhập mã xác nhận trên email" name="usercode">
+						<div class="input-box">
+							<input type="text" placeholder="Nhập mã xác nhận trên email"
+								name="usercode" required>
 						</div>
-					</div>
-						<input type="submit" value="Xác nhận"
-							class="btn btn-block btn-primary mt-4 mb-2">
+						<button type="submit" class="btn">Đăng nhập</button>
 					</form>
 					<span class="caption">Nếu sau 5 phút chưa có mã?</span> <a
 						href="${pageContext.request.contextPath}/resend">Gửi lại mã</a>
-				</div>
-			</div>
-		</div>
 	</div>
 </body>
 

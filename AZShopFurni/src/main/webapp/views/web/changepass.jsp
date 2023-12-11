@@ -5,49 +5,36 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/vendor/bootstrap/css/bootstrap.min.css"/>">
-  <!-- Style -->
-  <link rel="stylesheet" type="text/css" href="<c:url value="/templates/web/css/login.css"/>">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Style -->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/templates/web/css/login.css"/>">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
+	rel='stylesheet'>
 
 
-  <title>Đổi mật khẩu</title>
+<title>Đổi mật khẩu</title>
 </head>
-
 <body>
-
-
-
-  <div class="login">
-    <div class="contents">
-      <div class="row align-items-center justify-content-center">
-        <div class="col-md-7">
-          <h3>
-            <strong>Đổi mật khẩu</strong>
-          </h3>
-          <h2>${mess}</h2>
-          <form action="changepass" method="post">
-          	<input type="hidden" name="formail" value="${formail}"/>
-            <div class="form-group">
-              <label for="username">Mật khẩu mới</label> <input type="text" class="form-control"
-                placeholder="Nhập tài khoản" name="passchange">
-            </div>
-            <div class="form-group">
-              <label for="password">Mật khẩu xác nhận</label> <input type="password" class="form-control"
-                placeholder="Nhập mật khẩu" name="passcheck">
-            </div>
-            <div class="form-group w-100 mt-4">
-              <input type="submit" value="Đổi mật khẩu" class="btn btn-block btn-primary">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="wrapper">
+		<form action="changepass" method="post">
+			<input type="hidden" name="formail" value="${formail}" />
+			<h1>ĐỔI MẬT KHẨU</h1>
+			<h2>${mess}</h2>
+			<div class="input-box">
+				<input type="text" placeholder="Nhập mật khẩu" value="${passchange}"
+					name="username" required> <i class='bx bxs-lock-alt'></i>
+			</div>
+			<div class="input-box">
+				<input type="password" placeholder="Nhập mật khẩu mới"
+					name="passcheck" required> <i class='bx bxs-lock-alt'></i>
+			</div>
+			<button type="submit" class="btn">Cập nhật</button>
+		</form>
+	</div>
 </body>
 
 </html>
