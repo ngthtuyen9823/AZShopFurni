@@ -19,13 +19,15 @@ import com.azshop.service.impl.SellerServiceImpl;
 import com.azshop.utils.MessageUtil;
 
 @WebServlet(urlPatterns = { "/adminSeller", "/adminUpdateSeller", "/adminDeleteSeller",
-		"/adminInsertSeller" })
+		"/adminInsertSeller","/adminInformationSeller" })
 public class SellerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ISellerService sellerService = new SellerServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		resp.setCharacterEncoding("utf-8");
 		String url = req.getRequestURI().toString();
 		if (url.contains("adminSeller")) {
 			findAllSeller(req, resp);
@@ -37,6 +39,12 @@ public class SellerController extends HttpServlet {
 			rd.forward(req, resp);
 		} else if (url.contains("adminInsertSeller")) {
 			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/addSeller.jsp");
+			rd.forward(req, resp);
+		} else if (url.contains("adminInformationSeller")) {
+			int userID = Integer.parseInt(req.getParameter("userID"));
+			UserModel seller = sellerService.findOne(userID);
+			req.setAttribute("user", seller);
+			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/informationSeller.jsp");
 			rd.forward(req, resp);
 		}
 	}
@@ -67,6 +75,8 @@ public class SellerController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		resp.setCharacterEncoding("utf-8");
 		String url = req.getRequestURI().toString();
 
 		if (url.contains("adminUpdateSeller")) {
@@ -124,13 +134,11 @@ public class SellerController extends HttpServlet {
 	}
 
 	private void updateSeller(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		int id = Integer.parseInt(req.getParameter("userID"));
 		try {
 			// thiet lap ngon ngu
-			req.setCharacterEncoding("utf-8");
-			resp.setCharacterEncoding("utf-8");
-
+			
 			// nhan du lieu tu form
-			int id = Integer.parseInt(req.getParameter("userID"));
 			String firstName = req.getParameter("firstName");
 			String lastName = req.getParameter("lastName");
 			String address = req.getParameter("address");
@@ -167,7 +175,7 @@ public class SellerController extends HttpServlet {
 		}catch(Exception ex) {
 			MessageUtil.showMessage(req,"updateFail");
 		}
-		findAllSeller(req, resp);
+		resp.sendRedirect("adminInformationSeller?userID="+id);		
 	}
 
 	private void findAllSeller(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -44,7 +44,7 @@
 								<th>Số điện thoại</th>
 								<th>Ngày sinh</th>
 								<th>CCCD</th>
-								<th>Ảnh đại diện</th>
+								<!-- <th>Ảnh đại diện</th> -->
 								<th>Khu vực</th>
 								<th>Email</th>
 								<th>Hành động</th>
@@ -65,7 +65,7 @@
 									<td>${i.phone}</td>
 									<td>${i.dob}</td>
 									<td>${i.cid}</td>
-									<td>${i.avatar}</td>
+									<%-- <td>${i.avatar}</td> --%>
 									<td>${i.area}</td>
 									<td>${i.email}</td>
 									<td>
@@ -82,6 +82,13 @@
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn">
 													<i class="ace-icon fa fa-trash"></i>
+												</button>
+											</a>
+											<a
+												href="<c:url value='/adminInformationShipper?userID=${i.userID}'/>">
+												<button type="button" class="btn btn-xs btn-info btn-sm"
+													id="liveToastBtn">
+													<i class="fa fa-info-circle" aria-hidden="true"></i>
 												</button>
 											</a>
 										</div>
