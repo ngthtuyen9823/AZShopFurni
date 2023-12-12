@@ -5,10 +5,10 @@
 	<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 		<div class="sb-sidenav-menu">
 			<div class="nav">
-				<div class="sb-sidenav-menu-heading">Core</div>
+				<div class="sb-sidenav-menu-heading">Trang</div>
 				<a class="nav-link" href="<c:url value='/adminHome'/>">
 					<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-					Dashboard
+					Trang chủ
 				</a>
 				<div class="sb-sidenav-menu-heading">Quản lý</div>
 				<a class="nav-link" href="adminAccount"> <div class="sb-nav-link-icon"><i class="bi bi-person-vcard-fill"></i>
@@ -45,24 +45,14 @@
 				<a class="nav-link" href="adminOrder"> <div class="sb-nav-link-icon"><i class="bi bi-diagram-2"></i>
 					</div> Đơn hàng
 				</a> 
-				<div class="sb-sidenav-menu-heading">Addons</div>
-				<a class="nav-link" href="charts.html"> <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i>
-					</div> Charts
-				</a> 
-				<a class="nav-link" href="tables.html">
-					<div class="sb-nav-link-icon">
-						<i class="fas fa-table"></i>
-					</div> Tables
-				</a>
-
-			</a>
+			
 		
 			
 		</div>
 
 		<div class="sb-sidenav-footer">
-			<div class="small">Logged in as:</div>
-			Admin
+			<div class="small">Đăng nhập với vai trò:</div>
+			Quản lý
 		</div>
 	</nav>
 

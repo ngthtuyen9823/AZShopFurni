@@ -80,7 +80,7 @@ public class ReportDAOImpl implements IReportDAO {
 			while (rs.next()) {
 				List<Object> row = new ArrayList<Object>();
 				row.add(rs.getDate("Ngay"));
-				row.add(rs.getInt("Tong"));
+				row.add(rs.getLong("Tong"));
 				row.add(rs.getInt("SL"));
 				list.add(row);
 			}

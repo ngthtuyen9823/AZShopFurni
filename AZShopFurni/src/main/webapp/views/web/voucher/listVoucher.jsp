@@ -39,8 +39,13 @@
 									<i class="zmdi zmdi-search"></i>
 								</button>
 								<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text"
-									name="keyword" placeholder="Nhập mã voucher tại đây">
+									name="keyword" placeholder="Tìm kiếm voucher">
 							</div>
+							<c:if test="${not empty message }">
+								<div class="alert alert-${alert}">
+									<strong>${message}!</strong>
+								</div>
+							</c:if>
 						</div>
 					</form>
 				</div>

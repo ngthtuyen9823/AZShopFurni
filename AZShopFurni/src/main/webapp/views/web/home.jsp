@@ -363,10 +363,10 @@ section{
 				<input type="hidden" name="itemID" value="${i.get(1)}"> <input
 					type="hidden" name="productID" value="${i.get(0)}">
 				<div class="product-image">
-					<img src="${i.get(6)}" class="product-thumb" alt="">
+					<a href="<c:url value='/products?id=${i.get(0)}'/>"><img src="${i.get(6)}" class="product-thumb" alt=""></a>
 				</div>
 				<div class="product-info">
-					<h2 class="product-brand">${i.get(2)}</h2>
+					<h2 class="product-brand"><a href="<c:url value='/products?id=${i.get(0)}'/>">${i.get(2)}</a></h2>
 					<p class="product-short-description">${i.get(3)}</p>
 
 					<c:if test="${i.get(5) != 0}">
