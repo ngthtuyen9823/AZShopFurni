@@ -21,7 +21,7 @@
 	href="<c:url value="/templates/web/css/login.css"/>">
 
 
-<title>Đăng nhập</title>
+<title>Xác nhận</title>
 </head>
 
 <body>
