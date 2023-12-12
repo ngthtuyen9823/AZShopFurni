@@ -20,7 +20,7 @@
 			aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 			<ul class="dropdown-menu dropdown-menu-end"
 				aria-labelledby="navbarDropdown">
-				<li><a class="dropdown-item" href="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
 			</ul></li>
 	</ul>
 </nav>
