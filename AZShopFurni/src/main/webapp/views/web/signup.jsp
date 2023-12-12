@@ -38,7 +38,7 @@
 			</div>
 			<div class="input-box">
 				<div class="input-field">
-					<input type="password" placeholder="Nhập mật khẩu" name="passsignu"
+					<input type="password" placeholder="Nhập mật khẩu" name="passsignup"
 						required> <i class='bx bxs-lock-alt'></i>
 				</div>
 				<div class="input-field">
