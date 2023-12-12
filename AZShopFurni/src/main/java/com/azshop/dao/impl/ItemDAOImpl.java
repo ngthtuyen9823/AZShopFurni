@@ -95,7 +95,7 @@ public class ItemDAOImpl implements IItemDAO {
 				model.setColorCode(rs.getString("ColorCode"));
 				model.setSize(rs.getString("Size"));
 				model.setStock(rs.getInt("Stock"));
-model.setOriginalPrice(rs.getInt("OriginalPrice"));
+				model.setOriginalPrice(rs.getInt("OriginalPrice"));
 				model.setPromotionPrice(rs.getInt("PromotionPrice"));
 			}
 			conn.close();
@@ -156,7 +156,7 @@ model.setOriginalPrice(rs.getInt("OriginalPrice"));
 
 	@Override
 	public void deleteItem(int ItemId) {
-		String sql = "Delete from ITEM where ProductID=?";
+		String sql = "Delete from ITEM where ItemID=?";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
@@ -171,20 +171,18 @@ model.setOriginalPrice(rs.getInt("OriginalPrice"));
 
 	@Override
 	public void updateItem(ItemModel model) {
-		String sql = "Update ITEM " + "Set ProductID = ?, Color = ?, ColorCode = ?,"
-				+ " Size = ?, Stock = ?, OriginalPrice = ?, PromotionPrice = ?" + "where ItemID = ?";
+		String sql = "Update ITEM Set Color = ?, ColorCode = ?, Size = ?, Stock = ?, OriginalPrice = ?, PromotionPrice = ? where ItemID = ?";
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, model.getProductID());
-			ps.setString(2, model.getColor());
-			ps.setString(3, model.getColorCode());
-			ps.setString(4, model.getSize());
-			ps.setInt(5, model.getStock());
-			ps.setInt(6, model.getOriginalPrice());
-			ps.setInt(7, model.getPromotionPrice());
-			ps.setInt(8, model.getItemID());
+			ps.setString(1, model.getColor());
+			ps.setString(2, model.getColorCode());
+			ps.setString(3, model.getSize());
+			ps.setInt(4, model.getStock());
+			ps.setInt(5, model.getOriginalPrice());
+			ps.setInt(6, model.getPromotionPrice());
+			ps.setInt(7, model.getItemID());
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -194,15 +192,26 @@ model.setOriginalPrice(rs.getInt("OriginalPrice"));
 
 	public static void main(String[] args) {
 		IItemDAO itemDAO = new ItemDAOImpl();
-
+		
+		ItemModel model = new ItemModel();
+		model.setItemID(10100102);
+		model.setProductID(101001);
+		model.setColor("2");
+		model.setColorCode("#ffffff");
+		model.setSize("2");
+		model.setStock(2);
+		model.setOriginalPrice(2);
+		model.setPromotionPrice(2);
+		itemDAO.updateItem(model);
+		System.out.println(itemDAO.findOne(10100102));
 //		List<ItemModel> list = itemDAO.findAll();
 //		System.out.println(list);
 
 //		List<ItemModel> listByPro = itemDAO.findByProductID(101001);
 //		System.out.println(listByPro);
 //
-		List<ItemModel> list = itemDAO.findByProductID(101003);
-		System.out.println(list);
+//		List<ItemModel> list = itemDAO.findByProductID(101003);
+//		System.out.println(list);
 
 	}
 
@@ -251,5 +260,34 @@ model.setOriginalPrice(rs.getInt("OriginalPrice"));
 			e.printStackTrace();
 		}
 		return displayedOriginalPrice;
+	}
+
+	@Override
+	public List<ItemModel> findAllByProductID(int productID) {
+		List<ItemModel> list = new ArrayList<ItemModel>();
+		String sql = "Select * from ITEM where ProductID=?";
+		try {
+			new DBConnection();
+			conn = DBConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, productID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				ItemModel model = new ItemModel();
+				model.setItemID(rs.getInt("ItemID"));
+				model.setProductID(rs.getInt("ProductID"));
+				model.setColor(rs.getString("Color"));
+				model.setColorCode(rs.getString("ColorCode"));
+				model.setSize(rs.getString("Size"));
+				model.setStock(rs.getInt("Stock"));
+				model.setOriginalPrice(rs.getInt("OriginalPrice"));
+				model.setPromotionPrice(rs.getInt("PromotionPrice"));
+				list.add(model);
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

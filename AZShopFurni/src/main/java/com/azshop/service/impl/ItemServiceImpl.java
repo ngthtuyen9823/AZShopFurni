@@ -27,22 +27,34 @@ public class ItemServiceImpl implements IItemService{
 
 	@Override
 	public void insertItem(ItemModel model) {
-		insertItem(model);
+		itemDAO.insertItem(model);
 	}
 
 	@Override
 	public void deleteItem(int IteID) {
-		deleteItem(IteID);
+		itemDAO.deleteItem(IteID);
 	}
 
 	@Override
 	public void updateItem(ItemModel model) {
-		updateItem(model);
+		itemDAO.updateItem(model);
 	}
 
 	@Override
 	public ItemModel findOneByProductID(int productID) {
 		return itemDAO.findOneByProductID(productID);
+	}
+
+	@Override
+	public int CreateItemID(int Id) {
+		List<ItemModel> Item = itemDAO.findAllByProductID(Id);
+		int itemId = Item.get(Item.size()-1).getItemID();
+		return itemId +1;
+	}
+
+	@Override
+	public List<ItemModel> findAllByProductID(int productID) {
+		return itemDAO.findAllByProductID(productID);
 	}
 
 }

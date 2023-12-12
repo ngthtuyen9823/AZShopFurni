@@ -17,7 +17,7 @@ import com.azshop.bean.MyItem;
 import com.azshop.service.IReportService;
 import com.azshop.service.impl.ReportServiceImpl;
 
-@WebServlet(urlPatterns = { "/adminHome" })
+@WebServlet(urlPatterns = { "/adminHome"})
 public class HomeController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
