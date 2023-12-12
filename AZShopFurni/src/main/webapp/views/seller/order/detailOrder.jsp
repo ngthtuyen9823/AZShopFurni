@@ -832,7 +832,7 @@ input {
 											</p>
 											<p class="mb-0 mt-1">
 												<span class="fw-medium"> <c:choose>
-														<c:when test="${empty j.item.promotionPrice}">
+														<c:when test="${ j.item.promotionPrice ==0}">
 															<fmt:formatNumber type="currency"
 																value="${j.item.originalPrice}" currencyCode="VND"
 																pattern="#,##0" var="formattedPrice" />
@@ -852,7 +852,7 @@ input {
 											style="color: orange; margin-left: auto; margin-right: 50px">
 
 											<c:choose>
-												<c:when test="${empty j.item.promotionPrice}">
+												<c:when test="${ j.item.promotionPrice==0}">
 													<fmt:formatNumber type="currency"
 														value="${j.item.originalPrice * j.quantity}"
 														currencyCode="VND" pattern="#,##0 VND"

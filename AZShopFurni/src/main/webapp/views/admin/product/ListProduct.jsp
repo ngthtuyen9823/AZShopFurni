@@ -20,10 +20,14 @@
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">Sản phẩm</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item"><a href="index.html">Bảng điều
-						khiển</a></li>
+				<li class="breadcrumb-item"><a href="adminHome">Trang chủ</a></li>
 				<li class="breadcrumb-item active">Sản phẩm</li>
 			</ol>
+			<c:if test="${not empty message }">
+				<div class="alert alert-${alert}">
+					<strong>${message}!</strong>
+				</div>
+			</c:if>
 			<div class="row">
 				<div class="col-xl-6">
 					<div class="card mb-4">
@@ -122,11 +126,12 @@
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-pencil"></i>
 												</button>
-											</a> <a
-												href="<c:url value='/admindeleteProduct?ProductID=${i.productID}'/>">
+											</a>
+											<a href="#" class="trigger-btn" data-toggle="modal"
+												data-target="#myModal"
+												data-link="<c:url value='/admindeleteProduct?ProductID=${i.productID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
-													id="liveToastBtn"
-													onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm có ID là : ${i.productID} không?')">
+													id="liveToastBtn">
 													<i class="ace-icon fa fa-trash"></i>
 												</button>
 											</a>
