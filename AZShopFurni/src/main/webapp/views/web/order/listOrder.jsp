@@ -173,18 +173,18 @@ a {
 															</p>
 														</div>
 														<div class="price-info font-size-20" style="color: orange">
-															<span class="text-muted me-2"> 
-															<del class="font-size-16 fw-normal">
+															<span class="text-muted me-2"> <del
+																	class="font-size-16 fw-normal">
 																	<fmt:formatNumber type="currency"
 																		value="${j.item.originalPrice}" currencyCode="VND"
-																		pattern="#,##0 VND" var="formattedPrice" /> ${formattedPrice}
+																		pattern="#,##0 VND" var="formattedPrice" />
+																	${formattedPrice}
 																</del>
 															</span>
 															<fmt:formatNumber type="currency"
 																value="${j.item.promotionPrice }" currencyCode="VND"
 																pattern="#,##0 VND" var="formattedPrice" />
-															${formattedPrice} 
-															<a
+															${formattedPrice} <a
 																href="${pageContext.request.contextPath}/itemRating?orderID=${i.orderID}&itemID=${j.itemID}"
 																class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
 																Đánh giá </a>
@@ -218,18 +218,22 @@ a {
 															</p>
 														</div>
 														<div class="price-info font-size-20" style="color: orange">
-															<span class="text-muted me-2"> <del
-																	class="font-size-16 fw-normal">
+															<c:choose>
+																<c:when test="${j.item.promotionPrice == 0}">
 																	<fmt:formatNumber type="currency"
-																		value="${j.item.originalPrice}" currencyCode="VND"
-																		pattern="#,##0 VND" var="formattedPrice" />
-																	${formattedPrice}
-																</del>
-															</span>
-															<fmt:formatNumber type="currency"
-																value="${j.item.promotionPrice }" currencyCode="VND"
-																pattern="#,##0 VND" var="formattedPrice" />
-															${formattedPrice}
+																		value="${j.item.originalPrice * j.quantity}"
+																		currencyCode="VND" pattern="#,##0 VND"
+																		var="formattedPrice" />
+																            ${formattedPrice}
+																        </c:when>
+																<c:otherwise>
+																	<fmt:formatNumber type="currency"
+																		value="${j.item.promotionPrice * j.quantity}"
+																		currencyCode="VND" pattern="#,##0 VND"
+																		var="formattedPrice" />
+																            ${formattedPrice}
+																        </c:otherwise>
+															</c:choose>
 														</div>
 													</div>
 												</c:if>
@@ -248,8 +252,8 @@ a {
 												<a
 													href="${pageContext.request.contextPath}/detailOrder?orderID=${i.orderID}"
 													class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-													Chi tiết  </a> 
-													<input type="hidden" name="orderID" value="${i.orderID}">
+													Chi tiết </a> <input type="hidden" name="orderID"
+													value="${i.orderID}">
 												<c:choose>
 													<c:when test="${i.status <= 2 }">
 														<input type="hidden" name="action" value="cancelOrder">
@@ -260,7 +264,8 @@ a {
 													<c:when
 														test="${i.status == 4 && i.customerConfirmation != 1 }">
 														<input type="hidden" name="action" value="confirmOrder">
-														<button type="submit" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+														<button type="submit"
+															class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
 															Xác nhận</button>
 													</c:when>
 												</c:choose>

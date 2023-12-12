@@ -259,18 +259,22 @@ a {
 												</p>
 											</div>
 											<div class="price-info font-size-20" style="color: orange">
-												<span class="text-muted me-2"> <del
-														class="font-size-16 fw-normal">
+												<c:choose>
+													<c:when test="${j.item.promotionPrice == 0}">
 														<fmt:formatNumber type="currency"
-															value="${j.item.originalPrice}" currencyCode="VND"
-															pattern="#,##0 VND" var="formattedPrice" />
-														${formattedPrice}
-													</del>
-												</span>
-												<fmt:formatNumber type="currency"
-													value="${j.item.promotionPrice }" currencyCode="VND"
-													pattern="#,##0 VND" var="formattedPrice" />
-												${formattedPrice}
+															value="${j.item.originalPrice * j.quantity}"
+															currencyCode="VND" pattern="#,##0 VND"
+															var="formattedPrice" />
+										            ${formattedPrice}
+										        </c:when>
+													<c:otherwise>
+														<fmt:formatNumber type="currency"
+															value="${j.item.promotionPrice * j.quantity}"
+															currencyCode="VND" pattern="#,##0 VND"
+															var="formattedPrice" />
+									            ${formattedPrice}
+									        </c:otherwise>
+												</c:choose>
 											</div>
 										</div>
 									</c:if>
@@ -419,11 +423,11 @@ a {
 										<p class="text-muted mb-2">Tổng tiền</p>
 										<p class="text-muted mb-2">Phí vận chuyển</p>
 										<p class="text-muted mb-2">Giảm giá</p>
-										<p class="text-muted">Thành tiền </p>
+										<p class="text-muted">Thành tiền</p>
 									</div>
 									<div class="col-md-3 text-end ">
 										<h5 class="font-size-20 mb-2">
-											<fmt:formatNumber type="currency" value="888888888"
+											<fmt:formatNumber type="currency" value="${rawPrice}"
 												currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
 											${formattedPrice}
 										</h5>

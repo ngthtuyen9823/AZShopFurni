@@ -517,13 +517,13 @@ body {
 													</p>
 													<p class="text-muted mb-0 mt-1">
 														<fmt:formatNumber type="currency"
-															value="${cart.totalPrice}" currencyCode="VND"
+															value="${cart.promotionPrice}" currencyCode="VND"
 															pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}
 														x${cart.quantity}
 													</p>
 												</td>
 												<td><fmt:formatNumber type="currency"
-														value="${cart.totalPrice * cart.quantity}"
+														value="${cart.promotionPrice * cart.quantity}"
 														currencyCode="VND" pattern="#,##0 VND"
 														var="formattedPrice" />${formattedPrice}</td>
 											</tr>
