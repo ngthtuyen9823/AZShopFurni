@@ -14,13 +14,13 @@
 	<section class="bg0 p-t-23 p-b-130">
 		<div class="container">
 			<div class="p-b-10">
-				<h3 class="ltext-103 cl5">Product Overview</h3>
+				<h3 class="ltext-103 cl5">Tổng quan sản phẩm</h3>
 			</div>
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<a href="<c:url value='/products'/>"
 						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 ${rootcategory.categoryID == null ? 'how-active1' : ''}"
-						data-filter="*">All Products</a>
+						data-filter="*">Tất cả sản phẩm</a>
 
 					<c:forEach items="${rootCategories}" var="item">
 						<a href="<c:url value='/products?cateId=${item.categoryID}'/>"
@@ -35,14 +35,14 @@
 							class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
 						<i
 							class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						Filter
+						Lọc
 					</div>
 					<div
 						class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
 						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
 						<i
 							class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						Search
+						Tìm kiếm
 					</div>
 				</div>
 				<!-- Search product -->
@@ -68,7 +68,7 @@
 					<div
 						class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
 						<div class="filter-col1 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">Sort By</div>
+							<div class="mtext-102 cl2 p-b-15">Giá</div>
 							<ul>
 								<!-- <li class="p-b-6"><a href="#"
 									class="filter-link stext-106 trans-04"> Popularity </a></li> -->
@@ -79,18 +79,18 @@
 
 								<li class="p-b-6"><button onclick=" changSort('asc')"
 										class="filter-link stext-106 trans-04 ${sort == 'asc' ? 'filter-link-active' : ''}">
-										Price: Low to High</button></li>
+										Giá: Từ thấp đến cao</button></li>
 
 								<li class="p-b-6"><button onclick=" changSort('desc')"
-										class="filter-link stext-106 trans-04 ${sort == 'desc' ? 'filter-link-active' : ''}">Price:
-										High to Low</button></li>
+										class="filter-link stext-106 trans-04 ${sort == 'desc' ? 'filter-link-active' : ''}">Giá:
+										Từ cao đến thấp</button></li>
 							</ul>
 						</div>
 						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">Price</div>
+							<div class="mtext-102 cl2 p-b-15">Khoảng giá</div>
 							<ul>
 								<li class="p-b-6"><button onclick=" changPrice('')"
-										class="filter-link stext-106 trans-04 ${price == '' ? 'filter-link-active' : ''}">All</button></li>
+										class="filter-link stext-106 trans-04 ${price == '' ? 'filter-link-active' : ''}">Tất cả</button></li>
 								<li class="p-b-6"><button
 										onclick=" changPrice('0-1000000')"
 										class="filter-link stext-106 trans-04 ${price == '0-1000000' ? 'filter-link-active' : ''}">Dưới
@@ -112,7 +112,7 @@
 							</ul>
 						</div>
 						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">Rating</div>
+							<div class="mtext-102 cl2 p-b-15">Đánh giá</div>
 							<ul>
 								<li class="p-b-6">
 									<button onclick="changeRating('5')"
@@ -188,7 +188,7 @@
 										<img src="${item.image}" alt="IMG-CATEGORY"> <a
 											href="<c:url value='/products?cateId=${item.categoryID}'/>"
 											class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-											View </a>
+											Xem</a>
 									</div>
 
 									<div class="block2-txt flex-w flex-t p-t-14">
@@ -219,7 +219,7 @@
 									<img src="${item.displayedImage}" alt="IMG-PRODUCT"> <a
 										href='<c:url value="/products?id=${item.productID}"/>'
 										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-										View</a>
+										Xem chi tiết</a>
 								</div>
 
 								<div class="block2-txt flex-w flex-t p-t-14">
