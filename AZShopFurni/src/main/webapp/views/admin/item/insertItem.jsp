@@ -70,7 +70,7 @@
 													style="height: 58px; display: flex; align-items: center;">Chọn
 														ảnh</span>
 												</label> <input id="fileCountInput" type="text" class="form-control"
-													readonly placeholder="Chưa có ảnh nào được chọn">
+													readonly placeholder="Chưa có ảnh nào được chọn" style="height: 58px">
 											</div>
 										</div>
 									</div>

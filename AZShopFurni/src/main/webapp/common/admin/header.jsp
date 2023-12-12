@@ -27,7 +27,7 @@
 			<ul class="dropdown-menu dropdown-menu-end"
 				aria-labelledby="navbarDropdown">
 				<li><a class="dropdown-item" href="#!">Cài đặt</a></li>
-				<li><a class="dropdown-item" href="login">Đăng xuất</a></li>
+				<li><a class="dropdown-item" href= "<c:url value='/logout'/>">Đăng xuất</a></li>
 			</ul></li>
 	</ul>
 </nav>

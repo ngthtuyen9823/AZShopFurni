@@ -70,7 +70,7 @@
 															ảnh</span>
 													</label> <input id="fileCountInput" type="text"
 														class="form-control" readonly
-														placeholder="Chưa có ảnh nào được chọn">
+														placeholder="Chưa có ảnh nào được chọn" style="height: 58px">
 												</div>
 											</c:if>
 										</div>
