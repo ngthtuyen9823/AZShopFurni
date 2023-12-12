@@ -14,11 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import com.azshop.models.DetailModel;
 import com.azshop.models.OrderModel;
+import com.azshop.models.PaymentModel;
 import com.azshop.models.UserModel;
 import com.azshop.service.IDetailService;
 import com.azshop.service.IOrderService;
+import com.azshop.service.IPaymentService;
 import com.azshop.service.impl.DetailServiceImpl;
 import com.azshop.service.impl.OrderServiceImpl;
+import com.azshop.service.impl.PaymentServiceImpl;
 
 @WebServlet(urlPatterns = { "/listOrder", "/customerConfirm", "/detailOrder", "/itemRating" })
 @MultipartConfig
@@ -26,6 +29,7 @@ public class OrderController extends HttpServlet {
 
 	IOrderService orderService = new OrderServiceImpl();
 	IDetailService detailService = new DetailServiceImpl();
+	IPaymentService paymentService = new PaymentServiceImpl();
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -91,6 +95,8 @@ public class OrderController extends HttpServlet {
 				totalCost += detail.getItem().getPromotionPrice() * detail.getQuantity();
 			}
 		}
+		PaymentModel payment = paymentService.findPaymentByID(orderID);
+		req.setAttribute("payment", payment);
 		req.setAttribute("rawPrice", totalCost);
 		req.setAttribute("order", order);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/detailOrder.jsp");

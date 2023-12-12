@@ -235,7 +235,7 @@ customer.setLastName(rs.getString("LastNameCustomer"));
 	@Override
 	public OrderModel getOrderByOrderID(int orderID) {
 		OrderModel order = new OrderModel();
-		String sql = "SELECT o.*, FirstName, LastName, Phone,	   p.Method, p.Status as PayStatus    "
+		String sql = "SELECT o.*, FirstName, LastName, Phone, p.CardOwner,p.Bank,p.AccountNumber,p.Time as TimePay,	 p.Method, p.Status as PayStatus    "
 				+ " FROM AZShop.ORDER as o   LEFT JOIN PAYMENT as p ON o.OrderID = p.OrderID INNER JOIN USER as c ON  o.CustomerID = c.UserID  "
 				+ " WHERE o.OrderID=?";
 		try {
@@ -259,8 +259,12 @@ customer.setLastName(rs.getString("LastNameCustomer"));
 				order.getCustomer().setFirstName(rs.getString("FirstName"));
 				order.getCustomer().setLastName(rs.getString("LastName"));
 				order.getCustomer().setPhone(rs.getString("Phone"));
+				
 				order.getPayment().setMethod(rs.getInt("Method"));
 				order.getPayment().setStatus(rs.getInt("PayStatus"));
+				order.getPayment().setBank(rs.getString("Bank"));
+				order.getPayment().setCardOwner(rs.getString("CardOwner"));
+				order.getPayment().setTime(rs.getTimestamp("TimePay"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

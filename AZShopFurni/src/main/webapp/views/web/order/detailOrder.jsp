@@ -172,7 +172,7 @@ a {
 					</div>
 				</div>
 			</div>
-			<div class="col-xl-8">
+			<div class="col-xl-10" >
 				<div class="card border shadow-none mb-4">
 					<div class="card-body">
 						<div class="row">
@@ -411,7 +411,25 @@ a {
 
 							<div class="col-md-12">
 								<div class="row">
+								
+								<c:choose>
+									<c:when test="${payment.status == 0 || payment.method==1}">
+										<div class="col-md-3">
+									<img style="    width: 200px; height: 200px" alt="QR thanh toán" src="https://storage.googleapis.com/web-budget/Image/Other/QR.png"></div>
+									<div class="col-md-3">
+									<p class="text-muted mb-2"><b>MBBank </b>  </p>
+										<p class="text-muted mb-2"> LA TIẾN ĐẠT</p>
+										<p class="text-muted"><b>Số tài khoản : </b> 1107200388</p>
+										<p class="text-muted mb-2"><b>Nội dung chuyển khoản : </b> AZSHOP_${order.orderID}</p>
+										
+									</div>
+									</c:when>
+									<c:when test="${payment.status == 1 || payment.method==1}">
 									<div class="col-md-6"></div>
+									</c:when>
+								</c:choose>
+								
+									
 									<div class="col-md-3 text-end ">
 										<p class="text-muted mb-2">Tổng tiền</p>
 										<p class="text-muted mb-2">Phí vận chuyển</p>

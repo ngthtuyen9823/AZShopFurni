@@ -59,7 +59,7 @@ public class CheckoutController extends HttpServlet {
 
 		double totalCost = 0.0;
 		for (CartModel cart : listCart) {
-			totalCost += cart.getPromotionPrice() * cart.getQuantity();
+			totalCost += cart.getPromotionPrice()  * cart.getQuantity() ;
 		}
 		req.setAttribute("rawPrice", totalCost);
 		req.setAttribute("totalCost", totalCost + transportFee);
@@ -155,11 +155,10 @@ public class CheckoutController extends HttpServlet {
 			payment.setAccountNumber(numCard);
 			payment.setCardOwner(cardOwner);
 			payment.setBank(bank);
-			payment.setStatus(1);
 			payment.setTime(new Timestamp(new Date().getTime()));
 		}
 		paymentService.insertPayment(payment);
-
+		req.setAttribute("payment", payment);
 		resp.sendRedirect(req.getContextPath() + "/detailOrder?orderID=" + createdOrder.getOrderID());
 		return;
 	}
