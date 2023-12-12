@@ -21,6 +21,7 @@ import com.azshop.models.ProductModel;
 import com.azshop.models.SupplierModel;
 import com.azshop.service.IProductService;
 import com.azshop.service.impl.ProductServiceImpl;
+import com.azshop.utils.MessageUtil;
 import com.mysql.cj.Session;
 
 @WebServlet(urlPatterns = { "/adminProduct", "/admininsertProduct", "/admindeleteProduct", "/adminupdateProduct"})
@@ -70,9 +71,15 @@ public class ProductController extends HttpServlet {
 	}
 
 	private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int productID = Integer.parseInt(req.getParameter("ProductID"));
-		prod.deleteProduct(productID);
-		resp.sendRedirect("adminProduct");
+		try {
+			int productID = Integer.parseInt(req.getParameter("ProductID"));
+			prod.deleteProduct(productID);
+			MessageUtil.showMessage(req, "delSuccess");
+		}catch (Exception ex) {
+			MessageUtil.showMessage(req, "delFail");
+		}
+		RequestDispatcher rd = req.getRequestDispatcher("adminProduct");
+		rd.forward(req, resp);
 	}
 
 	private void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -96,8 +103,7 @@ public class ProductController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		if (url.contains("admininsertProduct")) {
-			postinsert(req, resp);
-			
+			postinsert(req, resp);			
 		} else if (url.contains("adminupdateProduct")) {
 			postupdate(req, resp);
 		}
@@ -106,48 +112,56 @@ public class ProductController extends HttpServlet {
 
 	private void postupdate(HttpServletRequest req, HttpServletResponse resp)throws IOException {
 		int productID = Integer.parseInt(req.getParameter("productID"));
-		String productName = req.getParameter("productName");
-		String description = req.getParameter("description");
-		String origin = req.getParameter("origin");
-		int supplierID = Integer.parseInt(req.getParameter("supplier"));
-		int categoryID = Integer.parseInt(req.getParameter("category"));
-		String material = req.getParameter("material");
+		try {
+			String productName = req.getParameter("productName");
+			String description = req.getParameter("description");
+			String origin = req.getParameter("origin");
+			int supplierID = Integer.parseInt(req.getParameter("supplier"));
+			int categoryID = Integer.parseInt(req.getParameter("category"));
+			String material = req.getParameter("material");
 
-		ProductModel Pro = new ProductModel();
-		Pro.setProductID(productID);
-		Pro.setProductName(productName);
-		Pro.setDescription(description);
-		Pro.setOrigin(origin);
-		Pro.setSupplierID(supplierID);
-		Pro.setCategoryID(categoryID);
-		Pro.setMaterial(material);
-
-		prod.updateProduct(Pro);
+			ProductModel Pro = new ProductModel();
+			Pro.setProductID(productID);
+			Pro.setProductName(productName);
+			Pro.setDescription(description);
+			Pro.setOrigin(origin);
+			Pro.setSupplierID(supplierID);
+			Pro.setCategoryID(categoryID);
+			Pro.setMaterial(material);
+			prod.updateProduct(Pro);
+			MessageUtil.showMessage(req,"updateSuccess");
+		}catch (Exception ex) {
+			MessageUtil.showMessage(req,"updateFail");
+		}		
 		resp.sendRedirect("adminProduct");
 		
 	}
 
 
-	private void postinsert(HttpServletRequest req, HttpServletResponse resp)throws IOException {
-		
-		String productName = req.getParameter("productName"); 
-		String description = req.getParameter("description"); 
-		String origin = req.getParameter("origin"); 
-		int supplierID = Integer.parseInt(req.getParameter("supplier")); 
-		int categoryID = Integer.parseInt(req.getParameter("category")); 
-		String material = req.getParameter("material"); 
-		 
-		int id = prod.CreateProductID(categoryID); 
-		ProductModel Pro = new ProductModel(); 
-		Pro.setProductID(id); 
-		Pro.setProductName(productName); 
-		Pro.setDescription(description); 
-		Pro.setOrigin(origin); 
-		Pro.setSupplierID(supplierID); 
-		Pro.setCategoryID(categoryID); 
-		Pro.setMaterial(material); 
- 
-		prod.insertProduct(Pro); 
-		resp.sendRedirect("adminProduct"); 
+	private void postinsert(HttpServletRequest req, HttpServletResponse resp)throws IOException, ServletException {
+		try {
+			String productName = req.getParameter("productName"); 
+			String description = req.getParameter("description"); 
+			String origin = req.getParameter("origin"); 
+			int supplierID = Integer.parseInt(req.getParameter("supplier")); 
+			int categoryID = Integer.parseInt(req.getParameter("category")); 
+			String material = req.getParameter("material"); 
+			 
+			int id = prod.CreateProductID(categoryID); 
+			ProductModel Pro = new ProductModel(); 
+			Pro.setProductID(id); 
+			Pro.setProductName(productName); 
+			Pro.setDescription(description); 
+			Pro.setOrigin(origin); 
+			Pro.setSupplierID(supplierID); 
+			Pro.setCategoryID(categoryID); 
+			Pro.setMaterial(material); 
+	 
+			prod.insertProduct(Pro); 
+			MessageUtil.showMessage(req,"addSuccess");
+		}catch (Exception ex) {
+			MessageUtil.showMessage(req,"addFail");
+		}
+		List(req, resp);
 	}
 }
