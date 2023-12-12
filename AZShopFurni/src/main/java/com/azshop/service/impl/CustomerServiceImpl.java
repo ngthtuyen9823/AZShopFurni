@@ -75,7 +75,7 @@ public class CustomerServiceImpl implements ICustomerService {
 			throw new IllegalArgumentException("Giới tính không hợp lệ");
 		if (address == null || address.equals(""))
 			throw new IllegalArgumentException("Địa chỉ không hợp lệ");
-		if (area == null || !City.BAC_CAN.getListCity().contains(area))
+		if (area == null || !City.getListCity().contains(area))
 			throw new IllegalArgumentException("Thành phố không hợp lệ");
 		if (phone == null || phone.length() != 10 || !phone.chars().allMatch(Character::isDigit))
 			throw new IllegalArgumentException("Số điện thoại không hợp lệ");

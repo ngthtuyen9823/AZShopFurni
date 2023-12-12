@@ -53,7 +53,7 @@ public class SignupController extends HttpServlet {
 	}
 
 	private void showPageSignup(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<String> listcity = City.BAC_CAN.getListCity();
+		List<String> listcity = City.getListCity();
 		req.setAttribute("listcity", listcity);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/signup.jsp");
 		rd.forward(req, resp);

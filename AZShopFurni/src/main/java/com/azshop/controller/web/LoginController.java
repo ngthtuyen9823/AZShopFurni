@@ -100,7 +100,7 @@ public class LoginController extends HttpServlet {
 			else if (user.getType() == 1)
 				url = "/sellerHome";
 			else if (user.getType() == 2)
-				url = "/shipperHome";
+				url = "/shipper-list-shipping";
 			else if (user.getType() == 3)
 				url = "/adminHome";
 			resp.sendRedirect(req.getContextPath() + url);

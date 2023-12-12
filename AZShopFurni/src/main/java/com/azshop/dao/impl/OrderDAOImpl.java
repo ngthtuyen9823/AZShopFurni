@@ -20,6 +20,8 @@ import com.azshop.models.OrderModel;
 import com.azshop.models.PaymentModel;
 import com.azshop.models.UserModel;
 
+import other.Assignment;
+
 public class OrderDAOImpl implements IOrderDAO {
 
 	IDetailDAO detailDAO = new DetailDAOImpl();
@@ -40,7 +42,10 @@ public class OrderDAOImpl implements IOrderDAO {
 			ps.setInt(5, order.getDiscount());
 			ps.setInt(6, order.getTotalMoney());
 			ps.setString(7, order.getNote());
-			ps.setString(8, formatter.format(order.getDeliveryTime()));
+			if(order.getDeliveryTime() != null)
+				ps.setString(8, formatter.format(order.getDeliveryTime()));
+			else
+				ps.setString(8,null);
 			ps.setInt(9, order.getCustomerConfirmation());
 			ps.setInt(10, order.getCustomerID());
 			ps.setInt(11, order.getSellerID());
@@ -480,8 +485,10 @@ customer.setLastName(rs.getString("LastNameCustomer"));
 
 	@Override
 	public List<OrderModel> findNeedShipByArea(String area) {
-		String condition = " WHERE o.Status = 3 AND ShipperID IS NULL AND ?;";
-		return findDeliveryByCondition(condition, 1);
+		//String condition = " WHERE o.Status = 2 AND ShipperID IS NULL AND ?;";
+		String condition = " WHERE o.Status = 2 AND ?;";
+		List<String> citys = Assignment.getAssign().get(area);
+		return findDeliveryByCondition(condition, 1).stream().filter(order -> order.getCity().equals("none") || citys.contains(order.getCity())).toList();
 	}
 
 	@Override
@@ -504,7 +511,8 @@ customer.setLastName(rs.getString("LastNameCustomer"));
 	}
 
 	private final String sqltemp = "SELECT o.*, FirstName, LastName, Phone, \r\n"
-			+ "	   p.Method, p.Status as PayStatus\r\n" + "	   FROM AZShop.ORDER as o\r\n"
+			+ "	   p.Method, p.Status as PayStatus\r\n" 
+			+ "	   FROM AZShop.ORDER as o\r\n"
 			+ "    LEFT JOIN AZShop.PAYMENT as p ON o.OrderID = p.OrderID\r\n"
 			+ "    INNER JOIN USER as c ON  o.CustomerID = c.UserID\r\n";
 
@@ -524,12 +532,13 @@ customer.setLastName(rs.getString("LastNameCustomer"));
 				order.setOrderDate(rs.getDate("OrderDate"));
 				order.setAddress(rs.getString("Address"));
 				order.setStatus(rs.getInt("Status"));
+				order.setDiscount(rs.getInt("Discount"));
 				order.setTransportFee(rs.getInt("TransportFee"));
 				order.setTotalMoney(rs.getInt("TotalMoney"));
 				order.setNote(rs.getString("Note"));
 				order.setDeliveryTime(rs.getDate("DeliveryTime"));
 				order.setCustomerConfirmation(rs.getInt("CustomerConfirmation"));
-				// order.setDiscount(rs.getInt("Discount"));
+				order.setCity(rs.getString("City"));
 				order.setCustomerID(rs.getInt("CustomerID"));
 				order.setSellerID(rs.getInt("SellerID"));
 				order.setShipperID(rs.getInt("ShipperID"));
