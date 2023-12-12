@@ -26,7 +26,7 @@
 			<h2>${mess}</h2>
 			<div class="input-box">
 				<input type="text" placeholder="Nhập mật khẩu" value="${passchange}"
-					name="username" required> <i class='bx bxs-lock-alt'></i>
+					name="passchange" required> <i class='bx bxs-lock-alt'></i>
 			</div>
 			<div class="input-box">
 				<input type="password" placeholder="Nhập mật khẩu mới"
