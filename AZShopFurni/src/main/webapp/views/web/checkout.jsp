@@ -242,7 +242,7 @@ body {
 																	<div class="error-message">${cityError}</div>
 																</c:if>
 															</div>
-															
+
 														</div>
 													</div>
 												</form>
@@ -266,8 +266,8 @@ body {
 													<div class="col-lg-4 col-sm-6 address-card">
 														<div data-bs-toggle="collapse">
 															<label class="card-radio-label mb-0"> <input
-																type="radio" name="address" id="info-address1"
-																class="card-radio-input" checked>
+																type="radio" name="shippingMethod" id="info-address1"
+																value="express" class="card-radio-input" checked>
 																<div class="card-radio text-truncate p-3">
 																	<span class="fs-14 mb-4 d-block">Giao hàng nhanh</span>
 																	<span
@@ -280,8 +280,27 @@ body {
 															</label>
 														</div>
 													</div>
+
+													<div class="col-lg-4 col-sm-6 address-card">
+														<div data-bs-toggle="collapse">
+															<label class="card-radio-label mb-0"> <input
+																type="radio" name="shippingMethod" id="info-address2"
+																value="standard" class="card-radio-input">
+																<div class="card-radio text-truncate p-3">
+																	<span class="fs-14 mb-4 d-block">Giao hàng tiết
+																		kiệm</span> <span
+																		class="text-muted fw-normal text-wrap mb-1 d-block">Dự
+																		kiến giao hàng vào:
+																		${LocalDate.now().plusDays(15).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))}</span>
+																	<span class="text-muted fw-normal d-block">Phí
+																		vận chuyển : 50 000 đ</span>
+																</div>
+															</label>
+														</div>
+													</div>
 												</div>
 											</div>
+
 										</div>
 									</div>
 								</li>
@@ -388,29 +407,31 @@ body {
 															<div id="collapseOne" class="collapse show"
 																aria-labelledby="headingOne"
 																data-parent="#accordionExample">
-																<div class="card-body payment-card-body" >
-																	<span class="font-weight-normal card-text">Số thẻ</span>
+																<div class="card-body payment-card-body">
+																	<span class="font-weight-normal card-text">Số
+																		thẻ</span>
 																	<div class="input">
 																		<i class="fa fa-credit-card"></i> <input type="text"
 																			class="form-control"
-																			placeholder="0000 0000 0000 0000" name="AccountNumber" 
-																			onfocusout="checkBank(event)">
+																			placeholder="0000 0000 0000 0000"
+																			name="AccountNumber" onfocusout="checkBank(event)">
 																	</div>
-																	
+
 
 																	<div class="row mt-3 mb-3">
 																		<div class="col-md-6">
-																			<span  class="font-weight-normal card-text">Ngày cấp thẻ
-																				</span>
+																			<span class="font-weight-normal card-text">Ngày
+																				cấp thẻ </span>
 																			<div class="input">
-																				<i class="fa fa-calendar"></i> <input type="date" 
+																				<i class="fa fa-calendar"></i> <input type="date"
 																					class="form-control" placeholder="MM/YY">
-																					
+
 																			</div>
 																		</div>
 
 																		<div class="col-md-6">
-																			<span class="font-weight-normal card-text">Ngày hết hạn</span>
+																			<span class="font-weight-normal card-text">Ngày
+																				hết hạn</span>
 																			<div class="input">
 																				<i class="fa fa-lock"></i> <input type="date"
 																					class="form-control" placeholder="MM/YY">
@@ -530,8 +551,9 @@ body {
 											<td colspan="2">
 												<h5 class="font-size-14 m-0">Phí vận chuyển :</h5>
 											</td>
-											<td><fmt:formatNumber type="currency" value="0"
-													currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</td>
+											<td id="shippingFeeCell"><fmt:formatNumber
+													type="currency" value="200000" currencyCode="VND"
+													pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</td>
 										</tr>
 										<tr>
 											<td colspan="2">
@@ -555,8 +577,9 @@ body {
 						</div>
 
 					</div>
-					<input type="hidden" id="idBankName" name ="Bank" >
-					<input type="hidden"" value="${user.firstName} ${user.lastName}" name="CardOwner">
+					<input type="hidden" id="idBankName" name="Bank"> <input
+						type="hidden" " value="${user.firstName} ${user.lastName}"
+						name="CardOwner">
 					<div class="text-end mt-2 mt-sm-0 process-button">
 						<button type="submit" class="btn btn-success">
 							<i class="mdi mdi-cart-outline me-1"></i> Đặt hàng
@@ -588,7 +611,6 @@ body {
 			var cardNumber = event.target.value;
 			var result = checkBankByNumber(cardNumber);
 
-			
 			// Kiểm tra xem có đủ 16 số hay không
 			if (!isValidCardNumber(cardNumber)) {
 				alert('Số thẻ không hợp lệ. Vui lòng nhập đủ 16 số.');
@@ -599,8 +621,9 @@ body {
 
 			if (result) {
 				alert('Ngân hàng: ' + result);
-				document.getElementById('idBankName').setAttribute('value', result);			
-				document.getElementById('idBankName').value = result; 
+				document.getElementById('idBankName').setAttribute('value',
+						result);
+				document.getElementById('idBankName').value = result;
 				//return result;
 			} else {
 				alert('Không xác định ngân hàng.');
@@ -637,8 +660,77 @@ body {
 			return null;
 		}
 	</script>
-  
- 
+
+	<!-- Phương thức vận chuyển  -->
+
+	<script>
+		document
+				.addEventListener(
+						"DOMContentLoaded",
+						function() {
+							// Lắng nghe sự kiện thay đổi của radio button
+							var radioButtons = document
+									.getElementsByName("shippingMethod");
+							radioButtons
+									.forEach(function(radioButton) {
+										radioButton
+												.addEventListener(
+														"change",
+														function() {
+															// Kiểm tra radio button nào được chọn
+															var selectedValue = document
+																	.querySelector('input[name="shippingMethod"]:checked').value;
+
+															// Lấy ô cần cập nhật
+															var shippingFeeCell = document
+																	.getElementById("shippingFeeCell");
+
+															// Cập nhật giá trị của ô dựa trên giá trị của radio button
+															if (selectedValue === "express") {
+																shippingFeeCell.innerHTML = '<fmt:formatNumber type="currency" value="200000" currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />'
+																		+ '${formattedPrice}';
+															} else if (selectedValue === "standard") {
+																shippingFeeCell.innerHTML = '<fmt:formatNumber type="currency" value="50000" currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />'
+																		+ '${formattedPrice}';
+															}
+														});
+									});
+
+							// Lắng nghe sự kiện submit của form
+							var shippingForm = document
+									.getElementById("shippingForm");
+							shippingForm
+									.addEventListener(
+											"submit",
+											function(event) {
+												// Ngăn chặn hành động mặc định của form
+												event.preventDefault();
+
+												// Kiểm tra giá trị của radio button khi form được submit
+												var selectedValue = document
+														.querySelector('input[name="shippingMethod"]:checked').value;
+
+												// Thực hiện các hành động tương ứng với giá trị của radio button
+												if (selectedValue === "express") {
+													// Giao hàng nhanh
+													doPost(0); // Thay thế bằng hàm bạn muốn gọi khi giao hàng nhanh được chọn
+												} else if (selectedValue === "standard") {
+													// Giao hàng tiết kiệm
+													doPost(1); // Thay thế bằng hàm bạn muốn gọi khi giao hàng tiết kiệm được chọn
+												}
+											});
+
+							// Hàm thực hiện công việc khi form được submit
+							function doPost(methodType) {
+								// Thực hiện các công việc cần thiết dựa trên giá trị của radio button
+								console.log("Form submitted with methodType:",
+										methodType);
+								// Thêm code xử lý tương ứng với giá trị của radio button ở đây
+							}
+						});
+	</script>
+
+
 
 </body>
 </html>
