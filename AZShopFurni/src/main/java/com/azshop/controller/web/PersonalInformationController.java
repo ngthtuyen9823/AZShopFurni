@@ -132,6 +132,9 @@ public class PersonalInformationController extends HttpServlet {
 		user.setEmail(email);
 
 		userService.updateUser(user);
+		HttpSession session = req.getSession(true);
+		session.setAttribute("user",userService.getInfoUser(userID));
+		getInfUser(req, resp);
 	}
 
 	private void createAccountModel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -147,7 +150,6 @@ public class PersonalInformationController extends HttpServlet {
 			MessageUtil.showMessage(req,"updateAccountTrue");
 		} else {
 			MessageUtil.showMessage(req,"updateAccountFail");
-			//req.getRequestDispatcher("/views/web/user/updateAccount.jsp").forward(req, resp);
 		}
 	}
 

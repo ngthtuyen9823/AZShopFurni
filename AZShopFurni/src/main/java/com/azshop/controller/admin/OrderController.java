@@ -149,13 +149,9 @@ public class OrderController extends HttpServlet {
 		Date currentDate = new Date();
 		int monthNow = currentDate.getMonth() + 1;
 		int today = currentDate.getDate();
-		/*
-		 * for(int k=1; k<=today;k++) {
-		 * 
-		 * for (List<Object> list : listTotal) { if ( list.get(0) ) } }
-		 */
+		
 		for (List<Object> list : listTotal) {
-			sumTotal += (int) list.get(1);
+			sumTotal += (long) list.get(1);
 			sumOrder += (int) list.get(2);
 		}
 		Calendar calendar = Calendar.getInstance();

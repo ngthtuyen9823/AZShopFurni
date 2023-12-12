@@ -31,6 +31,12 @@ public class MessageUtil {
 		else if (typeMessage.equals("updateAccountFail")) {
 			messageResponse = "Mật khẩu cũ không đúng. Vui lòng nhập lại";
 			alert = "danger";
+		}else if(typeMessage.equals("searchVoucherFail")) {
+			messageResponse = "Mã voucher không tồn tại";
+			alert = "danger";
+		} else if(typeMessage.equals("searchVoucherNull")) {
+			messageResponse = "Bạn đã dùng voucher này rồi";
+			alert = "danger";
 		}
 		request.setAttribute("message", messageResponse);
 		request.setAttribute("alert", alert);

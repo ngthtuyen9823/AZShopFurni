@@ -621,7 +621,7 @@ body {
 			}
 
 			if (result) {
-				alert('Ngân hàng: ' + result);
+				/* alert('Ngân hàng: ' + result); */
 				document.getElementById('idBankName').setAttribute('value',
 						result);
 				document.getElementById('idBankName').value = result;
@@ -641,14 +641,17 @@ body {
 		function checkBankByNumber(cardNumber) {
 			var cardNumberStr = cardNumber.toString();
 			var bankRanges = {
-				'4' : 'Visa',
-				'5' : 'MasterCard',
-				'1000' : 'Vietinbank',
-				'0491' : 'Vietcombank',
-				'068' : 'Bản Việt',
-				'20' : 'ACB',
-				'150' : 'Agribank',
-				'9704' : 'MB Bank',
+					'20' : 'ACB','24' : 'ACB', '25' : 'ACB',
+					'150' : 'Agribank',	'340' : 'Agribank','130' : 'Agribank','490' : 'Agribank','290' : 'Agribank',
+					'9704' : 'MB Bank','4089' : 'MB Bank',
+					'068' : 'Bản Việt','068' : 'Bản Việt','001' : 'Bản Việt','030' : 'Bản Việt','009' : 'Bản Việt',	'008' : 'Bản Việt','015' : 'Bản Việt', '801' : 'Bản Việt',
+					'4' : 'Visa',
+					'5' : 'MasterCard',						
+					'102' : 'Techcombank','196' : 'Techcombank','140' : 'Techcombank','191' : 'Techcombank','1903' : 'Techcombank',
+					'020' : 'TPBank','03' : 'TPBank',
+					'020' : 'Sacombank','5611' : 'Sacombank','0400' : 'Sacombank','1234' : 'Sacombank',
+					'004' : 'Vietcombank','007' : 'Vietcombank','0491' : 'Vietcombank','1000' : 'Vietinbank',
+					'004' : 'BIDV','007' : 'BIDV','0491' : 'BIDV','1000' : 'BIDV',
 			// Thêm các dải số khác của các ngân hàng khác
 			};
 

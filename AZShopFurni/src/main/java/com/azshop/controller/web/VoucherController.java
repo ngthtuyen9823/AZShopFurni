@@ -17,6 +17,7 @@ import com.azshop.models.UserModel;
 import com.azshop.models.VoucherModel;
 import com.azshop.service.IVoucherService;
 import com.azshop.service.impl.VoucherServiceImpl;
+import com.azshop.utils.MessageUtil;
 
 @WebServlet(urlPatterns = { "/listVoucher", "/searchVoucher" })
 @MultipartConfig
@@ -57,24 +58,26 @@ public class VoucherController extends HttpServlet {
 		UserModel user = (UserModel) session.getAttribute("user");
 		List<VoucherModel> listVoucher = new ArrayList<VoucherModel>();
 
-		if (!containsNonDigit(keyword)) {
+		if (!voucherService.containsNonDigit(keyword)) {
 			int voucherID = Integer.parseInt(keyword);
 			VoucherModel voucher = voucherService.findOneByCustomerID(voucherID, user.getUserID());
-			listVoucher.add(voucher);
-		} else {
-			listVoucher = voucherService.findVoucherByCustomerID(user.getUserID());
-		}
-		req.setAttribute("listVoucher", listVoucher);
-		RequestDispatcher rd = req.getRequestDispatcher("/views/web/voucher/listVoucher.jsp");
-		rd.forward(req, resp);
-	}
+			VoucherModel voucherEx = voucherService.findOne(voucherID);
 
-	private static boolean containsNonDigit(String input) {
-		for (char c : input.toCharArray()) {
-			if (!Character.isDigit(c)) {
-				return true;
+			if (voucher.getVoucherID() == 0 && voucherEx.getVoucherID() == voucherID) {
+				MessageUtil.showMessage(req, "searchVoucherNull");
+				listVoucher(req, resp);
+			} else if (voucher.getVoucherID() == 0) {
+				MessageUtil.showMessage(req, "searchVoucherFail");
+				listVoucher(req, resp);
+			} else {
+				listVoucher.add(voucher);
+				req.setAttribute("listVoucher", listVoucher);
+				RequestDispatcher rd = req.getRequestDispatcher("/views/web/voucher/listVoucher.jsp");
+				rd.forward(req, resp);
 			}
+		} else {
+			MessageUtil.showMessage(req, "searchVoucherFail");
+			listVoucher(req, resp);
 		}
-		return false;
 	}
 }

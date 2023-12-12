@@ -16,11 +16,13 @@
 									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
 										Hồ sơ cá nhân </a></li>
 
-								<li class="bor18"><a href="${pageContext.request.contextPath}/listOrder"
+								<li class="bor18"><a
+									href="${pageContext.request.contextPath}/listOrder"
 									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
 										Đơn mua </a></li>
 
-								<li class="bor18"><a href="${pageContext.request.contextPath}/listVoucher"
+								<li class="bor18"><a
+									href="${pageContext.request.contextPath}/listVoucher"
 									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
 										Kho voucher </a></li>
 							</ul>
@@ -66,9 +68,8 @@
 									<label> Giới tính</label>
 									<div class="bor19 rs1-select2 bor19 bg0" style="width: 200px;">
 										<select class="js-select2" name="Gender">
-											<option>Choose an option</option>
-											<option value="0">Nam</option>
-											<option value="1">Nữ</option>
+											<option value="0" ${userModel.gender  == 0 ? 'selected' : ''}>Nam</option>
+											<option value="1" ${userModel.gender  == 1 ? 'selected' : ''}>Nữ</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
@@ -85,7 +86,8 @@
 									<input type="hidden" name="Area" value="${userModel.area}">
 								</div>
 								<div>
-									<button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"
+									<button
+										class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"
 										type="submit">Chỉnh sửa</button>
 								</div>
 							</div>
@@ -96,19 +98,8 @@
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
 						<div class="wrap-slick3 flex-sb flex-w">
 							<div class="slick3 gallery-lb">
-								<div>
-									<img src="${userModel.avatar}" alt="IMG-AVT"
-										style="width: 100%; height: auto;"> <a
-										class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-										href="${userModel.avatar}"> <i class="fa fa-expand"></i>
-									</a>
-								</div>
 							</div>
 						</div>
-					</div>
-					<div>
-						<input type="hidden" name="image" id="image"
-							value="${userModel.avatar}">
 					</div>
 				</div>
 			</div>
