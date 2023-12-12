@@ -49,13 +49,20 @@ public class CheckoutController extends HttpServlet {
 		String voucherIdString = req.getParameter("voucherId");
 		List<CartModel> listCart = cartService.findByCustomerId(user.getUserID());
 		List<VoucherModel> listVoucher = voucherService.findVoucherByCustomerID(user.getUserID());
+		String shippingMethod = req.getParameter("shippingMethod");
+		int transportFee = 200000;
+		
+		// if ("express".equals(shippingMethod)) int transportFee = 200000
+		if ("standard".equals(shippingMethod)) {
+			transportFee = 50000;
+		}
 
 		double totalCost = 0.0;
 		for (CartModel cart : listCart) {
 			totalCost += cart.getPromotionPrice() * cart.getQuantity();
 		}
 		req.setAttribute("rawPrice", totalCost);
-		req.setAttribute("totalCost", totalCost);
+		req.setAttribute("totalCost", totalCost + transportFee);
 
 		if (voucherIdString != null) {
 			int voucherId = Integer.parseInt(voucherIdString);
