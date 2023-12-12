@@ -75,7 +75,7 @@ public class CheckoutController extends HttpServlet {
 		req.setAttribute("listVoucher", listVoucher);
 		req.setAttribute("user", user);
 		req.setAttribute("listCart", listCart);
-		
+
 		redirectCheckoutPage(req, resp);
 	}
 
@@ -88,15 +88,14 @@ public class CheckoutController extends HttpServlet {
 		resp.setContentType("text/htm");
 		resp.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
-		
+
 		String city = req.getParameter("city");
-		System.out.println("Post checkout : "+city);
+		
 		String address = req.getParameter("address");
 		String note = req.getParameter("note");
 		int payMethod = Integer.parseInt(req.getParameter("pay-method"));
 		String voucherIdString = req.getParameter("voucherId");
-		System.out.println("metho "+payMethod);
-		
+
 		int discount = (int) Double.parseDouble(req.getParameter("discount"));
 		int totalCost = (int) Double.parseDouble(req.getParameter("totalCost"));
 
@@ -107,12 +106,20 @@ public class CheckoutController extends HttpServlet {
 			doGet(req, resp);
 			return;
 		}
+		// Phương thức vận chuyển
+		String shippingMethod = req.getParameter("shippingMethod");
+		int transportFee = 200000;
+		
+		// if ("express".equals(shippingMethod)) int transportFee = 200000
+		if ("standard".equals(shippingMethod)) {
+			transportFee = 50000;
+		}
 		OrderModel newOrder = new OrderModel();
 		newOrder.setOrderDate(new Date());
 		newOrder.setAddress(address);
 		newOrder.setCity(city);
 		newOrder.setStatus(0);
-		newOrder.setTransportFee(0);
+		newOrder.setTransportFee(transportFee);
 		newOrder.setDiscount(discount);
 		newOrder.setTotalMoney(totalCost);
 		newOrder.setNote(note);
@@ -121,26 +128,23 @@ public class CheckoutController extends HttpServlet {
 		newOrder.setCustomerID(user.getUserID());
 
 		OrderModel createdOrder = orderService.insertOrder(newOrder);
-		
+
 		if (voucherIdString != null) {
 			int voucherID = Integer.parseInt(voucherIdString);
 			voucherCustomerService.insertVoucherCustomer(voucherID, totalCost);
 		}
-		//*INFO:  CREATE PAYMENT
+		// *INFO: CREATE PAYMENT
 		PaymentModel payment = new PaymentModel();
 		payment.setMethod(payMethod);
 		payment.setOrderID(createdOrder.getOrderID());
-	
-		//*INFO: SET DEFAULT STATUS = 0 (NOT CHECKOUT). UPDATE LATER
+
+		// *INFO: SET DEFAULT STATUS = 0 (NOT CHECKOUT). UPDATE LATER
 		payment.setStatus(0);
 		payment.setTime(null);
-		System.out.println("test than  "+payMethod);
-		if (payMethod == 1 )
-		{
+		if (payMethod == 1) {
 			String numCard = req.getParameter("AccountNumber");
 			String cardOwner = req.getParameter("CardOwner");
 			String bank = req.getParameter("Bank");
-			System.out.println("test than  "+bank);
 			payment.setAccountNumber(numCard);
 			payment.setCardOwner(cardOwner);
 			payment.setBank(bank);
@@ -148,7 +152,7 @@ public class CheckoutController extends HttpServlet {
 			payment.setTime(new Timestamp(new Date().getTime()));
 		}
 		paymentService.insertPayment(payment);
-		
+
 		resp.sendRedirect(req.getContextPath() + "/detailOrder?orderID=" + createdOrder.getOrderID());
 		return;
 	}
