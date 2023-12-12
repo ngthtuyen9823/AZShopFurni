@@ -137,23 +137,6 @@ public class ProductDAOImpl implements IProductDAO {
 		IProductDAO productDAO = new ProductDAOImpl();
 
 		List<List<Object>> list =  productDAO.ProductRating();
-		
-		for(var model: list)
-		{
-			System.out.println(model);
-		}
-		
-//		List<ProductModel> list = productDAO.findAll();
-//		System.out.println(list);
-
-//		List<ProductModel> listByCate = productDAO.findByCategoryID(101);
-//		System.out.println(listByCate);
-//
-//		List<ProductModel> listWithCount = productDAO.findWithCount(1);
-//		System.out.println(listWithCount);
-
-//		ProductModel model = productDAO.findOne(101004);
-//		System.out.println(model);
 	}
 
 	@Override

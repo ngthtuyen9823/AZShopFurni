@@ -23,7 +23,6 @@ public class CartDAOImpl implements ICartDAO {
 			ps.setInt(1, model.getCustomerID());
 			ps.setInt(2, model.getItemID());
 			ps.setInt(3, model.getQuantity());
-			System.out.print(model);
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -157,7 +156,6 @@ public class CartDAOImpl implements ICartDAO {
 				+ "    ) ii ON i.ItemID = ii.ItemID AND ii.ImageRank = 1\r\n" + "WHERE\r\n"
 				+ "    c.CustomerID = ?;\r\n" + "";
 
-		System.out.println(sql);
 		try {
 			new DBConnection();
 			conn = DBConnection.getConnection();

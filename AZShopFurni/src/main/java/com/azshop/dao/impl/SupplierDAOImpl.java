@@ -38,7 +38,6 @@ public class SupplierDAOImpl implements ISupplierDAO {
 		ISupplierDAO supplierDAO = new SupplierDAOImpl();
 
 		SupplierModel model = supplierDAO.findOne(101);
-		System.out.println(model);
 	}
     
     @Override

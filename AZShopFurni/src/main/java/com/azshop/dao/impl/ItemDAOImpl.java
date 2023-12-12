@@ -203,15 +203,6 @@ public class ItemDAOImpl implements IItemDAO {
 		model.setOriginalPrice(2);
 		model.setPromotionPrice(2);
 		itemDAO.updateItem(model);
-		System.out.println(itemDAO.findOne(10100102));
-//		List<ItemModel> list = itemDAO.findAll();
-//		System.out.println(list);
-
-//		List<ItemModel> listByPro = itemDAO.findByProductID(101001);
-//		System.out.println(listByPro);
-//
-//		List<ItemModel> list = itemDAO.findByProductID(101003);
-//		System.out.println(list);
 
 	}
 

@@ -476,7 +476,7 @@ body {
 						<div class="card-body">
 							<div class="p-3 bg-light mb-3">
 								<c:choose>
-									<c:when test="${voucherErrorMessage != null}">
+									<c:when test="${minimumPrice != null}">
 										<h5 class="font-size-16 mb-0 error-message">
 											Giá trị tối thiểu đơn hàng phải đạt
 											<fmt:formatNumber type="currency" value="${minimumPrice}"

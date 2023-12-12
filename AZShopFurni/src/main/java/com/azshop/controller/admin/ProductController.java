@@ -71,7 +71,6 @@ public class ProductController extends HttpServlet {
 
 	private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int productID = Integer.parseInt(req.getParameter("ProductID"));
-		// System.out.println(productID);
 		prod.deleteProduct(productID);
 		resp.sendRedirect("adminProduct");
 	}

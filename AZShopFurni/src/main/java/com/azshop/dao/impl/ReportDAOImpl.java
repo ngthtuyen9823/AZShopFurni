@@ -115,14 +115,6 @@ public class ReportDAOImpl implements IReportDAO {
 		return list;
 	}
 
-//	public static void main(String[] args) {
-//		IReportDAO idao = new ReportDAOImpl();
-//		List<List<Object>> list = idao.reportTotalMoneyInMonth();
-//		for (List<Object> list2 : list) {
-//			System.out.println(list2.get(0));
-//		}
-//	}
-
 	@Override
 	public List<MyItem> reportKPISeller(Date date, int id) {
 		List<MyItem> list = new ArrayList<>();

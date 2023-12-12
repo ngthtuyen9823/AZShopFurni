@@ -70,7 +70,6 @@ public class CheckoutController extends HttpServlet {
 
 			if (totalCost < voucher.getMinimumPrice()) {
 				req.setAttribute("minimumPrice", voucher.getMinimumPrice());
-				redirectCheckoutPage(req, resp);
 			} else {
 				double discount = totalCost * voucher.getDiscount() / 100;
 				totalCost -= discount;
