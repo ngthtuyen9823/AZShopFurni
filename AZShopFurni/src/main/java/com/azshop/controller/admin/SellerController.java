@@ -12,14 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.azshop.models.UserModel;
 import com.azshop.service.ISellerService;
 import com.azshop.service.impl.SellerServiceImpl;
 import com.azshop.utils.MessageUtil;
 
-@WebServlet(urlPatterns = { "/adminSeller", "/adminUpdateSeller", "/adminDeleteSeller",
-		"/adminInsertSeller","/adminInformationSeller" })
+@WebServlet(urlPatterns = { "/adminSeller", "/adminUpdateSeller", "/adminDeleteSeller", "/adminInsertSeller",
+		"/adminInformationSeller" })
 public class SellerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ISellerService sellerService = new SellerServiceImpl();
@@ -29,23 +30,33 @@ public class SellerController extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		resp.setCharacterEncoding("utf-8");
 		String url = req.getRequestURI().toString();
-		if (url.contains("adminSeller")) {
-			findAllSeller(req, resp);
-		} else if (url.contains("adminUpdateSeller")) {
-			getInforSeller(req, resp);
-		} else if (url.contains("adminDeleteSeller")) {
-			deleteSeller(req, resp);
-			RequestDispatcher rd = req.getRequestDispatcher("adminSeller");
-			rd.forward(req, resp);
-		} else if (url.contains("adminInsertSeller")) {
-			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/addSeller.jsp");
-			rd.forward(req, resp);
-		} else if (url.contains("adminInformationSeller")) {
-			int userID = Integer.parseInt(req.getParameter("userID"));
-			UserModel seller = sellerService.findOne(userID);
-			req.setAttribute("user", seller);
-			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/informationSeller.jsp");
-			rd.forward(req, resp);
+		HttpSession session = req.getSession(false);
+		if (session != null && session.getAttribute("user") != null) {
+			UserModel user = (UserModel) session.getAttribute("user");
+			if (user.getType() == 3) {
+				if (url.contains("adminSeller")) {
+					findAllSeller(req, resp);
+				} else if (url.contains("adminUpdateSeller")) {
+					getInforSeller(req, resp);
+				} else if (url.contains("adminDeleteSeller")) {
+					deleteSeller(req, resp);
+					RequestDispatcher rd = req.getRequestDispatcher("adminSeller");
+					rd.forward(req, resp);
+				} else if (url.contains("adminInsertSeller")) {
+					RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/addSeller.jsp");
+					rd.forward(req, resp);
+				} else if (url.contains("adminInformationSeller")) {
+					int userID = Integer.parseInt(req.getParameter("userID"));
+					UserModel seller = sellerService.findOne(userID);
+					req.setAttribute("user", seller);
+					RequestDispatcher rd = req.getRequestDispatcher("/views/admin/seller/informationSeller.jsp");
+					rd.forward(req, resp);
+				}
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/login");
+			}
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 	}
 
@@ -53,9 +64,9 @@ public class SellerController extends HttpServlet {
 		try {
 			int id = Integer.parseInt(req.getParameter("userID"));
 			sellerService.deleteSeller(id);
-			MessageUtil.showMessage(req,"delSuccess");
+			MessageUtil.showMessage(req, "delSuccess");
 		} catch (Exception ex) {
-			MessageUtil.showMessage(req,"delFail");
+			MessageUtil.showMessage(req, "delFail");
 		}
 
 	}
@@ -126,9 +137,9 @@ public class SellerController extends HttpServlet {
 			newUser.setEmail(email);
 			// goi pt insert trong service
 			sellerService.insertSeller(newUser);
-			MessageUtil.showMessage(req,"addSuccess");
+			MessageUtil.showMessage(req, "addSuccess");
 		} catch (Exception ex) {
-			MessageUtil.showMessage(req,"addFail");
+			MessageUtil.showMessage(req, "addFail");
 		}
 		findAllSeller(req, resp);
 	}
@@ -137,7 +148,7 @@ public class SellerController extends HttpServlet {
 		int id = Integer.parseInt(req.getParameter("userID"));
 		try {
 			// thiet lap ngon ngu
-			
+
 			// nhan du lieu tu form
 			String firstName = req.getParameter("firstName");
 			String lastName = req.getParameter("lastName");
@@ -171,11 +182,11 @@ public class SellerController extends HttpServlet {
 			newUser.setEmail(email);
 
 			sellerService.updateSeller(newUser);
-			MessageUtil.showMessage(req,"updateSuccess");
-		}catch(Exception ex) {
-			MessageUtil.showMessage(req,"updateFail");
+			MessageUtil.showMessage(req, "updateSuccess");
+		} catch (Exception ex) {
+			MessageUtil.showMessage(req, "updateFail");
 		}
-		resp.sendRedirect("adminInformationSeller?userID="+id);		
+		resp.sendRedirect("adminInformationSeller?userID=" + id);
 	}
 
 	private void findAllSeller(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.azshop.models.UserModel;
 import com.azshop.models.VoucherModel;
@@ -27,17 +28,28 @@ public class VoucherController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI().toString();
-		if (url.contains("adminVoucher")) {
-			findAllVoucher(req, resp);
-		} else if (url.contains("adminInsertVoucher")) {
-			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/voucher/addVoucher.jsp");
-			rd.forward(req, resp);
-		} else if (url.contains("adminUpdateVoucher")) {
-			getInforVoucher(req, resp);
+		HttpSession session = req.getSession(false);
+		if (session != null && session.getAttribute("user") != null) {
+			UserModel user = (UserModel) session.getAttribute("user");
+			if (user.getType() == 3) {
+				if (url.contains("adminVoucher")) {
+					findAllVoucher(req, resp);
+				} else if (url.contains("adminInsertVoucher")) {
+					RequestDispatcher rd = req.getRequestDispatcher("/views/admin/voucher/addVoucher.jsp");
+					rd.forward(req, resp);
+				} else if (url.contains("adminUpdateVoucher")) {
+					getInforVoucher(req, resp);
+				}
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/login");
+			}
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 	}
 
-	private void getInforVoucher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void getInforVoucher(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 
@@ -48,7 +60,7 @@ public class VoucherController extends HttpServlet {
 		req.setAttribute("voucher", model);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/voucher/updateVoucher.jsp");
 		rd.forward(req, resp);
-		
+
 	}
 
 	private void findAllVoucher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,7 +77,7 @@ public class VoucherController extends HttpServlet {
 		String url = req.getRequestURI().toString();
 		if (url.contains("adminInsertVoucher")) {
 			insertVoucher(req, resp);
-		}else if (url.contains("adminUpdateVoucher")) {
+		} else if (url.contains("adminUpdateVoucher")) {
 			updateVoucher(req, resp);
 		}
 	}
@@ -104,11 +116,11 @@ public class VoucherController extends HttpServlet {
 			newVoucher.setExp(exp);
 
 			voucherService.updateVoucher(newVoucher);
-			MessageUtil.showMessage(req,"updateSuccess");
-		}catch(Exception ex) {
-			MessageUtil.showMessage(req,"updateFail");
+			MessageUtil.showMessage(req, "updateSuccess");
+		} catch (Exception ex) {
+			MessageUtil.showMessage(req, "updateFail");
 		}
-		findAllVoucher(req, resp);	
+		findAllVoucher(req, resp);
 	}
 
 	private void insertVoucher(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -136,20 +148,20 @@ public class VoucherController extends HttpServlet {
 
 			// dua du lieu vao model
 			VoucherModel newVoucher = new VoucherModel();
-			
+
 			newVoucher.setDescription(description);
 			newVoucher.setDiscount(discount);
 			newVoucher.setMinimumPrice(minimumPrice);
 			newVoucher.setQuantity(quantity);
 			newVoucher.setMfg(mfg);
 			newVoucher.setExp(exp);
-			
+
 			// goi pt insert trong service
 			voucherService.insertVoucher(newVoucher);
-			MessageUtil.showMessage(req,"addSuccess");
+			MessageUtil.showMessage(req, "addSuccess");
 		} catch (Exception ex) {
-			MessageUtil.showMessage(req,"addFail");
+			MessageUtil.showMessage(req, "addFail");
 		}
-		findAllVoucher(req, resp);		
+		findAllVoucher(req, resp);
 	}
 }

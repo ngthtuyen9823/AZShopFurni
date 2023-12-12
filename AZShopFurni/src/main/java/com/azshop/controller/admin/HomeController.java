@@ -46,13 +46,13 @@ public class HomeController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
 		String url = req.getRequestURI().toString();
-		HttpSession session=req.getSession(false);
+		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("user") != null) {
 			UserModel user = (UserModel) session.getAttribute("user");
 			if (user.getType() == 3) {
 
 				if (url.contains("adminHome")) {
-		
+
 					List<OrderModel> listOrder = orderService.findAllOrder();
 					List<OrderModel> listOrder1 = new ArrayList<>();
 					List<List<Object>> listOrder2 = new ArrayList<>();
@@ -69,13 +69,14 @@ public class HomeController extends HttpServlet {
 					session = req.getSession(true);
 					Date currentDate = new Date();
 					int monthNow = currentDate.getMonth() + 1;
-		
+
 					for (List<Object> list : listTotal) {
 						sumTotal += (long) list.get(1);
 						sumOrder += (int) list.get(2);
 					}
 					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(currentDate); // Đặt ngày trong tuần về ngày đầu tiên (Chủ Nhật) và trừ đi số ngày đã qua
+					calendar.setTime(currentDate); // Đặt ngày trong tuần về ngày đầu tiên (Chủ Nhật) và trừ đi số ngày
+													// đã qua
 													// trong tuần
 					calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 					calendar.add(Calendar.DATE, -calendar.get(Calendar.DAY_OF_WEEK)); // Lấy ngày đầu tiên của tuần
@@ -123,15 +124,15 @@ public class HomeController extends HttpServlet {
 						row.add(countHuy);
 						listOrderSta.add(row);
 					}
-		
+
 					int chXN = listOrder1.stream().filter(OrderModel -> OrderModel.getStatus() == 0)
 							.collect(Collectors.toList()).size();
 					int daXN = listOrder1.stream().filter(OrderModel -> OrderModel.getStatus() == 1)
 							.collect(Collectors.toList()).size();
 					int chDG = listOrder1.stream().filter(OrderModel -> OrderModel.getStatus() == 2)
 							.collect(Collectors.toList()).size();
-					int dVC = listOrder1.stream().filter(OrderModel -> OrderModel.getStatus() == 3).collect(Collectors.toList())
-							.size();
+					int dVC = listOrder1.stream().filter(OrderModel -> OrderModel.getStatus() == 3)
+							.collect(Collectors.toList()).size();
 					int thCong = listOrder1.stream().filter(OrderModel -> OrderModel.getStatus() == 4)
 							.collect(Collectors.toList()).size();
 					int daHuy = listOrder1.stream().filter(OrderModel -> OrderModel.getStatus() == 5)
@@ -152,28 +153,27 @@ public class HomeController extends HttpServlet {
 					session.setAttribute("totalPayMentNormal", totalPayMentNormal);
 					session.setAttribute("countNoPay", countNoPay);
 					req.setAttribute("listOrder", listOrder);
-		
+
 					Date date = new Date();
 					List<MyItem> listItem = reportService.reportReceipt(date, 7);
 					req.setAttribute("listReceipt", listItem);
-		
-					
+
 					session.setAttribute("chDG", chDG);
 					session.setAttribute("dVC", dVC);
 					session.setAttribute("thCong", thCong);
 					session.setAttribute("daHuy", daHuy);
-		
+
 					req.setAttribute("sumTotal", sumTotal);
 					req.setAttribute("listPayMentInMonth", listTotal);
-		
+
 					RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
 					rd.forward(req, resp);
 				}
-			}else {
-			resp.sendRedirect(req.getContextPath() + "/login");
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/login");
 			}
-		}else {
-		resp.sendRedirect(req.getContextPath() + "/login");
-	}
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
+	}
 }

@@ -54,14 +54,22 @@ public class OrderController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
-		HttpSession session = req.getSession(true);
-		// session.getAttribute("listItem");
-		session.getAttribute("listTotal");
-		String url = req.getRequestURI().toString();
-		if (url.contains("adminOrder")) {
-			findAllOrder(req, resp);
-		} else if (url.contains("adminUpdateOrder")) {
-			updateOrder(req, resp);
+		HttpSession session = req.getSession(false);
+		if (session != null && session.getAttribute("user") != null) {
+			UserModel user = (UserModel) session.getAttribute("user");
+			if (user.getType() == 3) {
+				session.getAttribute("listTotal");
+				String url = req.getRequestURI().toString();
+				if (url.contains("adminOrder")) {
+					findAllOrder(req, resp);
+				} else if (url.contains("adminUpdateOrder")) {
+					updateOrder(req, resp);
+				}
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/login");
+			}
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 	}
 
@@ -83,6 +91,7 @@ public class OrderController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 
 		String url = req.getRequestURI().toString();
+
 		if (url.contains("adminFilterOrder")) {
 			List<OrderModel> listOrder = orderService.findAllOrder();
 			int forder = Integer.parseInt(req.getParameter("fOrderDate"));
@@ -110,6 +119,7 @@ public class OrderController extends HttpServlet {
 			paymentService.updatePayment(pay);
 			resp.sendRedirect("adminOrder");
 		}
+
 	}
 
 	private List<OrderModel> filterByOrderDate(List<OrderModel> list, int daysAgo) {
@@ -140,7 +150,7 @@ public class OrderController extends HttpServlet {
 		List<List<Object>> listTotal = reportService.reportTotalMoneyInMonth();
 		int sumTotal = 0;
 		int sumOrder = 0;
-		int countPaymentCard =0;
+		int countPaymentCard = 0;
 		int countPaymentNormal = 0;
 		int totalPaymentCard = 0;
 		int totalPayMentNormal = 0;
@@ -149,7 +159,7 @@ public class OrderController extends HttpServlet {
 		Date currentDate = new Date();
 		int monthNow = currentDate.getMonth() + 1;
 		int today = currentDate.getDate();
-		
+
 		for (List<Object> list : listTotal) {
 			sumTotal += (long) list.get(1);
 			sumOrder += (int) list.get(2);
@@ -173,17 +183,16 @@ public class OrderController extends HttpServlet {
 			if (list.getOrderDate().getMonth() == currentDate.getMonth()
 					&& list.getOrderDate().getYear() == currentDate.getYear()) {
 				if (list.getPayment().getStatus() == 1) {
-					if(list.getPayment().getMethod()==1) {
-						countPaymentCard+=1;
-						totalPaymentCard+=list.getTotalMoney();
-					}
-					else {
-						countPaymentNormal+=1;
-						totalPayMentNormal+=list.getTotalMoney();
+					if (list.getPayment().getMethod() == 1) {
+						countPaymentCard += 1;
+						totalPaymentCard += list.getTotalMoney();
+					} else {
+						countPaymentNormal += 1;
+						totalPayMentNormal += list.getTotalMoney();
 					}
 				}
-				if(list.getStatus()!=5 && list.getPayment().getStatus()==0) {
-					countNoPay+=1;
+				if (list.getStatus() != 5 && list.getPayment().getStatus() == 0) {
+					countNoPay += 1;
 				}
 			}
 		}
@@ -230,7 +239,7 @@ public class OrderController extends HttpServlet {
 		session.setAttribute("countPaymentCard", countPaymentCard);
 		session.setAttribute("countPaymentNormal", countPaymentNormal);
 		session.setAttribute("totalPaymentCard", totalPaymentCard);
-		session.setAttribute("totalPayMentNormal", totalPayMentNormal); 
+		session.setAttribute("totalPayMentNormal", totalPayMentNormal);
 		session.setAttribute("countNoPay", countNoPay);
 		req.setAttribute("listOrder", listOrder);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/admin/order/order.jsp");
