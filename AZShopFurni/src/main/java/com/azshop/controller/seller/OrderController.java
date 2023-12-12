@@ -27,6 +27,7 @@ public class OrderController extends HttpServlet {
 		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("user") != null) {
 			UserModel user = (UserModel) session.getAttribute("user");
+			List<OrderModel> listOrder = orderService.findHisOrder(user.getUserID());
 			if (user.getType() == 1) {
 				int userID = user.getUserID();
 				String url = req.getRequestURI();
@@ -37,16 +38,16 @@ public class OrderController extends HttpServlet {
 					int status = 1;
 					sellerOrder(req, resp, status);
 				} else if (url.contains("sellerHisOrder")) {
-					sellerHisOrders(req, resp, userID);
+					req.setAttribute("listOrder", listOrder);
 					req.getRequestDispatcher("/views/seller/order/listHisOrder.jsp").forward(req, resp);
 				} else if (url.contains("sellerOrderDetail")) {
 					sellerDetailOrder(req, resp);
 				} else if (url.contains("sellerOrderComplete")) {
-					filterOrderComplete(req, resp, userID);
+					filterOrderComplete(req, resp, userID, listOrder);
 				} else if (url.contains("sellerOrderCanceled")) {
-					filterOrderCanceled(req, resp, userID);
+					filterOrderCanceled(req, resp, userID,listOrder);
 				} else if (url.contains("sellerConfirmedOrder")) {
-					sellerHisOrders(req, resp, userID);
+					req.setAttribute("listOrder", listOrder);
 					req.getRequestDispatcher("/views/seller/order/listHisConfirmOrder.jsp").forward(req, resp);
 				}
 			} else {
@@ -83,13 +84,6 @@ public class OrderController extends HttpServlet {
 		req.setAttribute("status", status);
 		req.getRequestDispatcher("/views/seller/order/listOrder.jsp").forward(req, resp);
 	}
-
-	private void sellerHisOrders(HttpServletRequest req, HttpServletResponse resp, int sellerID)
-			throws ServletException, IOException {
-		List<OrderModel> listOrder = orderService.findHisOrder(sellerID);
-		req.setAttribute("listOrder", listOrder);
-	}
-
 	private void sellerDetailOrder(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		int orderID = Integer.parseInt(req.getParameter("orderID"));
@@ -110,9 +104,8 @@ public class OrderController extends HttpServlet {
 		}
 	}
 
-	private void filterOrderComplete(HttpServletRequest req, HttpServletResponse resp, int sellerID)
+	private void filterOrderComplete(HttpServletRequest req, HttpServletResponse resp, int sellerID,List<OrderModel> listOrder )
 			throws ServletException, IOException {
-		List<OrderModel> listOrder = orderService.findHisOrder(sellerID);
 		listOrder = listOrder.stream()
 				.filter(OrderModel -> OrderModel.getStatus() == 4 && OrderModel.getPayment().getStatus() == 1)
 				.collect(Collectors.toList());
@@ -120,9 +113,8 @@ public class OrderController extends HttpServlet {
 		req.getRequestDispatcher("/views/seller/order/listOrderComplete.jsp").forward(req, resp);
 	}
 
-	private void filterOrderCanceled(HttpServletRequest req, HttpServletResponse resp, int sellerID)
+	private void filterOrderCanceled(HttpServletRequest req, HttpServletResponse resp, int sellerID,List<OrderModel> listOrder)
 			throws ServletException, IOException {
-		List<OrderModel> listOrder = orderService.findHisOrder(sellerID);
 		listOrder = listOrder.stream().filter(OrderModel -> OrderModel.getStatus() == 5).collect(Collectors.toList());
 		req.setAttribute("listOrder", listOrder);
 		req.getRequestDispatcher("/views/seller/order/listOrderCanceled.jsp").forward(req, resp);

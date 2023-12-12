@@ -37,14 +37,14 @@
 					<div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
 					Thống kê
 				</a>
-				<a class="nav-link" href="sellerConfirmedOrder"> <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i>
+				<a class="nav-link" href="sellerConfirmedOrder"> <div class="sb-nav-link-icon"><i class="fas fa-history"></i>
 					</div> Lịch sử xác nhận đơn
 				</a> 
 				<div class="sb-sidenav-menu-heading">Quản lý</div>
 				<a class="nav-link" href="sellerInfor"> <div class="sb-nav-link-icon"><i class="fa-regular fa-user"></i>
 					</div> Thông tin cá nhân
 				</a> 
-				<a class="nav-link" href="sellerOrders"> <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i>
+				<a class="nav-link" href="sellerOrders"> <div class="sb-nav-link-icon"><i class="fas fa-cubes"></i>
 					</div> Xác nhận đơn hàng
 				</a>
 				<a class="nav-link" href="sellerUnpreOrder"> <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i>

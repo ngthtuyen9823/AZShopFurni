@@ -163,7 +163,9 @@ public class ProfileController extends HttpServlet {
 
 	private void createAccountModel(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		int userID = Integer.parseInt(req.getParameter("UserID"));
+		HttpSession session = req.getSession();
+		UserModel userModel = (UserModel) session.getAttribute("user");
+		int userID = userModel.getUserID();
 		String userName = req.getParameter("UserName");
 		String oldPassword = req.getParameter("OldPassWord");
 		String password = req.getParameter("Password");

@@ -68,13 +68,15 @@ a {
 
 .product-info {
 	flex-grow: 2;
+	width: 70%;
 }
 
 .price-info {
 	flex-grow: 10;
-	justify-content: flex-start;
+	justify-content: flex-end;
 	text-align: center;
 	align-items: center;
+	width: 40%;
 }
 
 .order-details-container {
@@ -147,14 +149,13 @@ a {
 	z-index: 0
 }
 .status-update {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-
-    .status-update > div {
-        margin-right: 5px;
-    }
+	display:flex;
+	align-items:center;
+	margin-bottom:5px;
+}
+.status-update >div{
+	margin-right:5px;
+}
 </style>
 <div style="text-align: center; margin-top: 75px;">
 	<h2>Chi tiết đơn hàng</h2>

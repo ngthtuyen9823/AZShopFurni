@@ -16,16 +16,13 @@ import com.azshop.models.OrderModel;
 import com.azshop.models.UserModel;
 import com.azshop.service.IOrderService;
 import com.azshop.service.IReportService;
-import com.azshop.service.IUserService;
 import com.azshop.service.impl.OrderServiceImpl;
 import com.azshop.service.impl.ReportServiceImpl;
-import com.azshop.service.impl.UserServiceImpl;
 
 @WebServlet(urlPatterns = { "/sellerHome" })
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = -4373195157235388015L;
 	IReportService reportService = new ReportServiceImpl();
-	IUserService userService = new UserServiceImpl();
 	IOrderService orderService = new OrderServiceImpl();
 
 	@Override
