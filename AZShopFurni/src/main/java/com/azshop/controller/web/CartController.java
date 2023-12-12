@@ -148,7 +148,7 @@ public class CartController extends HttpServlet {
 			resp.sendRedirect("carts");
 		} else {
 			resp.setContentType("application/json");
-			resp.getWriter().write("{\"error\":\"Stock not sufficient!\"}");
+			resp.getWriter().write("{\"error\":\"Số lượng không đủ!\"}");
 		}
 	}
 }

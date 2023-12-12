@@ -53,13 +53,14 @@
 							<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04 ">
 								<i class="zmdi zmdi-search"></i>
 							</button>
-							<datalist id="listHistory" >
+							<datalist id="listHistory">
 								<c:forEach var="i" items="${history}">
 									<option value="${i.history}">
 								</c:forEach>
 							</datalist>
-							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" list="listHistory"
-								name="keyword" placeholder="<c:if test="{keyword==null}">Tìm kiếm</c:if>${keyword}">
+							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text"
+								list="listHistory" name="keyword"
+								placeholder="<c:if test="{keyword==null}">Tìm kiếm</c:if>${keyword}">
 						</div>
 					</div>
 				</form>
@@ -167,8 +168,8 @@
 			</div>
 			<c:if test="${products.size()== 0 && keyword!=null}">
 				<div
-					style=" display: flex; justify-content: center; align-items: center;">
-					
+					style="display: flex; justify-content: center; align-items: center;">
+
 					<img alt="img"
 						src="https://storage.googleapis.com/web-budget/Image/Other/a60759ad1dabe909c46a817ecbf71878.png">
 					<div>Không tìm thấy sản phẩm nào phù hợp</div>
@@ -214,8 +215,7 @@
 					<c:forEach items="${products}" var="item">
 						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ">
 							<div class="block2">
-								<div class="block2-pic hov-img0 label-new product-image-size"
-									data-label="New">
+								<div class="block2-pic hov-img0 product-image-size">
 									<img src="${item.displayedImage}" alt="IMG-PRODUCT"> <a
 										href='<c:url value="/products?id=${item.productID}"/>'
 										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
@@ -243,16 +243,6 @@
 											class="fas fa-star"
 											style="${item.avgRating >= 5 ? 'color: gold;' : ''}"></i>
 										</span>
-									</div>
-
-									<div class="block2-txt-child2 flex-r p-t-3">
-										<a href="#"
-											class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-											<img class="icon-heart1 dis-block trans-04" alt="ICON"
-											src='https://storage.googleapis.com/web-budget/Image/icons/icon-heart-01.png' />
-											<img class="icon-heart2 dis-block trans-04 ab-t-l" alt="ICON"
-											src='https://storage.googleapis.com/web-budget/Image/icons/icon-heart-02.png' />
-										</a>
 									</div>
 								</div>
 							</div>

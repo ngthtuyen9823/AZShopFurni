@@ -11,6 +11,9 @@
 	<c:if test="${fn:contains(pageContext.request.requestURI, 'Order')}">Đơn hàng</c:if>
 	<c:if test="${fn:contains(pageContext.request.requestURI, 'carts')}">Giỏ hàng</c:if>
 	<c:if test="${fn:contains(pageContext.request.requestURI, 'checkout')}">Thanh toán</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'introduction')}">Giới thiệu</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'updateUser')}">Chỉnh sửa thông tin</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'updateAccount')}">Thay đổi mật khẩu</c:if>
 	</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
