@@ -3,7 +3,9 @@ package com.azshop.controller.shipper;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
@@ -25,6 +27,7 @@ import com.azshop.service.impl.AccountServiceImpl;
 import com.azshop.service.impl.UserServiceImpl;
 
 import Orther.UploadImage;
+import other.Assignment;
 
 @WebServlet(urlPatterns = { "/shipper-info", "/shipper-update-info", "/shipper-update-avatar", "/shipper-update-pass" })
 @MultipartConfig
@@ -88,7 +91,10 @@ public class PersonalInfoController extends HttpServlet {
 		HttpSession session = req.getSession(false);
 		UserModel user = (UserModel) session.getAttribute("user");
 		UserModel shipper = userService.getInfoUser(user.getUserID());
+		
 
+		List<String> listAssign = new ArrayList<String>(Assignment.getAssign().keySet());
+		req.setAttribute("listAssign", listAssign);
 		req.setAttribute("shipper", shipper);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/shipper/updateInfoShipper.jsp");
 		rd.forward(req, resp);
@@ -98,7 +104,6 @@ public class PersonalInfoController extends HttpServlet {
 			throws ServletException, IOException {
 		int userID = Integer.parseInt(req.getParameter("userID"));
 		AccountModel account = userService.getInfAccount(userID);
-
 		req.setAttribute("accountModel", account);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/updateAccount.jsp");
 		rd.forward(req, resp);
@@ -143,7 +148,6 @@ public class PersonalInfoController extends HttpServlet {
 		// user.setKpi(kpi);
 		user.setArea(area);
 		user.setEmail(email);
-		System.out.println(user.getArea());
 
 		new ShipperDAOImpl().updateShipper(user);
 	}
@@ -176,7 +180,6 @@ public class PersonalInfoController extends HttpServlet {
 		UploadImage.uploadImage("mysql-web", "web-budget", "Image/Avatar/" + user.getUserID() + rdCode + ".jpg",
 				filepart.getInputStream());
 		String avatar = "https://storage.googleapis.com/web-budget/Image/Avatar/" + user.getUserID() + rdCode + ".jpg";
-
 		userService.updateAvatar(user.getUserID(), avatar);
 
 	}
@@ -199,5 +202,8 @@ public class PersonalInfoController extends HttpServlet {
 		HttpSession session1 = req.getSession();
 		session1.setAttribute("user", shipper);
 
+	}
+	public static void main(String[] args) {
+		new ArrayList<String>(Assignment.getAssign().keySet()).forEach(o->System.out.println(o));
 	}
 }

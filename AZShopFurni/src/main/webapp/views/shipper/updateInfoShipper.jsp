@@ -68,13 +68,12 @@
 											value="${shipper.cid}" /> <label>CCCD</label>
 									</div>
 
-									<c:set var="listcity" value="${City.getListCity()}" />
 									<div class="form-floating mb-3">
 										<input class="form-control" name="area"
 											value="${shipper.area}" list="listlist" id="fruitsInput">
 										<datalist id="listlist" >
-											<c:forEach var="city" items="${listcity}">
-												<option value="${city}">
+											<c:forEach var="city" items="${listAssign}">
+												<option value="${city.toString()}">
 											</c:forEach>
 										</datalist>
 										<label for="fruitsInput">Phân công</label>
