@@ -15,7 +15,7 @@
 
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">Đơn hàng</h1>
+			<h1 class="mt-4">QUẢN LÝ ĐƠN HÀNG</h1>
 			<ol class="breadcrumb mb-4">
 				<li class="breadcrumb-item active">Đơn hàng trong tuần</li>
 			</ol>
@@ -173,18 +173,10 @@
 			</div>
 			<h1 class="mt-4">Quản lý đơn hàng</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item"><a href="/adminHome">Trang chính</a></li>
+				<li class="breadcrumb-item"><a href="adminHome">Trang chủ</a></li>
 				<li class="breadcrumb-item active">Đơn hàng</li>
 			</ol>
-			<div class="card mb-4">
-				<div class="card-body">
-					<a href="<c:url value='/adminInsertCustomer'/>">
-						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i> Thêm đơn hàng mới
-						</button>
-					</a>
-				</div>
-			</div>
+			
 			<c:if test="${not empty message }">
 				<div class="alert alert-${alert}">
 					<strong>${message}!</strong>

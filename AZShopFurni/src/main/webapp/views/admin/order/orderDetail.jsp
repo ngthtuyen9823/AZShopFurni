@@ -368,8 +368,8 @@ input {
 						</div>
 
 						<button type="submit" class="button">Xác nhận</button>
-						<div class="button">
-							<a href="${pageContext.request.contextPath}/adminOrder"> <img
+						<div class="button" style="text-align: center; ">
+							<a href="${pageContext.request.contextPath}/adminOrder"> <img style="display: inline-block;vertical-align: middle; "
 								src="https://www.iconeasy.com/icon/png/Business/Pretty%20Office%205/Go%20back.png"
 								alt="">
 							</a>
