@@ -52,7 +52,7 @@ public class CheckoutController extends HttpServlet {
 
 		double totalCost = 0.0;
 		for (CartModel cart : listCart) {
-			totalCost += cart.getTotalPrice() * cart.getQuantity();
+			totalCost += cart.getPromotionPrice() * cart.getQuantity();
 		}
 		req.setAttribute("rawPrice", totalCost);
 		req.setAttribute("totalCost", totalCost);
