@@ -22,7 +22,7 @@ import other.SendMail;
 
 @WebServlet(urlPatterns = { "/forgetpass", "/changepass" })
 public class ForgetPassController extends HttpServlet {
-	public static final String DOMAIN = "http://localhost:8080";
+	public static final String DOMAIN = "http://cavoibeoo.us.to";
 	private static final long serialVersionUID = 1L;
 	IAccountService accService = new AccountServiceImpl();
 	ICustomerService cusService = new CustomerServiceImpl();
