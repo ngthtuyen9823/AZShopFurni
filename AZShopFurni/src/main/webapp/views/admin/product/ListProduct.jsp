@@ -28,10 +28,35 @@
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-area me-1"></i> Area Chart Example
+							<i class="fas fa-chart-bar me-1"></i> Top 5 sản phẩm bán chạy nhất tháng
 						</div>
 						<div class="card-body">
-							<canvas id="myAreaChart" width="100%" height="40"></canvas>
+							<canvas id="myChart" width="100%" height="40"></canvas>
+							<script>
+                var barChartData = {
+                    labels: [
+                        <c:forEach var="item" items="${productrating}">
+                            "${item.get(1)}",
+                        </c:forEach>
+                    '',],
+                    datasets: [
+                        {
+                            label: 'Số sao trung bình',
+                            data: [
+                                <c:forEach var="item" items="${productrating}">
+                                    "${item.get(2)}",
+                                </c:forEach>
+                            0,],
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                        }
+                    ]
+                };
+
+                new Chart(document.getElementById("myChart"), {
+                    type: 'bar',
+                    data: barChartData
+                });
+            </script>
 						</div>
 					</div>
 				</div>
