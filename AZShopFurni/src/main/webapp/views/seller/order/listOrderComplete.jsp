@@ -191,12 +191,12 @@ a {
 									</div>
 									<h5 class="text-warning px-0 w-25 d-flex justify-content-end">
 										
-										<c:if test="${i.payment.method == 0}">
+										<c:if test="${i.payment.status == 0}">
 											<fmt:formatNumber type="currency" value="${i.totalMoney}"
 												currencyCode="VND" pattern="#,##0 đ" var="formattedPrice" />
 											${formattedPrice}
 										</c:if>
-										<c:if test="${i.payment.method != 0}">
+										<c:if test="${i.payment.status != 0}">
 											<div class="text-success"> Đã thanh toán</div>
 										</c:if>
 									</h5>

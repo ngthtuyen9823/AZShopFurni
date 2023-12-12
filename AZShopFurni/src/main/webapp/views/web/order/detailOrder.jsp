@@ -413,7 +413,7 @@ a {
 								<div class="row">
 								
 								<c:choose>
-									<c:when test="${payment.status == 0 || payment.method==1}">
+									<c:when test="${payment.status == 0 && payment.method==1}">
 										<div class="col-md-3">
 									<img style="    width: 200px; height: 200px" alt="QR thanh toán" src="https://storage.googleapis.com/web-budget/Image/Other/QR.png"></div>
 									<div class="col-md-3">
@@ -424,12 +424,13 @@ a {
 										
 									</div>
 									</c:when>
-									<c:when test="${payment.status == 1 || payment.method==1}">
+									<c:when test="${payment.status == 1 && payment.method ==1}">
 									<div class="col-md-6"></div>
 									</c:when>
+									<c:when test="${ payment.method==0}">
+											<div class="col-md-6"></div>
+									</c:when>
 								</c:choose>
-								
-									
 									<div class="col-md-3 text-end ">
 										<p class="text-muted mb-2">Tổng tiền</p>
 										<p class="text-muted mb-2">Phí vận chuyển</p>

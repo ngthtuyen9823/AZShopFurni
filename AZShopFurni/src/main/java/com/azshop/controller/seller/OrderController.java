@@ -1,6 +1,7 @@
 package com.azshop.controller.seller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,15 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.azshop.models.OrderModel;
+import com.azshop.models.PaymentModel;
 import com.azshop.models.UserModel;
 import com.azshop.service.IOrderService;
+import com.azshop.service.IPaymentService;
 import com.azshop.service.impl.OrderServiceImpl;
+import com.azshop.service.impl.PaymentServiceImpl;
 
 @WebServlet(urlPatterns = { "/sellerOrders", "/sellerUnpreOrder", "/sellerUpdateOrder", "/sellerHisOrder",
 		"/sellerOrderDetail", "/sellerOrderComplete", "/sellerOrderCanceled", "/sellerConfirmedOrder" })
 public class OrderController extends HttpServlet {
 	private static final long serialVersionUID = -7252150861521808974L;
 	IOrderService orderService = new OrderServiceImpl();
+	IPaymentService payService=new PaymentServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -74,7 +79,7 @@ public class OrderController extends HttpServlet {
 			throws ServletException, IOException {
 		List<OrderModel> listOrder = orderService.findOrderBySeller();
 		if (status == 0) {
-			listOrder = listOrder.stream().filter(OrderModel -> OrderModel.getStatus() == status)
+			listOrder = listOrder.stream().filter(OrderModel -> OrderModel.getStatus() == status )
 					.collect(Collectors.toList());
 		} else if (status == 1) {
 			listOrder = listOrder.stream().filter(OrderModel -> OrderModel.getStatus() == status)
@@ -98,6 +103,11 @@ public class OrderController extends HttpServlet {
 		int orderID = Integer.parseInt(req.getParameter("orderID"));
 		orderService.updateStatusOrder(orderID, sellerID, status + 1);
 		if (status == 0) {
+			PaymentModel pay = payService.findPaymentByID(orderID);
+			if(pay.getMethod()==1) {
+				pay.setStatus(1);
+				payService.updatePayment(pay);
+			}
 			resp.sendRedirect("sellerUnpreOrder");
 		} else if (status == 1) {
 			resp.sendRedirect("sellerConfirmedOrder");

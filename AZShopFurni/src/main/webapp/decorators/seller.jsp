@@ -4,6 +4,7 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
 	rel="stylesheet" />
+<link rel="icon" type="image/png" href="https://storage.googleapis.com/web-budget/Image/FE/website-logo.png">
 <link href='<c:url value="templates/admin/css/styles.css"/>'
 	rel="stylesheet" />
 <link rel="stylesheet"
