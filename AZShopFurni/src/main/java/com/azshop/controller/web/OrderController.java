@@ -84,6 +84,16 @@ public class OrderController extends HttpServlet {
 		int orderID = Integer.parseInt(req.getParameter("orderID"));
 
 		OrderModel order = orderService.getOrderByID(orderID);
+		List<DetailModel> listDetail = order.getDetails();
+		double totalCost = 0.0;
+		for (DetailModel detail : listDetail) {
+			if (detail.getItem().getPromotionPrice() == 0) {
+				totalCost += detail.getItem().getOriginalPrice() * detail.getQuantity();
+			} else {
+				totalCost += detail.getItem().getPromotionPrice() * detail.getQuantity();
+			}
+		}
+		req.setAttribute("rawPrice", totalCost);
 		req.setAttribute("order", order);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/detailOrder.jsp");
 		rd.forward(req, resp);
@@ -92,16 +102,14 @@ public class OrderController extends HttpServlet {
 	private void itemRating(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int orderID = Integer.parseInt(req.getParameter("orderID"));
 		int itemID = Integer.parseInt(req.getParameter("itemID"));
-		
-		System.out.println(orderID + itemID);
+
 		DetailModel detail = detailService.findDetailByItemID(orderID, itemID);
 		OrderModel order = orderService.getOrderByOrderID(orderID);
-		
+
 		req.setAttribute("detail", detail);
 		req.setAttribute("order", order);
 		RequestDispatcher rd = req.getRequestDispatcher("/views/web/order/rating.jsp");
 		rd.forward(req, resp);
 	}
-	
-	
+
 }
