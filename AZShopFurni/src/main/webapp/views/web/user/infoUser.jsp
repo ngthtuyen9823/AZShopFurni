@@ -28,52 +28,31 @@
 			<div class="col-md-6 col-lg-6 p-b-80">
 				<div class="p-r-50 p-t-5 p-lr-0-lg">
 					<h5 class="mtext-113 cl2 p-b-12">Hồ sơ cá nhân</h5>
-					<div style="display: flex; align-items: center;">
-						<span class="mtext-106 cl2" style="margin-right: 10px;"
-							style="margin-right: 10px;"> Họ và tên:</span>
-						<p style="font-size: 20px; margin: 0;">${userModel.lastName}
-							${userModel.firstName}</p>
-					</div>
-					<div style="display: flex; align-items: center;">
-						<span class="mtext-106 cl2" style="margin-right: 10px;"
-							style=" margin-right: 10px;">Địa chỉ:</span>
-						<p style="font-size: 20px; margin: 0;">${userModel.address}</p>
-					</div>
-					<div style="display: flex; align-items: center;">
-
-						<span class="mtext-106 cl2" style="margin-right: 10px;">
-							Email:</span>
-						<p style="font-size: 20px;">${userModel.email}</p>
-					</div>
-					<div style="display: flex; align-items: center;">
-						<span class="mtext-106 cl2" style="margin-right: 10px;">
-							Giới tính:</span>
-						<p style="font-size: 20px;">
-							<c:choose>
-								<c:when test="${userModel.gender == 0}">
-									<c:out value="Nam" />
-								</c:when>
-								<c:when test="${userModel.gender == 1}">
-									<c:out value="Nữ" />
-								</c:when>
-							</c:choose>
+					<div class="mtext-106 cl2"  style="font-size: 20px;">
+						<p>
+							<strong>Họ tên:</strong> ${user.lastName} ${user.firstName}
 						</p>
-					</div>
-					<div style="display: flex; align-items: center;">
-						<span class="mtext-106 cl2" style="margin-right: 10px;"> Số
-							điện thoại:</span>
-						<p style="font-size: 20px;">${userModel.phone}</p>
-					</div>
-					<div style="display: flex; align-items: center;">
-						<span class="mtext-106 cl2" style="margin-right: 10px;">
-							Căn cước công dân:</span>
-						<p style="font-size: 20px;">${userModel.cid}</p>
-					</div>
-					<div style="display: flex; align-items: center;">
-						<span class="mtext-106 cl2" style="margin-right: 10px;">
-							Ngày sinh:</span>
-						<p style="font-size: 20px;"> <fmt:formatDate value="${userModel.dob}" pattern="dd/MM/yyyy"/></p>
-					</div>
+						<p>
+							<strong>Địa chỉ:</strong> ${user.address}
+						</p>
+						<p>
+							<strong>Số điện thoại:</strong> ${user.phone}
+						</p>
+						<p>
+							<strong>Email:</strong> ${user.email}
+						</p>
+						<p>
+							<strong>Giới tính:</strong> ${user.gender==1?'Nữ':'Nam'}
+						</p>
+						<p>
+							<strong>Căn cước công dân:</strong> ${user.cid}
+						</p>
+						<p>
+							<strong>Ngày sinh:</strong>
+							<fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy" />
+						</p>
+						</div>
+				
 					<h4 class="mtext-105 cl2 js-name-detail p-b-14"></h4>
 					<h4 class="mtext-105 cl2 js-name-detail p-b-14"></h4>
 
@@ -88,7 +67,6 @@
 				</div>
 			</div>
 			<div class="col-md-5 col-lg-4 p-b-80">
-
 				<form action="updateAvatar" method="post"
 					enctype="multipart/form-data">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">

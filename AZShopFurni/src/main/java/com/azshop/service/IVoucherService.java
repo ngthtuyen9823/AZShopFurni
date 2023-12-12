@@ -11,4 +11,5 @@ public interface IVoucherService {
 	void updateVoucher(VoucherModel model);
 	VoucherModel findOne(int id);
 	VoucherModel findOneByCustomerID(int voucherID, int customerID);
+	boolean containsNonDigit(String input);
 }

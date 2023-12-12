@@ -34,5 +34,14 @@ public class VoucherServiceImpl implements IVoucherService{
 	public VoucherModel findOneByCustomerID(int voucherID, int customerID) {
 		return voucherDAO.findOneByCustomerID(voucherID, customerID);
 	}
+	@Override
+	public boolean containsNonDigit(String input) {
+		for (char c : input.toCharArray()) {
+			if (!Character.isDigit(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

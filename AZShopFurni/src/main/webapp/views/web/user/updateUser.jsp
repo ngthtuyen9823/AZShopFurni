@@ -66,9 +66,8 @@
 									<label> Giới tính</label>
 									<div class="bor19 rs1-select2 bor19 bg0" style="width: 200px;">
 										<select class="js-select2" name="Gender">
-											<option>Choose an option</option>
-											<option value="0">Nam</option>
-											<option value="1">Nữ</option>
+											<option value="0" ${userModel.gender  == 0 ? 'selected' : ''}>Nam</option>
+											<option value="1" ${userModel.gender  == 1 ? 'selected' : ''}>Nữ</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
