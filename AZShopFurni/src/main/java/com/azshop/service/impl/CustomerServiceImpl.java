@@ -50,7 +50,6 @@ public class CustomerServiceImpl implements ICustomerService {
 	public int createCustomerID() {
 		List<UserModel> listCustomer = customerDao.getAllCustomer();
 		int id = listCustomer.get(listCustomer.size() - 1).getUserID();
-		System.out.println(id + 1);
 		return id + 1;
 	}
 

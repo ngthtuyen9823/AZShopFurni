@@ -77,13 +77,6 @@ public class CategoryDAOImpl implements ICategoryDAO {
 
 	}
 
-	public static void main(String[] args) {
-		ICategoryDAO cateDAO = new CategoryDAOImpl();
-		List<CategoryModel> model = cateDAO.findAll();
-		for (CategoryModel cate : model)
-			System.out.println(cate);
-	}
-
 	@Override
 	public List<CategoryModel> getCategoriesByParentId(int parentId) {
 		String sql = "SELECT * FROM CATEGORY WHERE ParentCategoryID=?";

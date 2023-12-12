@@ -44,7 +44,6 @@ public class ItemImageDAOImpl implements IItemImageDAO {
 	public static void main(String[] args) {
 		IItemImageDAO itemImageDAO = new ItemImageDAOImpl();
 		List<ItemImageModel> model = itemImageDAO.findByProductID(101004);
-		System.out.println(model);
 	}
     
     @Override
