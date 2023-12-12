@@ -232,26 +232,13 @@ section{
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="10000">
             <img src="https://theme.hstatic.net/1000280685/1000722794/14/img_slider_1.jpg?v=1313" class="d-block w-100" alt="...">
-            
-            <div class="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
-              <p>Some representative placeholder content for the first slide.</p>
-            </div>
           </div>
           <div class="carousel-item" data-bs-interval="2000">
             <img src="https://theme.hstatic.net/1000280685/1000722794/14/img_slider_4.jpg?v=1313" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Some representative placeholder content for the second slide.</p>
-            </div>
           </div>
           <div class="carousel-item">
             <img src="https://theme.hstatic.net/1000280685/1000722794/14/img_slider_5.jpg?v=1313" class="d-block w-100" alt="...">
            
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Some representative placeholder content for the third slide.</p>
-            </div>
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -350,9 +337,9 @@ section{
                 <h4 class="title" >
                     ABOUT US
                 </h4>
-                <p>Tại MAKE MY HOME, tất cả sản phẩm trang trí nội thất & giải pháp không gian sống không chỉ đơn thuần tuân thủ theo ngôn ngữ giản lược của Minimalism, mà còn cân bằng được tính năng và độ thẩm mỹ cần có. <br> <br>
+                <p>Tại AZShop, tất cả sản phẩm trang trí nội thất & giải pháp không gian sống không chỉ đơn thuần tuân thủ theo ngôn ngữ giản lược của Minimalism, mà còn cân bằng được tính năng và độ thẩm mỹ cần có. <br> <br>
 
-                    “Ít tức là nhiều", nhưng mỗi chi tiết xuất hiện trên thiết kế đều là một sự chăm chút kỹ lưỡng và hoàn hảo. Và đó cũng chính là tôn chỉ hoạt động của MAKE MY HOME. Với tinh thần cầu tiến luôn cố gắng hết mình để cung cấp những sản phẩm chất lượng cộng với dịch vụ thân thiện cho khách hàng, chúng tôi hy vọng có thể chia sẻ một niềm tin cố hữu với tất cả mọi người: “Cuộc sống sẽ trở nên tốt đẹp hơn khi không gian sống được quan tâm và đầu tư đúng mực.</p>
+                    “Ít tức là nhiều", nhưng mỗi chi tiết xuất hiện trên thiết kế đều là một sự chăm chút kỹ lưỡng và hoàn hảo. Và đó cũng chính là tôn chỉ hoạt động của AZShop. Với tinh thần cầu tiến luôn cố gắng hết mình để cung cấp những sản phẩm chất lượng cộng với dịch vụ thân thiện cho khách hàng, chúng tôi hy vọng có thể chia sẻ một niềm tin cố hữu với tất cả mọi người: “Cuộc sống sẽ trở nên tốt đẹp hơn khi không gian sống được quan tâm và đầu tư đúng mực.</p>
             </div>
 
             <div class="img width_70 ">

@@ -439,8 +439,8 @@ body {
 																		</div>
 																	</div>
 																	<span class="text-muted certificate-text"><i
-																		class="fa fa-lock"></i> Your transaction is secured
-																		with ssl certificate</span>
+																		class="fa fa-lock"></i> Giao dịch của bạn được bảo mật
+																		bằng chứng chỉ ssl</span>
 
 																</div>
 															</div>
@@ -532,9 +532,10 @@ body {
 											<td colspan="2">
 												<h5 class="font-size-14 m-0">Tổng phí :</h5>
 											</td>
-											<td><fmt:formatNumber type="currency"
-													value="${rawPrice}" currencyCode="VND" pattern="#,##0 VND"
-													var="formattedPrice" />${formattedPrice}</td>
+											<td id="rawPriceCell"><input type="hidden"
+												value="${rawPrice}" name="rawPrice" />
+											<fmt:formatNumber type="currency" value="${rawPrice}"
+													currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</td>
 										</tr>
 										<tr>
 											<td colspan="2">
@@ -566,10 +567,10 @@ body {
 											<td colspan="2">
 												<h5 class="font-size-14 m-0">Thành tiền:</h5>
 											</td>
-											<td><input type="hidden" value="${totalCost}"
-												name="totalCost" /> <fmt:formatNumber type="currency"
-													value="${totalCost}" currencyCode="VND" pattern="#,##0 VND"
-													var="formattedPrice" />${formattedPrice}</td>
+											<td id="totaCostCell"><input type="hidden"
+												value="${totalCost}" name="totalCost" /> <fmt:formatNumber
+													type="currency" value="${totalCost}" currencyCode="VND"
+													pattern="#,##0 VND" var="formattedPrice" />${formattedPrice}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -680,6 +681,9 @@ body {
 															// Kiểm tra radio button nào được chọn
 															var selectedValue = document
 																	.querySelector('input[name="shippingMethod"]:checked').value;
+															var rawCostValue = document
+																	.querySelector('input[name="rawPrice"]').value;
+															let totalCost = Number(rawCostValue);
 
 															// Lấy ô cần cập nhật
 															var shippingFeeCell = document
@@ -689,10 +693,17 @@ body {
 															if (selectedValue === "express") {
 																shippingFeeCell.innerHTML = '<fmt:formatNumber type="currency" value="200000" currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />'
 																		+ '${formattedPrice}';
+																totalCost += 200000;
 															} else if (selectedValue === "standard") {
 																shippingFeeCell.innerHTML = '<fmt:formatNumber type="currency" value="50000" currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />'
 																		+ '${formattedPrice}';
+																totalCost += 50000;
 															}
+															
+															const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalCost);
+															document
+															.getElementById("totaCostCell").innerHTML = '<input type="hidden" value="' + totalCost + '" name="totalCost" />'
+															+ formattedPrice.replace(/\./g, '').replace('₫', 'VND').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 														});
 									});
 
