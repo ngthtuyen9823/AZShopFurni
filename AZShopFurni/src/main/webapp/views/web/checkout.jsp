@@ -345,7 +345,7 @@ body {
 													</div>
 												</div>
 											</div>
-										</div>
+										</dicv>
 										<div class="container d-flex justify-content-center mt-5 mb-5">
 											<div class="col-md-12" id="myElement" style="display: none;">
 												<span>Chuyển khoản</span>
@@ -356,7 +356,7 @@ body {
 														<div class="card">
 															<div class="card-header p-0" id="headingTwo">
 																<h2 class="mb-0">
-																	<button
+																	<button 
 																		class="btn btn-light btn-block text-left collapsed p-3 rounded-0 border-bottom-custom"
 																		type="button" data-toggle="collapse"
 																		data-target="#collapseTwo" aria-expanded="false"
@@ -390,7 +390,7 @@ body {
 																		<div
 																			class="d-flex align-items-center justify-content-between">
 
-																			<span>Credit card</span>
+																			<span>Thanh toán qua ngân hàng</span>
 																			<div class="icons">
 																				<img src="https://i.imgur.com/2ISgYja.png"
 																					width="30"> <img

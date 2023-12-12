@@ -28,8 +28,8 @@
 					aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 					<nav class="sb-sidenav-menu-nested nav">
 						<a class="nav-link" href="<c:url value='/adminCustomer'/>">Khách hàng</a>
-						<a class="nav-link" href="<c:url value='/adminSeller'/>">Người bán hàng</a>
-						<a class="nav-link" href="<c:url value='/adminShipper'/>">Người giao hàng</a>
+						<a class="nav-link" href="<c:url value='/adminSeller'/>">Nhân viên bán hàng</a>
+						<a class="nav-link" href="<c:url value='/adminShipper'/>">Nhân viên giao hàng</a>
 					</nav>
 
 				</div>
@@ -50,7 +50,7 @@
 			
 		</div>
 
-		<div class="sb-sidenav-footer">
+		<div class="sb-sidenav-footer" style=" position: fixed;    bottom: 0;    width: 100%;">
 			<div class="small">Đăng nhập với vai trò:</div>
 			Quản lý
 		</div>

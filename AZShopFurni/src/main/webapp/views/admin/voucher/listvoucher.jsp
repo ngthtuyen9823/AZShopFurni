@@ -12,7 +12,7 @@
 		<div class="container-fluid px-4">
 			<h1 class="mt-4">BẢNG MÃ KHUYẾN MÃI</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item"><a href="index.html">Trang chính</a></li>
+				<li class="breadcrumb-item"><a href="adminHome">Trang chủ</a></li>
 				<li class="breadcrumb-item active">Mã khuyến mãi</li>
 			</ol>
 			<div class="card mb-4">

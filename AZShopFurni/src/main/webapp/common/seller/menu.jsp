@@ -51,7 +51,7 @@
 					</div> Chuẩn bị đơn hàng
 				</a> 
 		</div>
-		<div class="sb-sidenav-footer">
+		<div class="sb-sidenav-footer" style=" position: fixed;    bottom: 0;    width: 100%;">
 			<div class="small">Logged in as:</div>
 			Seller
 		</div>

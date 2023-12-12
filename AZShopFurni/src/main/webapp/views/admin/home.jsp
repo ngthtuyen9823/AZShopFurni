@@ -10,9 +10,9 @@
 <body>
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">Dashboard</h1>
+			<h1 class="mt-4">TRANG CHỦ</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item active">Dashboard</li>
+				<li class="breadcrumb-item active">Đơn hàng trong tuần</li>
 			</ol>
 			<div class="row">
 				<div class="col-xl-3 col-md-6">
@@ -23,7 +23,8 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
+							<a class="small text-white stretched-link" href="#">Xem chi
+								tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -38,7 +39,8 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
+							<a class="small text-white stretched-link" href="#">Xem chi
+								tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -53,7 +55,8 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
+							<a class="small text-white stretched-link" href="#">Xem chi
+								tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -68,7 +71,8 @@
 						</div>
 						<div
 							class="card-footer d-flex align-items-center justify-content-between">
-							<a class="small text-white stretched-link" href="#">Xem chi tiết</a>
+							<a class="small text-white stretched-link" href="#">Xem chi
+								tiết</a>
 							<div class="small text-white">
 								<i class="fas fa-angle-right"></i>
 							</div>
@@ -113,7 +117,9 @@
 				<div class="col-xl-6">
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-chart-bar me-1"></i>Số đơn hàng trong 7 ngày gần đây nhất</div>
+							<i class="fas fa-chart-bar me-1"></i>Số đơn hàng trong 7 ngày gần
+							đây nhất
+						</div>
 						<div class="card-body">
 							<canvas id="myChart" width="100%" height="40"></canvas>
 							<script>
@@ -139,49 +145,127 @@
 					</div>
 				</div>
 			</div>
-			<div class="card mb-4">
-				<div class="card-header">
-					<i class="fas fa-table me-1"></i> DataTable Example
+			<div class="row">
+				<div class="col-xl-6">
+					<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-chart-area me-1"></i> Phương thức thanh toán
+						</div>
+						<div class="card-body">
+							<div class="chart-container"
+								style="display: block; justify-content: space-between;">
+								<canvas id="myHorizontalDoughnutChart" width="100%" height="40"></canvas>
+								<canvas id="lot" width="100%" height="40"></canvas>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="card-body">
-					<table id="datatablesSimple">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>FirstName</th>
-								<th>LastName</th>
-								<th>Address</th>
-								<th>Gender</th>
-								<th>Phone</th>
-								<th>DoB</th>
-								<th>CID</th>
-								<th>Avatar</th>
-								<th>KPI</th>
-							</tr>
-						</thead>
-						<tfoot>
-						<tbody>
-							<c:forEach var="i" items="${listseller}">
-								<tr>
-									<td>${i.userID}</td>
-									<td>${i.firstName}</td>
-									<td>${i.lastName}</td>
-									<td>${i.address}</td>
-									<td>${i.gender}</td>
-									<td>${i.phone}</td>
-									<td>${i.dob}</td>
-									<td>${i.cid}</td>
-									<td>${i.avatar}</td>
-									<td>${i.kpi}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-						</tfoot>
-					</table>
+				<div class="col-xl-6">
+				<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-chart-bar me-1"></i> Top 5 sản phẩm được đánh
+							giá cao nhất
+						</div>
+						<div class="card-body">
+							<canvas id="NguyenChart" width="100%" height="80"></canvas>
+							<script>
+                var barChartData = {
+                    labels: [
+                        <c:forEach var="item" items="${productrating}">
+                            "${item.get(1)}",
+                        </c:forEach>
+                    '',],
+                    datasets: [
+                        {
+                            label: 'Số sao trung bình',
+                            data: [
+                                <c:forEach var="item" items="${productrating}">
+                                    "${item.get(2)}",
+                                </c:forEach>
+                            0,],
+                            backgroundColor: '#86C7F3'
+                        }
+                    ]
+                };
+
+                new Chart(document.getElementById("NguyenChart"), {
+                    type: 'bar',
+                    data: barChartData
+                });
+            </script>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</main>
+	<script type="text/javascript">
+var ctx = document.getElementById('myHorizontalDoughnutChart').getContext('2d');
+var myHorizontalDoughnutChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    datasets: [{
+      data: [${countPaymentCard}, ${countPaymentNormal}, ${countNoPay}],
+      backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)','rgba(75, 192, 192, 0.6)'],
+    }],
+    labels: ['Chuyển khoản', 'Thanh toán khi nhận hàng', 'Chưa thanh toán'],
+  },
+  options: {
+    rotation: 1 * Math.PI,
+    circumference: 2 * Math.PI,
+    cutoutPercentage: 50, // Tùy chỉnh độ lõm của doughnut
+    animation: {
+        onComplete: function () {
+          var chartInstance = this.chart,
+            ctx = chartInstance.ctx,
+            width = chartInstance.canvas.width,
+            height = chartInstance.canvas.height;
 
+          ctx.font = '14px Arial';
+          ctx.fillStyle = 'black';
+          ctx.textBaseline = 'middle';
+          ctx.textAlign = 'center';
+
+          var text = "${countPaymentCard+countPaymentNormal+ countNoPay} đơn"; // Text bạn muốn hiển thị
+          ctx.fillText(text, width /2 -70, height / 2);
+        }							        
+    }		
+  },
+});
+
+// Add a second doughnut chart
+var ctx2 = document.getElementById('lot').getContext('2d');
+var myHorizontalDoughnutChart2 = new Chart(ctx2, {
+  type: 'doughnut',
+  data: {
+    datasets: [{
+    	data: [${totalPaymentCard}, ${totalPayMentNormal}],
+      backgroundColor: ['rgba(255, 206, 86, 0.6)', 'rgba(75, 192, 192, 0.6)'],
+    }],
+    labels: ['Chuyển khoản', 'Thanh toán khi nhận hàng'],
+  },
+  options: {
+    rotation: 1 * Math.PI,
+    circumference: 2 * Math.PI,
+    cutoutPercentage: 50, // Tùy chỉnh độ lõm của doughnut
+    animation: {
+        onComplete: function () {
+          var chartInstance = this.chart,
+            ctx = chartInstance.ctx,
+            width = chartInstance.canvas.width,
+            height = chartInstance.canvas.height;
+
+          ctx.font = '14px Arial';
+          ctx.fillStyle = 'black';
+          ctx.textBaseline = 'middle';
+          ctx.textAlign = 'center';
+
+          var text = "${totalPaymentCard+totalPayMentNormal} đ"; // Text bạn muốn hiển thị
+          ctx.fillText(text, width /2 - 70, height / 2 -10);
+        }							        
+    }				     
+  },
+}); 
+</script>
 </body>
 </html>
