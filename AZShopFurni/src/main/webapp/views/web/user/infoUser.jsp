@@ -2,13 +2,101 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <title>Thông tin cá nhân</title>
+<style>
+.seller-profile {
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-family: Arial, sans-serif;
+	font-size: 20;
+	margin: 40px;
+	display: flex;
+	flex-direction: row;
+	justify-content: end;
+	width: 896px;
+}
+
+.seller-info p {
+	margin: 15px;
+	
+}
+
+.seller-info {
+	width: 65%;
+	padding: 50px;
+}
+
+.seller-avt {
+	width: 30%;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 0;
+	margin-right: 60px;
+}
+
+button, .seller-btn {
+	padding: 10px 20px;
+	width: 120px;
+	background-color: #fff;
+	color: #000;
+	border: black solid 0.5px;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 16;
+	
+}
+
+button:hover, .seller-btn:hover {
+	background-color: #d9d9d9;
+	border: #d9d9d9 solid 0.5px;
+}
+
+.seller-avt label{
+ 	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 35px;
+    margin-bottom: 0;
+}
+
+.seller-profile img {
+	width: 100%;
+	aspect-ratio: 1/1;
+	object-fit: cover;
+	border-radius: 50%;
+	grid-row: 1/span 3;
+	background-size: cover;
+	background-position: center;
+	margin-bottom: 15px;
+}
+.update-pass{
+	margin-left: 30px;
+	margin-top: 30px;
+	width: 200px !important;
+}
+
+.hind {
+	visibility: hidden;
+	position: absolute;
+}
+a{
+	text-decoration: none;
+}
+.tai-khoan{
+	margin-top: -76px;
+}
+</style>
+
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3 col-lg-2 p-b-80">
 				<div class="side-menu">
 					<div class="p-t-55">
-						<h4 class="mtext-112 cl2 p-b-33">TÀI KHOẢN</h4>
+						<h4 class="mtext-112 cl2 p-b-33 tai-khoan">TÀI KHOẢN</h4>
 						<ul>
 							<li class="bor18"><a
 								href="${pageContext.request.contextPath}/infoUser"
@@ -26,108 +114,71 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 col-lg-6 p-b-80">
-				<div class="p-r-50 p-t-5 p-lr-0-lg">
-					<h5 class="mtext-113 cl2 p-b-12">Hồ sơ cá nhân</h5>
-					<div class="mtext-106 cl2" style="font-size: 20px;">
-						<p>
-							<strong>Họ tên:</strong> ${user.lastName} ${user.firstName}
-						</p>
-						<p>
-							<strong>Địa chỉ:</strong> ${user.address}
-						</p>
-						<p>
-							<strong>Số điện thoại:</strong> ${user.phone}
-						</p>
-						<p>
-							<strong>Email:</strong> ${user.email}
-						</p>
-						<p>
-							<strong>Giới tính:</strong> ${user.gender==1?'Nữ':'Nam'}
-						</p>
-						<p>
-							<strong>Căn cước công dân:</strong> ${user.cid}
-						</p>
-						<p>
-							<strong>Ngày sinh:</strong>
-							<fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy" />
-						</p>
-					</div>
-					<h4 class="mtext-105 cl2 js-name-detail p-b-14"></h4>
-					<h4 class="mtext-105 cl2 js-name-detail p-b-14"></h4>
 
-					<div class="flex-w flex-m m-r-20 m-tb-5">
-						<a href="updateUser?userID=${userModel.userID}"
-							class="flex-c-m stext-110 cl10 size-301 bor7 p-lr-30 hov-tag1 trans-04 m-r-5 m-b-5">
-							CHỈNH SỬA THÔNG TIN </a>
-					</div>
-
-					<a href="updateAccount?userID=${userModel.userID}"
-						class="stext-101 cl2 hov-cl1 trans-04 m-tb-10"> Đổi mật khẩu </a>
+			<div class="seller-profile">
+				<div class="seller-info">
+					<p>
+						<strong>Họ tên:</strong> ${user.lastName} ${user.firstName}
+					</p>
+					<p>
+						<strong>Địa chỉ:</strong> ${user.address}
+					</p>
+					<p>
+						<strong>Số điện thoại:</strong> ${user.phone}
+					</p>
+					<p>
+						<strong>Email:</strong> ${user.email}
+					</p>
+					<p>
+						<strong>Giới tính:</strong> ${user.gender==1?'Nữ':'Nam'}
+					</p>
+					<p>
+						<strong>Căn cước công dân:</strong> ${user.cid}
+					</p>
+					<p>
+						<strong>Ngày sinh:</strong>
+						<fmt:formatDate value="${user.dob}" pattern="dd/MM/yyyy" />
+					</p>
+					<div id="paragraphContainer"></div>
+					<a href="updateUser?userID=${userModel.userID}">
+						<button class="update">Cập nhật</button>
+					</a> <a href="updateAccount?userID=${userModel.userID}">
+						<button class="update-pass">Đổi mật khẩu</button>
+					</a>
 				</div>
-			</div>
-			<div class="col-md-5 col-lg-4 p-b-80">
-
-				<form action="updateAvatar" method="post"
-					enctype="multipart/form-data">
-					<div class="p-l-25 p-r-30 p-lr-0-lg">
-						<div class="wrap-slick3 flex-sb flex-w">
-							<div class="slick3 gallery-lb">
-								<div class="item-slick3" data-thumb="${userModel.avatar}">
-									<div class="wrap-pic-w pos-relative">
-										<img src="${userModel.avatar}" alt="IMG-AVT"
-											style="width: 100%; height: auto;"> <a
-											class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-											href="${userModel.avatar}"> <i class="fa fa-expand"></i>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-							<div
-								class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search"
-								style="padding: 10px 20px;">
-								<i
-									class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-								Thay đổi avatar
-							</div>
-						</div>
-						<!-- Search product -->
-						<div class="dis-none panel-search w-full p-t-10 p-b-15">
-							<div class="dis-none panel-search w-full p-t-10 p-b-15">
-								<input type="file" name="image" id="image" class="file-input"
-									style="display: none;" onchange="displayFileName()"> <label
-									for="image"
-									class="file-label flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">Chọn
-									file</label> <span id="selectedFileName" class="selected-file-name">${fileName}</span>
-								<input type="hidden" name="UserID" value="${userModel.userID}">
-							</div>
-							<button
-								class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"
-								type="submit">Chỉnh sửa</button>
-						</div>
-					</div>
-				</form>
+				<div class="seller-avt">
+					<img src="${user.avatar}" id="myImage" alt="User Image"> <input
+						class="hind" type="file" id="imageInput" accept="image/*">
+					<label class="seller-btn seller-button-img" for="imageInput">Sửa
+						ảnh</label>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<script type="text/javascript">
-	function displayFileName() {
-		const fileInput = document.getElementById('image');
-		const selectedFileName = document.getElementById('selectedFileName');
-		const fileLabel = document.querySelector('.file-label');
+<script>
+	// JavaScript để xử lý sự kiện khi giá trị của input file thay đổi
+	document.getElementById('imageInput').addEventListener('change',
+			function(e) {
+				// Đối tượng hình ảnh
 
-		if (fileInput.files.length > 0) {
-			const fileName = fileInput.files[0].name;
-			selectedFileName.textContent = `File đã chọn: ${fileName}`;
-			selectedFileName.style.display = 'block';
-			fileLabel.style.backgroundColor = '#4CAF50'; // Màu nền khi đã chọn file
-		} else {
-			selectedFileName.style.display = 'none';
-			fileLabel.style.backgroundColor = '#3498db'; // Màu nền mặc định
-		}
-	}
+				var formData = new FormData();
+				formData.append('image', $('#imageInput')[0].files[0]);
+
+				$.ajax({
+					type : 'POST',
+					url : 'sellerUpdateAvatar',
+					data : formData,
+					processData : false,
+					contentType : false,
+					success : function(response) {
+						console.log('POST thành công!', response);
+						window.location.href = 'infoUser';
+					},
+					error : function(error) {
+						console.error('Lỗi POST:', error);
+					}
+				});
+				//window.location.href = 'infoUser'
+			});
 </script>

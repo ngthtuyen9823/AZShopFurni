@@ -16,7 +16,7 @@
 			<nav class="limiter-menu-desktop container">
 
 				<!-- Logo desktop -->
-				<a href="#" class="logo"> <img
+				<a href="<c:url value='/home'/>" class="logo"> <img
 					src="https://storage.googleapis.com/web-budget/Image/FE/LogoWeb.png"
 					alt="IMG-LOGO">
 				</a>
@@ -29,11 +29,12 @@
 							href="<c:url value='/home'/>">Trang chủ</a></li>
 
 						<li
+							<c:if test="${fn:contains(pageContext.request.requestURI, 'introduction')}">class="active-menu"</c:if>><a
+							href="<c:url value='/introduction'/>">Giới thiệu</a></li>
+
+						<li
 							<c:if test="${fn:contains(pageContext.request.requestURI, 'products')}">class="active-menu"</c:if>><a
 							href="<c:url value='/products'/>">Sản phẩm</a></li>
-
-						<li class="label1" data-label1="hot"><a
-							href="<c:url value='/home'/>">Đặc trưng</a></li>
 
 						<!-- <li><a href="blog.html">Blog</a></li>
 
