@@ -146,7 +146,6 @@ public class VoucherController extends HttpServlet {
 			
 			// goi pt insert trong service
 			voucherService.insertVoucher(newVoucher);
-			System.out.println(newVoucher.getDescription());
 			MessageUtil.showMessage(req,"addSuccess");
 		} catch (Exception ex) {
 			MessageUtil.showMessage(req,"addFail");

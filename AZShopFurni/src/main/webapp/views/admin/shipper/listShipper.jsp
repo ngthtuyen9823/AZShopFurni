@@ -10,16 +10,16 @@
 <body>
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">BẢNG NGƯỜI GIAO HÀNG</h1>
+			<h1 class="mt-4">QUẢN LÝ NHÂN VIÊN GIAO HÀNG</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item">Trang chính</a></li>
-				<li class="breadcrumb-item active">Người giao hàng</li>
+				<li class="breadcrumb-item"><a href="adminHome">Trang chủ</a></a></li>
+				<li class="breadcrumb-item active">Nhân viên giao hàng</li>
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
 					<a href="<c:url value='/adminInsertShipper'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i> Thêm người giao hàng mới
+							<i class="ace-icon fa fa-pencil"></i> Thêm nhân viên giao hàng mới
 						</button>
 					</a>
 				</div>

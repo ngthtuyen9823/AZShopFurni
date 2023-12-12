@@ -49,13 +49,20 @@ public class CheckoutController extends HttpServlet {
 		String voucherIdString = req.getParameter("voucherId");
 		List<CartModel> listCart = cartService.findByCustomerId(user.getUserID());
 		List<VoucherModel> listVoucher = voucherService.findVoucherByCustomerID(user.getUserID());
+		String shippingMethod = req.getParameter("shippingMethod");
+		int transportFee = 200000;
+		
+		// if ("express".equals(shippingMethod)) int transportFee = 200000
+		if ("standard".equals(shippingMethod)) {
+			transportFee = 50000;
+		}
 
 		double totalCost = 0.0;
 		for (CartModel cart : listCart) {
-			totalCost += cart.getPromotionPrice() * cart.getQuantity();
+			totalCost += cart.getPromotionPrice()  * cart.getQuantity() ;
 		}
 		req.setAttribute("rawPrice", totalCost);
-		req.setAttribute("totalCost", totalCost);
+		req.setAttribute("totalCost", totalCost + transportFee);
 
 		if (voucherIdString != null) {
 			int voucherId = Integer.parseInt(voucherIdString);
@@ -63,7 +70,6 @@ public class CheckoutController extends HttpServlet {
 
 			if (totalCost < voucher.getMinimumPrice()) {
 				req.setAttribute("minimumPrice", voucher.getMinimumPrice());
-				redirectCheckoutPage(req, resp);
 			} else {
 				double discount = totalCost * voucher.getDiscount() / 100;
 				totalCost -= discount;
@@ -148,11 +154,10 @@ public class CheckoutController extends HttpServlet {
 			payment.setAccountNumber(numCard);
 			payment.setCardOwner(cardOwner);
 			payment.setBank(bank);
-			payment.setStatus(1);
 			payment.setTime(new Timestamp(new Date().getTime()));
 		}
 		paymentService.insertPayment(payment);
-
+		req.setAttribute("payment", payment);
 		resp.sendRedirect(req.getContextPath() + "/detailOrder?orderID=" + createdOrder.getOrderID());
 		return;
 	}

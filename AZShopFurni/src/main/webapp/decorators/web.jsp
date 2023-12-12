@@ -11,14 +11,16 @@
 	<c:if test="${fn:contains(pageContext.request.requestURI, 'Order')}">Đơn hàng</c:if>
 	<c:if test="${fn:contains(pageContext.request.requestURI, 'carts')}">Giỏ hàng</c:if>
 	<c:if test="${fn:contains(pageContext.request.requestURI, 'checkout')}">Thanh toán</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'introduction')}">Giới thiệu</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'updateUser')}">Chỉnh sửa thông tin</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'updateAccount')}">Thay đổi mật khẩu</c:if>
 	</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Add this line in your head tag -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/favicon.png"/>">
-	<link rel="icon" type="image/png" href="<c:url value="/templates/web/images/icons/icon-heart-02.png"/>">
+	<link rel="icon" type="image/png" href="https://storage.googleapis.com/web-budget/Image/FE/website-logo.png">
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/bootstrap/css/bootstrap.min.css"/>">

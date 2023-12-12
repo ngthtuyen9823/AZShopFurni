@@ -10,11 +10,11 @@
 <body>
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">KHÁCH HÀNG</h1>
+			<h1 class="mt-4">QUẢN LÝ KHÁCH HÀNG</h1>
 			<ol class="breadcrumb mb-4">
 				<li class="breadcrumb-item active">Khách hàng</li>
 			</ol>
-			<h3>Top 3 khách hàng thân thiết </h3>
+			<h3>Top 3 khách hàng thân thiết</h3>
 			<div class="row">
 				<div class="col-xl-3 col-md-6">
 					<div class="card bg-primary text-white mb-4">
@@ -79,33 +79,12 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
-			<div class="row">
-				<div class="col-xl-6">
-					<div class="card mb-4">
-						<div class="card-header">
-							<i class="fas fa-chart-area me-1"></i> Area Chart Example
-						</div>
-						<div class="card-body">
-							<canvas id="myAreaChart" width="100%" height="40"></canvas>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-6">
-					<div class="card mb-4">
-						<div class="card-header">
-							<i class="fas fa-chart-bar me-1"></i> Bar Chart Example
-						</div>
-						<div class="card-body">
-							<canvas id="myBarChart" width="100%" height="40"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
+
 			<h1 class="mt-4">Quản lý khách hàng</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item"><a href="index.html">Khách hàng</a></li>
+				<li class="breadcrumb-item"><a href="adminHome">Trang chủ</a></li>
 				<li class="breadcrumb-item active">Khách hàng</li>
 			</ol>
 			<div class="card mb-4">
@@ -163,16 +142,14 @@
 												<button class="btn btn-xs btn-info btn-sm">
 													<i class="ace-icon fa fa-pencil"></i>
 												</button>
-											</a> 
-											<a href="#" class="trigger-btn" data-toggle="modal"
+											</a> <a href="#" class="trigger-btn" data-toggle="modal"
 												data-target="#myModal"
 												data-link="<c:url value='/adminDeleteCustomer?customerID=${i.userID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn">
 													<i class="ace-icon fa fa-trash"></i>
 												</button>
-											</a>
-											<a
+											</a> <a
 												href="<c:url value='/adminInformationCustomer?customerID=${i.userID}'/>">
 												<button type="button" class="btn btn-xs btn-info btn-sm"
 													id="liveToastBtn">
@@ -188,7 +165,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</main>
 </body>
 </html>

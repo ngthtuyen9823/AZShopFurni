@@ -203,7 +203,4 @@ public class PersonalInfoController extends HttpServlet {
 		session1.setAttribute("user", shipper);
 
 	}
-	public static void main(String[] args) {
-		new ArrayList<String>(Assignment.getAssign().keySet()).forEach(o->System.out.println(o));
-	}
 }

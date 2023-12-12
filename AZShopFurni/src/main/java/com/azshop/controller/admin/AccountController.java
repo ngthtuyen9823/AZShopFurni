@@ -102,7 +102,6 @@ public class AccountController extends HttpServlet{
 			MessageUtil.showMessage(req,"updateFail");
 		}
 		
-		//System.out.println(account.getUserName() + " " + account.getPassword());
 		getAllAccount(req, resp);
 		
 	}

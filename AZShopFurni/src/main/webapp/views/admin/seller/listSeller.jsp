@@ -10,16 +10,16 @@
 <body>
 	<main>
 		<div class="container-fluid px-4">
-			<h1 class="mt-4">BẢNG NGƯỜI BÁN HÀNG</h1>
+			<h1 class="mt-4">QUẢN LÝ NHÂN VIÊN</h1>
 			<ol class="breadcrumb mb-4">
-				<li class="breadcrumb-item">Trang chính</a></li>
+				<li class="breadcrumb-item"><a href="adminHome">Trang chủ</a></li>
 				<li class="breadcrumb-item active">Người bán hàng</li>
 			</ol>
 			<div class="card mb-4">
 				<div class="card-body">
 					<a href="<c:url value='/adminInsertSeller'/>">
 						<button type="button" class="btn btn-dark">
-							<i class="ace-icon fa fa-pencil"></i> Thêm người bán hàng mới
+							<i class="ace-icon fa fa-pencil"></i> Thêm nhân viên bán hàng
 						</button>
 					</a>
 				</div>

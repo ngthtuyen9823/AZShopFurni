@@ -345,40 +345,13 @@ body {
 													</div>
 												</div>
 											</div>
-										</div>
+										</dicv>
 										<div class="container d-flex justify-content-center mt-5 mb-5">
 											<div class="col-md-12" id="myElement" style="display: none;">
 												<span>Chuyển khoản</span>
 
 												<div class="card">
 													<div class="accordion" id="accordionExample">
-
-														<div class="card">
-															<div class="card-header p-0" id="headingTwo">
-																<h2 class="mb-0">
-																	<button
-																		class="btn btn-light btn-block text-left collapsed p-3 rounded-0 border-bottom-custom"
-																		type="button" data-toggle="collapse"
-																		data-target="#collapseTwo" aria-expanded="false"
-																		aria-controls="collapseTwo">
-																		<div
-																			class="d-flex align-items-center justify-content-between">
-																			<span>Paypal</span> <img
-																				src="https://i.imgur.com/7kQEsHU.png" width="30">
-																		</div>
-																	</button>
-																</h2>
-															</div>
-
-															<div id="collapseTwo" class="collapse"
-																aria-labelledby="headingTwo"
-																data-parent="#accordionExample">
-																<div class="card-body">
-																	<input type="text" class="form-control"
-																		placeholder="Paypal email">
-																</div>
-															</div>
-														</div>
 
 														<div class="card">
 															<div class="card-header p-0">
@@ -390,7 +363,7 @@ body {
 																		<div
 																			class="d-flex align-items-center justify-content-between">
 
-																			<span>Credit card</span>
+																			<span>Thanh toán qua ngân hàng</span>
 																			<div class="icons">
 																				<img src="https://i.imgur.com/2ISgYja.png"
 																					width="30"> <img
@@ -476,7 +449,7 @@ body {
 						<div class="card-body">
 							<div class="p-3 bg-light mb-3">
 								<c:choose>
-									<c:when test="${voucherErrorMessage != null}">
+									<c:when test="${minimumPrice != null}">
 										<h5 class="font-size-16 mb-0 error-message">
 											Giá trị tối thiểu đơn hàng phải đạt
 											<fmt:formatNumber type="currency" value="${minimumPrice}"

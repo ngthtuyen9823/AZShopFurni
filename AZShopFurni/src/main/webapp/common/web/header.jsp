@@ -16,7 +16,7 @@
 			<nav class="limiter-menu-desktop container">
 
 				<!-- Logo desktop -->
-				<a href="#" class="logo"> <img
+				<a href="<c:url value='/home'/>" class="logo"> <img
 					src="https://storage.googleapis.com/web-budget/Image/FE/LogoWeb.png"
 					alt="IMG-LOGO">
 				</a>
@@ -29,11 +29,12 @@
 							href="<c:url value='/home'/>">Trang chủ</a></li>
 
 						<li
+							<c:if test="${fn:contains(pageContext.request.requestURI, 'introduction')}">class="active-menu"</c:if>><a
+							href="<c:url value='/introduction'/>">Giới thiệu</a></li>
+
+						<li
 							<c:if test="${fn:contains(pageContext.request.requestURI, 'products')}">class="active-menu"</c:if>><a
 							href="<c:url value='/products'/>">Sản phẩm</a></li>
-
-						<li class="label1" data-label1="hot"><a
-							href="<c:url value='/home'/>">Đặc trưng</a></li>
 
 						<!-- <li><a href="blog.html">Blog</a></li>
 
@@ -52,22 +53,16 @@
 								<i class=".zmdi fa-solid fa-user fa-xl"></i>
 						</a>
 							<ul class="sub-menu">
-								<li><a href="<c:url value='/infoUser'/>">Thông tin cá nhân</a></li>
+								<li><a href="<c:url value='/infoUser'/>">Thông tin cá
+										nhân</a></li>
 								<li><a href="<c:url value='/logout'/>">Đăng xuất</a></li>
 							</ul></li>
 					</ul>
-					</li>
-
 					<div
 						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
 						data-notify="${carts != null ? carts.size() : 0}">
 						<i class="zmdi zmdi-shopping-cart"></i>
 					</div>
-
-					<a href="#"
-						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-						data-notify="0"> <i class="zmdi zmdi-favorite-outline"></i>
-					</a>
 				</div>
 			</nav>
 		</div>
@@ -93,11 +88,6 @@
 				data-notify="2">
 				<i class="zmdi zmdi-shopping-cart"></i>
 			</div>
-
-			<a href="#"
-				class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-				data-notify="0"> <i class="zmdi zmdi-favorite-outline"></i>
-			</a>
 		</div>
 
 		<!-- Button show menu -->

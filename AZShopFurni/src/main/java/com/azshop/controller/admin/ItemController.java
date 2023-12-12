@@ -80,9 +80,7 @@ public class ItemController extends HttpServlet {
 		ItemModel itemModel = new ItemModel();
 		
 		itemModel.setItemID(Integer.parseInt(req.getParameter("itemID")));
-		System.out.println(itemModel.getItemID());
 		itemModel.setProductID(Integer.parseInt(req.getParameter("productID")));
-		System.out.println(itemModel.getProductID());
 		itemModel.setColor(req.getParameter("color"));
 		itemModel.setColorCode(req.getParameter("colorCode"));
 		itemModel.setSize(req.getParameter("size"));
@@ -96,10 +94,8 @@ public class ItemController extends HttpServlet {
 	}
 
 	private void postinsert(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Running");
 		ItemModel itemModel = new ItemModel();
 		int Proid = Integer.parseInt(req.getParameter("productID"));
-		System.out.println(Proid);
 		itemModel.setProductID(Proid);
 		itemModel.setItemID(item.CreateItemID(Proid));
 		itemModel.setColor(req.getParameter("color"));
@@ -123,7 +119,6 @@ public class ItemController extends HttpServlet {
 			String type = part.getContentType();
 			
 			if (type != null) {
-				System.out.println(i++);
 				Random rnd = new Random();
 				String rdCode = String.valueOf(rnd.nextInt(100, 999));
 				ItemImageModel itemImageModel = new ItemImageModel();
@@ -154,7 +149,6 @@ public class ItemController extends HttpServlet {
 	private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int itemID = Integer.parseInt(req.getParameter("ItemID"));
 		int Proid = Integer.parseInt(req.getParameter("ProductID"));
-		System.out.println(itemID);
 		item.deleteItem(itemID);
 		itemImage.deleteItemImage(itemID);
 		resp.sendRedirect("adminviewItem?ProductID=" + Proid);
@@ -163,9 +157,7 @@ public class ItemController extends HttpServlet {
 	private void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int itemID = Integer.parseInt(req.getParameter("ItemID"));
 		ItemModel model = item.findOne(itemID);
-		System.out.println(model);
 		List<ItemImageModel> images = itemImage.findByProductID(itemID);
-		System.out.println(images);
 		req.setAttribute("item", model);
 		req.setAttribute("images", images);
 		req.getRequestDispatcher("/views/admin/item/updateItem.jsp").forward(req, resp);
