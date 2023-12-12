@@ -4,7 +4,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>About</title>
+	<title><c:if test="${fn:contains(pageContext.request.requestURI, 'home')}">Trang chủ</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'products')}">Sản phẩm</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'infoUser')}">Tài khoản</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'listVoucher')}">Kho voucher</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'Order')}">Đơn hàng</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'carts')}">Giỏ hàng</c:if>
+	<c:if test="${fn:contains(pageContext.request.requestURI, 'checkout')}">Thanh toán</c:if>
+	</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Add this line in your head tag -->

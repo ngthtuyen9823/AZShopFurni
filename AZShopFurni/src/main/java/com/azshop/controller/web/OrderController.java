@@ -64,9 +64,7 @@ public class OrderController extends HttpServlet {
 			} else if ("cancelDetailOrder".equals(act)) {
 				orderService.updateStatusOrder(orderID, 5);
 				detailOrder(req, resp);
-			} else if ("rateOrder".equals(conf)) {
-				// adasd
-			}
+			} 
 		}
 	}
 

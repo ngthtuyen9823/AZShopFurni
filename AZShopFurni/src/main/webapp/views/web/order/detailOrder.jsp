@@ -221,13 +221,6 @@ a {
 												class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
 												Xác nhận</button>
 										</c:when>
-										<c:when
-											test="${order.status == 4 && order.customerConfirmation == 1}">
-											<input type="hidden" name="action" value="rateOrder">
-											<button type="submit"
-												class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-												Đánh giá</button>
-										</c:when>
 									</c:choose>
 								</form>
 							</div>
