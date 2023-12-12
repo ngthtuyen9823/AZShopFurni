@@ -6,10 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBConnection {
-	//public static final String DB_URL = "jdbc:mysql://35.186.158.193:3306/AZShop";
-	public static final String DB_URL = "jdbc:mysql://google/AZShop?cloudSqlInstance=mysql-web:asia-southeast1:mysql-web-project"
-	+ "&socketFactory=com.google.cloud.sql.mysql.SocketFactory" 
-	+ "&useSSL=false";
+	public static final String DB_URL = "jdbc:mysql://35.186.158.193:3306/AZShop";
 	private static String USER_NAME = "admin";
 	private static String PASSWORD = "admin";
 
