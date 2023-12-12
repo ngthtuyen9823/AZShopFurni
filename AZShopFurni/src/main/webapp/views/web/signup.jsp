@@ -12,6 +12,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
 	rel="stylesheet">
+<link rel="icon" type="image/png" href="https://storage.googleapis.com/web-budget/Image/FE/website-logo.png">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/templates/web/vendor/bootstrap/css/bootstrap.min.css"/>">

@@ -252,7 +252,7 @@ customer.setLastName(rs.getString("LastNameCustomer"));
 				order.setTransportFee(rs.getInt("TransportFee"));
 				order.setTotalMoney(rs.getInt("TotalMoney"));
 				order.setNote(rs.getString("Note"));
-				// order.setDiscount(rs.getInt("Discount"));
+				order.setDiscount(rs.getInt("Discount"));
 				// order.setCustomerID(rs.getInt("CustomerID"));
 				order.setSellerID(rs.getInt("SellerID"));
 				order.setShipperID(rs.getInt("ShipperID"));

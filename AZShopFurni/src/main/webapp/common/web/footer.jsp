@@ -9,7 +9,7 @@
 			<div class="col-sm-6 col-lg-3 p-b-10">
 				<a href="<c:url value='/home'/>"> <img alt="Logo-web"
 					style="width: 200px"
-					src="https://storage.googleapis.com/web-budget/Image/FE/logo-icon.png">
+					src="https://storage.googleapis.com/web-budget/Image/Other/logo.png">
 				</a>
 			</div>
 

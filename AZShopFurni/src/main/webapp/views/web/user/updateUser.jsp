@@ -87,6 +87,7 @@
 									<input type="hidden" name="Email" value="${userModel.email}">
 									<input type="hidden" name="KPI" value="${userModel.kpi}">
 									<input type="hidden" name="Area" value="${userModel.area}">
+									<input type="hidden" name="image" value="${userModel.avatar}">
 								</div>
 								<div>
 									<button
