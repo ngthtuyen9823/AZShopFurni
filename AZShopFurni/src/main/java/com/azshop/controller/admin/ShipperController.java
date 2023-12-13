@@ -12,14 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.azshop.models.UserModel;
 import com.azshop.service.IShipperService;
 import com.azshop.service.impl.ShipperServiceImpl;
 import com.azshop.utils.MessageUtil;
 
-@WebServlet(urlPatterns = { "/adminShipper", "/adminUpdateShipper", "/adminDeleteShipper", "/adminInsertShipper"
-		,"/adminInformationShipper"})
+@WebServlet(urlPatterns = { "/adminShipper", "/adminUpdateShipper", "/adminDeleteShipper", "/adminInsertShipper",
+		"/adminInformationShipper" })
 public class ShipperController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -28,23 +29,33 @@ public class ShipperController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI().toString();
-		if (url.contains("adminShipper")) {
-			findAllShipper(req, resp);
-		} else if (url.contains("adminUpdateShipper")) {
-			getInforShipper(req, resp);
-		} else if (url.contains("adminDeleteShipper")) {
-			deleteShipper(req, resp);
-			RequestDispatcher rd = req.getRequestDispatcher("adminShipper");
-			rd.forward(req, resp);
-		} else if (url.contains("adminInsertShipper")) {
-			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/addShipper.jsp");
-			rd.forward(req, resp);
-		} else if (url.contains("adminInformationShipper")) {
-			int userID = Integer.parseInt(req.getParameter("userID"));
-			UserModel shipper = shipperService.findOne(userID);
-			req.setAttribute("user", shipper);
-			RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/informationShipper.jsp");
-			rd.forward(req, resp);
+		HttpSession session = req.getSession(false);
+		if (session != null && session.getAttribute("user") != null) {
+			UserModel user = (UserModel) session.getAttribute("user");
+			if (user.getType() == 3) {
+				if (url.contains("adminShipper")) {
+					findAllShipper(req, resp);
+				} else if (url.contains("adminUpdateShipper")) {
+					getInforShipper(req, resp);
+				} else if (url.contains("adminDeleteShipper")) {
+					deleteShipper(req, resp);
+					RequestDispatcher rd = req.getRequestDispatcher("adminShipper");
+					rd.forward(req, resp);
+				} else if (url.contains("adminInsertShipper")) {
+					RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/addShipper.jsp");
+					rd.forward(req, resp);
+				} else if (url.contains("adminInformationShipper")) {
+					int userID = Integer.parseInt(req.getParameter("userID"));
+					UserModel shipper = shipperService.findOne(userID);
+					req.setAttribute("user", shipper);
+					RequestDispatcher rd = req.getRequestDispatcher("/views/admin/shipper/informationShipper.jsp");
+					rd.forward(req, resp);
+				}
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/login");
+			}
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 	}
 
@@ -105,7 +116,7 @@ public class ShipperController extends HttpServlet {
 			int id = shipperService.createShipperID();
 			String firstName = req.getParameter("firstName");
 			String lastName = req.getParameter("lastName");
-			String address = req.getParameter("address");	
+			String address = req.getParameter("address");
 			int gender = Integer.parseInt(req.getParameter("gender"));
 			String phone = req.getParameter("phone");
 			String avatar = req.getParameter("avatar");
@@ -147,10 +158,9 @@ public class ShipperController extends HttpServlet {
 		int id = Integer.parseInt(req.getParameter("userID"));
 		try {
 			// thiet lap ngon ngu
-			
 
 			// nhan du lieu tu form
-			
+
 			String firstName = req.getParameter("firstName");
 			String lastName = req.getParameter("lastName");
 			String address = req.getParameter("address");
@@ -183,11 +193,11 @@ public class ShipperController extends HttpServlet {
 			newUser.setEmail(email);
 
 			shipperService.updateShipper(newUser);
-			MessageUtil.showMessage(req,"updateSuccess");
-		}catch (Exception ex) {
-			MessageUtil.showMessage(req,"updateFail");
+			MessageUtil.showMessage(req, "updateSuccess");
+		} catch (Exception ex) {
+			MessageUtil.showMessage(req, "updateFail");
 		}
-		resp.sendRedirect("adminInformationShipper?userID="+id);		
+		resp.sendRedirect("adminInformationShipper?userID=" + id);
 
 	}
 }

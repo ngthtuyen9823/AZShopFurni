@@ -107,7 +107,7 @@ a{
 			<strong>KPI:</strong> ${user.kpi}
 		</p>
 		<div id="paragraphContainer"></div>
-		<a href="adminUpdateShipper?userID=${user.userID}">
+		<a href="adminUpdateSeller?userID=${user.userID}">
 			<button class="update">Cập nhật</button>
 		</a>
 		<a href="adminUpdateAccount?userID=${user.userID}">

@@ -9,11 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import java.util.List;
 import com.azshop.models.ItemImageModel;
 import com.azshop.models.ItemModel;
+import com.azshop.models.UserModel;
 import com.azshop.service.IItemImageService;
 import com.azshop.service.IItemService;
 import com.azshop.service.impl.ItemImageServiceImpl;
@@ -35,19 +37,31 @@ public class ItemController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 		String url = req.getRequestURI().toString();
-		if (url.contains("adminItem")) {
-			List(req, resp);
-		} else if (url.contains("admininsertItem")) {
-			insert(req, resp);
-		} else if (url.contains("admindeleteItem")) {
-			delete(req, resp);
-		} else if (url.contains("adminupdateItem")) {
-			update(req, resp);
-		} else if (url.contains("adminviewItem")) {
-			view(req, resp);
-		} else if (url.contains("updateimage")) {
-			deleteimage(req,resp);
+		HttpSession session = req.getSession(false);
+		if (session != null && session.getAttribute("user") != null) {
+			UserModel user = (UserModel) session.getAttribute("user");
+			if (user.getType() == 3) {
+				if (url.contains("adminItem")) {
+					List(req, resp);
+				} else if (url.contains("admininsertItem")) {
+					insert(req, resp);
+				} else if (url.contains("admindeleteItem")) {
+					delete(req, resp);
+				} else if (url.contains("adminupdateItem")) {
+					update(req, resp);
+				} else if (url.contains("adminviewItem")) {
+					view(req, resp);
+				} else if (url.contains("updateimage")) {
+					deleteimage(req, resp);
+				}
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/login");
+			}
+		} else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 	}
 
@@ -78,7 +92,7 @@ public class ItemController extends HttpServlet {
 
 	private void postupdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ItemModel itemModel = new ItemModel();
-		
+
 		itemModel.setItemID(Integer.parseInt(req.getParameter("itemID")));
 		itemModel.setProductID(Integer.parseInt(req.getParameter("productID")));
 		itemModel.setColor(req.getParameter("color"));
@@ -88,8 +102,7 @@ public class ItemController extends HttpServlet {
 		itemModel.setOriginalPrice(Integer.parseInt(req.getParameter("originalPrice")));
 		itemModel.setPromotionPrice(Integer.parseInt(req.getParameter("promotionPrice")));
 		item.updateItem(itemModel);
-		
-		
+
 		Image(req, resp, itemModel);
 	}
 
@@ -117,7 +130,7 @@ public class ItemController extends HttpServlet {
 		int i = 0;
 		for (Part part : parts) {
 			String type = part.getContentType();
-			
+
 			if (type != null) {
 				Random rnd = new Random();
 				String rdCode = String.valueOf(rnd.nextInt(100, 999));

@@ -248,18 +248,20 @@ star-rating {
 												</p>
 											</div>
 											<div class="price-info font-size-20" style="color: orange">
-												<span class="text-muted me-2"> <del
-														class="font-size-16 fw-normal">
+												<c:choose>
+													<c:when test="${detail.item.promotionPrice == 0}">
 														<fmt:formatNumber type="currency"
-															value="${detail.item.originalPrice}" currencyCode="VND"
-															pattern="#,##0 VND" var="formattedPrice" />
-														${formattedPrice}
-													</del>
-												</span>
-												<fmt:formatNumber type="currency"
-													value="${detail.item.promotionPrice }" currencyCode="VND"
-													pattern="#,##0 VND" var="formattedPrice" />
-												${formattedPrice}
+															value="${detail.item.originalPrice * detail.quantity}"
+															currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
+													            ${formattedPrice}
+													        </c:when>
+													<c:otherwise>
+														<fmt:formatNumber type="currency"
+															value="${detail.item.promotionPrice * detail.quantity}"
+															currencyCode="VND" pattern="#,##0 VND" var="formattedPrice" />
+											            ${formattedPrice}
+											        </c:otherwise>
+											</c:choose>
 											</div>
 										</div>
 								<hr class="my-4">
